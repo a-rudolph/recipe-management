@@ -17,7 +17,7 @@ export default {
           }}
           color='primary'
         >
-          wheatily
+          wheatifully
         </Text>
         <Box
           sx={{

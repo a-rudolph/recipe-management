@@ -5,24 +5,9 @@ import Logo from '../src/components/Logo'
 
 export default function Home() {
   return (
-    <Grid
-      sx={{ height: '100%' }}
-      gap={0}
-      columns={[1, 'minmax(40vw, 300px) 60vw']}
-    >
-      <Box p='3' sx={{ height: '100%' }}>
-        <h1>
-          <Flex>
-            <Logo.Title />
-          </Flex>
-        </h1>
-        <Link href='/saturday-white-bread'>
-          <Card sx={{ variant: 'card', cursor: 'pointer' }}>
-            <Text>Saturday white bread</Text>
-          </Card>
-        </Link>
-      </Box>
-      <Box sx={{ position: 'relative', height: 'calc(100vh - 56px - 40px)' }}>
+    <Grid sx={{ height: '100%' }} gap={0}>
+      <Box sx={{ position: 'relative', height: '70vh' }}>
+        <Box variant='mask' />
         <img
           src='/bg.jpg'
           sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -39,6 +24,18 @@ export default function Home() {
             Unsplash
           </a>
         </span>
+      </Box>
+      <Box p='3' sx={{ height: '100%' }}>
+        <h1>
+          <Flex>
+            <Logo.Title />
+          </Flex>
+        </h1>
+        <Link href='/saturday-white-bread'>
+          <Card sx={{ variant: 'card', cursor: 'pointer' }}>
+            <Text>Saturday white bread</Text>
+          </Card>
+        </Link>
       </Box>
     </Grid>
   )

@@ -9,13 +9,24 @@ export const defaultTheme = {
     boxShadow: '1px 1px 1px 1px',
   },
   nav: {
-    bg: 'muted',
-    boxShadow: '0px 1px 2px 0 rgb(0,0,0,0.25)',
+    p: 2,
+    width: '100vw',
+    zIndex: 50,
+    position: 'fixed',
+    top: 0,
+    bg: 'rgb(0,0,0,0.45)',
+    boxShadow: '0px 10px 10px 10px rgb(0,0,0,0.45)',
     item: {
-      p: 3,
+      p: 2,
       borderRight: '1px solid',
       borderColor: 'primary',
     },
+  },
+  mask: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgb(0,0,0,0.35)',
   },
   height: {
     medium: '32px',

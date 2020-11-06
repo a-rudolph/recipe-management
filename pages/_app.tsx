@@ -4,6 +4,7 @@ import { defaultTheme } from '../src/themes'
 import Footer from '../src/components/Footer'
 import { Nav } from '../src/components/Nav'
 import Head from 'next/head'
+import '../src/styles/index.css'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -13,7 +14,11 @@ function MyApp({ Component, pageProps }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Grid
-        sx={{ height: '100vh', gridTemplateRows: 'auto 1fr auto', rowGap: 0 }}
+        sx={{
+          height: '100vh',
+          gridTemplateRows: 'auto 1fr auto',
+          rowGap: 0,
+        }}
       >
         <Nav />
         <Component {...pageProps} />

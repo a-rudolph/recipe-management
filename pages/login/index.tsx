@@ -1,44 +1,52 @@
-import Link from 'next/link';
-import { useState } from 'react';
-import { loginService } from '../../src/services/auth';
+/** @jsx jsx */
+import { jsx, Button } from 'theme-ui'
+import Link from 'next/link'
+import useForm from '../../src/hooks/useForm'
+import { loginService } from '../../src/services/auth'
 
 export default function Login() {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const form = useForm()
+
+  const { getFieldValues, setFieldsValue } = form
 
   const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
+    setFieldsValue({ username: e.target.value })
+  }
 
   const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+    setFieldsValue({ password: e.target.value })
+  }
 
   const handleLogin = async () => {
-    const response = await loginService({
-      username,
-      password,
-    });
+    const { username, password } = getFieldValues()
 
-    console.log(response);
-  };
+    console.log(form.getFormData())
+
+    // const response = await loginService({
+    //   username,
+    //   password,
+    // })
+
+    // console.log(response)
+  }
 
   return (
     <div>
       <input
         onChange={handleUsername}
-        placeholder={'username'}
-        value={username}
+        placeholder='username'
+        value={getFieldValues('username')}
       />
       <input
         onChange={handlePassword}
-        placeholder={'password'}
-        value={password}
+        placeholder='password'
+        type='password'
+        value={getFieldValues('password')}
       />
-      <button onClick={handleLogin}>Login</button>
+      <Button onClick={handleLogin}>Login</Button>
       <Link href='/signup'>
         <button>to sign up page!</button>
       </Link>
     </div>
-  );
+  )
 }

@@ -1,26 +1,20 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Link from 'next/link';
+import Link from 'next/link'
+import { Box, Card, Flex, Text } from 'theme-ui'
+import Logo from '../src/components/Logo'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href='https://nextjs.org'>Next.js!</a>
-        </h1>
-
-        <div>
-          <Link href={'/login'}>
-            <button>to the login page</button>
-          </Link>
-        </div>
-      </main>
-    </div>
-  );
+    <Box p='3'>
+      <h1>
+        <Flex>
+          Welcome to <Logo.Title />
+        </Flex>
+      </h1>
+      <Link href='/saturday-white-bread'>
+        <Card sx={{ variant: 'card', cursor: 'pointer' }}>
+          <Text>Saturday white bread</Text>
+        </Card>
+      </Link>
+    </Box>
+  )
 }

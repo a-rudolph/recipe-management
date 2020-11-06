@@ -1,20 +1,13 @@
-import styled from 'styled-components'
-import { Text } from './Text'
+/** @jsx jsx */
+import { jsx, Button, Box, Flex, Text } from 'theme-ui'
 
-type NavProps = any
-
-const StyledNav = styled.div`
-  padding: 1rem;
-  background-color: ${(props) => props.theme.primary};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-export const Nav = (props: NavProps) => {
+export const Nav = () => {
   return (
-    <StyledNav>
-      <Text>hello navbar</Text>
-    </StyledNav>
+    <Box sx={{ variant: 'nav' }}>
+      <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <Text sx={{ variant: 'nav.item' }}>yeastily</Text>
+        <Button sx={{ variant: 'button' }}>Button</Button>
+      </Flex>
+    </Box>
   )
 }

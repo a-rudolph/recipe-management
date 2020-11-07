@@ -13,14 +13,25 @@ export default function Home() {
           sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
         <span
-          sx={{ position: 'absolute', right: 0, bottom: 0, fontSize: '10px' }}
+          sx={{
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+            fontSize: '12px',
+          }}
         >
           Photo by{' '}
-          <a href='https://unsplash.com/@gaellemarcel?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>
+          <a
+            sx={{ color: 'text' }}
+            href='https://unsplash.com/@gaellemarcel?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'
+          >
             Gaelle Marcel
           </a>{' '}
           on{' '}
-          <a href='https://unsplash.com/s/photos/wheat?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>
+          <a
+            sx={{ color: 'text' }}
+            href='https://unsplash.com/s/photos/wheat?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'
+          >
             Unsplash
           </a>
         </span>

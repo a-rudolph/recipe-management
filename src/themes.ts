@@ -2,6 +2,10 @@ import swiss from '@theme-ui/preset-swiss'
 
 export const defaultTheme = {
   ...swiss,
+  colors: {
+    ...swiss.colors,
+    primary: '#222528',
+  },
   button: {
     cursor: 'pointer',
   },
@@ -11,6 +15,7 @@ export const defaultTheme = {
   nav: {
     p: 2,
     width: '100vw',
+    height: '40px',
     zIndex: 50,
     position: 'fixed',
     top: 0,

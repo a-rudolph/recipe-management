@@ -9,7 +9,7 @@ const baseNavStyles = {
   zIndex: 50,
   position: 'fixed',
   top: 0,
-  transition: 'background-color .2s ease',
+  transition: 'all .2s ease',
 }
 
 const baseButtonStyles = {
@@ -55,7 +55,7 @@ export const defaultTheme = {
     },
     secondary: {
       ...baseNavStyles,
-      bg: 'transparent',
+      bg: 'white',
     },
   },
   mask: {

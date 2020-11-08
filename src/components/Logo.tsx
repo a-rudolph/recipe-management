@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { Box, jsx, Flex, Text } from 'theme-ui'
+import { BRAND_NAME } from '../themes'
 const logoUrl = '/leaf.svg'
 
 export default {
@@ -17,7 +18,7 @@ export default {
           }}
           color='primary'
         >
-          wheatifully
+          {BRAND_NAME}
         </Text>
         <Box
           sx={{

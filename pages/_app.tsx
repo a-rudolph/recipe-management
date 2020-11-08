@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Grid, ThemeProvider } from 'theme-ui'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
-import { defaultTheme } from '../src/themes'
+import { BRAND_NAME, defaultTheme } from '../src/themes'
 import Footer from '../src/components/Footer'
 import Head from 'next/head'
 import { Nav } from '../src/components/Nav'
@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Head>
-        <title>Cooking Yeastily</title>
-        <link rel='icon' href='/favicon.ico' />
+        <title>{BRAND_NAME}</title>
+        <link rel='icon' href='/wheat.ico' />
       </Head>
       <Grid
         sx={{

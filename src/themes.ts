@@ -36,8 +36,10 @@ export const defaultTheme = {
       borderColor: 'primary',
     },
   },
-  shadowy: {
-    boxShadow: '1px 1px 1px 1px',
+  card: {
+    padding: 3,
+    bg: 'muted',
+    boxShadow: '1px 1px 1px 0px rgb(0,0,0,0.25)',
   },
   nav: {
     ...baseNavStyles,
@@ -62,6 +64,7 @@ export const defaultTheme = {
     position: 'absolute',
     height: '100%',
     width: '100%',
+    top: 0,
     backgroundColor: 'rgb(0,0,0,0.35)',
   },
   height: {

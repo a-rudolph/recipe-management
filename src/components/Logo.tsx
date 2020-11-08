@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { Box, jsx, Flex, Text } from 'theme-ui'
+import { Box, jsx, Styled } from 'theme-ui'
 import { BRAND_NAME } from '../themes'
+
 const logoUrl = '/leaf.svg'
 
 export default {
@@ -9,27 +10,27 @@ export default {
   },
   Title() {
     return (
-      <Flex sx={{ position: 'relative' }}>
-        <Text
+      <Box id='logo-wrapper' sx={{ position: 'relative' }}>
+        <Styled.h3
           sx={{
-            ml: '12px',
-            mr: '12px',
+            fontSize: '32px',
+            m: '24px 12px',
             textDecoration: 'underline',
           }}
           color='primary'
         >
           {BRAND_NAME}
-        </Text>
+        </Styled.h3>
         <Box
           sx={{
             position: 'absolute',
             right: '1px',
-            top: '4px',
+            top: '36px',
           }}
         >
           <img sx={{ variant: 'logo', height: 'medium' }} src={logoUrl} />
         </Box>
-      </Flex>
+      </Box>
     )
   },
 }

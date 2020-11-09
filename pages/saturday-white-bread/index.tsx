@@ -1,44 +1,40 @@
 /** @jsx jsx */
 import { Flex, jsx, Box, Container } from 'theme-ui'
+import { SATURDAY_WHITE_BREAD } from '../../src/constants/recipes'
 import IngredientTable from '../../src/components/IngredientTable'
+import moment from 'moment'
 
 /**
- * proof time,
- * ferment time,
  * total time,
- * sample timeline (from now),
+ * ferment time,
+ * proof time,
+ * sample timeline,
+ * - [mix = now]
+ * - bulk ferment
+ * - [shape += 12-14]
+ * - proof
+ * - [bake += 5]
  * recipe,
  * schedule,
  */
 
+type SampleTimeStateType = {
+  start: moment.Moment
+  shape: moment.Moment
+  bake: moment.Moment
+}
+
 export default function SaturdayWhiteBread() {
-  const recipe: RecipeType = {
-    yield: {
-      amount: 2,
-      unit: 'Loaves',
-    },
-    ingrendients: [
-      {
-        quantity: 1000,
-        unit: 'g',
-        name: 'white flour',
-      },
-      {
-        quantity: 720,
-        unit: 'g',
-        name: '90ºF - 95ºF water',
-      },
-      {
-        quantity: 21,
-        unit: 'g',
-        name: 'fine sea salt',
-      },
-      {
-        quantity: 4,
-        unit: 'g',
-        name: 'instant yeast',
-      },
-    ],
+  const { times } = SATURDAY_WHITE_BREAD
+
+  const start = moment()
+  const shape = moment(start).add(times.bulk[0], 'h')
+  const bake = moment(shape).add(times.proof[0], 'h')
+
+  const sampleTimes: SampleTimeStateType = {
+    start,
+    shape,
+    bake,
   }
 
   return (
@@ -56,11 +52,17 @@ export default function SaturdayWhiteBread() {
               width: '100%',
             }}
           >
-            <IngredientTable recipe={recipe} />
-            <IngredientTable recipe={recipe} />
-            <IngredientTable recipe={recipe} />
-            <IngredientTable recipe={recipe} />
-            <IngredientTable recipe={recipe} />
+            <Flex>Bulk fermentation time: {times.bulk.join('-')} hours</Flex>
+            <Flex>Proof time: {times.proof.join('-')} hours</Flex>
+            <Flex>Sample schedule</Flex>
+            <Flex>Start {sampleTimes?.start.format('h:mm:ss A')}</Flex>
+            <Flex>Shape {sampleTimes?.shape.format('h:mm:ss A')}</Flex>
+            <Flex>Bake {sampleTimes?.bake.format('h:mm:ss A')}</Flex>
+            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
+            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
+            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
+            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
+            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
           </Box>
         </Flex>
       </Container>

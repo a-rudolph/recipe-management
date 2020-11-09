@@ -8,9 +8,9 @@ import Link from 'next/link'
 
 export const Nav = () => {
   const [scrollPosition, setScrollPosition] = useState(0)
-  useScrollListener(setScrollPosition)
   const { pathname } = useRouter()
   const isHomePage = pathname === '/'
+  useScrollListener(setScrollPosition)
 
   const getNavStyle = useCallback(() => {
     return {

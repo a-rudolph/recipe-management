@@ -1,4 +1,8 @@
 type RecipeType = {
+  times: {
+    bulk: number[]
+    proof: number[]
+  }
   yield: {
     amount: number
     unit: string

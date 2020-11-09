@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { jsx, Button, Box, Flex, Text, Styled } from 'theme-ui'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { BRAND_NAME } from '../themes'
 import { useRouter } from 'next/router'
 import useScrollListener from '../hooks/useScrollListener'
 import Link from 'next/link'
 
 export const Nav = () => {
-  const { scrollPosition } = useScrollListener()
+  const [scrollPosition, setScrollPosition] = useState(0)
+  useScrollListener(setScrollPosition)
   const { pathname } = useRouter()
   const isHomePage = pathname === '/'
 

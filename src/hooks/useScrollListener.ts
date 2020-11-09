@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-export default function useScrollListener() {
-  const [scrollPosition, setScrollPosition] = useState(0)
+export default function useScrollListener(
+  cb: (position: number) => void,
+  dep?: any[]
+) {
+  const getScrollY = () => {
+    if (window) return window.scrollY
+    return 0
+  }
 
   useEffect(() => {
-    if (window) {
-      window.onscroll = () => setScrollPosition(window.scrollY)
-    }
-  }, [])
+    const scrollHandler = () => cb(getScrollY())
 
-  return {
-    scrollPosition,
-  }
+    window.addEventListener('scroll', scrollHandler)
+
+    return () => window.addEventListener('scroll', scrollHandler)
+  }, dep || [])
 }

@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { Flex, jsx, Box, Container } from 'theme-ui'
+import { Flex, jsx, Box, Container, Grid } from 'theme-ui'
 import { SATURDAY_WHITE_BREAD } from '../../src/constants/recipes'
 import IngredientTable from '../../src/components/IngredientTable'
 import moment from 'moment'
+import RecipeTimes from '../../src/components/RecipeInfo'
+import SampleSchedule from '../../src/components/SampleSchedule'
 
 /**
  * total time,
@@ -25,24 +27,12 @@ type SampleTimeStateType = {
 }
 
 export default function SaturdayWhiteBread() {
-  const { times } = SATURDAY_WHITE_BREAD
-
-  const start = moment()
-  const shape = moment(start).add(times.bulk[0], 'h')
-  const bake = moment(shape).add(times.proof[0], 'h')
-
-  const sampleTimes: SampleTimeStateType = {
-    start,
-    shape,
-    bake,
-  }
-
   return (
     <Box sx={{ flexDirection: 'column', flexGrow: 1 }}>
       <Container p={2} pt={6} sx={{ maxWidth: '560px' }}>
         <Flex
           sx={{
-            p: [0, '16px 72px'],
+            p: [0],
             justifyContent: 'center',
             width: ['100%', 'auto'],
           }}
@@ -52,12 +42,10 @@ export default function SaturdayWhiteBread() {
               width: '100%',
             }}
           >
-            <Flex>Bulk fermentation time: {times.bulk.join('-')} hours</Flex>
-            <Flex>Proof time: {times.proof.join('-')} hours</Flex>
-            <Flex>Sample schedule</Flex>
-            <Flex>Start {sampleTimes?.start.format('h:mm:ss A')}</Flex>
-            <Flex>Shape {sampleTimes?.shape.format('h:mm:ss A')}</Flex>
-            <Flex>Bake {sampleTimes?.bake.format('h:mm:ss A')}</Flex>
+            <Grid columns={['auto ', null, 'auto']}>
+              <RecipeTimes times={SATURDAY_WHITE_BREAD.times} />
+              <SampleSchedule times={SATURDAY_WHITE_BREAD.times} />
+            </Grid>
             <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
             <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
             <IngredientTable recipe={SATURDAY_WHITE_BREAD} />

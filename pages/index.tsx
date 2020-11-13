@@ -10,24 +10,13 @@ export default function Home() {
       position: 'relative',
     },
     placeholder: {
+      height: '50vh',
       position: 'absolute',
     },
   }
 
-  // const fixedStyle: { [key: string]: SxStyleProp } = {
-  //   banner: {
-  //     height: '70vh',
-  //     position: 'fixed',
-  //     top: 'calc(54px - 70vh)',
-  //   },
-  //   placeholder: {
-  //     position: 'relative',
-  //     height: '70vh',
-  //   },
-  // }
-
   return (
-    <Grid sx={{ height: '100%' }} gap={0}>
+    <Grid sx={{ height: '50vh' }} gap={0}>
       <Box sx={{ position: 'relative' }}>
         <Box sx={startingStyle.placeholder} />
         <Box sx={startingStyle.banner}>

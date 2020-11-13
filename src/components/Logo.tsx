@@ -10,19 +10,21 @@ export default {
   },
   Title() {
     return (
-      <Box id='logo-wrapper' sx={{ position: 'relative' }}>
-        <Styled.h3
+      <Box id='logo-wrapper' sx={{ position: 'absolute', top: '35vh' }}>
+        <Styled.h1
           sx={{
-            fontSize: '32px',
+            zIndex: 35,
+            fontWeight: 650,
             m: '24px 12px',
             textDecoration: 'underline',
+            color: 'muted',
           }}
-          color='primary'
         >
           {BRAND_NAME}
-        </Styled.h3>
+        </Styled.h1>
         <Box
           sx={{
+            zIndex: 25,
             position: 'absolute',
             right: '1px',
             top: '36px',

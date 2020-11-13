@@ -1,6 +1,16 @@
 import swiss from '@theme-ui/preset-swiss'
 
+console.log(swiss)
+
 export const BRAND_NAME = 'breadfully'
+
+const palette = {
+  primary: '#222528',
+  secondary: '#fffc47',
+  accent: '#c8553d',
+  // muted: '#b4cfcf',
+  something: '#588b8b',
+}
 
 const baseNavStyles = {
   p: 2,
@@ -21,7 +31,9 @@ export const defaultTheme = {
   ...swiss,
   colors: {
     ...swiss.colors,
-    primary: '#222528',
+    ...palette,
+    // primary: palette.primary,
+    // secondary: palette.secondary,
   },
   button: {
     primary: {
@@ -68,11 +80,11 @@ export const defaultTheme = {
     backgroundColor: 'rgb(0,0,0,0.35)',
   },
   height: {
-    medium: '32px',
+    medium: '52px',
     large: '96px',
     small: '24px',
   },
   logo: {
-    transform: 'rotate(140deg)',
+    transform: 'rotate(170deg)',
   },
 }

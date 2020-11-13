@@ -19,9 +19,41 @@ export const Nav = () => {
     }
   }, [scrollPosition])
 
+  const calcTransition = (start: number, finish: number): number => {
+    const inc = (start - finish) / 57
+    const calculated = start - inc * scrollPosition
+    if (calculated < finish) return finish
+    return calculated
+  }
+
   const getTitlePosition = useCallback(() => {
-    const calculated = 72 - scrollPosition
-    if (calculated < 15) return 15
+    const getY = () => {
+      const calculated = 72 - scrollPosition
+      if (calculated < 15) return 15
+      return calculated
+    }
+    const getX = () => {
+      const calculated = 72 - scrollPosition
+      if (calculated < 15) return 15
+      return calculated
+    }
+
+    return {
+      transform: `translate(${calcTransition(0, 24)}px, ${calcTransition(
+        72,
+        15
+      )}px)`,
+      // top: `${calcTransition(72, 15)}px`,
+      // left: `${calcTransition(0, 24)}px`,
+    }
+  }, [scrollPosition])
+
+  const getTitleSize = useCallback(() => {
+    const start = 48
+    const finish = 32
+    const inc = (start - finish) / 57
+    const calculated = start - inc * scrollPosition
+    if (calculated < finish) return finish
     return calculated
   }, [scrollPosition])
 
@@ -43,15 +75,18 @@ export const Nav = () => {
       {!isHomePage && (
         <Box
           sx={{
+            ...getTitlePosition(),
             position: 'fixed',
             top: 0,
-            transform: `translateY(${getTitlePosition()}px)`,
+            // transform: `translateY(${getTitlePosition()}px)`,
             width: 'auto',
             height: '58px',
             bg: 'transparent',
           }}
         >
-          <Styled.h3 sx={{ m: 0, fontWeight: 700, fontSize: 4 }}>
+          <Styled.h3
+            sx={{ m: 0, fontWeight: 700, fontSize: [4, `${getTitleSize()}px`] }}
+          >
             Saturday white bread
           </Styled.h3>
         </Box>
@@ -59,3 +94,5 @@ export const Nav = () => {
     </Box>
   )
 }
+56 - 32
+14

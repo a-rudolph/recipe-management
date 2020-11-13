@@ -2,7 +2,7 @@
 import { jsx, Grid, ThemeProvider } from 'theme-ui'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
 import { BRAND_NAME, defaultTheme } from '../src/themes'
-import Footer from '../src/components/Footer'
+// import Footer from '../src/components/Footer'
 import Head from 'next/head'
 import { Nav } from '../src/components/Nav'
 import '../src/styles/index.css'
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <Nav />
         <Component {...pageProps} />
-        <Footer />
+        {/* <Footer /> */}
       </Grid>
     </ThemeProvider>
   )

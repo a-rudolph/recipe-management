@@ -87,4 +87,29 @@ export const defaultTheme = {
   logo: {
     transform: 'rotate(170deg)',
   },
+  flex: {
+    center: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  },
+  steps: {
+    circle: {
+      bg: 'accent',
+      color: 'white',
+      borderRadius: '50%',
+      height: '120px',
+      width: '120px',
+      justifyContent: 'center',
+      alignItems: 'center',
+      title: {
+        fontSize: '32px',
+      },
+      time: {
+        textAlign: 'center',
+        fontSize: '14px',
+      },
+    },
+  },
 }

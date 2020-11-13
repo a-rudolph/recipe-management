@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Flex, jsx, Text } from 'theme-ui'
+import { Box, Flex, Grid, jsx, Text } from 'theme-ui'
 
 type RecipeTimesProps = {
   times: RecipeType['times']
@@ -15,15 +15,30 @@ export default function RecipeTimes(props: RecipeTimesProps) {
   }
 
   return (
-    <Flex>
-      <Flex>
-        Bulk fermentation time:
-        <Text sx={timeStyles}>{times.bulk.join('-')} hours</Text>
-      </Flex>
-      <Flex>
-        Proof time:
-        <Text sx={timeStyles}>{times.proof.join('-')} hours</Text>
-      </Flex>
-    </Flex>
+    <Grid gap={0} columns={['auto', 'max-content auto']}>
+      <Grid pl={1} gap={0} columns={['100%', 'auto 1fr']}>
+        <Box>Bulk fermentation time:</Box>
+        <Box>
+          <Text sx={timeStyles}>{times.bulk.join('-')} hours</Text>
+        </Box>
+      </Grid>
+      <Grid
+        gap={0}
+        columns={['100%', 'auto 1fr']}
+        sx={{
+          pl: 1,
+          borderTopLeftRadius: '3px',
+          flexGrow: 1,
+          borderLeft: '2px solid',
+          borderTop: '2px solid',
+          borderColor: 'accent',
+        }}
+      >
+        <Box>Proof time:</Box>
+        <Box>
+          <Text sx={timeStyles}>{times.proof.join('-')} hours</Text>
+        </Box>
+      </Grid>
+    </Grid>
   )
 }

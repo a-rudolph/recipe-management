@@ -28,8 +28,8 @@ type SampleTimeStateType = {
 
 export default function SaturdayWhiteBread() {
   return (
-    <Box sx={{ flexDirection: 'column', flexGrow: 1 }}>
-      <Container p={2} pt={6} sx={{ maxWidth: '560px' }}>
+    <Box sx={{ pt: 6, flexDirection: 'column', flexGrow: 1 }}>
+      <Container p={4} pt={2}>
         <Flex
           sx={{
             p: [0],
@@ -42,15 +42,13 @@ export default function SaturdayWhiteBread() {
               width: '100%',
             }}
           >
-            <Grid columns={['auto ', null, 'auto']}>
-              <RecipeTimes times={SATURDAY_WHITE_BREAD.times} />
+            <Grid columns={['auto', 'auto auto']}>
+              <Box>
+                <RecipeTimes times={SATURDAY_WHITE_BREAD.times} />
+                <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
+              </Box>
               <SampleSchedule times={SATURDAY_WHITE_BREAD.times} />
             </Grid>
-            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
-            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
-            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
-            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
-            <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
           </Box>
         </Flex>
       </Container>

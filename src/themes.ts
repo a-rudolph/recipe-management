@@ -1,8 +1,6 @@
 import swiss from '@theme-ui/preset-swiss'
 
-console.log(swiss)
-
-export const BRAND_NAME = 'breadfully'
+export const BRAND_NAME = 'wheatifully'
 
 const palette = {
   primary: '#222528',

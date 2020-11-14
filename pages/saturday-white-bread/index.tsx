@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { Flex, jsx, Box, Container, Grid } from 'theme-ui'
+import { Flex, jsx, Box, Container, Grid, Button } from 'theme-ui'
 import { SATURDAY_WHITE_BREAD } from '../../src/constants/recipes'
 import IngredientTable from '../../src/components/IngredientTable'
-import moment from 'moment'
-import RecipeTimes from '../../src/components/RecipeInfo'
 import SampleSchedule from '../../src/components/SampleSchedule'
+import RecipeTimes from '../../src/components/RecipeInfo'
+import moment from 'moment'
+import Link from 'next/link'
 
 /**
  * total time,
@@ -47,9 +48,30 @@ export default function SaturdayWhiteBread() {
                 <RecipeTimes times={SATURDAY_WHITE_BREAD.times} />
                 <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
               </Box>
-              <SampleSchedule times={SATURDAY_WHITE_BREAD.times} />
+              <Box sx={{ display: ['none', 'flex'] }}>
+                <SampleSchedule times={SATURDAY_WHITE_BREAD.times} />
+              </Box>
             </Grid>
           </Box>
+        </Flex>
+        <Flex
+          sx={{
+            marginTop: 3,
+            display: ['flex', 'none'],
+            justifyContent: 'flex-end',
+            marginRight: '-32px',
+          }}
+        >
+          <Link href='/saturday-white-bread/schedule'>
+            <Button
+              bg='accent'
+              pl={3}
+              pr={5}
+              sx={{ borderRadius: '16px 0 0 16px' }}
+            >
+              see schedule
+            </Button>
+          </Link>
         </Flex>
       </Container>
     </Box>

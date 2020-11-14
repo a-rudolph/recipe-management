@@ -8,8 +8,9 @@ import Link from 'next/link'
 
 export const Nav = () => {
   const [scrollPosition, setScrollPosition] = useState(0)
-  const { pathname } = useRouter()
+  const { pathname, back } = useRouter()
   const isHomePage = pathname === '/'
+  const isSchedulePage = pathname.includes('schedule')
   useScrollListener(setScrollPosition)
 
   const getNavStyle = useCallback(() => {
@@ -40,16 +41,15 @@ export const Nav = () => {
     <Box sx={isHomePage ? { variant: 'nav' } : getNavStyle()}>
       <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Text sx={{ variant: 'nav.item', opacity: 0 }}>{BRAND_NAME}</Text>
-        <Link href='/'>
-          <Button
-            as='button'
-            sx={{
-              variant: `button.primary`,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
+        <Button
+          onClick={back}
+          as='button'
+          sx={{
+            variant: `button.primary`,
+          }}
+        >
+          Back
+        </Button>
       </Flex>
       {!isHomePage && (
         <Box
@@ -60,8 +60,18 @@ export const Nav = () => {
             width: 'auto',
             height: '58px',
             bg: 'transparent',
+            display: 'flex',
           }}
         >
+          {isSchedulePage && (
+            <Link href={'/saturday-white-bread'}>
+              <Text
+                pl={2}
+                pr={2}
+                sx={{ fontWeight: 600, fontSize: 3 }}
+              >{`<`}</Text>
+            </Link>
+          )}
           <Styled.h3
             sx={{
               ml: [0, 5],

@@ -29,7 +29,8 @@ export default function Home() {
               position: 'absolute',
               right: 0,
               bottom: 0,
-              fontSize: '12px',
+              fontSize: '14px',
+              zIndex: 51,
             }}
           >
             Photo by{' '}

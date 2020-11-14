@@ -6,8 +6,12 @@ const palette = {
   primary: '#222528',
   secondary: '#fffc47',
   accent: '#c8553d',
-  // muted: '#b4cfcf',
-  something: '#588b8b',
+}
+
+const testNewPalette = {
+  primary: '#214646',
+  secondary: '#fffc47',
+  accent: '#dc8e1a',
 }
 
 const baseNavStyles = {
@@ -30,8 +34,8 @@ export const defaultTheme = {
   colors: {
     ...swiss.colors,
     ...palette,
-    // primary: palette.primary,
-    // secondary: palette.secondary,
+    // primary: testNewPalette.primary,
+    // secondary: testNewPalette.secondary,
   },
   button: {
     primary: {
@@ -49,7 +53,7 @@ export const defaultTheme = {
   card: {
     padding: 3,
     bg: 'muted',
-    boxShadow: '1px 1px 1px 0px rgb(0,0,0,0.25)',
+    boxShadow: `1px 1px 2px 1px ${palette.accent}`,
   },
   nav: {
     ...baseNavStyles,

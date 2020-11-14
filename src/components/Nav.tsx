@@ -76,6 +76,7 @@ export const Nav = () => {
             sx={{
               ml: [0, 5],
               m: 0,
+              color: 'primary',
               fontWeight: 700,
               fontSize: [4, `${getTitleSize()}px`],
             }}

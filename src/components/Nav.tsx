@@ -5,6 +5,7 @@ import { BRAND_NAME } from '../themes'
 import { useRouter } from 'next/router'
 import useScrollListener from '../hooks/useScrollListener'
 import Link from 'next/link'
+import LeftIcon from './icons/Left'
 
 export const Nav = () => {
   const [scrollPosition, setScrollPosition] = useState(0)
@@ -64,12 +65,10 @@ export const Nav = () => {
           }}
         >
           {isSchedulePage && (
-            <Link href={'/saturday-white-bread'}>
-              <Text
-                pl={2}
-                pr={2}
-                sx={{ fontWeight: 600, fontSize: 3 }}
-              >{`<`}</Text>
+            <Link href='/saturday-white-bread'>
+              <Box>
+                <LeftIcon />
+              </Box>
             </Link>
           )}
           <Styled.h3
@@ -79,6 +78,7 @@ export const Nav = () => {
               color: 'primary',
               fontWeight: 700,
               fontSize: [4, `${getTitleSize()}px`],
+              transition: 'all .2s ease',
             }}
           >
             Saturday white bread

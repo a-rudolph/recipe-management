@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={defaultTheme}>
       <Head>
         <title>{BRAND_NAME}</title>
-        <link rel='icon' href='/wheat.ico' />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <Grid
         sx={{

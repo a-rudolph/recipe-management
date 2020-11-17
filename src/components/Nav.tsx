@@ -4,8 +4,8 @@ import { useCallback, useState } from 'react'
 import { BRAND_NAME } from '../themes'
 import { useRouter } from 'next/router'
 import useScrollListener from '../hooks/useScrollListener'
-import Link from 'next/link'
 import LeftIcon from './icons/Left'
+import Link from 'next/link'
 
 export const Nav = () => {
   const [scrollPosition, setScrollPosition] = useState(0)

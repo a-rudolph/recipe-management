@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { Flex, jsx, Box, Container, Grid, Button } from 'theme-ui'
+import { jsx, Text, Flex, Box, Container, Grid, Button } from 'theme-ui'
 import { SATURDAY_WHITE_BREAD } from '../../src/constants/recipes'
 import IngredientTable from '../../src/components/IngredientTable'
 import SampleSchedule from '../../src/components/SampleSchedule'
 import RecipeTimes from '../../src/components/RecipeInfo'
-import moment from 'moment'
+import RightIcon from '../../src/components/icons/Right'
 import Link from 'next/link'
 
 /**
@@ -20,12 +20,6 @@ import Link from 'next/link'
  * recipe,
  * schedule,
  */
-
-type SampleTimeStateType = {
-  start: moment.Moment
-  shape: moment.Moment
-  bake: moment.Moment
-}
 
 export default function SaturdayWhiteBread() {
   return (
@@ -43,13 +37,54 @@ export default function SaturdayWhiteBread() {
               width: '100%',
             }}
           >
-            <Grid columns={['auto', 'auto auto']}>
+            <Grid columns={['auto', 'minmax(auto, 580px) auto 1fr']}>
               <Box>
                 <RecipeTimes times={SATURDAY_WHITE_BREAD.times} />
                 <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
               </Box>
-              <Box sx={{ display: ['none', 'flex'] }}>
+              <Box
+                sx={{
+                  display: ['none', 'flex'],
+                  marginTop: '-40px',
+                  width: 'max-content',
+                }}
+              >
                 <SampleSchedule times={SATURDAY_WHITE_BREAD.times} />
+              </Box>
+              <Box
+                sx={{
+                  mt: '-32px',
+                  height: '36px',
+                  borderBottom: '2px solid',
+                  borderColor: 'accent',
+                  display: ['none', 'flex'],
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <Link href='/'>
+                  <Flex
+                    sx={{
+                      px: 3,
+                      cursor: 'pointer',
+                      transition: 'all .2s ease',
+                      '.right-icon': {
+                        transition: 'transform .4s ease',
+                        transform: 'translateX(-4px)',
+                      },
+                      ':hover': {
+                        color: 'accent',
+                        '.right-icon': {
+                          transform: 'translateX(-2px)',
+                        },
+                      },
+                    }}
+                  >
+                    <Text sx={{ fontWeight: '500', alignSelf: 'center' }}>
+                      see full schedule
+                    </Text>
+                    <RightIcon />
+                  </Flex>
+                </Link>
               </Box>
             </Grid>
           </Box>
@@ -67,7 +102,7 @@ export default function SaturdayWhiteBread() {
               bg='accent'
               pl={3}
               pr={5}
-              sx={{ borderRadius: '16px 0 0 16px' }}
+              sx={{ borderRadius: '20px 0 0 20px' }}
             >
               see schedule
             </Button>

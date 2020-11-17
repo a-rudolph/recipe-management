@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { Box, Flex, Grid, jsx, Text } from 'theme-ui'
+import { Box, Flex, Grid, Text } from 'theme-ui'
 import moment from 'moment'
 
 type SampleScheduleProps = {
@@ -9,7 +8,7 @@ type SampleScheduleProps = {
 const dividerSx = {
   bg: 'accent',
   width: '4px',
-  height: '24px',
+  height: '16px',
   margin: '8px auto',
 }
 
@@ -31,6 +30,23 @@ export default function SampleSchedule(props: SampleScheduleProps) {
     padding: '0 8px',
   }
 
+  const renderTimeDivider = (time: number) => {
+    return (
+      <Box>
+        <Flex>
+          <Box sx={{ ...dividerSx, mb: 0 }} />
+        </Flex>
+        <Grid gap={1} columns={['1fr 58px']}>
+          <Text sx={{ lineHeight: 1, textAlign: 'right' }}>{time}</Text>
+          <Text sx={{ lineHeight: 1 }}>hours</Text>
+        </Grid>
+        <Flex>
+          <Box sx={{ ...dividerSx, mt: 1 }} />
+        </Flex>
+      </Box>
+    )
+  }
+
   return (
     <Grid gap={0} columns={['120px']}>
       <Flex variant='steps.circle'>
@@ -41,15 +57,7 @@ export default function SampleSchedule(props: SampleScheduleProps) {
           </Text>
         </Box>
       </Flex>
-      <Flex>
-        <Box sx={{ ...dividerSx, mb: 0 }} />
-      </Flex>
-      <Flex variant='flex.center'>
-        <Text sx={{ lineHeight: 1 }}>{times.bulk} hours</Text>
-      </Flex>
-      <Flex>
-        <Box sx={{ ...dividerSx, mt: 1 }} />
-      </Flex>
+      {renderTimeDivider(times.bulk[0])}
       <Flex variant='steps.circle'>
         <Box>
           <Text variant='steps.circle.title'>Shape</Text>
@@ -58,15 +66,7 @@ export default function SampleSchedule(props: SampleScheduleProps) {
           </Text>
         </Box>
       </Flex>
-      <Flex>
-        <Box sx={{ ...dividerSx, mb: 0 }} />
-      </Flex>
-      <Flex variant='flex.center'>
-        <Text sx={{ lineHeight: 1 }}>{times.proof} hours</Text>
-      </Flex>
-      <Flex>
-        <Box sx={{ ...dividerSx, mt: 1 }} />
-      </Flex>
+      {renderTimeDivider(times.proof[0])}
       <Flex variant='steps.circle'>
         <Box>
           <Text variant='steps.circle.title'>Bake</Text>

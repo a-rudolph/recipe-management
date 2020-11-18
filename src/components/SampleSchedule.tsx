@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Text } from 'theme-ui'
+import timeFormat from '../utils/timeFormat'
 import moment from 'moment'
 
 type SampleScheduleProps = {
@@ -24,22 +25,15 @@ export default function SampleSchedule(props: SampleScheduleProps) {
     bake,
   }
 
-  const timeStyles = {
-    color: 'primary',
-    fontWeight: 500,
-    padding: '0 8px',
-  }
-
   const renderTimeDivider = (time: number) => {
     return (
       <Box>
         <Flex>
           <Box sx={{ ...dividerSx, mb: 0 }} />
         </Flex>
-        <Grid gap={1} columns={['1fr 58px']}>
-          <Text sx={{ lineHeight: 1, textAlign: 'right' }}>{time}</Text>
-          <Text sx={{ lineHeight: 1 }}>hours</Text>
-        </Grid>
+        <Flex sx={{ variant: 'flex.center', lineHeight: 1 }}>
+          {timeFormat(time)}
+        </Flex>
         <Flex>
           <Box sx={{ ...dividerSx, mt: 1 }} />
         </Flex>

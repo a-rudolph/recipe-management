@@ -110,7 +110,9 @@ export const defaultTheme = {
       },
       time: {
         textAlign: 'center',
-        fontSize: '14px',
+        fontSize: '16px',
+        fontWeight: 500,
+        lineHeight: 1,
       },
     },
   },

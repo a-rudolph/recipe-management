@@ -66,13 +66,14 @@ export default function SaturdayWhiteBread() {
                     sx={{
                       px: 3,
                       cursor: 'pointer',
+                      color: 'accent',
                       transition: 'all .2s ease',
                       '.right-icon': {
                         transition: 'transform .4s ease',
                         transform: 'translateX(-4px)',
                       },
                       ':hover': {
-                        color: 'accent',
+                        color: '#f2684c',
                         '.right-icon': {
                           transform: 'translateX(-2px)',
                         },

@@ -107,6 +107,7 @@ export const defaultTheme = {
       alignItems: 'center',
       title: {
         fontSize: '32px',
+        textAlign: 'center',
       },
       time: {
         textAlign: 'center',

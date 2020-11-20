@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { Box, Flex, Grid, jsx, Text } from 'theme-ui'
+import { Box, Grid, jsx, Text } from 'theme-ui'
+import fractionize from '../utils/fractionize'
 
 type RecipeTimesProps = {
   times: RecipeType['times']
@@ -19,7 +20,9 @@ export default function RecipeTimes(props: RecipeTimesProps) {
       <Grid pl={1} gap={0} columns={['100%', 'auto 1fr']}>
         <Box>Bulk fermentation time:</Box>
         <Box>
-          <Text sx={timeStyles}>{times.bulk.join('-')} hours</Text>
+          <Text sx={timeStyles}>
+            {times.bulk.map((time) => fractionize(time)).join('-')} hours
+          </Text>
         </Box>
       </Grid>
       <Grid
@@ -36,7 +39,9 @@ export default function RecipeTimes(props: RecipeTimesProps) {
       >
         <Box>Proof time:</Box>
         <Box>
-          <Text sx={timeStyles}>{times.proof.join('-')} hours</Text>
+          <Text sx={timeStyles}>
+            {times.proof.map((time) => fractionize(time)).join('-')} hours
+          </Text>
         </Box>
       </Grid>
     </Grid>

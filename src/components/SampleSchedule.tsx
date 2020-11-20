@@ -1,5 +1,4 @@
 import { Box, Flex, Grid, Text } from 'theme-ui'
-import timeFormat from '../utils/timeFormat'
 import moment from 'moment'
 
 type SampleScheduleProps = {
@@ -10,7 +9,8 @@ const dividerSx = {
   bg: 'accent',
   width: '4px',
   height: '16px',
-  margin: '8px auto',
+  m: '8px auto',
+  mb: 0,
 }
 
 export default function SampleSchedule(props: SampleScheduleProps) {
@@ -25,22 +25,6 @@ export default function SampleSchedule(props: SampleScheduleProps) {
     bake,
   }
 
-  const renderTimeDivider = (time: number) => {
-    return (
-      <Box>
-        <Flex>
-          <Box sx={{ ...dividerSx, mb: 0 }} />
-        </Flex>
-        <Flex sx={{ variant: 'flex.center', lineHeight: 1 }}>
-          {timeFormat(time)}
-        </Flex>
-        <Flex>
-          <Box sx={{ ...dividerSx, mt: 1 }} />
-        </Flex>
-      </Box>
-    )
-  }
-
   return (
     <Grid gap={0} columns={['120px']}>
       <Flex variant='steps.circle'>
@@ -51,7 +35,9 @@ export default function SampleSchedule(props: SampleScheduleProps) {
           </Text>
         </Box>
       </Flex>
-      {renderTimeDivider(times.bulk[0])}
+      <Flex>
+        <Box sx={dividerSx} />
+      </Flex>
       <Flex variant='steps.circle'>
         <Box>
           <Text variant='steps.circle.title'>Shape</Text>
@@ -60,7 +46,9 @@ export default function SampleSchedule(props: SampleScheduleProps) {
           </Text>
         </Box>
       </Flex>
-      {renderTimeDivider(times.proof[0])}
+      <Flex>
+        <Box sx={dividerSx} />
+      </Flex>
       <Flex variant='steps.circle'>
         <Box>
           <Text variant='steps.circle.title'>Bake</Text>

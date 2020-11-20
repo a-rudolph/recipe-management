@@ -1,4 +1,4 @@
-export default function timeFormat(n: number): string {
+export default function formatTime(n: number): string {
   const h = Math.floor(n)
   const d = n - h
   const m = d * 60

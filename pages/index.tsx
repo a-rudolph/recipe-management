@@ -1,7 +1,9 @@
 /** @jsx jsx */
-import { Box, Card, Flex, Grid, Text, jsx } from 'theme-ui'
+import { Box, Flex, Grid, jsx } from 'theme-ui'
+import { useCallback } from 'react'
+import getAvailableRecipes from '../src/utils/getAvailableRecipes'
+import RecipeCard from '../src/components/RecipeCard'
 import Logo from '../src/components/Logo'
-import Link from 'next/link'
 
 export default function Home() {
   const startingStyle: { [key: string]: import('theme-ui').SxStyleProp } = {
@@ -14,6 +16,8 @@ export default function Home() {
       position: 'absolute',
     },
   }
+
+  const recipes = useCallback(getAvailableRecipes, [])()
 
   return (
     <Grid sx={{ height: '50vh' }} gap={0}>
@@ -30,7 +34,6 @@ export default function Home() {
               right: 0,
               bottom: 0,
               fontSize: '14px',
-              zIndex: 51,
             }}
           >
             Photo by{' '}
@@ -57,26 +60,9 @@ export default function Home() {
             <Flex sx={{ width: '100%' }}>
               <Logo.Title />
             </Flex>
-            <Link href='/saturday-white-bread'>
-              <Card sx={{ variant: 'card', cursor: 'pointer' }}>
-                <Text>Saturday white bread</Text>
-              </Card>
-            </Link>
-            <Link href='/saturday-white-bread'>
-              <Card sx={{ variant: 'card', cursor: 'pointer' }}>
-                <Text>Saturday 75% whole wheat</Text>
-              </Card>
-            </Link>
-            <Link href='/saturday-white-bread'>
-              <Card sx={{ variant: 'card', cursor: 'pointer' }}>
-                <Text>Overnight white bread</Text>
-              </Card>
-            </Link>
-            <Link href='/saturday-white-bread'>
-              <Card sx={{ variant: 'card', cursor: 'pointer' }}>
-                <Text>Overnight 40% whole wheat</Text>
-              </Card>
-            </Link>
+            {recipes.map(({ key, name }) => (
+              <RecipeCard key={key} name={name} />
+            ))}
           </Grid>
         </Flex>
       </Box>

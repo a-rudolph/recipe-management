@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Text, Flex, Box, Container, Grid, Button } from 'theme-ui'
-import { SATURDAY_WHITE_BREAD } from '../../src/constants/recipes'
+import { recipes } from '../../src/constants/recipes'
 import IngredientTable from '../../src/components/IngredientTable'
 import SampleSchedule from '../../src/components/SampleSchedule'
 import RecipeTimes from '../../src/components/RecipeInfo'
@@ -22,6 +22,8 @@ import Link from 'next/link'
  */
 
 export default function SaturdayWhiteBread() {
+  const SATURDAY_WHITE_BREAD = recipes[0]
+
   return (
     <Box sx={{ pt: 6, flexDirection: 'column', flexGrow: 1 }}>
       <Container p={4} pt={2}>

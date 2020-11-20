@@ -1,4 +1,6 @@
 type RecipeType = {
+  name: string
+  key: string
   times: {
     bulk: number[]
     proof: number[]

@@ -1,11 +1,14 @@
 /** @jsx jsx */
 import { Box, Flex, Grid, jsx } from 'theme-ui'
-import { useCallback } from 'react'
 import getAvailableRecipes from '../src/utils/getAvailableRecipes'
 import RecipeCard from '../src/components/RecipeCard'
 import Logo from '../src/components/Logo'
 
-export default function Home() {
+type HomeProps = {
+  recipes: RecipeType[]
+}
+
+export default function Home({ recipes }: HomeProps) {
   const startingStyle: { [key: string]: import('theme-ui').SxStyleProp } = {
     banner: {
       height: '50vh',
@@ -16,8 +19,6 @@ export default function Home() {
       position: 'absolute',
     },
   }
-
-  const recipes = useCallback(getAvailableRecipes, [])()
 
   return (
     <Grid sx={{ height: '50vh' }} gap={0}>
@@ -61,11 +62,21 @@ export default function Home() {
               <Logo.Title />
             </Flex>
             {recipes.map(({ key, name }) => (
-              <RecipeCard key={key} name={name} />
+              <RecipeCard recipeKey={key} name={name} />
             ))}
           </Grid>
         </Flex>
       </Box>
     </Grid>
   )
+}
+
+export const getStaticProps = async () => {
+  const recipes = getAvailableRecipes()
+
+  return {
+    props: {
+      recipes,
+    },
+  }
 }

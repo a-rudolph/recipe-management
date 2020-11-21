@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Text, Flex, Box, Container, Grid, Button } from 'theme-ui'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { recipes } from '../../src/constants/recipes'
 import IngredientTable from '../../src/components/IngredientTable'
 import SampleSchedule from '../../src/components/SampleSchedule'
@@ -21,9 +22,7 @@ import Link from 'next/link'
  * schedule,
  */
 
-export default function SaturdayWhiteBread() {
-  const SATURDAY_WHITE_BREAD = recipes[0]
-
+export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
   return (
     <Box sx={{ pt: 6, flexDirection: 'column', flexGrow: 1 }}>
       <Container p={4} pt={2}>
@@ -41,8 +40,8 @@ export default function SaturdayWhiteBread() {
           >
             <Grid columns={['auto', 'minmax(auto, 580px) auto 1fr']}>
               <Box>
-                <RecipeTimes times={SATURDAY_WHITE_BREAD.times} />
-                <IngredientTable recipe={SATURDAY_WHITE_BREAD} />
+                <RecipeTimes times={recipe.times} />
+                <IngredientTable recipe={recipe} />
               </Box>
               <Box
                 sx={{
@@ -51,7 +50,7 @@ export default function SaturdayWhiteBread() {
                   width: 'max-content',
                 }}
               >
-                <SampleSchedule times={SATURDAY_WHITE_BREAD.times} />
+                <SampleSchedule times={recipe.times} />
               </Box>
               <Box
                 sx={{
@@ -114,4 +113,23 @@ export default function SaturdayWhiteBread() {
       </Container>
     </Box>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = recipes.map((recipe) => {
+    return {
+      params: { key: recipe.key },
+    }
+  })
+
+  return {
+    fallback: false,
+    paths,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const recipe = recipes.find((recipe) => recipe.key === params.key)
+
+  return { props: { recipe } }
 }

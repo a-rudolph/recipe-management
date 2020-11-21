@@ -7,10 +7,15 @@ import useScrollListener from '../hooks/useScrollListener'
 import LeftIcon from './icons/Left'
 import Link from 'next/link'
 
-export const Nav = () => {
+export const Nav = ({
+  title,
+  recipeKey,
+}: {
+  title?: string
+  recipeKey?: string
+}) => {
   const [scrollPosition, setScrollPosition] = useState(0)
   const { pathname, back } = useRouter()
-  const isHomePage = pathname === '/'
   const isSchedulePage = pathname.includes('schedule')
   useScrollListener(setScrollPosition)
 
@@ -39,7 +44,7 @@ export const Nav = () => {
   }, [scrollPosition])
 
   return (
-    <Box sx={isHomePage ? { variant: 'nav' } : getNavStyle()}>
+    <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
       <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Text sx={{ variant: 'nav.item', opacity: 0 }}>{BRAND_NAME}</Text>
         <Button
@@ -52,7 +57,7 @@ export const Nav = () => {
           Back
         </Button>
       </Flex>
-      {!isHomePage && (
+      {title && (
         <Box
           sx={{
             ...getTitlePosition(),
@@ -65,7 +70,7 @@ export const Nav = () => {
           }}
         >
           {isSchedulePage && (
-            <Link href='/saturday-white-bread'>
+            <Link href={`/recipes/${recipeKey}`}>
               <Box>
                 <LeftIcon />
               </Box>
@@ -81,7 +86,7 @@ export const Nav = () => {
               transition: 'all .2s ease',
             }}
           >
-            Saturday white bread
+            {title}
           </Styled.h3>
         </Box>
       )}

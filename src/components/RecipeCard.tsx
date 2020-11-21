@@ -2,13 +2,13 @@ import { Card, Text } from 'theme-ui'
 import Link from 'next/link'
 
 type RecipeCardProps = {
-  key: string
+  recipeKey: string
   name: string
 }
 
-export default function RecipeCard({ key, name }: RecipeCardProps) {
+export default function RecipeCard({ recipeKey, name }: RecipeCardProps) {
   return (
-    <Link href={`/${key}`}>
+    <Link href='/recipes/[key]' as={`/recipes/${recipeKey}`}>
       <Card sx={{ variant: 'card', cursor: 'pointer' }}>
         <Text>{name}</Text>
       </Card>

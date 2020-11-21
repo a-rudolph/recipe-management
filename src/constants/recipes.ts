@@ -1,5 +1,39 @@
 export const recipes: RecipeType[] = [
   {
+    name: 'Overnight white bread',
+    key: 'overnight-white-bread',
+    times: {
+      bulk: [12, 14],
+      proof: [1.25],
+    },
+    yield: {
+      amount: 2,
+      unit: 'Loaves',
+    },
+    ingrendients: [
+      {
+        quantity: 1000,
+        unit: 'g',
+        name: 'white flour',
+      },
+      {
+        quantity: 780,
+        unit: 'g',
+        name: '90ºF - 95ºF water',
+      },
+      {
+        quantity: 22,
+        unit: 'g',
+        name: 'fine sea salt',
+      },
+      {
+        quantity: 0.8,
+        unit: 'g',
+        name: 'instant yeast',
+      },
+    ],
+  },
+  {
     name: 'Overnight 40% whole wheat',
     key: 'overnight-whole-wheat',
     times: {

@@ -1,17 +1,30 @@
 /** @jsx jsx */
 import { BRAND_NAME, defaultTheme } from '../src/themes'
 import { jsx, Grid, ThemeProvider } from 'theme-ui'
+import { useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
 import { Nav } from '../src/components/Nav'
-// import Footer from '../src/components/Footer'
+import getAvailableRecipes from '../src/utils/getAvailableRecipes'
 import Head from 'next/head'
 import '../src/styles/index.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  const { key } = router.query
+
+  const getRecipe = useCallback(() => {
+    const recipes = getAvailableRecipes()
+
+    return recipes.find((recipe) => recipe.key === key)
+  }, [key])
+
+  const { key: recipeKey, name } = getRecipe() || {}
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Head>
-        <title>{BRAND_NAME}</title>
+        <title>{name || BRAND_NAME}</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Grid
@@ -21,9 +34,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           rowGap: 0,
         }}
       >
-        <Nav />
+        <Nav recipeKey={recipeKey} title={name} />
         <Component {...pageProps} />
-        {/* <Footer /> */}
       </Grid>
     </ThemeProvider>
   )

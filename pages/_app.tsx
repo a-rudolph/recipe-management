@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { BRAND_NAME, defaultTheme } from '../src/themes'
+import { BRAND_NAME, defaultTheme } from '@styles/themes'
 import { jsx, Grid, ThemeProvider } from 'theme-ui'
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
-import { Nav } from '../src/components/Nav'
-import getAvailableRecipes from '../src/utils/getAvailableRecipes'
+import { Nav } from '@components/Nav'
+import getAvailableRecipes from '@utils/getAvailableRecipes'
 import Head from 'next/head'
-import '../src/styles/index.css'
+import '@styles/index.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()

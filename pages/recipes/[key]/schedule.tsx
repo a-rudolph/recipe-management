@@ -1,8 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { Box } from 'theme-ui'
-import SampleSchedule from '../../../src/components/SampleSchedule'
-import getRecipePaths from '../../../src/utils/getRecipePaths'
-import getRecipeProps from '../../../src/utils/getRecipeProps'
+import SampleSchedule from '@components/SampleSchedule'
+import getRecipePaths from '@utils/getRecipePaths'
+import getRecipeProps from '@utils/getRecipeProps'
 
 export default function Schedule({ recipe }: RecipeProp) {
   return (

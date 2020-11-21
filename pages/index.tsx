@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { Box, Flex, Grid, jsx } from 'theme-ui'
-import getAvailableRecipes from '../src/utils/getAvailableRecipes'
-import RecipeCard from '../src/components/RecipeCard'
-import Logo from '../src/components/Logo'
+import getAvailableRecipes from '@utils/getAvailableRecipes'
+import RecipeCard from '@components/RecipeCard'
+import Logo from '@components/Logo'
 
 type HomeProps = {
   recipes: RecipeType[]

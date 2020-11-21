@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Box, jsx, Styled } from 'theme-ui'
-import { BRAND_NAME } from '../themes'
+import { BRAND_NAME } from '@styles/themes'
 
 const logoUrl = '/leaf.svg'
 

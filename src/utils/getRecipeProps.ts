@@ -1,5 +1,5 @@
 import { GetStaticPropsResult } from 'next'
-import { recipes } from '../constants/recipes'
+import { recipes } from '@constants/recipes'
 
 export default function getRecipeProps(
   params

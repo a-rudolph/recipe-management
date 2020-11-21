@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx, Text, Flex, Box, Container, Grid, Button } from 'theme-ui'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import IngredientTable from '../../../src/components/IngredientTable'
-import SampleSchedule from '../../../src/components/SampleSchedule'
-import getRecipePaths from '../../../src/utils/getRecipePaths'
-import getRecipeProps from '../../../src/utils/getRecipeProps'
-import RecipeTimes from '../../../src/components/RecipeInfo'
-import RightIcon from '../../../src/components/icons/Right'
+import IngredientTable from '@components/IngredientTable'
+import SampleSchedule from '@components/SampleSchedule'
+import getRecipePaths from '@utils/getRecipePaths'
+import getRecipeProps from '@utils/getRecipeProps'
+import RecipeTimes from '@components/RecipeInfo'
+import RightIcon from '@components/icons/Right'
 import Link from 'next/link'
 
 /**

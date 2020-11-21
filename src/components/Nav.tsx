@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx, Button, Box, Flex, Text, Styled } from 'theme-ui'
 import { useCallback, useState } from 'react'
-import { BRAND_NAME } from '../themes'
+import { BRAND_NAME } from '@styles/themes'
 import { useRouter } from 'next/router'
-import useScrollListener from '../hooks/useScrollListener'
-import LeftIcon from './icons/Left'
+import useScrollListener from '@hooks/useScrollListener'
+import LeftIcon from '@components/icons/Left'
 import Link from 'next/link'
 
 export const Nav = ({
@@ -15,7 +15,7 @@ export const Nav = ({
   recipeKey?: string
 }) => {
   const [scrollPosition, setScrollPosition] = useState(0)
-  const { pathname, back } = useRouter()
+  const { pathname } = useRouter()
   const isSchedulePage = pathname.includes('schedule')
   useScrollListener(setScrollPosition)
 

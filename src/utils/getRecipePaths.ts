@@ -1,5 +1,5 @@
 import { GetStaticPathsResult } from 'next'
-import { recipes } from '../constants/recipes'
+import { recipes } from '@constants/recipes'
 
 export default function getRecipePaths(): GetStaticPathsResult {
   const paths = recipes.map((recipe) => {

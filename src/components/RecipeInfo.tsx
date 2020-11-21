@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Box, Grid, jsx, Text } from 'theme-ui'
-import fractionize from '../utils/fractionize'
+import fractionize from '@utils/fractionize'
 
 type RecipeTimesProps = {
   times: RecipeType['times']

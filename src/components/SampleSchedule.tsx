@@ -31,7 +31,7 @@ export default function SampleSchedule(props: SampleScheduleProps) {
         <Box>
           <Text variant='steps.circle.title'>Mix</Text>
           <Text variant='steps.circle.time'>
-            {timeMoments.start.format('h:mm A')}
+            {timeMoments.start.format('HH:mm A')}
           </Text>
         </Box>
       </Flex>
@@ -42,7 +42,7 @@ export default function SampleSchedule(props: SampleScheduleProps) {
         <Box>
           <Text variant='steps.circle.title'>Shape</Text>
           <Text variant='steps.circle.time'>
-            {timeMoments.shape.format('h:mm A')}
+            {timeMoments.shape.format('HH:mm A')}
           </Text>
         </Box>
       </Flex>
@@ -53,7 +53,7 @@ export default function SampleSchedule(props: SampleScheduleProps) {
         <Box>
           <Text variant='steps.circle.title'>Bake</Text>
           <Text variant='steps.circle.time'>
-            {timeMoments.bake.format('h:mm A')}
+            {timeMoments.bake.format('HH:mm A')}
           </Text>
         </Box>
       </Flex>

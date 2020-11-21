@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx, Text, Flex, Box, Container, Grid, Button } from 'theme-ui'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { recipes } from '../../src/constants/recipes'
-import IngredientTable from '../../src/components/IngredientTable'
-import SampleSchedule from '../../src/components/SampleSchedule'
-import RecipeTimes from '../../src/components/RecipeInfo'
-import RightIcon from '../../src/components/icons/Right'
+import IngredientTable from '../../../src/components/IngredientTable'
+import SampleSchedule from '../../../src/components/SampleSchedule'
+import getRecipePaths from '../../../src/utils/getRecipePaths'
+import getRecipeProps from '../../../src/utils/getRecipeProps'
+import RecipeTimes from '../../../src/components/RecipeInfo'
+import RightIcon from '../../../src/components/icons/Right'
 import Link from 'next/link'
 
 /**
@@ -62,7 +63,10 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
                   justifyContent: 'flex-end',
                 }}
               >
-                <Link href='/'>
+                <Link
+                  href='/recipes/[key]/schedule'
+                  as={`/recipes/${recipe.key}/schedule`}
+                >
                   <Flex
                     sx={{
                       px: 3,
@@ -99,7 +103,10 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
             marginRight: '-32px',
           }}
         >
-          <Link href='/saturday-white-bread/schedule'>
+          <Link
+            href='/recipes/[key]/schedule'
+            as={`/recipes/${recipe.key}/schedule`}
+          >
             <Button
               bg='accent'
               pl={3}
@@ -116,20 +123,13 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = recipes.map((recipe) => {
-    return {
-      params: { key: recipe.key },
-    }
-  })
-
   return {
-    fallback: false,
-    paths,
+    ...getRecipePaths(),
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const recipe = recipes.find((recipe) => recipe.key === params.key)
-
-  return { props: { recipe } }
+  return {
+    ...getRecipeProps(params),
+  }
 }

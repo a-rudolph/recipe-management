@@ -17,3 +17,7 @@ type IngredientType = {
   unit: string
   name: string
 }
+
+type RecipeProp = {
+  recipe: RecipeType
+}

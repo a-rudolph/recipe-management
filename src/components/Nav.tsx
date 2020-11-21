@@ -47,15 +47,16 @@ export const Nav = ({
     <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
       <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Text sx={{ variant: 'nav.item', opacity: 0 }}>{BRAND_NAME}</Text>
-        <Button
-          onClick={back}
-          as='button'
-          sx={{
-            variant: `button.primary`,
-          }}
-        >
-          Back
-        </Button>
+        <Link href='/'>
+          <Button
+            as='button'
+            sx={{
+              variant: `button.primary`,
+            }}
+          >
+            Home
+          </Button>
+        </Link>
       </Flex>
       {title && (
         <Box

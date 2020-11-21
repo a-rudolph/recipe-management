@@ -62,7 +62,7 @@ export default function Home({ recipes }: HomeProps) {
               <Logo.Title />
             </Flex>
             {recipes.map(({ key, name }) => (
-              <RecipeCard recipeKey={key} name={name} />
+              <RecipeCard key={key} recipeKey={key} name={name} />
             ))}
           </Grid>
         </Flex>

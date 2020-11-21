@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Text } from 'theme-ui'
+import { Fragment } from 'react'
 
 type IngredientTableProps = {
   recipe: RecipeType
@@ -19,22 +20,16 @@ export default function IngredientTable({ recipe }: IngredientTableProps) {
         </Flex>
       </Box>
       {recipe.ingrendients.map((ing) => (
-        <>
+        <Fragment key={ing.name}>
           <Box
-            key={`${ing.name}-qty`}
             p='4px 8px'
             m='4px 0'
             sx={{ bg: 'muted', textAlign: 'right' }}
           >{`${ing.quantity} ${ing.unit}`}</Box>
-          <Box
-            key={`${ing.name}-name`}
-            p='4px 8px'
-            m='4px 0'
-            sx={{ bg: 'muted', textAlign: 'left' }}
-          >
+          <Box p='4px 8px' m='4px 0' sx={{ bg: 'muted', textAlign: 'left' }}>
             {ing.name}
           </Box>
-        </>
+        </Fragment>
       ))}
     </Grid>
   )

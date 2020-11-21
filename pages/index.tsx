@@ -2,7 +2,6 @@
 import { Box, Flex, Grid, jsx } from 'theme-ui'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
 import RecipeCard from '@components/RecipeCard'
-import Logo from '@components/Logo'
 
 type HomeProps = {
   recipes: RecipeType[]
@@ -58,9 +57,6 @@ export default function Home({ recipes }: HomeProps) {
       <Box p='3' sx={{ height: '100%' }}>
         <Flex sx={{ flexDirection: 'column', alignItems: 'center' }}>
           <Grid sx={{ maxWidth: '560px', width: '100%' }}>
-            <Flex sx={{ width: '100%' }}>
-              <Logo.Title />
-            </Flex>
             {recipes.map(({ key, name }) => (
               <RecipeCard key={key} recipeKey={key} name={name} />
             ))}

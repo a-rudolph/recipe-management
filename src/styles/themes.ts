@@ -6,6 +6,7 @@ const palette = {
   primary: '#222528',
   secondary: '#fffc47',
   accent: '#c8553d',
+  wheaty: '#F6BB63',
 }
 
 const testNewPalette = {

@@ -1,28 +1,22 @@
 /** @jsx jsx */
-import { jsx, Button, Box, Flex, Text, Styled } from 'theme-ui'
+import { jsx, Box, Flex, Text, Styled } from 'theme-ui'
 import { useCallback, useState } from 'react'
 import { BRAND_NAME } from '@styles/themes'
-import { useRouter } from 'next/router'
 import useScrollListener from '@hooks/useScrollListener'
-import LeftIcon from '@components/icons/Left'
+import LogoIcon from '@components/icons/Logo'
 import Link from 'next/link'
 
-export const Nav = ({
-  title,
-  recipeKey,
-}: {
-  title?: string
-  recipeKey?: string
-}) => {
+export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
   const [scrollPosition, setScrollPosition] = useState(0)
-  const { pathname } = useRouter()
-  const isSchedulePage = pathname.includes('schedule')
   useScrollListener(setScrollPosition)
 
   const getNavStyle = useCallback(() => {
     return {
       variant: `nav.${scrollPosition < 25 ? 'primary' : 'secondary'}`,
       boxShadow: scrollPosition < 57 ? '0' : '0px 1px 2px 1px rgb(0,0,0,0.25)',
+      '.logo-label': {
+        display: scrollPosition < 25 ? 'block' : 'none',
+      },
     }
   }, [scrollPosition])
 
@@ -36,6 +30,8 @@ export const Nav = ({
   const getTitlePosition = useCallback(() => {
     return {
       transform: `translateY(${calcTransition(72, 15)}px)`,
+      transition: 'left .4s ease',
+      left: [scrollPosition < 25 ? 1 : 5, 0],
     }
   }, [scrollPosition])
 
@@ -45,17 +41,23 @@ export const Nav = ({
 
   return (
     <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
-      <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text sx={{ variant: 'nav.item', opacity: 0 }}>{BRAND_NAME}</Text>
+      <Flex sx={{ alignItems: 'center' }}>
         <Link href='/'>
-          <Button
-            as='button'
-            sx={{
-              variant: `button.primary`,
-            }}
-          >
-            Home
-          </Button>
+          <Flex sx={{ cursor: 'pointer', zIndex: '51' }}>
+            <LogoIcon />
+            <Text
+              className='logo-label'
+              sx={{
+                variant: 'nav.item',
+                opacity: 1,
+                color: 'wheaty',
+                fontWeight: 500,
+                fontSize: 3,
+              }}
+            >
+              {BRAND_NAME}
+            </Text>
+          </Flex>
         </Link>
       </Flex>
       {title && (
@@ -70,13 +72,6 @@ export const Nav = ({
             display: 'flex',
           }}
         >
-          {isSchedulePage && (
-            <Link href={`/recipes/${recipeKey}`}>
-              <Box>
-                <LeftIcon />
-              </Box>
-            </Link>
-          )}
           <Styled.h3
             sx={{
               ml: [0, 5],
@@ -85,6 +80,7 @@ export const Nav = ({
               fontWeight: 700,
               fontSize: [4, `${getTitleSize()}px`],
               transition: 'all .2s ease',
+              whiteSpace: 'nowrap',
             }}
           >
             {title}

@@ -9,12 +9,6 @@ const palette = {
   wheaty: '#F6BB63',
 }
 
-const testNewPalette = {
-  primary: '#214646',
-  secondary: '#fffc47',
-  accent: '#dc8e1a',
-}
-
 const baseNavStyles = {
   p: 2,
   width: '100vw',
@@ -35,8 +29,6 @@ export const defaultTheme = {
   colors: {
     ...swiss.colors,
     ...palette,
-    // primary: testNewPalette.primary,
-    // secondary: testNewPalette.secondary,
   },
   button: {
     primary: {

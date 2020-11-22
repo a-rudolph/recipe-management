@@ -29,7 +29,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <Grid
         sx={{
-          // height: '100vh',
           gridTemplateRows: '1fr auto',
           rowGap: 0,
         }}

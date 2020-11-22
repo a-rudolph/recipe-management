@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Text, Flex, Box, Container, Grid, Button } from 'theme-ui'
+import { jsx, Text, Flex, Box, Grid, Button } from 'theme-ui'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import IngredientTable from '@components/IngredientTable'
 import SampleSchedule from '@components/SampleSchedule'
@@ -25,75 +25,79 @@ import Link from 'next/link'
 
 export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
   return (
-    <Box sx={{ pt: 6, flexDirection: 'column', flexGrow: 1 }}>
-      <Container p={4} pt={2}>
+    <Box
+      sx={{
+        pt: 5,
+        flexDirection: 'column',
+        flexGrow: 1,
+        width: '100%',
+        alignItems: 'flex-end',
+      }}
+    >
+      <Box p={[2, 4]} pt={[5, 5]} sx={{ overflow: 'hidden' }}>
         <Flex
           sx={{
-            p: [0],
+            p: 0,
             justifyContent: 'center',
             width: ['100%', 'auto'],
           }}
         >
-          <Box
-            sx={{
-              width: '100%',
-            }}
+          <Grid
+            columns={['85vw', 'minmax(450px, 580px) auto minmax(220px, 320px)']}
           >
-            <Grid columns={['auto', 'minmax(auto, 580px) auto 1fr']}>
-              <Box>
-                <RecipeTimes times={recipe.times} />
-                <IngredientTable recipe={recipe} />
-              </Box>
-              <Box
-                sx={{
-                  display: ['none', 'flex'],
-                  marginTop: '-40px',
-                  width: 'max-content',
-                }}
+            <Box>
+              <RecipeTimes times={recipe.times} />
+              <IngredientTable recipe={recipe} />
+            </Box>
+            <Box
+              sx={{
+                display: ['none', 'flex'],
+                marginTop: '-40px',
+                width: 'max-content',
+              }}
+            >
+              <SampleSchedule times={recipe.times} />
+            </Box>
+            <Box
+              sx={{
+                mt: '-32px',
+                height: '36px',
+                borderBottom: '2px solid',
+                borderColor: 'accent',
+                display: ['none', 'flex'],
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Link
+                href='/recipes/[key]/schedule'
+                as={`/recipes/${recipe.key}/schedule`}
               >
-                <SampleSchedule times={recipe.times} />
-              </Box>
-              <Box
-                sx={{
-                  mt: '-32px',
-                  height: '36px',
-                  borderBottom: '2px solid',
-                  borderColor: 'accent',
-                  display: ['none', 'flex'],
-                  justifyContent: 'flex-end',
-                }}
-              >
-                <Link
-                  href='/recipes/[key]/schedule'
-                  as={`/recipes/${recipe.key}/schedule`}
-                >
-                  <Flex
-                    sx={{
-                      px: 3,
-                      cursor: 'pointer',
-                      color: 'accent',
-                      transition: 'all .2s ease',
+                <Flex
+                  sx={{
+                    px: 3,
+                    cursor: 'pointer',
+                    color: 'accent',
+                    transition: 'all .2s ease',
+                    '.right-icon': {
+                      transition: 'transform .4s ease',
+                      transform: 'translateX(-4px)',
+                    },
+                    ':hover': {
+                      color: '#f2684c',
                       '.right-icon': {
-                        transition: 'transform .4s ease',
-                        transform: 'translateX(-4px)',
+                        transform: 'translateX(-2px)',
                       },
-                      ':hover': {
-                        color: '#f2684c',
-                        '.right-icon': {
-                          transform: 'translateX(-2px)',
-                        },
-                      },
-                    }}
-                  >
-                    <Text sx={{ fontWeight: '500', alignSelf: 'center' }}>
-                      see full schedule
-                    </Text>
-                    <RightIcon />
-                  </Flex>
-                </Link>
-              </Box>
-            </Grid>
-          </Box>
+                    },
+                  }}
+                >
+                  <Text sx={{ fontWeight: '500', alignSelf: 'center' }}>
+                    see full schedule
+                  </Text>
+                  <RightIcon />
+                </Flex>
+              </Link>
+            </Box>
+          </Grid>
         </Flex>
         <Flex
           sx={{
@@ -117,7 +121,7 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
             </Button>
           </Link>
         </Flex>
-      </Container>
+      </Box>
     </Box>
   )
 }

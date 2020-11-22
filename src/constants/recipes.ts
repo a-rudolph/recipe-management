@@ -34,7 +34,7 @@ export const recipes: RecipeType[] = [
     ],
   },
   {
-    name: 'Overnight 40% whole wheat',
+    name: 'Overnight whole wheat',
     key: 'overnight-whole-wheat',
     times: {
       bulk: [5],

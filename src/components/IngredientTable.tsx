@@ -14,9 +14,12 @@ export default function IngredientTable({ recipe }: IngredientTableProps) {
       <Box color='primary' p='8px 8px 0' sx={{ textAlign: 'left' }}>
         <Flex sx={{ justifyContent: 'space-between' }}>
           <Text>Ingredient</Text>
-          <Text>
-            yield {recipe.yield.amount} {recipe.yield.unit}
-          </Text>
+          <Flex>
+            <Text sx={{ mr: 2, display: ['none', 'block'] }}>yield</Text>
+            <Text>
+              {recipe.yield.amount} {recipe.yield.unit}
+            </Text>
+          </Flex>
         </Flex>
       </Box>
       {recipe.ingrendients.map((ing) => (

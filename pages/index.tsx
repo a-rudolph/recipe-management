@@ -28,29 +28,6 @@ export default function Home({ recipes }: HomeProps) {
             src='/bg.jpg'
             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
-          <span
-            sx={{
-              position: 'absolute',
-              right: 0,
-              bottom: 0,
-              fontSize: '14px',
-            }}
-          >
-            Photo by{' '}
-            <a
-              sx={{ color: 'text' }}
-              href='https://unsplash.com/@gaellemarcel?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'
-            >
-              Gaelle Marcel
-            </a>{' '}
-            on{' '}
-            <a
-              sx={{ color: 'text' }}
-              href='https://unsplash.com/s/photos/wheat?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'
-            >
-              Unsplash
-            </a>
-          </span>
         </Box>
         <Box variant='mask' />
       </Box>

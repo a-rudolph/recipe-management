@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Flex, Text, Styled } from 'theme-ui'
+import { jsx, Box, Flex, Text, Styled, Button, useColorMode } from 'theme-ui'
 import { useCallback, useState } from 'react'
 import { BRAND_NAME } from '@styles/themes'
 import useScrollListener from '@hooks/useScrollListener'
@@ -7,8 +7,17 @@ import LogoIcon from '@components/icons/Logo'
 import Link from 'next/link'
 
 export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
+  const [colorMode, setColorMode] = useColorMode()
   const [scrollPosition, setScrollPosition] = useState(0)
   useScrollListener(setScrollPosition)
+
+  const handleColorMode = () => {
+    if (colorMode === 'default') {
+      setColorMode('dark')
+      return
+    }
+    setColorMode('default')
+  }
 
   const getNavStyle = useCallback(() => {
     return {
@@ -41,7 +50,7 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
 
   return (
     <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
-      <Flex sx={{ alignItems: 'center' }}>
+      <Flex sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <Link href='/'>
           <Flex sx={{ cursor: 'pointer', zIndex: '51' }}>
             <LogoIcon />
@@ -59,6 +68,7 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
             </Text>
           </Flex>
         </Link>
+        <Button onClick={handleColorMode}>Color mode</Button>
       </Flex>
       {title && (
         <Box

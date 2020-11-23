@@ -25,7 +25,6 @@ const darkTheme = {
 }
 
 const baseNavStyles = {
-  p: 2,
   width: '100vw',
   height: 'auto',
   zIndex: 50,

@@ -76,7 +76,7 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
             sx={{
               ml: [0, 5],
               m: 0,
-              color: 'primary',
+              color: 'text',
               fontWeight: 700,
               fontSize: [4, `${getTitleSize()}px`],
               transition: 'all .2s ease',

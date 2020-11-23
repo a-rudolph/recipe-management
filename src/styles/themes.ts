@@ -3,10 +3,25 @@ import swiss from '@theme-ui/preset-swiss'
 export const BRAND_NAME = 'whea·ti·ful·ly'
 
 const palette = {
+  ...swiss.colors,
   primary: '#222528',
   secondary: '#fffc47',
   accent: '#c8553d',
+  inverted: 'whitesmoke',
   wheaty: '#F6BB63',
+}
+
+const darkTheme = {
+  text: 'whitesmoke',
+  background: palette.primary,
+  primary: '#38403b',
+  inverted: '#38403b',
+  secondary: palette.muted,
+  highlight: palette.accent,
+  purple: 'hsl(250, 60%, 30%)',
+  muted: '#692c20',
+  gray: 'hsl(10, 20%, 50%)',
+  accent: palette.wheaty,
 }
 
 const baseNavStyles = {
@@ -27,8 +42,8 @@ const baseButtonStyles = {
 export const defaultTheme = {
   ...swiss,
   colors: {
-    ...swiss.colors,
     ...palette,
+    // ...darkTheme,
   },
   button: {
     primary: {
@@ -64,7 +79,7 @@ export const defaultTheme = {
     },
     secondary: {
       ...baseNavStyles,
-      bg: 'white',
+      bg: 'inverted',
     },
   },
   mask: {
@@ -92,7 +107,7 @@ export const defaultTheme = {
   steps: {
     circle: {
       bg: 'accent',
-      color: 'white',
+      color: 'inverted',
       borderRadius: '50%',
       height: '120px',
       width: '120px',

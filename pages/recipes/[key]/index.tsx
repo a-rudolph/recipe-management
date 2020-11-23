@@ -112,9 +112,10 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
             as={`/recipes/${recipe.key}/schedule`}
           >
             <Button
-              bg='accent'
-              pl={3}
               pr={5}
+              pl={3}
+              bg='accent'
+              color='inverted'
               sx={{ borderRadius: '20px 0 0 20px' }}
             >
               see schedule

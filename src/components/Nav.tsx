@@ -2,6 +2,7 @@
 import { jsx, Box, Flex, Text, Styled } from 'theme-ui'
 import { useCallback, useState } from 'react'
 import { BRAND_NAME } from '@styles/themes'
+import ToggleColorModeButton from './ToggleColorModeButton'
 import useScrollListener from '@hooks/useScrollListener'
 import LogoIcon from '@components/icons/Logo'
 import Link from 'next/link'
@@ -41,7 +42,7 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
 
   return (
     <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
-      <Flex sx={{ alignItems: 'center' }}>
+      <Flex p={2} sx={{ alignItems: 'center', position: 'relative' }}>
         <Link href='/'>
           <Flex sx={{ cursor: 'pointer', zIndex: '51' }}>
             <LogoIcon />
@@ -59,6 +60,7 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
             </Text>
           </Flex>
         </Link>
+        <ToggleColorModeButton />
       </Flex>
       {title && (
         <Box
@@ -76,7 +78,7 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
             sx={{
               ml: [0, 5],
               m: 0,
-              color: 'primary',
+              color: 'text',
               fontWeight: 700,
               fontSize: [4, `${getTitleSize()}px`],
               transition: 'all .2s ease',

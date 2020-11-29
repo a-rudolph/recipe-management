@@ -20,7 +20,6 @@ const darkTheme = {
   highlight: palette.accent,
   purple: 'hsl(250, 60%, 30%)',
   muted: '#692c20',
-  gray: 'hsl(10, 20%, 50%)',
   accent: palette.wheaty,
 }
 
@@ -103,6 +102,13 @@ export const defaultTheme = {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+  },
+  text: {
+    step: {
+      color: 'accent',
+      fontWeight: 600,
+      textAlign: 'center',
     },
   },
   steps: {

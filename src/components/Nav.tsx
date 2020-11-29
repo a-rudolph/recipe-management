@@ -7,7 +7,7 @@ import useScrollListener from '@hooks/useScrollListener'
 import LogoIcon from '@components/icons/Logo'
 import Link from 'next/link'
 
-export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
+export const Nav = ({ title }: { title?: string }) => {
   const [scrollPosition, setScrollPosition] = useState(0)
   useScrollListener(setScrollPosition)
 
@@ -76,8 +76,8 @@ export const Nav = ({ title }: { title?: string; recipeKey?: string }) => {
         >
           <Styled.h3
             sx={{
-              ml: [0, 5],
               m: 0,
+              ml: [2, 5],
               color: 'text',
               fontWeight: 700,
               fontSize: [4, `${getTitleSize()}px`],

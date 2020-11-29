@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Text } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
 import moment from 'moment'
 
 type SampleScheduleProps = {
@@ -26,7 +26,7 @@ export default function SampleSchedule(props: SampleScheduleProps) {
   }
 
   return (
-    <Grid gap={0} columns={['120px']}>
+    <Box sx={{ width: '120px' }}>
       <Flex variant='steps.circle'>
         <Box>
           <Text variant='steps.circle.title'>Mix</Text>
@@ -57,6 +57,6 @@ export default function SampleSchedule(props: SampleScheduleProps) {
           </Text>
         </Box>
       </Flex>
-    </Grid>
+    </Box>
   )
 }

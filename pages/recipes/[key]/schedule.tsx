@@ -28,7 +28,7 @@ const Bullets = ({
 }) => {
   const arr = new Array(count).fill(null)
 
-  const bullets = arr.map((_, i) => <Bullet isActive={i === active} />)
+  const bullets = arr.map((_, i) => <Bullet key={i} isActive={i === active} />)
 
   return <>{bullets}</>
 }

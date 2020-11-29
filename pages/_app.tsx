@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return recipes.find((recipe) => recipe.key === key)
   }, [key])
 
-  const { key: recipeKey, name } = getRecipe() || {}
+  const { name } = getRecipe() || {}
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           rowGap: 0,
         }}
       >
-        <Nav recipeKey={recipeKey} title={name} />
+        <Nav title={name} />
         <Component {...pageProps} />
       </Grid>
     </ThemeProvider>

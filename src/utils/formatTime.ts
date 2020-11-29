@@ -5,5 +5,7 @@ export default function formatTime(n: number): string {
 
   const min = m < 10 ? `0${m}` : `${m}`
 
-  return `${h}h ${min}`
+  if (h === 0) return `${min}min`
+
+  return `${h}h ${min}m`
 }

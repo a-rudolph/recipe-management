@@ -3,6 +3,7 @@ import { Box, Flex, Grid, Text } from 'theme-ui'
 import SampleSchedule from '@components/SampleSchedule'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
+import FoldCount from '@components/FoldCount'
 import TimeStep from '@components/TimeStep'
 
 const Bullet = ({ isActive }: { isActive?: boolean }) => (
@@ -43,8 +44,7 @@ export default function Schedule({ recipe }: RecipeProp) {
           <Bullets count={1} />
           <Text variant='step'>Mix final dough</Text>
           <TimeStep title='Bulk fermentation' time={recipe.times.bulk[0]} />
-
-          <Text>meanwhile.. 3 folds</Text>
+          <FoldCount count={3} />
           <Bullets count={3} />
           <Text variant='step'>Shape loaves</Text>
           <TimeStep title='Proof' time={recipe.times.proof[0]} />

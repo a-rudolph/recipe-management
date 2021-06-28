@@ -36,9 +36,9 @@ const Bullets = ({
 
 export default function Schedule({ recipe }: RecipeProp) {
   return (
-    <Box p={3} pt={6} sx={{ display: 'flex' }}>
+    <Box p={3} pt={6} sx={{ display: 'flex', justifyContent: 'center' }}>
       <SampleSchedule times={recipe.times} />
-      <Box px={2} sx={{ flexGrow: 1 }}>
+      <Box px={2} sx={{ flexGrow: 1, maxWidth: ['80vw', '50vw'] }}>
         <Grid gap={0}>
           <TimeStep title='Autolyse' time={0.5} />
           <Bullets count={1} />

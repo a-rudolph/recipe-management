@@ -37,9 +37,8 @@ export const Nav = ({ title }: { title?: string }) => {
   }, [scrollPosition])
 
   const getTitleSize = useCallback(() => {
-    return calcTransition(48, 32)
+    return calcTransition(42, 32)
   }, [scrollPosition])
-
   return (
     <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
       <Flex p={2} sx={{ alignItems: 'center', position: 'relative' }}>

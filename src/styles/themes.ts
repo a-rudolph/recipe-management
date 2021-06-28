@@ -70,8 +70,6 @@ export const defaultTheme = {
     boxShadow: '0px 10px 10px 10px rgb(0,0,0,0.45)',
     item: {
       p: 2,
-      borderRight: '1px solid',
-      borderColor: 'primary',
     },
     primary: {
       ...baseNavStyles,

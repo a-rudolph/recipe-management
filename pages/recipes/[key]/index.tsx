@@ -43,7 +43,11 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
           }}
         >
           <Grid
-            columns={['85vw', 'minmax(450px, 580px) auto minmax(220px, 320px)']}
+            columns={[
+              '85vw',
+              '75vw',
+              'minmax(450px, 580px) auto minmax(220px, 320px)',
+            ]}
           >
             <Box>
               <RecipeTimes times={recipe.times} />
@@ -51,7 +55,7 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
             </Box>
             <Box
               sx={{
-                display: ['none', 'flex'],
+                display: ['none', 'none', 'flex'],
                 marginTop: '-40px',
                 width: 'max-content',
               }}
@@ -60,11 +64,11 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
             </Box>
             <Box
               sx={{
-                mt: '-32px',
+                mt: [0, 0, '-32px'],
                 height: '36px',
                 borderBottom: '2px solid',
                 borderColor: 'accent',
-                display: ['none', 'flex'],
+                display: 'flex',
                 justifyContent: 'flex-end',
               }}
             >
@@ -98,29 +102,6 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
               </Link>
             </Box>
           </Grid>
-        </Flex>
-        <Flex
-          sx={{
-            marginTop: 3,
-            display: ['flex', 'none'],
-            justifyContent: 'flex-end',
-            marginRight: '-32px',
-          }}
-        >
-          <Link
-            href='/recipes/[key]/schedule'
-            as={`/recipes/${recipe.key}/schedule`}
-          >
-            <Button
-              pr={5}
-              pl={3}
-              bg='accent'
-              color='inverted'
-              sx={{ borderRadius: '20px 0 0 20px' }}
-            >
-              see schedule
-            </Button>
-          </Link>
         </Flex>
       </Box>
     </Box>

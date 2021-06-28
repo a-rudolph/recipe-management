@@ -5,7 +5,7 @@ type FoldCountProps = {
 }
 
 export default function FoldCount({ count }: FoldCountProps) {
-  if (count === 1) return <Text>{`${count} fold required`}</Text>
+  if (count === 1) return <Text>{`perform ${count} fold`}</Text>
 
-  return <Text>{`${count} folds required`}</Text>
+  return <Text>{`perform ${count} folds`}</Text>
 }

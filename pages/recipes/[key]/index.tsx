@@ -81,15 +81,14 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
                     px: 3,
                     cursor: 'pointer',
                     color: 'accent',
-                    transition: 'all .2s ease',
                     '.right-icon': {
-                      transition: 'transform .4s ease',
+                      transition: 'transform .2s ease',
                       transform: 'translateX(-4px)',
                     },
                     ':hover': {
-                      color: '#f2684c',
                       '.right-icon': {
-                        transform: 'translateX(-2px)',
+                        transition: 'transform .4s ease',
+                        transform: 'translateX(0px)',
                       },
                     },
                   }}

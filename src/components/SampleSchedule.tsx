@@ -1,5 +1,7 @@
 import { Box, Flex, Text } from 'theme-ui'
+import { useState } from 'react'
 import moment from 'moment'
+import Modal from './Modal'
 
 type SampleScheduleProps = {
   times: RecipeType['times']
@@ -16,6 +18,8 @@ const dividerSx = {
 export default function SampleSchedule(props: SampleScheduleProps) {
   const { times } = props
 
+  const [visible, setVisible] = useState(false)
+
   const start = moment()
   const shape = moment(start).add(times.bulk[0], 'h')
   const bake = moment(shape).add(times.proof[0], 'h')
@@ -27,7 +31,10 @@ export default function SampleSchedule(props: SampleScheduleProps) {
 
   return (
     <Box sx={{ width: '120px' }}>
-      <Flex variant='steps.circle'>
+      <Modal visible={visible} onClose={() => setVisible(false)}>
+        Select start time
+      </Modal>
+      <Flex onClick={() => setVisible(true)} variant='steps.circle'>
         <Box>
           <Text variant='steps.circle.title'>Mix</Text>
           <Text variant='steps.circle.time'>

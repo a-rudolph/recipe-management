@@ -26,34 +26,34 @@ export default function SampleSchedule(props: SampleScheduleProps) {
     bake,
   }
 
+  const steps: Steps = [
+    {
+      time: timeMoments.start,
+      title: 'Mix',
+    },
+    {
+      time: timeMoments.shape,
+      title: 'Shape',
+    },
+    {
+      time: timeMoments.bake,
+      title: 'Bake',
+    },
+  ]
+
   return (
     <Box sx={{ width: '120px' }}>
       <Modal visible={Boolean(modal)} onClose={() => setModal(null)}>
         Select {modal?.title} time
       </Modal>
-      <TimerDroplet
-        onTimeClick={onTimeClick}
-        step={{
-          time: timeMoments.start,
-          title: 'Mix',
-        }}
-      />
-      <TimerDroplet.Divider />
-      <TimerDroplet
-        onTimeClick={onTimeClick}
-        step={{
-          time: timeMoments.shape,
-          title: 'Shape',
-        }}
-      />
-      <TimerDroplet.Divider />
-      <TimerDroplet
-        onTimeClick={onTimeClick}
-        step={{
-          time: timeMoments.bake,
-          title: 'Bake',
-        }}
-      />
+      {steps.map((step, i, arr) => {
+        return (
+          <>
+            <TimerDroplet onTimeClick={onTimeClick} step={step} />
+            {i < arr.length - 1 && <TimerDroplet.Divider />}
+          </>
+        )
+      })}
     </Box>
   )
 }

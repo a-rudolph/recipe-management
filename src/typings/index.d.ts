@@ -17,6 +17,8 @@ type Step = {
   time: import('moment').Moment
 }
 
+type Steps = Array<Step>
+
 type IngredientType = {
   quantity: number
   unit: string

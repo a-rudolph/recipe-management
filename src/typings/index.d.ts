@@ -12,6 +12,11 @@ type RecipeType = {
   ingrendients: IngredientType[]
 }
 
+type Step = {
+  title: string
+  time: import('moment').Moment
+}
+
 type IngredientType = {
   quantity: number
   unit: string

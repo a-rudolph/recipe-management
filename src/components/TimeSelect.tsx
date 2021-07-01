@@ -1,7 +1,6 @@
-/** @jsx jsx */
 import moment, { Moment } from 'moment'
 import { ChangeEvent, OptionHTMLAttributes } from 'react'
-import { jsx, Flex, Select, SelectProps, SxStyleProp, Text } from 'theme-ui'
+import { Flex, Select, SelectProps, SxStyleProp, Text } from 'theme-ui'
 
 type TimeSelectProps = {
   value: Moment
@@ -18,6 +17,11 @@ const selectSx: SxStyleProp = {
   borderColor: 'transparent',
   cursor: 'default',
   padding: '4px 8px',
+  outline: 'none',
+  option: {
+    color: 'text',
+    bg: 'background',
+  },
 }
 
 const TimeSelect = ({ value, onChange, ...selectProps }: TimeSelectProps) => {
@@ -94,16 +98,7 @@ type TimeOptionProps = {
 } & Omit<OptionHTMLAttributes<HTMLOptionElement>, 'value'>
 
 const TimeOption = ({ value, ...rest }: TimeOptionProps) => {
-  return (
-    <option
-      sx={{
-        color: 'text',
-        bg: 'background',
-      }}
-      value={value.toISOString()}
-      {...rest}
-    />
-  )
+  return <option value={value.toISOString()} {...rest} />
 }
 
 export default TimeSelect

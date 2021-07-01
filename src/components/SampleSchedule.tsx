@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { Box } from 'theme-ui'
 import TimerDroplet from './TimerDroplet'
 import moment from 'moment'
@@ -15,8 +15,6 @@ const getInitialStart = () => {
     next++
   }
 
-  console.log(next)
-
   return moment().minutes(next)
 }
 
@@ -24,8 +22,6 @@ export default function SampleSchedule(props: SampleScheduleProps) {
   const { times } = props
 
   const [start, setStart] = useState(getInitialStart)
-
-  console.log(start)
 
   const shape = moment(start).add(times.bulk[0], 'h')
   const bake = moment(shape).add(times.proof[0], 'h')
@@ -56,16 +52,10 @@ export default function SampleSchedule(props: SampleScheduleProps) {
         const onTimeChange = i === 0 ? setStart : undefined
 
         return (
-          <>
-            <TimerDroplet
-              key={step.title}
-              onTimeChange={onTimeChange}
-              step={step}
-            />
-            {i < arr.length - 1 && (
-              <TimerDroplet.Divider key={`${step.title}-div`} />
-            )}
-          </>
+          <Fragment key={step.title}>
+            <TimerDroplet onTimeChange={onTimeChange} step={step} />
+            {i < arr.length - 1 && <TimerDroplet.Divider />}
+          </Fragment>
         )
       })}
     </Box>

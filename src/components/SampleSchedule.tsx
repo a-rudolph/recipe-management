@@ -43,9 +43,6 @@ export default function SampleSchedule(props: SampleScheduleProps) {
 
   return (
     <Box sx={{ width: '120px' }}>
-      <Modal visible={Boolean(modal)} onClose={() => setModal(null)}>
-        Select {modal?.title} time
-      </Modal>
       {steps.map((step, i, arr) => {
         return (
           <>

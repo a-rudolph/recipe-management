@@ -121,6 +121,7 @@ export const defaultTheme = {
       content: {
         position: 'absolute',
         bottom: '44px',
+        width: '100%',
       },
       title: {
         fontSize: '18px',

@@ -70,8 +70,6 @@ export const defaultTheme = {
     boxShadow: '0px 10px 10px 10px rgb(0,0,0,0.45)',
     item: {
       p: 2,
-      borderRight: '1px solid',
-      borderColor: 'primary',
     },
     primary: {
       ...baseNavStyles,
@@ -120,15 +118,22 @@ export const defaultTheme = {
       height: '120px',
       width: '120px',
       justifyContent: 'center',
-      alignItems: 'center',
+      position: 'relative',
+      content: {
+        position: 'absolute',
+        bottom: '32px',
+        width: '100%',
+      },
       title: {
-        fontSize: '32px',
+        fontSize: '18px',
         textAlign: 'center',
+        fontWeight: 500,
+        lineHeight: 1.3,
       },
       time: {
+        borderBottom: '1px dashed',
         textAlign: 'center',
-        fontSize: '16px',
-        fontWeight: 500,
+        fontSize: '28px',
         lineHeight: 1,
       },
     },

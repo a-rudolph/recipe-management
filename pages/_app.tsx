@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { BRAND_NAME, defaultTheme } from '@styles/themes'
 import { jsx, Grid, ThemeProvider } from 'theme-ui'
-import { useCallback } from 'react'
+import { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
 import { Nav } from '@components/Nav'
@@ -13,13 +13,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const { key } = router.query
 
-  const getRecipe = useCallback(() => {
+  const recipe = useMemo(() => {
     const recipes = getAvailableRecipes()
 
     return recipes.find((recipe) => recipe.key === key)
   }, [key])
 
-  const { name } = getRecipe() || {}
+  const { name } = recipe || {}
 
   return (
     <ThemeProvider theme={defaultTheme}>

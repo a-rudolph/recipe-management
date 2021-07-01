@@ -24,12 +24,12 @@ export const recipes: RecipeType[] = [
       {
         quantity: 22,
         unit: 'g',
-        name: 'fine sea salt',
+        name: 'fine salt',
       },
       {
         quantity: 0.8,
         unit: 'g',
-        name: 'instant yeast',
+        name: 'yeast',
       },
     ],
   },
@@ -63,12 +63,12 @@ export const recipes: RecipeType[] = [
       {
         quantity: 22,
         unit: 'g',
-        name: 'fine sea salt',
+        name: 'fine salt',
       },
       {
         quantity: 3,
         unit: 'g',
-        name: 'instant yeast',
+        name: 'yeast',
       },
     ],
   },
@@ -97,12 +97,12 @@ export const recipes: RecipeType[] = [
       {
         quantity: 21,
         unit: 'g',
-        name: 'fine sea salt',
+        name: 'fine salt',
       },
       {
         quantity: 4,
         unit: 'g',
-        name: 'instant yeast',
+        name: 'yeast',
       },
     ],
   },

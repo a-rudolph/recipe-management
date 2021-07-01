@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, Text, Styled } from 'theme-ui'
-import { useCallback, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { BRAND_NAME } from '@styles/themes'
 import ToggleColorModeButton from './ToggleColorModeButton'
 import useScrollListener from '@hooks/useScrollListener'
@@ -11,7 +11,9 @@ export const Nav = ({ title }: { title?: string }) => {
   const [scrollPosition, setScrollPosition] = useState(0)
   useScrollListener(setScrollPosition)
 
-  const getNavStyle = useCallback(() => {
+  const navStyle = useMemo(() => {
+    if (!title) return { variant: 'nav' }
+
     return {
       variant: `nav.${scrollPosition < 25 ? 'primary' : 'secondary'}`,
       boxShadow: scrollPosition < 57 ? '0' : '0px 1px 2px 1px rgb(0,0,0,0.25)',
@@ -19,7 +21,7 @@ export const Nav = ({ title }: { title?: string }) => {
         display: scrollPosition < 25 ? 'block' : 'none',
       },
     }
-  }, [scrollPosition])
+  }, [scrollPosition, title])
 
   const calcTransition = (start: number, finish: number): number => {
     const inc = (start - finish) / 57
@@ -28,20 +30,20 @@ export const Nav = ({ title }: { title?: string }) => {
     return calculated
   }
 
-  const getTitlePosition = useCallback(() => {
+  const titlePosition = useMemo(() => {
     return {
       transform: `translateY(${calcTransition(72, 15)}px)`,
       transition: 'left .4s ease',
       left: [scrollPosition < 25 ? 1 : 5, 0],
     }
-  }, [scrollPosition])
+  }, [scrollPosition, title])
 
-  const getTitleSize = useCallback(() => {
-    return calcTransition(48, 32)
-  }, [scrollPosition])
+  const titleSize = useMemo(() => {
+    return calcTransition(42, 32)
+  }, [scrollPosition, title])
 
   return (
-    <Box sx={title ? getNavStyle() : { variant: 'nav' }}>
+    <Box sx={navStyle}>
       <Flex p={2} sx={{ alignItems: 'center', position: 'relative' }}>
         <Link href='/'>
           <Flex sx={{ cursor: 'pointer', zIndex: '51' }}>
@@ -65,7 +67,7 @@ export const Nav = ({ title }: { title?: string }) => {
       {title && (
         <Box
           sx={{
-            ...getTitlePosition(),
+            ...titlePosition,
             position: 'fixed',
             top: 0,
             width: 'auto',
@@ -80,7 +82,7 @@ export const Nav = ({ title }: { title?: string }) => {
               ml: [2, 5],
               color: 'text',
               fontWeight: 700,
-              fontSize: [4, `${getTitleSize()}px`],
+              fontSize: [4, `${titleSize}px`],
               transition: 'all .2s ease',
               whiteSpace: 'nowrap',
             }}

@@ -87,7 +87,8 @@ export const defaultTheme = {
     height: '100%',
     width: '100%',
     top: 0,
-    backgroundColor: 'rgb(0,0,0,0.35)',
+    opacity: 0.35,
+    backgroundColor: 'rgb(0,0,0)',
   },
   height: {
     medium: '52px',

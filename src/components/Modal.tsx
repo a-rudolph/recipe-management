@@ -36,7 +36,7 @@ export default function Modal({
       onClick={onClose}
       ref={modalRef}
       sx={{
-        bg: 'rgb(0,0,0,0.4)',
+        bg: 'rgb(0, 0, 0, 0.4)',
         height: '100vh',
         width: '100vw',
         zIndex: 51,
@@ -50,7 +50,7 @@ export default function Modal({
         onClick={(e) => e.stopPropagation()}
         sx={{
           borderRadius: '4px',
-          boxShadow: '1px 2px 3px 0 rgb(0,0,0,.8)',
+          boxShadow: '1px 2px 3px 0 rgb(0, 0, 0, 0.8)',
           zIndex: 52,
           position: 'absolute',
           top: '50%',

@@ -12,6 +12,13 @@ type RecipeType = {
   ingrendients: IngredientType[]
 }
 
+type Step = {
+  title: string
+  time: import('moment').Moment
+}
+
+type Steps = Array<Step>
+
 type IngredientType = {
   quantity: number
   unit: string
@@ -21,3 +28,5 @@ type IngredientType = {
 type RecipeProp = {
   recipe: RecipeType
 }
+
+type ChangeHandler<T> = (value: T) => void

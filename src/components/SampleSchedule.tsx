@@ -1,22 +1,32 @@
-import { Box, Flex, Text } from 'theme-ui'
+import { useState } from 'react'
+import { Box } from 'theme-ui'
+import TimerDroplet from './TimerDroplet'
 import moment from 'moment'
 
 type SampleScheduleProps = {
   times: RecipeType['times']
 }
 
-const dividerSx = {
-  bg: 'accent',
-  width: '4px',
-  height: '16px',
-  m: '8px auto',
-  mb: 0,
+const getInitialStart = () => {
+  const now = moment().get('minutes')
+
+  let next = now
+  while (next % 15 !== 0) {
+    next++
+  }
+
+  console.log(next)
+
+  return moment().minutes(next)
 }
 
 export default function SampleSchedule(props: SampleScheduleProps) {
   const { times } = props
 
-  const start = moment()
+  const [start, setStart] = useState(getInitialStart)
+
+  console.log(start)
+
   const shape = moment(start).add(times.bulk[0], 'h')
   const bake = moment(shape).add(times.proof[0], 'h')
   const timeMoments = {
@@ -25,38 +35,39 @@ export default function SampleSchedule(props: SampleScheduleProps) {
     bake,
   }
 
+  const steps: Steps = [
+    {
+      time: timeMoments.start,
+      title: 'Mix',
+    },
+    {
+      time: timeMoments.shape,
+      title: 'Shape',
+    },
+    {
+      time: timeMoments.bake,
+      title: 'Bake',
+    },
+  ]
+
   return (
     <Box sx={{ width: '120px' }}>
-      <Flex variant='steps.circle'>
-        <Box>
-          <Text variant='steps.circle.title'>Mix</Text>
-          <Text variant='steps.circle.time'>
-            {timeMoments.start.format('HH:mm A')}
-          </Text>
-        </Box>
-      </Flex>
-      <Flex>
-        <Box sx={dividerSx} />
-      </Flex>
-      <Flex variant='steps.circle'>
-        <Box>
-          <Text variant='steps.circle.title'>Shape</Text>
-          <Text variant='steps.circle.time'>
-            {timeMoments.shape.format('HH:mm A')}
-          </Text>
-        </Box>
-      </Flex>
-      <Flex>
-        <Box sx={dividerSx} />
-      </Flex>
-      <Flex variant='steps.circle'>
-        <Box>
-          <Text variant='steps.circle.title'>Bake</Text>
-          <Text variant='steps.circle.time'>
-            {timeMoments.bake.format('HH:mm A')}
-          </Text>
-        </Box>
-      </Flex>
+      {steps.map((step, i, arr) => {
+        const onTimeChange = i === 0 ? setStart : undefined
+
+        return (
+          <>
+            <TimerDroplet
+              key={step.title}
+              onTimeChange={onTimeChange}
+              step={step}
+            />
+            {i < arr.length - 1 && (
+              <TimerDroplet.Divider key={`${step.title}-div`} />
+            )}
+          </>
+        )
+      })}
     </Box>
   )
 }

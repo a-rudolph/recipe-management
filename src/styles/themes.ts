@@ -120,18 +120,19 @@ export const defaultTheme = {
       position: 'relative',
       content: {
         position: 'absolute',
-        bottom: '44px',
+        bottom: '32px',
         width: '100%',
       },
       title: {
         fontSize: '18px',
         textAlign: 'center',
         fontWeight: 500,
+        lineHeight: 1.3,
       },
       time: {
         borderBottom: '1px dashed',
         textAlign: 'center',
-        fontSize: '24px',
+        fontSize: '28px',
         lineHeight: 1,
       },
     },

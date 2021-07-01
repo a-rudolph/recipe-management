@@ -1,23 +1,32 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Box } from 'theme-ui'
 import TimerDroplet from './TimerDroplet'
 import moment from 'moment'
-import Modal from './Modal'
 
 type SampleScheduleProps = {
   times: RecipeType['times']
 }
 
+const getInitialStart = () => {
+  const now = moment().get('minutes')
+
+  let next = now
+  while (next % 15 !== 0) {
+    next++
+  }
+
+  console.log(next)
+
+  return moment().minutes(next)
+}
+
 export default function SampleSchedule(props: SampleScheduleProps) {
   const { times } = props
 
-  const [modal, setModal] = useState<Step | null>(null)
+  const [start, setStart] = useState(getInitialStart)
 
-  const onTimeClick = useCallback((step: Step) => {
-    setModal(step)
-  }, [])
+  console.log(start)
 
-  const start = moment()
   const shape = moment(start).add(times.bulk[0], 'h')
   const bake = moment(shape).add(times.proof[0], 'h')
   const timeMoments = {
@@ -44,10 +53,18 @@ export default function SampleSchedule(props: SampleScheduleProps) {
   return (
     <Box sx={{ width: '120px' }}>
       {steps.map((step, i, arr) => {
+        const onTimeChange = i === 0 ? setStart : undefined
+
         return (
           <>
-            <TimerDroplet onTimeClick={onTimeClick} step={step} />
-            {i < arr.length - 1 && <TimerDroplet.Divider />}
+            <TimerDroplet
+              key={step.title}
+              onTimeChange={onTimeChange}
+              step={step}
+            />
+            {i < arr.length - 1 && (
+              <TimerDroplet.Divider key={`${step.title}-div`} />
+            )}
           </>
         )
       })}

@@ -1,19 +1,19 @@
-import { useState } from 'react'
-import { Box, Flex, Select, Text } from 'theme-ui'
 import TimeSelect from './TimeSelect'
+import { Box, Flex, Text } from 'theme-ui'
+import { Moment } from 'moment'
 
 type TimerDropletProps = {
   step: Step
   onTimeClick?: (step: Step) => void
+  onTimeChange?: ChangeHandler<Moment>
 }
 
 export default function TimerDroplet({
   step,
+  onTimeChange,
   onTimeClick = () => {},
 }: TimerDropletProps) {
   const { time, title } = step
-
-  const [value, setValue] = useState(time)
 
   const handleClick = () => {
     onTimeClick(step)
@@ -24,12 +24,10 @@ export default function TimerDroplet({
       <Box variant='steps.circle.content'>
         <Text variant='steps.circle.title'>{title}</Text>
         <TimeSelect
-          value={value}
-          onChange={(m) => setValue(m)}
+          value={time}
+          onChange={onTimeChange}
           variant='steps.circle.time'
-        >
-          <option>{time.format('HH:mm A')}</option>
-        </TimeSelect>
+        />
       </Box>
     </Flex>
   )

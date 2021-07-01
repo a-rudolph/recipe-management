@@ -1,63 +1,89 @@
 import moment, { Moment } from 'moment'
 import { ChangeEvent, OptionHTMLAttributes } from 'react'
-import { Flex, Select, SelectProps, Text } from 'theme-ui'
+import { Flex, Select, SelectProps, SxStyleProp, Text } from 'theme-ui'
 
 type TimeSelectProps = {
   value: Moment
   onChange: (m: Moment) => void
 } & Omit<SelectProps, 'ref' | 'value' | 'onChange'>
 
+const wrapperSx: SxStyleProp = {
+  border: '1px solid',
+  borderColor: 'inverted',
+  borderRadius: '8px',
+}
+
+const selectSx: SxStyleProp = {
+  borderColor: 'transparent',
+  cursor: 'default',
+  padding: '4px 8px',
+}
+
 const TimeSelect = ({ value, onChange, ...selectProps }: TimeSelectProps) => {
   const handleChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
-    const m = moment(value)
-    onChange(m)
+    try {
+      const m = moment(value)
+      onChange(m)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
-  const minutes = new Array(4)
-  const hours = new Array(12)
+  const minutes = new Array(4).fill(null)
+  const hours = new Array(24).fill(null)
+
+  const style = onChange ? wrapperSx : selectSx
 
   return (
-    <Flex sx={{ width: '100%', justifyContent: 'space-around' }}>
-      <Select
-        sx={{
-          flexGrow: 1,
-        }}
-        value={value.toISOString()}
-        onChange={handleChange}
-        {...selectProps}
-      >
-        {hours.map((_, i) => {
-          const optionValue = moment(value).hours(0).add(i, 'h')
-          return (
-            <TimeOption value={optionValue}>
-              {optionValue.format('HH')}
-            </TimeOption>
-          )
-        })}
-        <TimeOption value={value}>{value.format('HH')}</TimeOption>
-      </Select>
-      <Text>:</Text>
-      <Select
-        sx={{
-          flexGrow: 1,
-        }}
-        value={value.toISOString()}
-        onChange={handleChange}
-        {...selectProps}
-      >
-        {minutes.map((_, i) => {
-          const optionValue = moment(value)
-            .minutes(0)
-            .add(i * 15, 'm')
-          return (
-            <TimeOption value={optionValue}>
-              {optionValue.format('mm')}
-            </TimeOption>
-          )
-        })}
-      </Select>
+    <Flex sx={{ width: '100%', justifyContent: 'center' }}>
+      <Flex sx={{ svg: { display: 'none' }, ...style }}>
+        <Select
+          sx={{ ...selectSx, pr: '4px' }}
+          disabled={!onChange}
+          value={value.toISOString()}
+          onChange={handleChange}
+          {...selectProps}
+        >
+          {hours.map((_, i) => {
+            const optionValue = moment(value).hours(0).add(i, 'h')
+            return (
+              <TimeOption key={i} value={optionValue}>
+                {optionValue.format('HH')}
+              </TimeOption>
+            )
+          })}
+        </Select>
+        <Text
+          sx={{
+            fontSize: 3,
+            fontWeight: 500,
+            margin: '0 2px',
+          }}
+        >
+          :
+        </Text>
+        <Select
+          sx={{ ...selectSx, pl: '4px' }}
+          disabled={!onChange}
+          value={value.toISOString()}
+          onChange={handleChange}
+          {...selectProps}
+        >
+          {minutes.map((_, i) => {
+            const optionValue = moment(value)
+              .minutes(0)
+              .add(i * 15, 'm')
+
+            return (
+              <TimeOption key={i} value={optionValue}>
+                {optionValue.format('mm')}
+              </TimeOption>
+            )
+          })}
+        </Select>
+      </Flex>
     </Flex>
   )
 }

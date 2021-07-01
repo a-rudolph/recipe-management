@@ -28,3 +28,5 @@ type IngredientType = {
 type RecipeProp = {
   recipe: RecipeType
 }
+
+type ChangeHandler<T> = (value: T) => void

@@ -1,27 +1,22 @@
-import { useState, Fragment } from 'react'
-import { Box } from 'theme-ui'
 import TimerDroplet from './TimerDroplet'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
+import { useTimeContext } from '@hooks/useTimeContext'
+import { Fragment } from 'react'
+import { Box } from 'theme-ui'
 
 type SampleScheduleProps = {
   times: RecipeType['times']
 }
 
-const getInitialStart = () => {
-  const now = moment().get('minutes')
-
-  let next = now
-  while (next % 15 !== 0) {
-    next++
-  }
-
-  return moment().minutes(next)
-}
-
 export default function SampleSchedule(props: SampleScheduleProps) {
   const { times } = props
 
-  const [start, setStart] = useState(getInitialStart)
+  const {
+    time: { start },
+    setTime,
+  } = useTimeContext()
+
+  const setStart = (start: Moment) => setTime({ start })
 
   const shape = moment(start).add(times.bulk[0], 'h')
   const bake = moment(shape).add(times.proof[0], 'h')

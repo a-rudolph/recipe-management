@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { BRAND_NAME, defaultTheme } from '@styles/themes'
 import { jsx, Grid, ThemeProvider } from 'theme-ui'
+import { TimeContextProvider } from '@hooks/useTimeContext'
 import { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
@@ -22,21 +23,23 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { name } = recipe || {}
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Head>
-        <title>{name || BRAND_NAME}</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <Grid
-        sx={{
-          gridTemplateRows: '1fr auto',
-          rowGap: 0,
-        }}
-      >
-        <Nav title={name} />
-        <Component {...pageProps} />
-      </Grid>
-    </ThemeProvider>
+    <TimeContextProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <Head>
+          <title>{name || BRAND_NAME}</title>
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
+        <Grid
+          sx={{
+            gridTemplateRows: '1fr auto',
+            rowGap: 0,
+          }}
+        >
+          <Nav title={name} />
+          <Component {...pageProps} />
+        </Grid>
+      </ThemeProvider>
+    </TimeContextProvider>
   )
 }
 

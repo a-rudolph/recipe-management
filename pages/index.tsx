@@ -20,7 +20,7 @@ export default function Home({ recipes }: HomeProps) {
   }
 
   return (
-    <Grid sx={{ height: '50vh' }} gap={0}>
+    <Grid gap={0}>
       <Box sx={{ position: 'relative' }}>
         <Box sx={startingStyle.placeholder} />
         <Box sx={startingStyle.banner}>
@@ -34,8 +34,8 @@ export default function Home({ recipes }: HomeProps) {
       <Box p='3' sx={{ height: '100%' }}>
         <Flex sx={{ flexDirection: 'column', alignItems: 'center' }}>
           <Grid sx={{ maxWidth: '560px', width: '100%' }}>
-            {recipes.map(({ key, name }) => (
-              <RecipeCard key={key} recipeKey={key} name={name} />
+            {recipes.map((recipe) => (
+              <RecipeCard key={recipe.key} recipe={recipe} />
             ))}
           </Grid>
         </Flex>

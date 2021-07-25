@@ -59,7 +59,6 @@ export const defaultTheme = {
     },
   },
   card: {
-    padding: 3,
     bg: 'muted',
     boxShadow: `1px 1px 2px 1px ${palette.accent}`,
   },

@@ -20,13 +20,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     return recipes.find((recipe) => recipe.key === key)
   }, [key])
 
-  const { name } = recipe || {}
+  const pageTitle = recipe?.name
 
   return (
     <TimeContextProvider>
       <ThemeProvider theme={defaultTheme}>
         <Head>
-          <title>{name || BRAND_NAME}</title>
+          <title>{pageTitle || BRAND_NAME}</title>
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <Grid
@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             rowGap: 0,
           }}
         >
-          <Nav title={name} />
+          <Nav title={pageTitle} />
           <Component {...pageProps} />
         </Grid>
       </ThemeProvider>

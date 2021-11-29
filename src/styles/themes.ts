@@ -41,9 +41,9 @@ export const defaultTheme = {
   ...swiss,
   colors: {
     ...palette,
-    modes: {
-      dark: darkTheme,
-    },
+    // modes: {
+    //   dark: darkTheme,
+    // },
   },
   button: {
     primary: {

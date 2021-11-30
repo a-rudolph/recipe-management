@@ -19,8 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           ></link>
         </Head>
         <BasicLayout>
-          Hello Bread makers
-          {/* <Component {...pageProps} /> */}
+          <Component {...pageProps} />
         </BasicLayout>
       </ThemeProvider>
     </TimeContextProvider>

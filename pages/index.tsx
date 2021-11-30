@@ -1,46 +1,30 @@
-/** @jsx jsx */
-import { Box, Flex, Grid, jsx } from 'theme-ui'
+import { Card, Text } from '@components/atoms'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
-import RecipeCard from '@components/RecipeCard'
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  .atom-card {
+    width: 80vw;
+    height: 60vh;
+  }
+`
 
 type HomeProps = {
   recipes: RecipeType[]
 }
 
 export default function Home({ recipes }: HomeProps) {
-  const startingStyle: { [key: string]: import('theme-ui').SxStyleProp } = {
-    banner: {
-      height: '50vh',
-      position: 'relative',
-    },
-    placeholder: {
-      height: '50vh',
-      position: 'absolute',
-    },
-  }
-
   return (
-    <Grid gap={0}>
-      <Box sx={{ position: 'relative' }}>
-        <Box sx={startingStyle.placeholder} />
-        <Box sx={startingStyle.banner}>
-          <img
-            src='/bg.jpg'
-            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </Box>
-        <Box variant='mask' />
-      </Box>
-      <Box p='3' sx={{ height: '100%' }}>
-        <Flex sx={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Grid sx={{ maxWidth: '560px', width: '100%' }}>
-            {recipes.map((recipe) => (
-              <RecipeCard key={recipe.key} recipe={recipe} />
-            ))}
-          </Grid>
-        </Flex>
-      </Box>
-    </Grid>
+    <StyledDiv>
+      <Card side='right'>
+        <Text weight={500} fs='24px' color='wheaty_1'>
+          Saturday white bread
+        </Text>
+      </Card>
+    </StyledDiv>
   )
 }
 

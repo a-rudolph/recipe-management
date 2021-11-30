@@ -24,6 +24,10 @@ const StyledDiv = styled.div`
     background-image: url(${BG_PATH});
     background-position-x: unset;
   }
+
+  .page-content {
+    margin-top: 24px;
+  }
 `
 
 const Row = styled.div`
@@ -59,7 +63,7 @@ export default function BasicLayout({ children }: BasicLayoutProps) {
       <Row className='centered'>
         <TimeCard />
       </Row>
-      <div>{children}</div>
+      <div className='page-content'>{children}</div>
     </StyledDiv>
   )
 }

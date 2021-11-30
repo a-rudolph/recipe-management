@@ -3,6 +3,7 @@ import { BRAND_NAME } from '@styles/themes'
 import { Text } from '@components/atoms'
 import breakpoints from '@constants/responsive'
 import LogoIcon from '@components/icons/Logo'
+import TimeCard from '@components/TimeCard'
 import styled from 'styled-components'
 
 type BasicLayoutProps = {
@@ -29,6 +30,10 @@ const Row = styled.div`
   display: flex;
   align-items: center;
 
+  &.centered {
+    justify-content: center;
+  }
+
   .header-logo-wrap {
     padding: 12px;
   }
@@ -51,6 +56,9 @@ export default function BasicLayout({ children }: BasicLayoutProps) {
   return (
     <StyledDiv>
       <Header />
+      <Row className='centered'>
+        <TimeCard />
+      </Row>
       <div>{children}</div>
     </StyledDiv>
   )

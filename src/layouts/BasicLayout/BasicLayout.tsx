@@ -40,7 +40,7 @@ const Header = () => {
       <div className='header-logo-wrap'>
         <LogoIcon />
       </div>
-      <Text fs='24px' weight={500} color='#F6BB63'>
+      <Text fs='24px' weight={500} color='wheaty_1'>
         {BRAND_NAME}
       </Text>
     </Row>

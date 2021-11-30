@@ -11,6 +11,7 @@ const StyledText = styled.span<StyledTextProps>`
   color: ${({ $color }) => $color};
   font-weight: ${({ $weight }) => $weight};
   font-size: ${({ $fontSize }) => $fontSize};
+  font-family: Roboto;
 `
 
 type TextProps = {
@@ -18,6 +19,7 @@ type TextProps = {
   color?: string
   fs?: string
   weight?: number
+  style?: React.CSSProperties
 }
 
 export default function Text({
@@ -25,9 +27,10 @@ export default function Text({
   color = theme.colors.wheaty_2,
   fs = '16px',
   weight = 400,
+  ...rest
 }: TextProps) {
   return (
-    <StyledText $color={color} $weight={weight} $fontSize={fs}>
+    <StyledText {...rest} $color={color} $weight={weight} $fontSize={fs}>
       {children}
     </StyledText>
   )

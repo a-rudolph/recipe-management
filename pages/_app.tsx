@@ -13,6 +13,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Head>
           <title>{BRAND_NAME}</title>
           <link rel='icon' href='/favicon.ico' />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Roboto&family=Lato&display=swap'
+            rel='stylesheet'
+          ></link>
         </Head>
         <BasicLayout>
           Hello Bread makers

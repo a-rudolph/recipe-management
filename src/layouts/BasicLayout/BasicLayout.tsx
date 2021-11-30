@@ -2,6 +2,7 @@ import { BG_PATH, BG_SM_PATH } from '@constants/assets'
 import { BRAND_NAME } from '@styles/themes'
 import { Text } from '@components/atoms'
 import breakpoints from '@constants/responsive'
+import LogoIcon from '@components/icons/Logo'
 import styled from 'styled-components'
 
 type BasicLayoutProps = {
@@ -24,14 +25,32 @@ const StyledDiv = styled.div`
   }
 `
 
-const Logo = () => {
-  return <Text>{BRAND_NAME}</Text>
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+
+  .header-logo-wrap {
+    padding: 12px;
+  }
+`
+
+const Header = () => {
+  return (
+    <Row>
+      <div className='header-logo-wrap'>
+        <LogoIcon />
+      </div>
+      <Text fs='24px' weight={500} color='#F6BB63'>
+        {BRAND_NAME}
+      </Text>
+    </Row>
+  )
 }
 
 export default function BasicLayout({ children }: BasicLayoutProps) {
   return (
     <StyledDiv>
-      <Logo />
+      <Header />
       <div>{children}</div>
     </StyledDiv>
   )

@@ -1,5 +1,6 @@
 import { Card, Text } from '@components/atoms'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
+import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -16,13 +17,27 @@ type HomeProps = {
   recipes: RecipeType[]
 }
 
+const StyledItem = styled.div`
+  .divider {
+    margin: 16px -16px;
+    height: 1px;
+    background-color: ${({ theme }) => theme.colors.mono_2};
+  }
+`
+
 export default function Home({ recipes }: HomeProps) {
   return (
     <StyledDiv>
       <Card side='right'>
-        <Text weight={500} fs='24px' color='wheaty_1'>
-          Saturday white bread
-        </Text>
+        {recipes.map((_, i) => (
+          <StyledItem>
+            <Text weight={500} fs='24px' color='wheaty_1'>
+              Saturday white bread
+            </Text>
+            <SimpleTimeline />
+            {i + 1 === recipes.length || <div className='divider' />}
+          </StyledItem>
+        ))}
       </Card>
     </StyledDiv>
   )

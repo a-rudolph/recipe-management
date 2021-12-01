@@ -9,3 +9,9 @@ export default function formatTime(n: number): string {
 
   return `${h}h ${min}m`
 }
+
+export const padNumber = (n: number) => {
+  if (n < 10) return `0${n}`
+
+  return n
+}

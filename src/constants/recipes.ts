@@ -22,7 +22,8 @@ export const recipes: RecipeType[] = [
       {
         quantity: 720,
         unit: 'g',
-        name: '90ºF - 95ºF water',
+        name: 'water',
+        extra: '90ºF - 95ºF',
       },
       {
         quantity: 21,
@@ -59,7 +60,8 @@ export const recipes: RecipeType[] = [
       {
         quantity: 780,
         unit: 'g',
-        name: '90ºF - 95ºF water',
+        name: 'water',
+        extra: '90ºF - 95ºF',
       },
       {
         quantity: 22,
@@ -101,8 +103,10 @@ export const recipes: RecipeType[] = [
       {
         quantity: 800,
         unit: 'g',
-        name: '90ºF - 95ºF water',
+        name: 'water',
+        extra: '90ºF - 95ºF',
       },
+
       {
         quantity: 22,
         unit: 'g',

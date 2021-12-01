@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import IngredientDisplay from '@components/IngredientDisplay'
 import { Card, Text } from '@components/atoms'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
@@ -13,11 +14,14 @@ const StyledDiv = styled.div`
   .atom-card {
     width: 80vw;
     height: 60vh;
+    padding: 24px;
+
+    overflow-y: scroll;
   }
 `
 
 export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
-  const { name, start, bulk, proof } = recipe
+  const { name, start, bulk, proof, ingredients } = recipe
 
   return (
     <StyledDiv>
@@ -27,6 +31,7 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
         </Text>
         <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         <TimeDurations bulk={bulk} proof={proof} />
+        <IngredientDisplay ingredients={ingredients} />
       </Card>
     </StyledDiv>
   )

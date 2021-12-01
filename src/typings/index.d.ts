@@ -30,6 +30,7 @@ type IngredientType = {
   quantity: number
   unit: string
   name: string
+  extra?: string
 }
 
 type RecipeProp = {

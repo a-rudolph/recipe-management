@@ -11,7 +11,7 @@ const StyledTimes = styled.div`
   .time-row-grid {
     display: grid;
     grid-column-gap: 6px;
-    grid-template-columns: 1fr 80px;
+    grid-template-columns: 1fr 60px;
   }
 
   .time-label {
@@ -45,7 +45,7 @@ export default function TimeDurations({
   return (
     <StyledRow>
       <StyledTimes>
-        <TimeRow label='bulk ferment' hours={bulk} />
+        <TimeRow label='bulk fermentation' hours={bulk} />
         <div className='time-divider' />
         <TimeRow label='proofing' hours={proof} />
       </StyledTimes>
@@ -74,7 +74,7 @@ const TimeRow = ({ label, hours }: { label: string; hours: number }) => {
         {label}:
       </Text>
       <Text weight={500} fs='18px' color='wheaty_1'>
-        {fractionize(hours)} hours
+        {fractionize(hours)} hrs
       </Text>
     </div>
   )

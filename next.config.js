@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  webpack: (config) => {
+  webpack: (config, options) => {
     const resolve = {
       alias: {
         '@components': path.resolve(__dirname, 'src/components'),
@@ -12,8 +12,16 @@ module.exports = {
       },
     }
 
+    console.log(options)
+
     return {
       ...config,
+      plugins: [
+        ...config.plugins,
+        new options.webpack.DefinePlugin({
+          IS_PRODUCTION: process.env.IS_PRODUCTION,
+        }),
+      ],
       resolve: {
         ...config.resolve,
         alias: {

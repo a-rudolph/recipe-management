@@ -1,3 +1,5 @@
+declare const IS_PRODUCTION: boolean
+
 type RecipeType = {
   name: string
   key: string

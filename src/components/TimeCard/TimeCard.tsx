@@ -17,6 +17,8 @@ const useTime = () => {
   const [now, setNow] = useState(() => new Date())
 
   useEffect(() => {
+    if (!IS_PRODUCTION) return
+
     const intervalId = setInterval(() => {
       setNow(() => new Date())
     }, 1000)

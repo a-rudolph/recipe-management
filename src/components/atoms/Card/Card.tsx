@@ -5,10 +5,9 @@ type CardProps = {
   className?: string
 }
 
-const Card = styled.div.attrs((props) => ({
-  className: `atom-card ${props.className}`,
+const Card = styled.div.attrs(({ className = '' }) => ({
+  className: `atom-card ${className}`,
 }))<CardProps>`
-  background-color: ${({ theme }) => theme.colors.mono_1};
   border-radius: ${({ side }) => {
     switch (side) {
       case 'left':
@@ -20,6 +19,8 @@ const Card = styled.div.attrs((props) => ({
     }
   }};
 
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: ${({ theme }) => theme.colors.mono_1};
   padding: 16px;
 `
 

@@ -1,0 +1,157 @@
+import swiss from '@theme-ui/preset-swiss'
+
+export const BRAND_NAME = 'whea·ti·ful·ly'
+
+// fonts too
+
+export const theme = {
+  colors: {
+    wheaty_1: '#F6BB63',
+    wheaty_2: '#FFE3B9', // more monoy than wheaty tbh
+    wheaty_3: '#B2A086', // more monoy than wheaty tbh
+    wheaty_4: '#867A69', // more monoy than wheaty tbh
+    mono_1: '#222528',
+    mono_2: '#484F55',
+    mono_3: '#F3EEED',
+    secondary_1: '#692C20',
+    bg_1: '#082032',
+    bg_2: '#1C405B',
+  },
+}
+
+const palette = {
+  ...swiss.colors,
+  primary: '#222528',
+  secondary: '#fffc47',
+  accent: '#c8553d',
+  inverted: 'whitesmoke',
+  wheaty: '#F6BB63',
+}
+
+const darkTheme = {
+  text: 'whitesmoke',
+  background: palette.primary,
+  primary: '#38403b',
+  inverted: '#38403b',
+  secondary: palette.muted,
+  highlight: palette.accent,
+  purple: 'hsl(250, 60%, 30%)',
+  muted: '#692c20',
+  accent: palette.wheaty,
+}
+
+const baseNavStyles = {
+  width: '100vw',
+  height: 'auto',
+  zIndex: 50,
+  position: 'fixed',
+  top: 0,
+  transition: 'all .2s ease',
+}
+
+const baseButtonStyles = {
+  cursor: 'pointer',
+  border: '1px solid',
+}
+
+export const defaultTheme = {
+  ...swiss,
+  colors: {
+    ...palette,
+    // modes: {
+    //   dark: darkTheme,
+    // },
+  },
+  button: {
+    primary: {
+      ...baseButtonStyles,
+      bg: 'primary',
+      borderColor: 'transparent',
+    },
+    secondary: {
+      ...baseButtonStyles,
+      color: 'primary',
+      bg: 'white',
+      borderColor: 'primary',
+    },
+  },
+  card: {
+    bg: 'muted',
+    boxShadow: `1px 1px 2px 1px ${palette.accent}`,
+  },
+  nav: {
+    ...baseNavStyles,
+    height: '40px',
+    bg: 'rgb(0,0,0,0.45)',
+    boxShadow: '0px 10px 10px 10px rgb(0,0,0,0.45)',
+    item: {
+      p: 2,
+    },
+    primary: {
+      ...baseNavStyles,
+      bg: 'primary',
+    },
+    secondary: {
+      ...baseNavStyles,
+      bg: 'inverted',
+    },
+  },
+  mask: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    top: 0,
+    opacity: 0.35,
+    backgroundColor: 'rgb(0,0,0)',
+  },
+  height: {
+    medium: '52px',
+    large: '96px',
+    small: '24px',
+  },
+  logo: {
+    transform: 'rotate(170deg)',
+  },
+  flex: {
+    center: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  },
+  text: {
+    step: {
+      color: 'accent',
+      fontWeight: 600,
+      textAlign: 'center',
+    },
+  },
+  steps: {
+    circle: {
+      bg: 'accent',
+      color: 'inverted',
+      borderRadius: '50%',
+      height: '120px',
+      width: '120px',
+      justifyContent: 'center',
+      position: 'relative',
+      content: {
+        position: 'absolute',
+        bottom: '32px',
+        width: '100%',
+      },
+      title: {
+        fontSize: '18px',
+        textAlign: 'center',
+        fontWeight: 500,
+        lineHeight: 1.3,
+      },
+      time: {
+        borderBottom: '1px dashed',
+        textAlign: 'center',
+        fontSize: '28px',
+        lineHeight: 1,
+      },
+    },
+  },
+}

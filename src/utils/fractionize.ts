@@ -27,5 +27,5 @@ export default function fractionize(n: number): string {
   if (l === 0 || !fraction) {
     return String(n)
   }
-  return `${k} ${fraction}` || String(n)
+  return `${k}${fraction}` || String(n)
 }

@@ -1,10 +1,9 @@
 import { BG_PATH, BG_SM_PATH } from '@constants/assets'
-import { BRAND_NAME } from '@styles/themes'
-import { Text } from '@components/atoms'
+import { Row } from '@components/atoms'
 import breakpoints from '@constants/responsive'
-import LogoIcon from '@components/icons/Logo'
 import TimeCard from '@components/TimeCard'
 import styled from 'styled-components'
+import Header from '@layouts/Header'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -29,32 +28,6 @@ const StyledDiv = styled.div`
     margin-top: 24px;
   }
 `
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-
-  &.centered {
-    justify-content: center;
-  }
-
-  .header-logo-wrap {
-    padding: 12px;
-  }
-`
-
-const Header = () => {
-  return (
-    <Row>
-      <div className='header-logo-wrap'>
-        <LogoIcon />
-      </div>
-      <Text fs='24px' weight={500} color='wheaty_1'>
-        {BRAND_NAME}
-      </Text>
-    </Row>
-  )
-}
 
 export default function BasicLayout({ children }: BasicLayoutProps) {
   return (

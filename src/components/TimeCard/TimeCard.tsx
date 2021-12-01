@@ -1,7 +1,7 @@
-import { Card, Text } from '@components/atoms'
-import styled from 'styled-components'
 import { useState, useEffect } from 'react'
+import { Card, Text } from '@components/atoms'
 import { padNumber } from '@utils/formatTime'
+import styled from 'styled-components'
 
 const StyledCard = styled(Card)`
   display: flex;

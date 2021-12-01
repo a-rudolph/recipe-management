@@ -19,6 +19,7 @@
       "@constants/*": ["constants/*"],
       "@hooks/*": ["hooks/*"],
       "@styles/*": ["styles/*"],
+      "@layouts/*": ["layouts/*"],
       "@utils/*": ["utils/*"]
     }
   },

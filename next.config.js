@@ -13,8 +13,6 @@ module.exports = {
       },
     }
 
-    console.log(options)
-
     return {
       ...config,
       plugins: [

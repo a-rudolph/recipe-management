@@ -30,16 +30,16 @@ export default function Home({ recipes }: HomeProps) {
   return (
     <StyledDiv>
       <Card side='right'>
-        {recipes.map(({ name, start, bulk, proof, key }, i) => (
-          <StyledItem key={key}>
-            <Link href='/recipes/[key]' as={`/recipes/${key}`}>
+        {recipes.map(({ name, start, bulk, proof, key }) => (
+          <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
+            <StyledItem>
               <Text weight={500} fs='24px' color='wheaty_1'>
                 {name}
               </Text>
-            </Link>
-            <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-            {i + 1 === recipes.length || <div className='divider' />}
-          </StyledItem>
+              <SimpleTimeline start={start} bulk={bulk} proof={proof} />
+              <div className='divider' />
+            </StyledItem>
+          </Link>
         ))}
       </Card>
     </StyledDiv>

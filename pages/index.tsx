@@ -29,12 +29,12 @@ export default function Home({ recipes }: HomeProps) {
   return (
     <StyledDiv>
       <Card side='right'>
-        {recipes.map((_, i) => (
-          <StyledItem>
+        {recipes.map(({ name, start, bulk, proof, key }, i) => (
+          <StyledItem key={key}>
             <Text weight={500} fs='24px' color='wheaty_1'>
-              Saturday white bread
+              {name}
             </Text>
-            <SimpleTimeline />
+            <SimpleTimeline start={start} bulk={bulk} proof={proof} />
             {i + 1 === recipes.length || <div className='divider' />}
           </StyledItem>
         ))}

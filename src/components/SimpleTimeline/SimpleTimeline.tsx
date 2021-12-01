@@ -1,4 +1,5 @@
 import { Text } from '@components/atoms'
+import moment from 'moment'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -41,7 +42,42 @@ const Grid = styled.div`
   }
 `
 
-export default function SimpleTimeline() {
+type SimpleTimelineProps = {
+  start: number
+  proof: number
+  bulk: number
+}
+
+type SimpleTimelineData = {
+  mix: string
+  shape: string
+  bake: string
+}
+
+const getTimeStrings = ({
+  start,
+  bulk,
+  proof,
+}: SimpleTimelineProps): SimpleTimelineData => {
+  const mix = moment({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  }).add(start, 'hours')
+
+  const shape = moment(mix).add(bulk, 'hours')
+  const bake = moment(shape).add(proof, 'hours')
+
+  return {
+    mix: mix.format('H:mm'),
+    shape: shape.format('H:mm'),
+    bake: bake.format('H:mm'),
+  }
+}
+
+export default function SimpleTimeline(props: SimpleTimelineProps) {
+  const { mix, shape, bake } = getTimeStrings(props)
+
   return (
     <StyledDiv>
       <Grid className='label-row'>
@@ -63,15 +99,15 @@ export default function SimpleTimeline() {
       </Grid>
       <Grid>
         <div className='time'>
-          <Text>7:30</Text>
+          <Text>{mix}</Text>
         </div>
         <div className='line' />
         <div className='time'>
-          <Text>13:30</Text>
+          <Text>{shape}</Text>
         </div>
         <div className='line' />
         <div className='time'>
-          <Text>14:30</Text>
+          <Text>{bake}</Text>
         </div>
       </Grid>
     </StyledDiv>

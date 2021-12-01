@@ -1,6 +1,11 @@
 type RecipeType = {
   name: string
   key: string
+  bulk: number
+  proof: number
+  start: number
+
+  // deprecated
   times: {
     bulk: number[]
     proof: number[]
@@ -9,7 +14,7 @@ type RecipeType = {
     amount: number
     unit: string
   }
-  ingrendients: IngredientType[]
+  ingredients: IngredientType[]
 }
 
 type Step = {

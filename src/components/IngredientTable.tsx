@@ -22,7 +22,7 @@ export default function IngredientTable({ recipe }: IngredientTableProps) {
           </Flex>
         </Flex>
       </Box>
-      {recipe.ingrendients.map((ing) => (
+      {recipe.ingredients.map((ing) => (
         <Fragment key={ing.name}>
           <Box
             p='4px 8px'

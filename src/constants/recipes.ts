@@ -1,7 +1,47 @@
 export const recipes: RecipeType[] = [
   {
+    name: 'Saturday white bread',
+    key: 'saturday-white-bread',
+    bulk: 5,
+    proof: 1.25,
+    start: 8,
+    times: {
+      bulk: [5],
+      proof: [1.25],
+    },
+    yield: {
+      amount: 2,
+      unit: 'Loaves',
+    },
+    ingredients: [
+      {
+        quantity: 1000,
+        unit: 'g',
+        name: 'white flour',
+      },
+      {
+        quantity: 720,
+        unit: 'g',
+        name: '90ºF - 95ºF water',
+      },
+      {
+        quantity: 21,
+        unit: 'g',
+        name: 'fine salt',
+      },
+      {
+        quantity: 4,
+        unit: 'g',
+        name: 'yeast',
+      },
+    ],
+  },
+  {
     name: 'Overnight white bread',
     key: 'overnight-white-bread',
+    bulk: 13,
+    proof: 1.25,
+    start: 19,
     times: {
       bulk: [12, 14],
       proof: [1.25],
@@ -10,7 +50,7 @@ export const recipes: RecipeType[] = [
       amount: 2,
       unit: 'Loaves',
     },
-    ingrendients: [
+    ingredients: [
       {
         quantity: 1000,
         unit: 'g',
@@ -36,6 +76,9 @@ export const recipes: RecipeType[] = [
   {
     name: 'Overnight whole wheat',
     key: 'overnight-whole-wheat',
+    bulk: 5,
+    proof: 13,
+    start: 15,
     times: {
       bulk: [5],
       proof: [12, 14],
@@ -44,7 +87,7 @@ export const recipes: RecipeType[] = [
       amount: 2,
       unit: 'Loaves',
     },
-    ingrendients: [
+    ingredients: [
       {
         quantity: 600,
         unit: 'g',
@@ -67,40 +110,6 @@ export const recipes: RecipeType[] = [
       },
       {
         quantity: 3,
-        unit: 'g',
-        name: 'yeast',
-      },
-    ],
-  },
-  {
-    name: 'Saturday white bread',
-    key: 'saturday-white-bread',
-    times: {
-      bulk: [5],
-      proof: [1.25],
-    },
-    yield: {
-      amount: 2,
-      unit: 'Loaves',
-    },
-    ingrendients: [
-      {
-        quantity: 1000,
-        unit: 'g',
-        name: 'white flour',
-      },
-      {
-        quantity: 720,
-        unit: 'g',
-        name: '90ºF - 95ºF water',
-      },
-      {
-        quantity: 21,
-        unit: 'g',
-        name: 'fine salt',
-      },
-      {
-        quantity: 4,
         unit: 'g',
         name: 'yeast',
       },

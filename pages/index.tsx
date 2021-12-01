@@ -2,6 +2,7 @@ import { Card, Text } from '@components/atoms'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 const StyledDiv = styled.div`
   display: flex;
@@ -31,9 +32,11 @@ export default function Home({ recipes }: HomeProps) {
       <Card side='right'>
         {recipes.map(({ name, start, bulk, proof, key }, i) => (
           <StyledItem key={key}>
-            <Text weight={500} fs='24px' color='wheaty_1'>
-              {name}
-            </Text>
+            <Link href='/recipes/[key]' as={`/recipes/${key}`}>
+              <Text weight={500} fs='24px' color='wheaty_1'>
+                {name}
+              </Text>
+            </Link>
             <SimpleTimeline start={start} bulk={bulk} proof={proof} />
             {i + 1 === recipes.length || <div className='divider' />}
           </StyledItem>

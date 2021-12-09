@@ -1,5 +1,5 @@
-import { BRAND_NAME, theme } from '@styles/themes'
 import { TimeContextProvider } from '@hooks/useTimeContext'
+import { BRAND_NAME, theme } from '@styles/themes'
 import { ThemeProvider } from 'styled-components'
 import { BasicLayout } from 'layouts'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
@@ -17,6 +17,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             href='https://fonts.googleapis.com/css2?family=Roboto&family=Lato:ital@1&display=swap'
             rel='stylesheet'
           ></link>
+          <meta
+            name='description'
+            content='wheatifully, bread coach; baking scheduling tool'
+          />
         </Head>
         <BasicLayout>
           <Component {...pageProps} />

@@ -14,11 +14,11 @@ const TimeCard = dynamic(() => import('@components/TimeCard'), {
 })
 
 const StyledDiv = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 
   background-image: url(${BG_SM_PATH});
-  background-size: cover;
+  background-size: 100vw auto;
   background-color: ${({ theme }) => theme.colors.bg_1};
   background-repeat: no-repeat;
   background-position-x: center;

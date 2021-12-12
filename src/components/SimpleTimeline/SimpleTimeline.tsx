@@ -16,7 +16,7 @@ const Grid = styled.div`
 
     .label {
       padding: 0 4px;
-      width: 60px;
+      width: 70px;
     }
   }
 
@@ -28,12 +28,14 @@ const Grid = styled.div`
   }
 
   .time {
-    width: 60px;
+    width: 70px;
     border-radius: 50px;
     text-align: center;
     padding: 4px;
 
-    font-size: 18px;
+    .atom-text {
+      font-size: 18px;
+    }
   }
 
   .line {

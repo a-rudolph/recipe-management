@@ -18,8 +18,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             rel='stylesheet'
           ></link>
           <meta
-            name='description'
-            content='wheatifully, bread coach; baking scheduling tool'
+            name='viewport'
+            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
           />
         </Head>
         <BasicLayout>

@@ -9,8 +9,12 @@ const StyledCard = styled(Card)`
   justify-content: center;
   text-align: start;
 
-  padding: 12px;
+  padding: 16px;
   width: 168px;
+
+  .time-container {
+    border-bottom: 1px dashed ${({ theme }) => theme.colors.wheaty_2};
+  }
 `
 
 const useTime = () => {
@@ -40,12 +44,14 @@ export default function TimerCard() {
 
   return (
     <StyledCard>
-      <Text fs='48px' color='wheaty_1'>
-        {hours}:{minutes}
-      </Text>
-      <Text fs='32px' color='wheaty_1'>
-        :{seconds}
-      </Text>
+      <div className='time-container'>
+        <Text fs='48px' color='wheaty_1'>
+          {hours}:{minutes}
+        </Text>
+        <Text fs='32px' color='wheaty_1'>
+          :{seconds}
+        </Text>
+      </div>
     </StyledCard>
   )
 }

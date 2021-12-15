@@ -19,7 +19,7 @@ class MyDocument extends Document {
           <link rel='manifest' href='/manifest.json' />
           <link rel='shortcut icon' href='/favicon.ico' />
 
-          {/* <meta name='apple-mobile-web-app-capable' content='yes' />
+          <meta name='apple-mobile-web-app-capable' content='yes' />
           <meta
             name='apple-mobile-web-app-status-bar-style'
             content='default'
@@ -31,9 +31,7 @@ class MyDocument extends Document {
             name='msapplication-config'
             content='/icons/browserconfig.xml'
           />
-          <meta name='msapplication-TileColor' content='#2B5797' />
           <meta name='msapplication-tap-highlight' content='no' />
-          <meta name='theme-color' content='#952727' />
 
           <link rel='apple-touch-icon' href='/icons/touch-icon-iphone.png' />
           <link
@@ -45,8 +43,8 @@ class MyDocument extends Document {
             rel='apple-touch-icon'
             sizes='180x180'
             href='/icons/apple-icon-180x180.png'
-          /> */}
-          {/*           
+          />
+
           <link
             rel='icon'
             type='image/png'
@@ -58,16 +56,7 @@ class MyDocument extends Document {
             type='image/png'
             sizes='16x16'
             href='/icons/favicon-16x16.png'
-          /> */}
-          {/* <meta property='og:type' content='website' />
-          <meta property='og:title' content={title} />
-          <meta property='og:description' content={description} />
-          <meta property='og:site_name' content={title} />
-          <meta property='og:url' content='https://wheatifully.com' />
-          <meta
-            property='og:image'
-            content='https://wheatifully.com/icons/apple-icon-180x180.png'
-          /> */}
+          />
         </Head>
         <body>
           <Main />

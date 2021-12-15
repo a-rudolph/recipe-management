@@ -37,7 +37,7 @@ export default function TimerCard() {
     if (!hmRef.current || !ssRef.current) return
 
     hmRef.current.innerText = `${hh}:${mm}`
-    ssRef.current.innerText = `${ss}`
+    ssRef.current.innerText = `:${ss}`
   }
 
   useEffect(() => {

@@ -10,7 +10,8 @@ const StyledDiv = styled.div`
 
   .atom-card {
     width: 80vw;
-    height: 60vh;
+    min-height: 60vh;
+    margin-bottom: 24px;
   }
 `
 

@@ -13,5 +13,5 @@ export default function formatTime(n: number): string {
 export const padNumber = (n: number) => {
   if (n < 10) return `0${n}`
 
-  return n
+  return `${n}`
 }

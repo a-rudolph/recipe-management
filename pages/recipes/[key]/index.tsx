@@ -13,10 +13,9 @@ const StyledDiv = styled.div`
 
   .atom-card {
     width: 80vw;
-    height: 60vh;
+    min-height: 60vh;
     padding: 24px;
-
-    overflow-y: scroll;
+    margin-bottom: 24px;
   }
 `
 

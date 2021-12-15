@@ -1,6 +1,11 @@
 const path = require('path')
+const withPWA = require('next-pwa')
 
-module.exports = {
+module.exports = withPWA({
+  pwa: {
+    disable: process.env.NODE_ENV === 'development',
+    dest: 'public',
+  },
   webpack: (config, options) => {
     const resolve = {
       alias: {
@@ -30,4 +35,4 @@ module.exports = {
       },
     }
   },
-}
+})

@@ -27,13 +27,8 @@ class MyDocument extends Document {
           <meta name='apple-mobile-web-app-title' content={title} />
           <meta name='format-detection' content='telephone=no' />
           <meta name='mobile-web-app-capable' content='yes' />
-          <meta
-            name='msapplication-config'
-            content='/icons/browserconfig.xml'
-          />
           <meta name='msapplication-tap-highlight' content='no' />
 
-          <link rel='apple-touch-icon' href='/icons/touch-icon-iphone.png' />
           <link
             rel='apple-touch-icon'
             sizes='152x152'

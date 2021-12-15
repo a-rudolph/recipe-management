@@ -11,12 +11,14 @@ class MyDocument extends Document {
     const title = `${BRAND_NAME} - Bread Coach`
     const description = 'wheatifully, bread coach; baking scheduling tool'
 
+    const manifest = IS_PRODUCTION ? '/manifest.json' : '/local.manifest.json'
+
     return (
       <Html lang='en'>
         <Head>
           <meta name='application-name' content={title} />
           <meta name='description' content={description} />
-          <link rel='manifest' href='/manifest.json' />
+          <link rel='manifest' href={manifest} />
           <link rel='shortcut icon' href='/favicon.ico' />
 
           <meta name='apple-mobile-web-app-capable' content='yes' />

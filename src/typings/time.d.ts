@@ -1,3 +1,5 @@
-import { Moment } from 'moment'
+type TimeValue = Partial<Record<TimeKey, string | number>>
 
-export type TimeChangeHandler = (m: Moment) => void
+type TimeKey = 'hh' | 'mm' | 'ss'
+
+type TimeChangeHandler = (payload: TimeValue) => void

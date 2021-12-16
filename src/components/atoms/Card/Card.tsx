@@ -5,9 +5,9 @@ type CardProps = {
   className?: string
 }
 
-const Card = styled.div.attrs(({ className = '' }) => ({
-  className: `atom-card ${className}`,
-}))<CardProps>`
+const Card = styled.div.attrs<CardProps>({
+  className: `atom-card`,
+})<CardProps>`
   border-radius: ${({ side }) => {
     switch (side) {
       case 'left':

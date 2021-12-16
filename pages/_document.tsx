@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { BRAND_NAME } from '@styles/themes'
+import { BRAND_NAME, theme } from '@styles/themes'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,6 +18,7 @@ class MyDocument extends Document {
         <Head>
           <meta name='application-name' content={title} />
           <meta name='description' content={description} />
+          <meta name='theme-color' content={theme.colors.mono_1} />
           <link rel='manifest' href={manifest} />
           <link rel='shortcut icon' href='/favicon.ico' />
 

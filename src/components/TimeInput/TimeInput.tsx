@@ -24,6 +24,14 @@ const StyledDiv = styled.div`
   }
 `
 
+const NUMBER_REGEX = /^\d*$/
+
+const isJustDigits = (value: string | number = '') => {
+  const valid = NUMBER_REGEX.test(String(value))
+
+  return valid
+}
+
 export default function TimeInput({
   value = {},
   onChange = _noop,
@@ -53,7 +61,12 @@ export default function TimeInput({
                 handleChange({ [key]: padNumber(value[key]) })
               }}
               onChange={(e) => {
-                handleChange({ [key]: e.target.value })
+                const value = e.target.value
+                const valid = isJustDigits(value)
+
+                if (!valid) return
+
+                handleChange({ [key]: value })
               }}
               {...commonProps}
             />

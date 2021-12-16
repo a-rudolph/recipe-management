@@ -10,7 +10,9 @@ export default function formatTime(n: number): string {
   return `${h}h ${min}m`
 }
 
-export const padNumber = (n: number | string) => {
+export const padNumber = (n?: number | string) => {
+  if (!n) return
+
   const s = String(n)
 
   if (s.length < 2) return `0${s}`

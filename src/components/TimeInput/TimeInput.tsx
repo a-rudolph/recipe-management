@@ -1,4 +1,5 @@
 import { padNumber } from '@utils/formatTime'
+import { useRef } from 'react'
 import { Text } from '@components/atoms'
 import styled from 'styled-components'
 import _noop from 'lodash/noop'
@@ -36,10 +37,45 @@ export default function TimeInput({
   value = {},
   onChange = _noop,
 }: TimeInputProps) {
+  const refs: Record<TimeKey, React.MutableRefObject<HTMLInputElement>> = {
+    hh: useRef<HTMLInputElement>(null),
+    mm: useRef<HTMLInputElement>(null),
+    ss: useRef<HTMLInputElement>(null),
+  }
+
+  const focusNext = (curr: TimeKey) => {
+    const NEXT: Record<TimeKey, TimeKey | null> = {
+      hh: 'mm',
+      mm: 'ss',
+      ss: null,
+    }
+    const next = NEXT[curr]
+
+    if (!next) return
+
+    refs[next].current?.focus()
+  }
+
+  const shouldNext = (value: TimeValue) => {
+    const hhNext = value.hh > 1
+    const mmNext = value.mm > 5
+    const ssNext = value.ss > 5
+
+    return hhNext || mmNext || ssNext
+  }
+
   const handleChange = (newValue: TimeValue) => {
+    const key = Object.keys(newValue)[0] as TimeKey
+    let nextValue = newValue[key]
+
+    if (shouldNext(newValue)) {
+      nextValue = padNumber(nextValue)
+      focusNext(key)
+    }
+
     onChange({
       ...value,
-      ...newValue,
+      [key]: nextValue,
     })
   }
 
@@ -56,6 +92,7 @@ export default function TimeInput({
         {keys.map((key, i) => (
           <>
             <input
+              ref={refs[key]}
               value={value[key]}
               onBlur={() => {
                 handleChange({ [key]: padNumber(value[key]) })

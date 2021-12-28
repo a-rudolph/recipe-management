@@ -8,10 +8,11 @@ class MyDocument extends Document {
   }
 
   render() {
-    const title = `${BRAND_NAME} - Bread Coach`
+    const title = `${BRAND_NAME} - bread coach`
     const description = 'wheatifully, bread coach; baking scheduling tool'
 
-    const manifest = IS_PRODUCTION ? '/manifest.json' : '/local.manifest.json'
+    const manifest = '/api/manifest'
+    // const manifest = IS_PRODUCTION ? '/manifest.json' : '/local.manifest.json'
 
     return (
       <Html lang='en'>

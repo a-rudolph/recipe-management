@@ -21,7 +21,12 @@ export const useTimer = (setTime: (time: TimeValue) => void) => {
       if (timeToSeconds(timeLeft) < 1) {
         setTime({ hh: '00', mm: '00', ss: '00' })
         endInterval()
-        setNotification()
+        setNotification('Timer finished!', {
+          requireInteraction: true,
+          tag: 'tag here',
+          renotify: true,
+          dir: 'ltr',
+        })
         return
       }
 

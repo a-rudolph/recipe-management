@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 const config = {
   badge: '/icons/badge.png',
-  icon: '/icons/apple-icon-152x152.png',
+  image: '/icons/apple-icon-152x152.png',
 }
 
 export const requestNotificationPermission = (

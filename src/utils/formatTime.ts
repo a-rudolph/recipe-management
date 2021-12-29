@@ -12,6 +12,14 @@ export default function formatTime(n: number): string {
   return `${h}h ${min}m`
 }
 
+export const normalizeTimeValue = (value: TimeValue): Required<TimeValue> => {
+  return {
+    hh: value.hh || '00',
+    mm: value.mm || '00',
+    ss: value.ss || '00',
+  }
+}
+
 export const timeToSeconds = ({ hh = 0, mm = 0, ss = 0 }: TimeValue) => {
   return Number(hh) * 60 * 60 + Number(mm) * 60 + Number(ss)
 }

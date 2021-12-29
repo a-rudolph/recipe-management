@@ -5,16 +5,19 @@ const config = {
   icon: '/icons/apple-icon-152x152.png',
 }
 
+export const requestNotificationPermission = (
+  cb?: (permission: NotificationPermission) => void
+) => {
+  Notification.requestPermission(cb)
+}
+
 export const useNotification = () => {
   const sw = useRef<ServiceWorkerRegistration>(null)
-  const permission = useRef<NotificationPermission>(null)
 
   useEffect(() => {
     const getServiceWorker = async () => {
       const serviceWorker = navigator?.serviceWorker
       if (!serviceWorker) return
-
-      permission.current = Notification.permission
 
       const registration = await serviceWorker.getRegistration()
 
@@ -32,8 +35,6 @@ export const useNotification = () => {
     if (!sw.current) return
 
     Notification.requestPermission((result) => {
-      permission.current = result
-
       console.log({ result })
 
       if (result === 'granted') {
@@ -50,7 +51,7 @@ export const useNotification = () => {
     console.log(notifs)
   }
 
-  return { setNotification, sw, permission }
+  return { setNotification, sw }
 }
 
 export default useNotification

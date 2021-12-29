@@ -92,6 +92,7 @@ export default function TimeInput({
         {keys.map((key, i) => (
           <>
             <input
+              key={i}
               ref={refs[key]}
               value={value[key]}
               onBlur={() => {

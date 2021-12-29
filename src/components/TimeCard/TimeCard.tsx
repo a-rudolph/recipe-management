@@ -1,6 +1,6 @@
-import { secondsToTime, timeToSeconds } from '@utils/formatTime'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Card, Row, Text } from '@components/atoms'
+import { useTimer } from '@hooks/useTimer'
 import TimeInput from '@components/TimeInput'
 import styled from 'styled-components'
 import Modal from '@components/Modal'
@@ -48,48 +48,23 @@ const normalizeTimeValue = (value: TimeValue): Required<TimeValue> => {
   }
 }
 
-const useTimer = () => {
-  const [timer, setTimer] = useState<number>(0)
-  const timeout = useRef<NodeJS.Timeout>()
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timeout.current)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (timer <= 0) {
-      clearTimeout(timeout.current)
-      return
-    }
-  }, [timer])
-
-  const decrement = () => {
-    setTimer((prev) => {
-      if (!prev || prev < 0) return
-
-      return prev - 1
-    })
-  }
-
-  const startTimer = (time: TimeValue) => {
-    setTimer(timeToSeconds(time))
-    timeout.current = setInterval(decrement, 1000)
-  }
-
-  return { timer, startTimer }
-}
-
 export default function TimerCard() {
-  const { startTimer, timer } = useTimer()
+  const hmRef = useRef<HTMLSpanElement>(null)
+  const ssRef = useRef<HTMLSpanElement>(null)
 
-  const { hh, mm, ss } = secondsToTime(timer)
+  const setTimeDisplay = ({ hh, mm, ss }: TimeValue) => {
+    if (!hmRef.current || !ssRef.current) return
+
+    hmRef.current.innerText = `${hh}:${mm}`
+    ssRef.current.innerText = `:${ss}`
+  }
+
+  const { startTimer } = useTimer(setTimeDisplay)
 
   const [visible, setVisible] = useState(false)
 
-  const setTime = (time: TimeValue) => {
-    startTimer(time)
+  const setTime = (timeToEnd: TimeValue) => {
+    startTimer(timeToEnd)
   }
 
   const [value, setValue] = useState<TimeValue>({})
@@ -122,12 +97,10 @@ export default function TimerCard() {
       </Modal>
       <div onClick={() => setVisible(true)} className='time-container'>
         <Text fs='48px' color='wheaty_1'>
-          <span>
-            {hh}:{mm}
-          </span>
+          <span ref={hmRef}>00:00</span>
         </Text>
         <Text fs='32px' color='wheaty_1'>
-          <span>:{ss}</span>
+          <span ref={ssRef}>:00</span>
         </Text>
       </div>
     </StyledCard>

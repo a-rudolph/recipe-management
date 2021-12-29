@@ -33,6 +33,38 @@ export const secondsToTime = (seconds: number = 0) => {
   return ret
 }
 
+export const dateToTime = (date: Date) => {
+  return {
+    hh: padNumber(date.getHours()),
+    mm: padNumber(date.getMinutes()),
+    ss: padNumber(date.getSeconds()),
+  }
+}
+
+export const getTimeToEndTime = (endTime: number | null) => {
+  const secondsLeft = getSecondsToEndTime(endTime)
+
+  return secondsToTime(secondsLeft)
+}
+
+export const getNow = () => {
+  return new Date().getTime()
+}
+
+export const getEndTime = (seconds: number) => {
+  const now = getNow()
+
+  return now + seconds * 1000
+}
+
+export const getSecondsToEndTime = (end: number | null) => {
+  if (!end) return 0
+
+  const now = getNow()
+
+  return Math.floor((end - now) / 1000)
+}
+
 export const padNumber = (n?: number | string) => {
   if (_isUndefined(n)) return
 

@@ -12,7 +12,6 @@ class MyDocument extends Document {
     const description = 'wheatifully, bread coach; baking scheduling tool'
 
     const manifest = '/api/manifest'
-    // const manifest = IS_PRODUCTION ? '/manifest.json' : '/local.manifest.json'
 
     return (
       <Html lang='en'>

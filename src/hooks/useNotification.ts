@@ -1,5 +1,10 @@
 import { useEffect, useRef } from 'react'
 
+const config = {
+  badge: '/icons/badge.png',
+  icon: '/icons/apple-icon-152x152.png',
+}
+
 export const useNotification = () => {
   const sw = useRef<ServiceWorkerRegistration>(null)
   const permission = useRef<NotificationPermission>(null)
@@ -34,8 +39,7 @@ export const useNotification = () => {
       if (result === 'granted') {
         sw.current.showNotification(title, {
           body: 'bread coach',
-          badge: '/badge.png',
-          icon: '/apple-icon-60x60.png',
+          ...config,
           ...options,
         })
       }

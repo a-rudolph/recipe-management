@@ -5,9 +5,12 @@ import {
   getEndTime,
   dateToTime,
 } from '@utils/formatTime'
+import { useNotification } from '@hooks/useNotification'
 
 export const useTimer = (setTime: (time: TimeValue) => void) => {
   const [endTimeNumber, setEndTime] = useState<number>()
+
+  const { setNotification } = useNotification()
 
   const timeoutRef = useRef<NodeJS.Timeout>()
 
@@ -18,6 +21,7 @@ export const useTimer = (setTime: (time: TimeValue) => void) => {
       if (timeToSeconds(timeLeft) < 1) {
         setTime({ hh: '00', mm: '00', ss: '00' })
         endInterval()
+        setNotification()
         return
       }
 

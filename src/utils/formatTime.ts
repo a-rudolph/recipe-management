@@ -62,7 +62,7 @@ export const getSecondsToEndTime = (end: number | null) => {
 
   const now = getNow()
 
-  return Math.floor((end - now) / 1000)
+  return Math.ceil((end - now) / 1000)
 }
 
 export const padNumber = (n?: number | string) => {

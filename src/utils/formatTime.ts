@@ -14,9 +14,9 @@ export default function formatTime(n: number): string {
 
 export const normalizeTimeValue = (value: TimeValue): Required<TimeValue> => {
   return {
-    hh: value.hh || '00',
-    mm: value.mm || '00',
-    ss: value.ss || '00',
+    hh: padNumber(value.hh || '00'),
+    mm: padNumber(value.mm || '00'),
+    ss: padNumber(value.ss || '00'),
   }
 }
 

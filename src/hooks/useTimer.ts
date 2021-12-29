@@ -22,10 +22,9 @@ export const useTimer = (setTime: (time: TimeValue) => void) => {
         setTime({ hh: '00', mm: '00', ss: '00' })
         endInterval()
         setNotification('Timer finished!', {
+          body: 'get ready for next step',
           requireInteraction: true,
-          tag: 'tag here',
-          renotify: true,
-          dir: 'ltr',
+          dir: 'rtl',
         })
         return
       }

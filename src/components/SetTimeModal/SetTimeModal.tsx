@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react'
 import { normalizeTimeValue } from '@utils/formatTime'
 import { Row, Text } from '@components/atoms'
-import { useState } from 'react'
 import TimeInput from '@components/TimeInput'
 import styled from 'styled-components'
 import Modal from '@components/Modal'
@@ -44,9 +44,30 @@ export default function SetTimeModal({
   const handleDone = () => {
     // validate 🤢
 
-    onDone(normalizeTimeValue(value))
-    setValue({})
+    setValue((value) => {
+      onDone(normalizeTimeValue(value))
+
+      return {}
+    })
   }
+
+  useEffect(() => {
+    const enterHandler = (e) => {
+      if (e.key === 'Enter') {
+        handleDone()
+      }
+    }
+
+    if (visible) {
+      window.addEventListener('keydown', enterHandler)
+    } else {
+      window.removeEventListener('keydown', enterHandler)
+    }
+
+    return () => {
+      window.removeEventListener('keydown', enterHandler)
+    }
+  }, [visible])
 
   const handleCancel = () => {
     onClose()

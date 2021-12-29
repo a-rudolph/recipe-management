@@ -1,5 +1,5 @@
+import { Fragment, useRef } from 'react'
 import { padNumber } from '@utils/formatTime'
-import { useRef } from 'react'
 import { Text } from '@components/atoms'
 import styled from 'styled-components'
 import _noop from 'lodash/noop'
@@ -90,9 +90,8 @@ export default function TimeInput({
     <StyledDiv className='time-input-wrapper'>
       <Text fs='48px' color='wheaty_1'>
         {keys.map((key, i) => (
-          <>
+          <Fragment key={i}>
             <input
-              key={i}
               ref={refs[key]}
               value={value[key]}
               onBlur={() => {
@@ -109,7 +108,7 @@ export default function TimeInput({
               {...commonProps}
             />
             {i < 2 && ':'}
-          </>
+          </Fragment>
         ))}
       </Text>
     </StyledDiv>

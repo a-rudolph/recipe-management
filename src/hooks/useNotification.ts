@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react'
-
 const config = {
   badge: '/icons/badge.png',
   icon: '/icons/wheat.png',
@@ -11,47 +9,40 @@ export const requestNotificationPermission = (
   Notification.requestPermission(cb)
 }
 
+export const getServiceWorkerRegistration = async () => {
+  if (!('serviceWorker' in navigator)) return null
+
+  return navigator.serviceWorker.getRegistration()
+}
+
 export const useNotification = () => {
-  const sw = useRef<ServiceWorkerRegistration>(null)
-
-  useEffect(() => {
-    const getServiceWorker = async () => {
-      const serviceWorker = navigator?.serviceWorker
-      if (!serviceWorker) return
-
-      const registration = await serviceWorker.getRegistration()
-
-      sw.current = registration
-    }
-
-    getServiceWorker()
-  })
-
   const setNotification = async (
     title: string = 'wheatifully',
     options: NotificationOptions = {}
   ) => {
-    console.log('sw: ', sw.current)
-    if (!sw.current) return
+    const sw = await getServiceWorkerRegistration()
+
+    if (!sw) return
+
+    const tag = `${Math.floor(Math.random() * 10)}`
 
     Notification.requestPermission((result) => {
-      console.log({ result })
-
       if (result === 'granted') {
-        sw.current.showNotification(title, {
+        sw.showNotification(title, {
           body: 'bread coach',
+          tag,
           ...config,
           ...options,
         })
       }
     })
 
-    const notifs = await sw.current.getNotifications()
+    const notifs = await sw.getNotifications()
 
-    console.log(notifs)
+    return notifs.find((notification) => notification.tag === tag)
   }
 
-  return { setNotification, sw }
+  return { setNotification }
 }
 
 export default useNotification

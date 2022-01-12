@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
+import { useNotification } from '@hooks/useNotification'
 import {
   getTimeToEndTime,
   timeToSeconds,
   getEndTime,
   dateToTime,
 } from '@utils/formatTime'
-import { useNotification } from '@hooks/useNotification'
 
 export const useTimer = (setTime: (time: TimeValue) => void) => {
   const [endTimeNumber, setEndTime] = useState<number>()

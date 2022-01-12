@@ -11,6 +11,10 @@ const StyledModal = styled(Modal)`
     height: max-content;
     padding: 24px;
 
+    .time-input-wrapper {
+      margin: 8px 0;
+    }
+
     .footer {
       justify-content: end;
 
@@ -42,7 +46,7 @@ export default function SetTimeModal({
   const [value, setValue] = useState<TimeValue>({})
 
   const handleDone = () => {
-    // validate 🤢
+    // add validation 🤢
 
     setValue((value) => {
       onDone(normalizeTimeValue(value))
@@ -77,11 +81,13 @@ export default function SetTimeModal({
   return (
     <StyledModal closeable={false} visible={visible}>
       <Row>
-        <Text weight={500} fs='32px'>
+        <Text color='wheaty_3' weight={500} fs='18px'>
           Set timer
         </Text>
       </Row>
-      <TimeInput value={value} onChange={setValue} />
+      <Row>
+        <TimeInput value={value} onChange={setValue} />
+      </Row>
       <Row className='footer'>
         <button onClick={handleCancel}>Cancel</button>
         <button onClick={handleDone}>Start</button>

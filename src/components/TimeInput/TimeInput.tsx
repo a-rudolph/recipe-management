@@ -11,11 +11,13 @@ type TimeInputProps = {
 
 const StyledDiv = styled.div`
   &.time-input-wrapper {
-    border-bottom: 1px dashed ${({ theme }) => theme.colors.wheaty_2};
+    padding: 0 4px;
+    border-radius: 5px;
+    background: rgb(255, 255, 255, 0.1);
   }
 
   input {
-    background: rgb(255, 255, 255, 0.1);
+    background: transparent;
     font-size: inherit;
     color: inherit;
     width: 60px;

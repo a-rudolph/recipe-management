@@ -36,13 +36,26 @@ const isJustDigits = (value: string | number = '') => {
 }
 
 export default function TimeInput({
-  value = {},
+  value = { hh: '', mm: '', ss: '' },
   onChange = _noop,
 }: TimeInputProps) {
   const refs: Record<TimeKey, React.MutableRefObject<HTMLInputElement>> = {
     hh: useRef<HTMLInputElement>(null),
     mm: useRef<HTMLInputElement>(null),
     ss: useRef<HTMLInputElement>(null),
+  }
+
+  const focusPrev = (curr: TimeKey) => {
+    const PREV: Record<TimeKey, TimeKey | null> = {
+      hh: null,
+      mm: 'hh',
+      ss: 'mm',
+    }
+    const prev = PREV[curr]
+
+    if (!prev) return
+
+    refs[prev].current?.focus()
   }
 
   const focusNext = (curr: TimeKey) => {
@@ -96,8 +109,14 @@ export default function TimeInput({
             <input
               ref={refs[key]}
               value={value[key]}
+              inputMode='numeric'
               onBlur={() => {
-                handleChange({ [key]: padNumber(value[key]) })
+                handleChange({ [key]: value[key] ? padNumber(value[key]) : '' })
+              }}
+              onKeyDown={(e) => {
+                if (!value[key] && e.key === 'Backspace') {
+                  focusPrev(key)
+                }
               }}
               onChange={(e) => {
                 const value = e.target.value

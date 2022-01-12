@@ -43,7 +43,7 @@ export default function SetTimeModal({
   onClose,
   onDone,
 }: SetTimeModalProps) {
-  const [value, setValue] = useState<TimeValue>({})
+  const [value, setValue] = useState<TimeValue>({ hh: '', mm: '', ss: '' })
 
   const handleDone = () => {
     // add validation 🤢

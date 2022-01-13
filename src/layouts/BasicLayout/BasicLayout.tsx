@@ -9,7 +9,7 @@ type BasicLayoutProps = {
   children: React.ReactNode
 }
 
-const TimeCard = dynamic(() => import('@components/TimeCard'), {
+const TimerCard = dynamic(() => import('@components/TimerCard'), {
   ssr: false,
 })
 
@@ -38,7 +38,7 @@ export default function BasicLayout({ children }: BasicLayoutProps) {
     <StyledDiv>
       <Header />
       <Row className='centered'>
-        <TimeCard />
+        <TimerCard />
       </Row>
       <div className='page-content'>{children}</div>
     </StyledDiv>

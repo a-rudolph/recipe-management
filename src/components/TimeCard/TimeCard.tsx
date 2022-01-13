@@ -1,9 +1,10 @@
 import { requestNotificationPermission } from '@hooks/useNotification'
 import { useRef, useState } from 'react'
-import { Card, Text } from '@components/atoms'
 import { useTimer } from '@hooks/useTimer'
-import SetTimeModal from '@components/SetTimeModal'
+import { Card } from '@components/atoms'
 import styled from 'styled-components'
+import TimeDisplay from '@components/TimeDisplay'
+import SetTimeModal from '@components/SetTimeModal'
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -53,14 +54,7 @@ export default function TimeCard() {
         onClose={() => setVisible(false)}
         onDone={onDone}
       />
-      <div onClick={() => setVisible(true)} className='time-container'>
-        <Text fs='48px' color='wheaty_1'>
-          <span ref={hmRef}>00:00</span>
-        </Text>
-        <Text fs='32px' color='wheaty_1'>
-          <span ref={ssRef}>:00</span>
-        </Text>
-      </div>
+      <TimeDisplay hmRef={hmRef} ssRef={ssRef} />
     </StyledCard>
   )
 }

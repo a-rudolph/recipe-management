@@ -1,7 +1,8 @@
 import TimeDisplay from '@components/TimeDisplay'
-import { useRef } from 'react'
-import { Card } from '@components/atoms'
+import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
+import { Card } from '@components/atoms'
+import { useRef } from 'react'
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -11,16 +12,6 @@ const StyledCard = styled(Card)`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .ring {
-    position: absolute;
-    top: 16px;
-    right: 36px;
-    border: 1px solid ${({ theme }) => theme.colors.wheaty_1};
-    border-radius: 50%;
-    height: 200px;
-    width: 200px;
-  }
 `
 
 export default function TimerCard() {
@@ -29,7 +20,7 @@ export default function TimerCard() {
 
   return (
     <StyledCard>
-      <div className='ring' />
+      <TimeRing percent={0.5} />
       <TimeDisplay hmRef={hmRef} ssRef={ssRef} />
     </StyledCard>
   )

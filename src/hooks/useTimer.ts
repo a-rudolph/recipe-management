@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { useNotification } from '@hooks/useNotification'
 import {
+  getSecondsToEndTime,
   getTimeToEndTime,
   timeToSeconds,
   getEndTime,
   dateToTime,
 } from '@utils/formatTime'
 
-export const useTimer = (setTime: (time: TimeValue) => void) => {
+export const useTimer = (
+  setTime: (time: TimeValue, secondsRemaining: number) => void
+) => {
   const [endTimeNumber, setEndTime] = useState<number>()
 
   const { setNotification } = useNotification()
@@ -17,9 +20,10 @@ export const useTimer = (setTime: (time: TimeValue) => void) => {
   const startInterval = (endTime?: number) => {
     const intervalId = setInterval(() => {
       const timeLeft = getTimeToEndTime(endTime || endTimeNumber)
+      const secondsLeft = getSecondsToEndTime(endTime || endTimeNumber)
 
-      if (timeToSeconds(timeLeft) < 1) {
-        setTime({ hh: '00', mm: '00', ss: '00' })
+      if (secondsLeft < 1) {
+        setTime({ hh: '00', mm: '00', ss: '00' }, 0)
         endInterval()
         setNotification('Timer finished!', {
           body: 'get ready for next step',
@@ -29,7 +33,7 @@ export const useTimer = (setTime: (time: TimeValue) => void) => {
         return
       }
 
-      setTime(timeLeft)
+      setTime(timeLeft, secondsLeft)
     }, 1000)
 
     timeoutRef.current = intervalId
@@ -47,10 +51,10 @@ export const useTimer = (setTime: (time: TimeValue) => void) => {
 
   const startTimer = (timeToEnd: TimeValue) => {
     endInterval()
-
-    setTime(timeToEnd)
-
     const seconds = timeToSeconds(timeToEnd)
+
+    setTime(timeToEnd, seconds)
+
     const endTime = getEndTime(seconds)
 
     setEndTime(endTime)

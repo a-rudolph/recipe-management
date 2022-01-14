@@ -20,6 +20,8 @@ const StyledRing = styled.div<{ diameter: number; perimeter: number }>`
       fill: none;
 
       stroke-dasharray: ${({ perimeter }) => perimeter}px;
+
+      transition: all 0.2s ease;
     }
   }
 `

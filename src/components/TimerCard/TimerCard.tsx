@@ -42,7 +42,7 @@ export default function TimerCard() {
   const { startTimer } = useTimer(setTimeDisplay)
 
   const handleClick = () => {
-    const seconds = 10
+    const seconds = 20 * 60
     const time = secondsToTime(seconds)
 
     total.current = seconds

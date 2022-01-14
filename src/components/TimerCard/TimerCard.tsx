@@ -1,8 +1,8 @@
 import TimeDisplay from '@components/TimeDisplay'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
-import { Card } from '@components/atoms'
 import { useTimer } from '@hooks/useTimer'
+import { Card } from '@components/atoms'
 import { secondsToTime } from '@utils/formatTime'
 import { useRef, useState } from 'react'
 
@@ -15,8 +15,22 @@ const StyledCard = styled(Card)`
   justify-content: center;
   align-items: center;
 
-  .time-container {
+  button {
     z-index: 5;
+
+    border-style: none;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255, 0);
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(255, 255, 255, 0.1);
+    }
+
+    transition: all 0.1s;
   }
 `
 
@@ -51,7 +65,9 @@ export default function TimerCard() {
 
   return (
     <StyledCard>
-      <TimeDisplay onClick={handleClick} hmRef={hmRef} ssRef={ssRef} />
+      <button onClick={handleClick}>
+        <TimeDisplay hmRef={hmRef} ssRef={ssRef} />
+      </button>
       <TimeRing percent={percent} />
     </StyledCard>
   )

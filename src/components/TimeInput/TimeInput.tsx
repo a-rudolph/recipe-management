@@ -1,4 +1,4 @@
-import { Fragment, useRef } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import { padNumber } from '@utils/formatTime'
 import { Text } from '@components/atoms'
 import styled from 'styled-components'
@@ -45,6 +45,10 @@ export default function TimeInput({
     ss: useRef<HTMLInputElement>(null),
   }
 
+  useEffect(() => {
+    refs.hh.current?.focus()
+  }, [])
+
   const focusPrev = (curr: TimeKey) => {
     const PREV: Record<TimeKey, TimeKey | null> = {
       hh: null,
@@ -76,7 +80,9 @@ export default function TimeInput({
     const mmNext = value.mm > 5
     const ssNext = value.ss > 5
 
-    return hhNext || mmNext || ssNext
+    const twoDigits = String(value.hh || value.mm || value.ss).length === 2
+
+    return hhNext || mmNext || ssNext || twoDigits
   }
 
   const handleChange = (newValue: TimeValue) => {

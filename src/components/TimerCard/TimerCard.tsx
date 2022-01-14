@@ -1,11 +1,12 @@
 import TimeDisplay from '@components/TimeDisplay'
 import responsive from '@constants/responsive'
+import TimeInput from '@components/TimeInput'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
-import { useTimer } from '@hooks/useTimer'
 import { Card } from '@components/atoms'
-import { secondsToTime } from '@utils/formatTime'
-import { useRef, useState } from 'react'
+import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
+import { useTimer } from '@hooks/useTimer'
+import { useRef, useState, useEffect } from 'react'
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -15,6 +16,19 @@ const StyledCard = styled(Card)`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .time-input-wrapper {
+    .atom-text {
+      display: flex;
+      flex-flow: nowrap;
+
+      font-size: 40px;
+
+      input {
+        width: 48px;
+      }
+    }
+  }
 
   button {
     z-index: 5;
@@ -65,8 +79,16 @@ export default function TimerCard() {
   const { startTimer } = useTimer(setTimeDisplay)
 
   const handleClick = () => {
-    const seconds = 30
-    const time = secondsToTime(seconds)
+    setEditing(true)
+  }
+
+  const [isEditing, setEditing] = useState(false)
+
+  const onEnter = (time: TimeValue) => {
+    setEditing(false)
+    const seconds = timeToSeconds(time)
+
+    if (!seconds) return
 
     total.current = seconds
     startTimer(time)
@@ -75,9 +97,44 @@ export default function TimerCard() {
   return (
     <StyledCard>
       <button onClick={handleClick}>
-        <TimeDisplay hmRef={hmRef} ssRef={ssRef} />
+        {isEditing && <AugmentedTimeInput onEnter={onEnter} />}
+        <TimeDisplay
+          style={{ display: isEditing ? 'none' : '' }}
+          hmRef={hmRef}
+          ssRef={ssRef}
+        />
       </button>
       <TimeRing percent={percent} />
     </StyledCard>
   )
+}
+
+const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
+  const [value, setValue] = useState<TimeValue>({ hh: '', mm: '', ss: '' })
+
+  const handleDone = () => {
+    // add validation 🤢
+
+    setValue((value) => {
+      onEnter(normalizeTimeValue(value))
+
+      return {}
+    })
+  }
+
+  useEffect(() => {
+    const enterHandler = (e) => {
+      if (e.key === 'Enter') {
+        handleDone()
+      }
+    }
+
+    window.addEventListener('keydown', enterHandler)
+
+    return () => {
+      window.removeEventListener('keydown', enterHandler)
+    }
+  }, [])
+
+  return <TimeInput value={value} onChange={setValue} />
 }

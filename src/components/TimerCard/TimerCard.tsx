@@ -1,4 +1,5 @@
 import TimeDisplay from '@components/TimeDisplay'
+import responsive from '@constants/responsive'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
 import { useTimer } from '@hooks/useTimer'
@@ -22,12 +23,20 @@ const StyledCard = styled(Card)`
     height: 200px;
     width: 200px;
     border-radius: 50%;
-    background-color: rgb(255, 255, 255, 0);
+    background-color: transparent;
 
     cursor: pointer;
 
-    &:hover {
-      background-color: rgb(255, 255, 255, 0.1);
+    -webkit-tap-highlight-color: transparent;
+
+    @media (hover: hover) and (min-width: ${responsive.md}px) {
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.wheaty_3}0a;
+      }
+    }
+
+    &:active {
+      background-color: ${({ theme }) => theme.colors.wheaty_2}2a;
     }
 
     transition: all 0.1s;
@@ -56,7 +65,7 @@ export default function TimerCard() {
   const { startTimer } = useTimer(setTimeDisplay)
 
   const handleClick = () => {
-    const seconds = 20 * 60
+    const seconds = 30
     const time = secondsToTime(seconds)
 
     total.current = seconds

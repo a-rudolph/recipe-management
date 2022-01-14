@@ -20,8 +20,28 @@ export const normalizeTimeValue = (value: TimeValue): Required<TimeValue> => {
   }
 }
 
-export const timeToSeconds = ({ hh = 0, mm = 0, ss = 0 }: TimeValue) => {
+/**
+ * give me time, I give you seconds
+ * @param timeValue TimeValue
+ * @returns Seconds
+ */
+export const timeToSeconds = ({
+  hh = 0,
+  mm = 0,
+  ss = 0,
+}: TimeValue): number => {
   return Number(hh) * 60 * 60 + Number(mm) * 60 + Number(ss)
+}
+
+export const sumTime = (...args: TimeValue[]) => {
+  return args.reduce(addTime, {})
+}
+
+export const addTime = (t1: TimeValue, t2: TimeValue) => {
+  const s1 = timeToSeconds(t1)
+  const s2 = timeToSeconds(t2)
+
+  return secondsToTime(s1 + s2)
 }
 
 export const secondsToTime = (seconds: number = 0) => {
@@ -49,7 +69,7 @@ export const dateToTime = (date: Date) => {
   }
 }
 
-export const getTimeToEndTime = (endTime: number | null) => {
+export const getTimeToEndTime = (endTime: number | null): TimeValue => {
   const secondsLeft = getSecondsToEndTime(endTime)
 
   return secondsToTime(secondsLeft)
@@ -59,7 +79,12 @@ export const getNow = () => {
   return new Date().getTime()
 }
 
-export const getEndTime = (seconds: number) => {
+/**
+ * Give me seconds, I give you end time unix
+ * @param seconds
+ * @returns unix
+ */
+export const getEndTime = (seconds: number): number => {
   const now = getNow()
 
   return now + seconds * 1000

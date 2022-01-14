@@ -6,6 +6,10 @@ module.exports = withPWA({
     disable: process.env.NODE_ENV === 'development',
     dest: 'public',
   },
+  experimental: {
+    styledComponents: true,
+  },
+  swcMinify: true,
   webpack: (config, options) => {
     const resolve = {
       alias: {

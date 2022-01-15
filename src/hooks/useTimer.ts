@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
-import { useNotification } from '@hooks/useNotification'
+import {
+  requestNotificationPermission,
+  useNotification,
+} from '@hooks/useNotification'
 import {
   getSecondsToEndTime,
   getTimeToEndTime,
@@ -50,22 +53,23 @@ export const useTimer = (
   }
 
   useEffect(() => {
+    requestNotificationPermission()
+
     if (endTimeNumber) startInterval()
 
     return endInterval
   }, [])
 
-  const createRunningNotice = () => {
-    const formatted = dayjs(endTimeNumber).format('h mm a')
+  const createRunningNotice = (endTime: number) => {
+    const formatted = dayjs(endTime).format('h[:]mm a')
 
     setNotification('Timer Running', {
-      body: `Timer ending at ${formatted}`,
+      body: `Ending at ${formatted}`,
       silent: true,
     })
   }
 
   const startTimer = (timeToEnd: TimeValue) => {
-    createRunningNotice()
     endInterval()
     const seconds = timeToSeconds(timeToEnd)
 
@@ -75,6 +79,7 @@ export const useTimer = (
 
     setEndTime(endTime)
     startInterval(endTime)
+    createRunningNotice(endTime)
   }
 
   const endTime = useMemo(() => {

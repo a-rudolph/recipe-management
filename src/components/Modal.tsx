@@ -1,4 +1,3 @@
-import { Close } from 'theme-ui'
 import { Card } from '@components/atoms'
 import styled from 'styled-components'
 
@@ -61,14 +60,16 @@ export default function Modal({
           onClick={(e) => e.stopPropagation()}
         >
           {closeable && (
-            <Close
-              sx={{
+            <button
+              style={{
                 position: 'absolute',
                 right: '8px',
                 top: '8px',
               }}
               onClick={onClose}
-            />
+            >
+              x
+            </button>
           )}
           {children}
         </Card>

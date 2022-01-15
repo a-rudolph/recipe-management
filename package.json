@@ -12,8 +12,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.8",
     "axios": "^0.21.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

@@ -7,6 +7,7 @@ import {
   getEndTime,
   dateToTime,
 } from '@utils/formatTime'
+import dayjs from 'dayjs'
 
 export const useTimer = (
   setTime: (time: TimeValue, secondsRemaining: number) => void
@@ -25,7 +26,7 @@ export const useTimer = (
       if (secondsLeft < 1) {
         stopTimer()
         setNotification('Timer finished!', {
-          body: 'get ready for next step',
+          body: 'Time to move',
           requireInteraction: true,
           dir: 'rtl',
         })
@@ -54,7 +55,17 @@ export const useTimer = (
     return endInterval
   }, [])
 
+  const createRunningNotice = () => {
+    const formatted = dayjs(endTimeNumber).format('h mm a')
+
+    setNotification('Timer Running', {
+      body: `Timer ending at ${formatted}`,
+      silent: true,
+    })
+  }
+
   const startTimer = (timeToEnd: TimeValue) => {
+    createRunningNotice()
     endInterval()
     const seconds = timeToSeconds(timeToEnd)
 

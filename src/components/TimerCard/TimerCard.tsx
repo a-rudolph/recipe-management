@@ -1,12 +1,13 @@
 import TimeDisplay from '@components/TimeDisplay'
-import responsive from '@constants/responsive'
 import TimeInput from '@components/TimeInput'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
 import { Card } from '@components/atoms'
-import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
 import { useTimer } from '@hooks/useTimer'
 import { useRef, useState, useEffect } from 'react'
+import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
+import Play from '@components/icons/Play'
+import PlusButton from '@components/icons/Plus'
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -30,29 +31,25 @@ const StyledCard = styled(Card)`
     }
   }
 
-  button {
+  .plus-button,
+  .play-button {
+    position: absolute;
+    bottom: 44px;
+    right: calc(50% - 24px);
+    background: transparent;
+    border: none;
+    z-index: 5;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .timer-button {
+    border-style: none;
+    cursor: pointer;
+    background-color: transparent;
     z-index: 5;
 
-    border-style: none;
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    background-color: transparent;
-
-    cursor: pointer;
-
     -webkit-tap-highlight-color: transparent;
-
-    @media (hover: hover) and (min-width: ${responsive.md}px) {
-      &:hover {
-        background-color: ${({ theme }) => theme.colors.wheaty_3}0a;
-      }
-    }
-
-    &:active {
-      background-color: ${({ theme }) => theme.colors.wheaty_2}2a;
-    }
-
     transition: all 0.1s;
   }
 `
@@ -94,9 +91,15 @@ export default function TimerCard() {
     startTimer(time)
   }
 
+  const onClose = isEditing
+    ? () => {
+        setEditing(false)
+      }
+    : undefined
+
   return (
-    <StyledCard>
-      <button onClick={handleClick}>
+    <StyledCard onClose={onClose}>
+      <button className='timer-button' onClick={handleClick}>
         {isEditing && <AugmentedTimeInput onEnter={onEnter} />}
         <TimeDisplay
           style={{ display: isEditing ? 'none' : '' }}
@@ -104,6 +107,11 @@ export default function TimerCard() {
           ssRef={ssRef}
         />
       </button>
+      {isEditing || (
+        <button className='plus-button' onClick={handleClick}>
+          <PlusButton />
+        </button>
+      )}
       <TimeRing percent={percent} />
     </StyledCard>
   )
@@ -136,5 +144,12 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
     }
   }, [])
 
-  return <TimeInput value={value} onChange={setValue} />
+  return (
+    <>
+      <TimeInput value={value} onChange={setValue} />
+      <button onClick={handleDone} className='play-button'>
+        <Play className='play-icon' />
+      </button>
+    </>
+  )
 }

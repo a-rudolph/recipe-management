@@ -8,12 +8,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
-    "@theme-ui/presets": "^0.3.0",
     "axios": "^0.21.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
@@ -21,8 +20,7 @@
     "next-pwa": "^5.4.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.3",
-    "theme-ui": "^0.3.1"
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@types/node": "^14.14.6",

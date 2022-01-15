@@ -20,6 +20,7 @@ export const useTimer = (
   const { setNotification } = useNotification()
 
   const timeoutRef = useRef<NodeJS.Timeout>()
+  const runningNoticeRef = useRef<Notification | null>()
 
   const startInterval = (endTime?: number) => {
     const intervalId = setInterval(() => {
@@ -43,6 +44,7 @@ export const useTimer = (
   }
 
   const stopTimer = () => {
+    runningNoticeRef.current?.close()
     setTime({ hh: '00', mm: '00', ss: '00' }, 0)
     endInterval()
     setEndTime(null)
@@ -60,10 +62,10 @@ export const useTimer = (
     return endInterval
   }, [])
 
-  const createRunningNotice = (endTime: number) => {
+  const createRunningNotice = async (endTime: number) => {
     const formatted = dayjs(endTime).format('h[:]mm a')
 
-    setNotification('Timer Running', {
+    runningNoticeRef.current = await setNotification('Timer Running', {
       body: `Ending at ${formatted}`,
       silent: true,
     })

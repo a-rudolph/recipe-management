@@ -116,6 +116,7 @@ export default function TimeInput({
               ref={refs[key]}
               value={value[key]}
               inputMode='numeric'
+              className='number-input'
               onBlur={() => {
                 handleChange({ [key]: value[key] ? padNumber(value[key]) : '' })
               }}

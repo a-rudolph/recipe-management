@@ -2,12 +2,13 @@ import TimeDisplay from '@components/TimeDisplay'
 import TimeInput from '@components/TimeInput'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
-import { Card } from '@components/atoms'
+import PlusButton from '@components/icons/Plus'
+import StopButton from '@components/icons/Stop'
+import Play from '@components/icons/Play'
+import { Card, Row } from '@components/atoms'
 import { useTimer } from '@hooks/useTimer'
 import { useRef, useState, useEffect } from 'react'
 import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
-import Play from '@components/icons/Play'
-import PlusButton from '@components/icons/Plus'
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -31,16 +32,24 @@ const StyledCard = styled(Card)`
     }
   }
 
-  .plus-button,
-  .play-button {
+  .action-row {
     position: absolute;
     bottom: 44px;
-    right: calc(50% - 24px);
+    width: 100%;
+    z-index: 5;
+  }
+
+  .stop-button,
+  .plus-button,
+  .play-button {
     background: transparent;
     border: none;
-    z-index: 5;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  .stop-button {
+    right: calc(50% - 16px);
   }
 
   .timer-button {
@@ -51,6 +60,10 @@ const StyledCard = styled(Card)`
 
     -webkit-tap-highlight-color: transparent;
     transition: all 0.1s;
+  }
+
+  .number-input {
+    z-index: 5;
   }
 `
 
@@ -73,7 +86,7 @@ export default function TimerCard() {
     setPercent(percent)
   }
 
-  const { startTimer } = useTimer(setTimeDisplay)
+  const { startTimer, stopTimer, isTimerRunning } = useTimer(setTimeDisplay)
 
   const handleClick = () => {
     setEditing(true)
@@ -97,21 +110,28 @@ export default function TimerCard() {
       }
     : undefined
 
+  const plussable = !isTimerRunning && !isEditing
+
   return (
     <StyledCard onClose={onClose}>
-      <button className='timer-button' onClick={handleClick}>
-        {isEditing && <AugmentedTimeInput onEnter={onEnter} />}
-        <TimeDisplay
-          style={{ display: isEditing ? 'none' : '' }}
-          hmRef={hmRef}
-          ssRef={ssRef}
-        />
-      </button>
-      {isEditing || (
-        <button className='plus-button' onClick={handleClick}>
-          <PlusButton />
-        </button>
-      )}
+      {isEditing && <AugmentedTimeInput onEnter={onEnter} />}
+      <TimeDisplay
+        style={{ display: isEditing ? 'none' : '' }}
+        hmRef={hmRef}
+        ssRef={ssRef}
+      />
+      <Row className='action-row centered'>
+        {isTimerRunning && (
+          <button className='stop-button' onClick={stopTimer}>
+            <StopButton />
+          </button>
+        )}
+        {plussable && (
+          <button className='plus-button' onClick={handleClick}>
+            <PlusButton />
+          </button>
+        )}
+      </Row>
       <TimeRing percent={percent} />
     </StyledCard>
   )
@@ -147,9 +167,11 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
   return (
     <>
       <TimeInput value={value} onChange={setValue} />
-      <button onClick={handleDone} className='play-button'>
-        <Play className='play-icon' />
-      </button>
+      <Row className='action-row centered'>
+        <button onClick={handleDone} className='play-button'>
+          <Play className='play-icon' />
+        </button>
+      </Row>
     </>
   )
 }

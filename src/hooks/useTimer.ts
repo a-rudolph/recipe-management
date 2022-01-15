@@ -23,8 +23,7 @@ export const useTimer = (
       const secondsLeft = getSecondsToEndTime(endTime || endTimeNumber)
 
       if (secondsLeft < 1) {
-        setTime({ hh: '00', mm: '00', ss: '00' }, 0)
-        endInterval()
+        stopTimer()
         setNotification('Timer finished!', {
           body: 'get ready for next step',
           requireInteraction: true,
@@ -37,6 +36,12 @@ export const useTimer = (
     }, 1000)
 
     timeoutRef.current = intervalId
+  }
+
+  const stopTimer = () => {
+    setTime({ hh: '00', mm: '00', ss: '00' }, 0)
+    endInterval()
+    setEndTime(null)
   }
 
   const endInterval = () => {
@@ -71,6 +76,8 @@ export const useTimer = (
 
   return {
     startTimer,
+    stopTimer,
     endTime,
+    isTimerRunning: Boolean(endTimeNumber),
   }
 }

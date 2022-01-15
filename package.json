@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -29,6 +30,7 @@
     "babel-plugin-styled-components": "^2.0.2",
     "dotenv-load": "^2.0.0",
     "next-env": "^1.1.1",
-    "typescript": "4.3.2"
+    "typescript": "4.3.2",
+    "husky": "^7.0.0"
   }
 }

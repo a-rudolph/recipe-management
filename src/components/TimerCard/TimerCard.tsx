@@ -2,11 +2,11 @@ import TimeDisplay from '@components/TimeDisplay'
 import TimeInput from '@components/TimeInput'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
-import PlusButton from '@components/icons/Plus'
-import StopButton from '@components/icons/Stop'
+import Plus from '@components/icons/Plus'
+import Stop from '@components/icons/Stop'
 import Play from '@components/icons/Play'
-import { Card, Row } from '@components/atoms'
 import { useTimer } from '@hooks/useTimer'
+import { Button, Card, Row } from '@components/atoms'
 import { useRef, useState, useEffect } from 'react'
 import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
 
@@ -16,8 +16,8 @@ const StyledCard = styled(Card)`
   width: 240px;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   .time-input-wrapper {
     .atom-text {
@@ -37,15 +37,6 @@ const StyledCard = styled(Card)`
     bottom: 44px;
     width: 100%;
     z-index: 5;
-  }
-
-  .stop-button,
-  .plus-button,
-  .play-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
   }
 
   .stop-button {
@@ -121,16 +112,8 @@ export default function TimerCard() {
         ssRef={ssRef}
       />
       <Row className='action-row centered'>
-        {isTimerRunning && (
-          <button className='stop-button' onClick={stopTimer}>
-            <StopButton />
-          </button>
-        )}
-        {plussable && (
-          <button className='plus-button' onClick={handleClick}>
-            <PlusButton />
-          </button>
-        )}
+        {isTimerRunning && <Button icon={<Stop />} onClick={stopTimer} />}
+        {plussable && <Button icon={<Plus />} onClick={handleClick} />}
       </Row>
       <TimeRing percent={percent} />
     </StyledCard>
@@ -168,9 +151,7 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
     <>
       <TimeInput value={value} onChange={setValue} />
       <Row className='action-row centered'>
-        <button onClick={handleDone} className='play-button'>
-          <Play className='play-icon' />
-        </button>
+        <Button icon={<Play />} onClick={handleDone} />
       </Row>
     </>
   )

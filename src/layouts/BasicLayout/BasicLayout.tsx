@@ -1,9 +1,11 @@
 import { BG_PATH, BG_SM_PATH } from '@constants/assets'
-import { Row } from '@components/atoms'
+import { Button, Row } from '@components/atoms'
+import { useState } from 'react'
 import breakpoints from '@constants/responsive'
+import dynamic from 'next/dynamic'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
-import dynamic from 'next/dynamic'
+import Sound from '@components/icons/Sound'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -31,11 +33,28 @@ const StyledDiv = styled.div`
   .page-content {
     margin-top: 24px;
   }
+
+  .sound-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 23px 16px;
+  }
 `
 
 export default function BasicLayout({ children }: BasicLayoutProps) {
+  const [on, setOn] = useState(false)
+
   return (
     <StyledDiv>
+      <Button
+        className='sound-btn'
+        icon={<Sound on={on} />}
+        onClick={() => {
+          setOn((on) => !on)
+        }}
+      />
       <Header />
       <Row className='centered'>
         <TimerCard />

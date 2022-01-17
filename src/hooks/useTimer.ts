@@ -9,6 +9,7 @@ import {
   dateToTime,
 } from '@utils/formatTime'
 import dayjs from 'dayjs'
+import { Howl } from 'howler'
 
 const useNotificationAction = (onActions: {
   [key: string]: (not: Notification) => void
@@ -60,24 +61,33 @@ export const useTimer = (
     return endInterval
   }, [endTimeNumber])
 
+  const handleTimerFinished = () => {
+    stopTimer()
+    const sound = new Howl({
+      src: ['beep.mp3'],
+    })
+    sound.play()
+
+    setNotification('Timer finished', {
+      body: "Time's up",
+      requireInteraction: true,
+      dir: 'rtl',
+      actions: [
+        {
+          title: 'ok',
+          action: 'finishedOk',
+        },
+      ],
+    })
+  }
+
   const startInterval = (endTime?: number) => {
     const intervalId = setInterval(() => {
       const timeLeft = getTimeToEndTime(endTime || endTimeNumber)
       const secondsLeft = getSecondsToEndTime(endTime || endTimeNumber)
 
       if (secondsLeft < 1) {
-        stopTimer()
-        setNotification('Timer finished', {
-          body: "Time's up",
-          requireInteraction: true,
-          dir: 'rtl',
-          actions: [
-            {
-              title: 'ok',
-              action: 'finishedOk',
-            },
-          ],
-        })
+        handleTimerFinished()
         return
       }
 

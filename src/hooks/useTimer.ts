@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useRef, useEffect, useMemo } from 'react'
 import {
   requestNotificationPermission,
   useNotification,
@@ -11,6 +11,7 @@ import {
   dateToTime,
 } from '@utils/formatTime'
 import dayjs from 'dayjs'
+import { useTimerContext } from './useTimerContext'
 
 const useNotificationAction = (onActions: {
   [key: string]: (not: Notification) => void
@@ -20,10 +21,15 @@ const useNotificationAction = (onActions: {
       const action = event.action
       const notification = event.notification
 
+      alert(String(event.notification))
+      notification.close()
+
       const handler = onActions[action]
 
       if (handler) handler(notification)
     }
+
+    console.log(onActions)
 
     self.addEventListener('notificationclick', listener)
 
@@ -36,7 +42,7 @@ const useNotificationAction = (onActions: {
 export const useTimer = (
   setTime: (time: TimeValue, secondsRemaining: number) => void
 ) => {
-  const [endTimeNumber, setEndTime] = useState<number>()
+  const { endTimeNumber, setEndTime } = useTimerContext()
 
   const { setNotification } = useNotification()
 

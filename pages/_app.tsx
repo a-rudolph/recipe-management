@@ -1,5 +1,5 @@
-import { TimeContextProvider } from '@hooks/useTimeContext'
 import { BRAND_NAME, theme } from '@styles/themes'
+import { TimerProvider } from '@hooks/useTimerContext'
 import { ThemeProvider } from 'styled-components'
 import { BasicLayout } from 'layouts'
 import { AppProps } from 'next/app'
@@ -8,7 +8,7 @@ import '@styles/index.css'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <TimeContextProvider>
+    <TimerProvider>
       <ThemeProvider theme={theme}>
         <Head>
           <title>{BRAND_NAME}</title>
@@ -26,6 +26,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </BasicLayout>
       </ThemeProvider>
-    </TimeContextProvider>
+    </TimerProvider>
   )
 }

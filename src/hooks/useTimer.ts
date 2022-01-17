@@ -10,6 +10,7 @@ import {
 } from '@utils/formatTime'
 import dayjs from 'dayjs'
 import { Howl } from 'howler'
+import { useSettingContext } from '@components/SoundToggle'
 
 const useNotificationAction = (onActions: {
   [key: string]: (not: Notification) => void
@@ -41,6 +42,7 @@ export const useTimer = (
   setTime: (time: TimeValue, secondsRemaining: number) => void
 ) => {
   const { timer, setTimer } = useTimerContext()
+  const { on: soundEnabled } = useSettingContext()
 
   const endTimeNumber = timer?.endTime
 
@@ -63,10 +65,13 @@ export const useTimer = (
 
   const handleTimerFinished = () => {
     stopTimer()
-    const sound = new Howl({
-      src: ['beep.mp3'],
-    })
-    sound.play()
+
+    if (soundEnabled) {
+      const sound = new Howl({
+        src: ['beep.mp3'],
+      })
+      sound.play()
+    }
 
     setNotification('Timer finished', {
       body: "Time's up",

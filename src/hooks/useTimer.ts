@@ -1,8 +1,6 @@
 import { useRef, useEffect, useMemo } from 'react'
-import {
-  requestNotificationPermission,
-  useNotification,
-} from '@hooks/useNotification'
+import { useNotification } from '@hooks/useNotification'
+import { useTimerContext } from './useTimerContext'
 import {
   getSecondsToEndTime,
   getTimeToEndTime,
@@ -11,7 +9,6 @@ import {
   dateToTime,
 } from '@utils/formatTime'
 import dayjs from 'dayjs'
-import { useTimerContext } from './useTimerContext'
 
 const useNotificationAction = (onActions: {
   [key: string]: (not: Notification) => void
@@ -42,7 +39,9 @@ const useNotificationAction = (onActions: {
 export const useTimer = (
   setTime: (time: TimeValue, secondsRemaining: number) => void
 ) => {
-  const { endTimeNumber, setEndTime } = useTimerContext()
+  const { timer, setTimer } = useTimerContext()
+
+  const endTimeNumber = timer?.endTime
 
   const { setNotification } = useNotification()
 
@@ -56,12 +55,10 @@ export const useTimer = (
   })
 
   useEffect(() => {
-    requestNotificationPermission()
-
     if (endTimeNumber) startInterval()
 
     return endInterval
-  }, [])
+  }, [endTimeNumber])
 
   const startInterval = (endTime?: number) => {
     const intervalId = setInterval(() => {
@@ -94,7 +91,7 @@ export const useTimer = (
     runningNoticeRef.current?.close()
     setTime({ hh: '00', mm: '00', ss: '00' }, 0)
     endInterval()
-    setEndTime(null)
+    setTimer(null)
   }
 
   const endInterval = () => {
@@ -118,7 +115,7 @@ export const useTimer = (
 
     const endTime = getEndTime(seconds)
 
-    setEndTime(endTime)
+    setTimer({ endTime, totalSeconds: seconds })
     startInterval(endTime)
     createRunningNotice(endTime)
   }
@@ -135,6 +132,7 @@ export const useTimer = (
     startTimer,
     stopTimer,
     endTime,
+    timer,
     isTimerRunning: Boolean(endTimeNumber),
   }
 }

@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { BRAND_NAME } from '@styles/themes'
+import { BRAND_NAME, theme } from '@styles/themes'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -8,16 +8,17 @@ class MyDocument extends Document {
   }
 
   render() {
-    const title = `${BRAND_NAME} - Bread Coach`
+    const title = `${BRAND_NAME} - bread coach`
     const description = 'wheatifully, bread coach; baking scheduling tool'
 
-    const manifest = IS_PRODUCTION ? '/manifest.json' : '/local.manifest.json'
+    const manifest = '/api/manifest'
 
     return (
       <Html lang='en'>
         <Head>
           <meta name='application-name' content={title} />
           <meta name='description' content={description} />
+          <meta name='theme-color' content={theme.colors.mono_1} />
           <link rel='manifest' href={manifest} />
           <link rel='shortcut icon' href='/favicon.ico' />
 

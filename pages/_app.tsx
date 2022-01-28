@@ -2,7 +2,7 @@ import { TimeContextProvider } from '@hooks/useTimeContext'
 import { BRAND_NAME, theme } from '@styles/themes'
 import { ThemeProvider } from 'styled-components'
 import { BasicLayout } from 'layouts'
-import { AppProps } from 'next/dist/next-server/lib/router/router'
+import { AppProps } from 'next/app'
 import Head from 'next/head'
 import '@styles/index.css'
 

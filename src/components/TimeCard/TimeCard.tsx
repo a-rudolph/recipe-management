@@ -1,7 +1,10 @@
-import { useEffect, useRef } from 'react'
-import { Card, Text } from '@components/atoms'
-import { padNumber } from '@utils/formatTime'
+import { requestNotificationPermission } from '@hooks/useNotification'
+import { useRef, useState } from 'react'
+import { useTimer } from '@hooks/useTimer'
+import { Card } from '@components/atoms'
 import styled from 'styled-components'
+import TimeDisplay from '@components/TimeDisplay'
+import SetTimeModal from '@components/SetTimeModal'
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -17,55 +20,41 @@ const StyledCard = styled(Card)`
   }
 `
 
-const getNow = () => {
-  const now = new Date()
-
-  const hh = padNumber(now.getHours())
-  const mm = padNumber(now.getMinutes())
-  const ss = padNumber(now.getSeconds())
-
-  return { hh, mm, ss }
-}
-
-export default function TimerCard() {
+export default function TimeCard() {
   const hmRef = useRef<HTMLSpanElement>(null)
   const ssRef = useRef<HTMLSpanElement>(null)
 
-  const now = getNow()
-
-  const setTime = (hh: string, mm: string, ss: string) => {
+  const setTimeDisplay = ({ hh, mm, ss }: TimeValue) => {
     if (!hmRef.current || !ssRef.current) return
 
     hmRef.current.innerText = `${hh}:${mm}`
     ssRef.current.innerText = `:${ss}`
   }
 
-  useEffect(() => {
-    if (!IS_PRODUCTION) return
+  const { startTimer } = useTimer(setTimeDisplay)
 
-    const intervalId = setInterval(() => {
-      const { hh, mm, ss } = getNow()
+  const [visible, setVisible] = useState(false)
 
-      setTime(hh, mm, ss)
-    }, 1000)
-
-    return () => {
-      clearInterval(intervalId)
-    }
-  }, [])
+  const onDone = (value: Required<TimeValue>) => {
+    requestNotificationPermission((permission) => {
+      if (permission !== 'granted') {
+        alert(
+          'you must grant permission in order to be notified when a timer finishes'
+        )
+      }
+      startTimer(value)
+      setVisible(false)
+    })
+  }
 
   return (
     <StyledCard>
-      <div className='time-container'>
-        <Text fs='48px' color='wheaty_1'>
-          <span ref={hmRef}>
-            {now.hh}:{now.mm}
-          </span>
-        </Text>
-        <Text fs='32px' color='wheaty_1'>
-          <span ref={ssRef}>:{now.ss}</span>
-        </Text>
-      </div>
+      <SetTimeModal
+        visible={visible}
+        onClose={() => setVisible(false)}
+        onDone={onDone}
+      />
+      <TimeDisplay hmRef={hmRef} ssRef={ssRef} />
     </StyledCard>
   )
 }

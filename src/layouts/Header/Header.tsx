@@ -16,7 +16,12 @@ export default function Header() {
           <LogoIcon />
         </StyledLogoWrap>
       </Link>
-      <Text fs='24px' weight={500} color='wheaty_1'>
+      <Text
+        fs='24px'
+        style={{ letterSpacing: '1px' }}
+        weight={600}
+        color='wheaty_1'
+      >
         {BRAND_NAME}
       </Text>
     </Row>

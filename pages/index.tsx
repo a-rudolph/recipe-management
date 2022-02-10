@@ -3,6 +3,8 @@ import getAvailableRecipes from '@utils/getAvailableRecipes'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 import Link from 'next/link'
+import responsive from '@constants/responsive'
+import { useEffect, useState } from 'react'
 
 const StyledDiv = styled.div`
   display: flex;
@@ -12,6 +14,16 @@ const StyledDiv = styled.div`
     width: 80vw;
     min-height: 60vh;
     margin-bottom: 24px;
+  }
+
+  @media screen and (min-width: ${responsive.md}px) {
+    justify-content: space-around;
+
+    .atom-card {
+      width: max-content;
+      padding: 24px;
+      border-radius: 4px;
+    }
   }
 `
 
@@ -28,6 +40,15 @@ const StyledItem = styled.div`
 `
 
 export default function Home({ recipes }: HomeProps) {
+  const [screenWidth, setScreenWidth] = useState(0)
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+  }, [])
+
+  const isLg = screenWidth > responsive.md
+
+
   return (
     <StyledDiv>
       <Card side='right'>
@@ -43,6 +64,9 @@ export default function Home({ recipes }: HomeProps) {
           </Link>
         ))}
       </Card>
+      {isLg && (
+        <div>another section!</div>
+      )}
     </StyledDiv>
   )
 }

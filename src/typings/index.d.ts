@@ -6,18 +6,11 @@ type RecipeType = {
   bulk: number
   proof: number
   start: number
-
-  // deprecated
-  times: {
-    bulk: number[]
-    proof: number[]
-  }
-  yield: {
-    amount: number
-    unit: string
-  }
+  brt9: Brt9
   ingredients: IngredientType[]
 }
+
+type Brt9 = 'sameday' | 'overnight'
 
 type IngredientType = {
   quantity: number

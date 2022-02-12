@@ -6,6 +6,7 @@ type RecipeType = {
   bulk: number
   proof: number
   start: number
+  btf: Btf
 
   // deprecated
   times: {
@@ -18,6 +19,8 @@ type RecipeType = {
   }
   ingredients: IngredientType[]
 }
+
+type Btf = 'overnight' | 'samedayer'
 
 type IngredientType = {
   quantity: number

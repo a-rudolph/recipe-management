@@ -42,7 +42,7 @@ const getColor = (colors: Colors, color: keyof Colors = 'wheaty_2') => {
   return _get(colors, color)
 }
 
-export default function Text({
+const Text = ({
   children,
   color,
   fs,
@@ -50,7 +50,7 @@ export default function Text({
   secondary = false,
   className = '',
   ...rest
-}: TextProps) {
+}: TextProps) => {
   return (
     <StyledText
       {...rest}
@@ -64,3 +64,27 @@ export default function Text({
     </StyledText>
   )
 }
+
+const h1Props: Partial<TextProps> = {
+  fs: '24px',
+  color: 'wheaty_1',
+  weight: 500,
+  style: { margin: '8px 0' },
+}
+
+const h2Props: Partial<TextProps> = {
+  fs: '20px',
+  color: 'wheaty_1',
+  weight: 500,
+  style: { margin: '4px 0' },
+}
+
+Text.h1 = (props: TextProps) => {
+  return <Text {...h1Props} {...props}></Text>
+}
+
+Text.h2 = (props: TextProps) => {
+  return <Text {...h2Props} {...props}></Text>
+}
+
+export default Text

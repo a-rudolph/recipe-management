@@ -15,7 +15,7 @@ const Grid = styled.div`
     justify-content: space-between;
 
     .label {
-      padding: 0 4px;
+      padding: 2px 4px;
       width: 70px;
     }
   }

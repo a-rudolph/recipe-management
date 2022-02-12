@@ -1,9 +1,8 @@
-import { Card, Text } from '@components/atoms'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
-import SimpleTimeline from '@components/SimpleTimeline'
-import styled from 'styled-components'
-import Link from 'next/link'
 import responsive from '@constants/responsive'
+import RecipeList from '@components/RecipeList'
+import styled from 'styled-components'
+import { Card } from '@components/atoms'
 import { useEffect, useState } from 'react'
 
 const StyledDiv = styled.div`
@@ -48,25 +47,12 @@ export default function Home({ recipes }: HomeProps) {
 
   const isLg = screenWidth > responsive.md
 
-
   return (
     <StyledDiv>
       <Card side='right'>
-        {recipes.map(({ name, start, bulk, proof, key }) => (
-          <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
-            <StyledItem>
-              <Text weight={500} fs='24px' color='wheaty_1'>
-                {name}
-              </Text>
-              <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-              <div className='divider' />
-            </StyledItem>
-          </Link>
-        ))}
+        <RecipeList recipes={recipes} />
       </Card>
-      {isLg && (
-        <div>another section!</div>
-      )}
+      {isLg && <div>another section!</div>}
     </StyledDiv>
   )
 }

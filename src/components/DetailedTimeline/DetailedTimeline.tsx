@@ -1,5 +1,5 @@
+import { useTrail, animated } from 'react-spring'
 import { Button, Row, Text } from '@components/atoms'
-import { Fragment } from 'react'
 import DetailIcon from '@components/icons/Detail'
 import responsive from '@constants/responsive'
 import styled from 'styled-components'
@@ -100,6 +100,15 @@ const DetailedTimeline = (props: { recipe: RecipeType }) => {
     },
   ]
 
+  const trail = useTrail(steps.length, {
+    config: { mass: 5, tension: 1000, friction: 300 },
+    opacity: 1,
+    x: 0,
+    height: 'auto',
+    from: { opacity: 0, x: 20, height: 0 },
+    delay: 300,
+  })
+
   return (
     <StyledDiv>
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
@@ -112,7 +121,7 @@ const DetailedTimeline = (props: { recipe: RecipeType }) => {
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
-            <Fragment key={i}>
+            <animated.div style={trail[i]} key={i}>
               <Row
                 className='main-row'
                 style={{ justifyContent: 'space-between' }}
@@ -143,7 +152,7 @@ const DetailedTimeline = (props: { recipe: RecipeType }) => {
                   <div className='dot' />
                 </Row>
               )}
-            </Fragment>
+            </animated.div>
           ))}
         </div>
       </div>

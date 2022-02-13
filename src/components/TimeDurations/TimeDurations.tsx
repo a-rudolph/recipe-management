@@ -1,4 +1,4 @@
-import { Row, Text } from '@components/atoms'
+import { Button, Row, Text } from '@components/atoms'
 import ClockOutline from '@components/icons/ClockOutline'
 import fractionize from '@utils/fractionize'
 import RightIcon from '@components/icons/Right'
@@ -53,9 +53,11 @@ export default function TimeDurations({
         <ClockOutline size={56} />
       </Text>
       {onClock && (
-        <Text color='wheaty_1'>
-          <RightIcon size={12} />
-        </Text>
+        <Button type='ghost' onClick={onClock}>
+          <Text color='wheaty_1'>
+            <RightIcon size={12} />
+          </Text>
+        </Button>
       )}
     </StyledRow>
   )

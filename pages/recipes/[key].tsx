@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { animated, useSpring } from 'react-spring'
 import IngredientDisplay from '@components/IngredientDisplay'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
@@ -10,15 +11,24 @@ import { Text } from '@components/atoms'
 const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
   const { name, start, bulk, proof, ingredients } = recipe
 
+  const animateProps = useSpring({
+    to: { transform: 'translateX(0)', opacity: 1 },
+    from: { transform: 'translateX(100%)', opacity: 0.5 },
+  })
+
   return (
-    <>
+    <animated.div style={animateProps}>
       <BasicLayout.Card side='right'>
         <Text.h1>{name}</Text.h1>
         <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-        <TimeDurations bulk={bulk} proof={proof} />
+        <TimeDurations
+          // onClock={() => console.log('clocked')}
+          bulk={bulk}
+          proof={proof}
+        />
         <IngredientDisplay ingredients={ingredients} />
       </BasicLayout.Card>
-    </>
+    </animated.div>
   )
 }
 

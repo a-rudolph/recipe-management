@@ -1,3 +1,4 @@
+import { useSpring, animated } from 'react-spring'
 import { Row, Text } from '@components/atoms'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
@@ -15,8 +16,8 @@ const StyledDiv = styled.div`
 
 const StyledItem = styled.div`
   cursor: pointer;
-  border-left: 12px solid; 
-  border-bottom: 1px solid; 
+  border-left: 12px solid;
+  border-bottom: 1px solid;
   border-color: ${({ theme }) => theme.colors.wheaty_4};
   border-radius: 12px 0 0 12px;
   padding: 16px 16px 0;
@@ -93,13 +94,21 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
 
 const RecipeLink = ({ recipe }: { recipe: RecipeType }) => {
   const { name, start, bulk, proof, key } = recipe
+
+  const animateProps = useSpring({
+    to: { transform: 'translateX(0)' },
+    from: { transform: 'translateX(100%)' },
+  })
+
   return (
-    <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
-      <StyledItem>
-        <Text.h2>{name}</Text.h2>
-        <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-      </StyledItem>
-    </Link>
+    <animated.div style={animateProps}>
+      <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
+        <StyledItem>
+          <Text.h2>{name}</Text.h2>
+          <SimpleTimeline start={start} bulk={bulk} proof={proof} />
+        </StyledItem>
+      </Link>
+    </animated.div>
   )
 }
 

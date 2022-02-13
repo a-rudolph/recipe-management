@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
     width: 80vw;
     min-height: 60vh;
     margin-bottom: 24px;
+    padding: 24px;
   }
 
   @media screen and (min-width: ${responsive.md}px) {
@@ -52,7 +53,7 @@ export default function Home({ recipes }: HomeProps) {
       <Card side='right'>
         <RecipeList recipes={recipes} />
       </Card>
-      {isLg && <div>another section!</div>}
+      {isLg && <div></div>}
     </StyledDiv>
   )
 }

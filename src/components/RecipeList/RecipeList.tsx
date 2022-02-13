@@ -14,9 +14,15 @@ const StyledDiv = styled.div`
 `
 
 const StyledItem = styled.div`
-  border-left: 6px solid ${({ theme }) => theme.colors.wheaty_4};
+  cursor: pointer;
+  border-left: 12px solid; 
+  border-bottom: 1px solid; 
+  border-color: ${({ theme }) => theme.colors.wheaty_4};
+  border-radius: 12px 0 0 12px;
   padding: 16px 16px 0;
   margin: 16px 0;
+  margin-right: -24px;
+  box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
 
   .divider {
     margin: 16px -16px;
@@ -92,7 +98,6 @@ const RecipeLink = ({ recipe }: { recipe: RecipeType }) => {
       <StyledItem>
         <Text.h2>{name}</Text.h2>
         <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-        <div className='divider' />
       </StyledItem>
     </Link>
   )

@@ -23,7 +23,7 @@ const StyledDiv = styled.div`
   }
 
   .page-content {
-    margin-top: 24px;
+    margin-top: 16px;
   }
 `
 

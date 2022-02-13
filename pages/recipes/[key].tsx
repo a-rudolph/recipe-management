@@ -8,23 +8,28 @@ import SimpleTimeline from '@components/SimpleTimeline'
 import TimeDurations from '@components/TimeDurations'
 import BasicLayout from '@layouts/BasicLayout'
 import { Text } from '@components/atoms'
+import { useState } from 'react'
 
-const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
+const RecipeDetail = ({
+  recipe,
+  onClock,
+}: {
+  recipe: RecipeType
+  onClock: VoidFunction
+}) => {
   const { name, start, bulk, proof, ingredients } = recipe
 
   return (
     <>
       <Text.h1>{name}</Text.h1>
       <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-      <TimeDurations
-        // onClock={() => console.log('clocked')}
-        bulk={bulk}
-        proof={proof}
-      />
+      <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
       <IngredientDisplay ingredients={ingredients} />
     </>
   )
 }
+
+type Views = 'main' | 'time'
 
 const Page = ({ recipe }: { recipe: RecipeType }) => {
   const animateProps = useSpring({
@@ -32,11 +37,24 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
     from: { transform: 'translateX(100%)', opacity: 0.5 },
   })
 
+  const [view, setView] = useState<Views>('main')
+
+  const changeView = () => {
+    setView((prev) => {
+      if (prev === 'main') return 'time'
+      return 'main'
+    })
+  }
+
   return (
     <animated.div style={animateProps}>
       <BasicLayout.Card side='right'>
-        {/* <RecipeDetail recipe={recipe} /> */}
-        <DetailedTimeline recipe={recipe} />
+        {view === 'main' && (
+          <RecipeDetail recipe={recipe} onClock={changeView} />
+        )}
+        {view === 'time' && (
+          <DetailedTimeline recipe={recipe} onBack={changeView} />
+        )}
       </BasicLayout.Card>
     </animated.div>
   )

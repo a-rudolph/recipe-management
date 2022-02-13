@@ -2,10 +2,22 @@ import { useTrail, animated } from 'react-spring'
 import { Button, Row, Text } from '@components/atoms'
 import DetailIcon from '@components/icons/Detail'
 import responsive from '@constants/responsive'
+import LeftIcon from '@components/icons/Left'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
   width: 100%;
+
+  .go-back-button {
+    position: relative;
+    margin: 8px 4px;
+
+    .left-icon-wrap {
+      position: absolute;
+      left: -20px;
+      top: 4px;
+    }
+  }
 
   .main-col {
     position: relative;
@@ -62,7 +74,13 @@ const StyledDiv = styled.div`
   }
 `
 
-const DetailedTimeline = (props: { recipe: RecipeType }) => {
+const DetailedTimeline = ({
+  recipe,
+  onBack,
+}: {
+  recipe: RecipeType
+  onBack?: VoidFunction
+}) => {
   //   const { name, start, bulk, proof, ingredients } = props.recipe
 
   const steps = [
@@ -102,17 +120,20 @@ const DetailedTimeline = (props: { recipe: RecipeType }) => {
 
   const trail = useTrail(steps.length, {
     config: { mass: 5, tension: 1000, friction: 300 },
-    opacity: 1,
-    x: 0,
+    from: { opacity: 0, height: 0 },
     height: 'auto',
-    from: { opacity: 0, x: 20, height: 0 },
-    delay: 300,
+    opacity: 1,
   })
 
   return (
     <StyledDiv>
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button type='ghost' style={{ margin: '8px 0' }}>
+        <Button onClick={onBack} className='go-back-button' type='ghost'>
+          <div className='left-icon-wrap'>
+            <Text color='wheaty_1'>
+              <LeftIcon size={12} />
+            </Text>
+          </div>
           <DetailIcon />
         </Button>
         <Text.h0 style={{ marginBottom: '16px' }}>Schedule</Text.h0>

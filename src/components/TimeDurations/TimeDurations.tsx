@@ -49,16 +49,18 @@ export default function TimeDurations({
         <div className='time-divider' />
         <TimeRow label='proofing' hours={proof} />
       </StyledTimes>
-      <Text color='wheaty_1'>
-        <ClockOutline size={56} />
-      </Text>
-      {onClock && (
-        <Button type='ghost' onClick={onClock}>
-          <Text color='wheaty_1'>
-            <RightIcon size={12} />
+      <Button type='ghost' onClick={onClock}>
+        <Row className='centered'>
+          <Text style={{ marginTop: '4px' }} color='wheaty_1'>
+            <ClockOutline size={56} />
           </Text>
-        </Button>
-      )}
+          {onClock && (
+            <Text color='wheaty_1'>
+              <RightIcon size={12} />
+            </Text>
+          )}
+        </Row>
+      </Button>
     </StyledRow>
   )
 }

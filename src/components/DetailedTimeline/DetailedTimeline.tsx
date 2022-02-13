@@ -1,5 +1,11 @@
+import {
+  getTimelineSteps,
+  hoursToTimeString,
+  hoursToDuration,
+} from '@utils/timeline'
 import { useTrail, animated } from 'react-spring'
 import { Button, Row, Text } from '@components/atoms'
+import { clamp } from '@utils/clamp'
 import DetailIcon from '@components/icons/Detail'
 import responsive from '@constants/responsive'
 import LeftIcon from '@components/icons/Left'
@@ -81,42 +87,7 @@ const DetailedTimeline = ({
   recipe: RecipeType
   onBack?: VoidFunction
 }) => {
-  //   const { name, start, bulk, proof, ingredients } = props.recipe
-
-  const steps = [
-    {
-      title: 'autolyse',
-      break: 'autolysis',
-      length: 0.5,
-      time: '7:30 am',
-      pause: '30 minutes',
-    },
-    {
-      title: 'mix',
-      break: 'bulk fermentation',
-      length: 3,
-      time: '8:00 am',
-      pause: '6 hours',
-    },
-    {
-      title: 'shape',
-      break: 'proofing',
-      length: 1.5,
-      time: '1:30 pm',
-      pause: '1.5 hours',
-    },
-    {
-      title: 'bake',
-      break: 'baking',
-      length: 0.75,
-      time: '3:15 pm',
-      pause: '1 hour',
-    },
-    {
-      title: 'ready to eat',
-      time: '4:15 pm',
-    },
-  ]
+  const steps = getTimelineSteps(recipe)
 
   const trail = useTrail(steps.length, {
     config: { mass: 5, tension: 1000, friction: 300 },
@@ -151,13 +122,13 @@ const DetailedTimeline = ({
                   {step.title}
                 </Text.h1>
                 <div className='time-oval'>
-                  <Text>{step.time}</Text>
+                  <Text>{hoursToTimeString(step.time)}</Text>
                 </div>
               </Row>
               {step.break && (
                 <Row
                   className='break-row'
-                  style={{ height: `${step.length * 3}rem` }}
+                  style={{ height: `${clamp(0.5, step.duration, 3) * 3}rem` }}
                 >
                   <Text fs='18px' secondary>
                     {step.break}
@@ -168,7 +139,7 @@ const DetailedTimeline = ({
                     secondary
                     color='wheaty_1'
                   >
-                    {step.pause}
+                    {hoursToDuration(step.duration)}
                   </Text>
                   <div className='dot' />
                 </Row>

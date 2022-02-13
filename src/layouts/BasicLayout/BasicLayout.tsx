@@ -30,7 +30,7 @@ const StyledDiv = styled.div`
     display: flex;
     justify-content: flex-end;
 
-    @media screen and (min-width: ${responsive.md}px) {
+    @media screen and (min-width: ${responsive.sm}px) {
       justify-content: space-around;
     }
   }
@@ -52,8 +52,8 @@ const LayoutCard = styled(Card)`
   padding: 24px;
   overflow: hidden;
 
-  @media screen and (min-width: ${responsive.md}px) {
-    width: max-content;
+  @media screen and (min-width: ${responsive.sm}px) {
+    width: 320px;
     border-radius: 4px;
   }
 `

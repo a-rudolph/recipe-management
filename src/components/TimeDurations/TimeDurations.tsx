@@ -27,6 +27,8 @@ const StyledTimes = styled.div`
 `
 
 const StyledRow = styled(Row)`
+  justify-content: end;
+
   .clock-outline-icon {
     margin: 0 8px;
   }

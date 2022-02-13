@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 const StyledLogoWrap = styled.div`
   padding: 12px;
+  cursor: pointer;
 `
 
 export default function Header() {

@@ -6,6 +6,7 @@ type RecipeType = {
   bulk: number
   proof: number
   start: number
+  btf: Btf
 
   // deprecated
   times: {
@@ -19,12 +20,7 @@ type RecipeType = {
   ingredients: IngredientType[]
 }
 
-type Step = {
-  title: string
-  time: import('moment').Moment
-}
-
-type Steps = Array<Step>
+type Btf = 'overnight' | 'samedayer'
 
 type IngredientType = {
   quantity: number

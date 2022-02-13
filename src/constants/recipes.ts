@@ -2,6 +2,7 @@ export const recipes: RecipeType[] = [
   {
     name: 'Saturday white bread',
     key: 'saturday-white-bread',
+    btf: 'samedayer',
     bulk: 5,
     proof: 1.25,
     start: 8,
@@ -40,6 +41,7 @@ export const recipes: RecipeType[] = [
   {
     name: 'Overnight white bread',
     key: 'overnight-white-bread',
+    btf: 'overnight',
     bulk: 13,
     proof: 1.25,
     start: 19,
@@ -78,6 +80,7 @@ export const recipes: RecipeType[] = [
   {
     name: 'Overnight whole wheat',
     key: 'overnight-whole-wheat',
+    btf: 'overnight',
     bulk: 5,
     proof: 13,
     start: 15,

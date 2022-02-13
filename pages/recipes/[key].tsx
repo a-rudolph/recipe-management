@@ -1,38 +1,67 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { animated, useSpring } from 'react-spring'
 import IngredientDisplay from '@components/IngredientDisplay'
-import { Card, Text } from '@components/atoms'
+import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import SimpleTimeline from '@components/SimpleTimeline'
 import TimeDurations from '@components/TimeDurations'
-import styled from 'styled-components'
+import BasicLayout from '@layouts/BasicLayout'
+import { Text, Row } from '@components/atoms'
+import { useState } from 'react'
+import LoafIcon from '@components/icons/Loaf'
 
-const StyledDiv = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  .atom-card {
-    width: 80vw;
-    min-height: 60vh;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-`
-
-export default function RecipeDetail({ recipe }: { recipe: RecipeType }) {
+const RecipeDetail = ({
+  recipe,
+  onClock,
+}: {
+  recipe: RecipeType
+  onClock: VoidFunction
+}) => {
   const { name, start, bulk, proof, ingredients } = recipe
 
   return (
-    <StyledDiv>
-      <Card side='right'>
-        <Text weight={500} fs='32px' color='wheaty_1'>
-          {name}
-        </Text>
-        <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-        <TimeDurations bulk={bulk} proof={proof} />
-        <IngredientDisplay ingredients={ingredients} />
-      </Card>
-    </StyledDiv>
+    <>
+      <Row style={{ maxWidth: '240px' }}>
+        <Text.h0>
+          {name} <LoafIcon />
+        </Text.h0>
+      </Row>
+      <SimpleTimeline start={start} bulk={bulk} proof={proof} />
+      <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
+      <IngredientDisplay ingredients={ingredients} />
+    </>
+  )
+}
+
+type Views = 'main' | 'time'
+
+const Page = ({ recipe }: { recipe: RecipeType }) => {
+  const animateProps = useSpring({
+    to: { transform: 'translateX(0)', opacity: 1 },
+    from: { transform: 'translateX(100%)', opacity: 0.5 },
+  })
+
+  const [view, setView] = useState<Views>('main')
+
+  const changeView = () => {
+    setView((prev) => {
+      if (prev === 'main') return 'time'
+      return 'main'
+    })
+  }
+
+  return (
+    <animated.div style={animateProps}>
+      <BasicLayout.Card side='right'>
+        {view === 'main' && (
+          <RecipeDetail recipe={recipe} onClock={changeView} />
+        )}
+        {view === 'time' && (
+          <DetailedTimeline recipe={recipe} onBack={changeView} />
+        )}
+      </BasicLayout.Card>
+    </animated.div>
   )
 }
 
@@ -47,3 +76,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     ...getRecipeProps(params),
   }
 }
+
+export default Page

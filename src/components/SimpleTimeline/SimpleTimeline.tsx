@@ -15,7 +15,7 @@ const Grid = styled.div`
     justify-content: space-between;
 
     .label {
-      padding: 0 4px;
+      padding: 2px 4px;
       width: 70px;
     }
   }
@@ -71,13 +71,13 @@ const getTimeStrings = ({
   const bake = moment(shape).add(proof, 'hours')
 
   return {
-    mix: mix.format('H:mm'),
-    shape: shape.format('H:mm'),
-    bake: bake.format('H:mm'),
+    mix: mix.format('h a'),
+    shape: shape.format('h a'),
+    bake: bake.format('h a'),
   }
 }
 
-export default function SimpleTimeline(props: SimpleTimelineProps) {
+const SimpleTimeline = (props: SimpleTimelineProps) => {
   const { mix, shape, bake } = getTimeStrings(props)
 
   return (
@@ -115,3 +115,5 @@ export default function SimpleTimeline(props: SimpleTimelineProps) {
     </StyledDiv>
   )
 }
+
+export default SimpleTimeline

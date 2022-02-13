@@ -1,8 +1,6 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
-import {
-  requestNotificationPermission,
-  useNotification,
-} from '@hooks/useNotification'
+import { useRef, useEffect, useMemo } from 'react'
+import { useNotification } from '@hooks/useNotification'
+import { useTimerContext } from './useTimerContext'
 import {
   getSecondsToEndTime,
   getTimeToEndTime,
@@ -11,6 +9,8 @@ import {
   dateToTime,
 } from '@utils/formatTime'
 import dayjs from 'dayjs'
+import { Howl } from 'howler'
+import { useSettingContext } from '@components/SoundToggle'
 
 const useNotificationAction = (onActions: {
   [key: string]: (not: Notification) => void
@@ -20,10 +20,15 @@ const useNotificationAction = (onActions: {
       const action = event.action
       const notification = event.notification
 
+      alert(String(event.notification))
+      notification.close()
+
       const handler = onActions[action]
 
       if (handler) handler(notification)
     }
+
+    console.log(onActions)
 
     self.addEventListener('notificationclick', listener)
 
@@ -36,7 +41,10 @@ const useNotificationAction = (onActions: {
 export const useTimer = (
   setTime: (time: TimeValue, secondsRemaining: number) => void
 ) => {
-  const [endTimeNumber, setEndTime] = useState<number>()
+  const { timer, setTimer } = useTimerContext()
+  const { on: soundEnabled } = useSettingContext()
+
+  const endTimeNumber = timer?.endTime
 
   const { setNotification } = useNotification()
 
@@ -50,12 +58,33 @@ export const useTimer = (
   })
 
   useEffect(() => {
-    requestNotificationPermission()
-
     if (endTimeNumber) startInterval()
 
     return endInterval
-  }, [])
+  }, [endTimeNumber])
+
+  const handleTimerFinished = () => {
+    stopTimer()
+
+    if (soundEnabled) {
+      const sound = new Howl({
+        src: ['beep.mp3'],
+      })
+      sound.play()
+    }
+
+    setNotification('Timer finished', {
+      body: "Time's up",
+      requireInteraction: true,
+      dir: 'rtl',
+      actions: [
+        {
+          title: 'ok',
+          action: 'finishedOk',
+        },
+      ],
+    })
+  }
 
   const startInterval = (endTime?: number) => {
     const intervalId = setInterval(() => {
@@ -63,18 +92,7 @@ export const useTimer = (
       const secondsLeft = getSecondsToEndTime(endTime || endTimeNumber)
 
       if (secondsLeft < 1) {
-        stopTimer()
-        setNotification('Timer finished', {
-          body: "Time's up",
-          requireInteraction: true,
-          dir: 'rtl',
-          actions: [
-            {
-              title: 'ok',
-              action: 'finishedOk',
-            },
-          ],
-        })
+        handleTimerFinished()
         return
       }
 
@@ -88,7 +106,7 @@ export const useTimer = (
     runningNoticeRef.current?.close()
     setTime({ hh: '00', mm: '00', ss: '00' }, 0)
     endInterval()
-    setEndTime(null)
+    setTimer(null)
   }
 
   const endInterval = () => {
@@ -112,7 +130,7 @@ export const useTimer = (
 
     const endTime = getEndTime(seconds)
 
-    setEndTime(endTime)
+    setTimer({ endTime, totalSeconds: seconds })
     startInterval(endTime)
     createRunningNotice(endTime)
   }
@@ -129,6 +147,7 @@ export const useTimer = (
     startTimer,
     stopTimer,
     endTime,
+    timer,
     isTimerRunning: Boolean(endTimeNumber),
   }
 }

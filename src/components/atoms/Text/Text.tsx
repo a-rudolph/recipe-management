@@ -86,15 +86,23 @@ const h2Props: Partial<TextProps> = {
   style: { margin: '4px 0' },
 }
 
-Text.h0 = styled(Text).attrs(h0Props)``
-Text.h1 = styled(Text).attrs(h1Props)``
-Text.h2 = styled(Text).attrs(h2Props)``
+const override = (props) => {
+  return (incomingProps) => ({
+    ...props,
+    ...incomingProps,
+  })
+}
 
-Text.accent = styled(Text).attrs({
+Text.h0 = styled(Text).attrs(override(h0Props))``
+Text.h1 = styled(Text).attrs(override(h1Props))``
+Text.h2 = styled(Text).attrs(override(h2Props))``
+
+Text.accent = styled(Text).attrs((props) => ({
   fs: '18px',
   secondary: true,
   color: 'wheaty_2',
   weight: 400,
-})``
+  ...props,
+}))``
 
 export default Text

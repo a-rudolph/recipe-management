@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { animated, useSpring } from 'react-spring'
 import IngredientDisplay from '@components/IngredientDisplay'
+import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import SimpleTimeline from '@components/SimpleTimeline'
@@ -34,7 +35,8 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
   return (
     <animated.div style={animateProps}>
       <BasicLayout.Card side='right'>
-        <RecipeDetail recipe={recipe} />
+        {/* <RecipeDetail recipe={recipe} /> */}
+        <DetailedTimeline recipe={recipe} />
       </BasicLayout.Card>
     </animated.div>
   )

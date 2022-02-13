@@ -1,7 +1,9 @@
 import { BG_PATH, BG_SM_PATH } from '@constants/assets'
 import breakpoints from '@constants/responsive'
+import responsive from '@constants/responsive'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
+import Card from '@components/atoms/Card/Card'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -24,10 +26,17 @@ const StyledDiv = styled.div`
 
   .page-content {
     margin-top: 16px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    @media screen and (min-width: ${responsive.md}px) {
+      justify-content: space-around;
+    }
   }
 `
 
-export default function BasicLayout({ children }: BasicLayoutProps) {
+const BasicLayout = ({ children }: BasicLayoutProps) => {
   return (
     <StyledDiv>
       <Header />
@@ -35,3 +44,20 @@ export default function BasicLayout({ children }: BasicLayoutProps) {
     </StyledDiv>
   )
 }
+
+const LayoutCard = styled(Card)`
+  width: 80vw;
+  min-height: 60vh;
+  margin-bottom: 24px;
+  padding: 24px;
+  overflow: hidden;
+
+  @media screen and (min-width: ${responsive.md}px) {
+    width: max-content;
+    border-radius: 4px;
+  }
+`
+
+BasicLayout.Card = LayoutCard
+
+export default BasicLayout

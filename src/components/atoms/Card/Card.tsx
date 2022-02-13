@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-type CardProps = {
+export type CardProps = {
   side?: 'left' | 'right'
   onClose?: VoidFunction
 } & React.HTMLAttributes<HTMLDivElement>

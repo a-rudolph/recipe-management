@@ -65,6 +65,13 @@ const Text = ({
   )
 }
 
+const h0Props: Partial<TextProps> = {
+  fs: '32px',
+  color: 'wheaty_1',
+  weight: 500,
+  style: { margin: '8px 0' },
+}
+
 const h1Props: Partial<TextProps> = {
   fs: '24px',
   color: 'wheaty_1',
@@ -79,12 +86,15 @@ const h2Props: Partial<TextProps> = {
   style: { margin: '4px 0' },
 }
 
-Text.h1 = (props: TextProps) => {
-  return <Text {...h1Props} {...props}></Text>
-}
+Text.h0 = styled(Text).attrs(h0Props)``
+Text.h1 = styled(Text).attrs(h1Props)``
+Text.h2 = styled(Text).attrs(h2Props)``
 
-Text.h2 = (props: TextProps) => {
-  return <Text {...h2Props} {...props}></Text>
-}
+Text.accent = styled(Text).attrs({
+  fs: '18px',
+  secondary: true,
+  color: 'wheaty_2',
+  weight: 400,
+})``
 
 export default Text

@@ -68,9 +68,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
         <div className='dot' />
       </Row>
       <Row>
-        <Text secondary weight={400} color='wheaty_2'>
-          mix in the morning, bake in the afternoon
-        </Text>
+        <Text.accent>mix in the morning, bake in the afternoon</Text.accent>
       </Row>
       {samedayers.map((recipe, i) => (
         <RecipeLink key={recipe.key} index={i} recipe={recipe} />
@@ -81,9 +79,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
         <div className='dot' />
       </Row>
       <Row>
-        <Text secondary weight={400} color='wheaty_2'>
-          mix in the evening, bake in the morning
-        </Text>
+        <Text.accent>mix in the evening, bake in the morning</Text.accent>
       </Row>
       {overnights.map((recipe, i) => (
         <RecipeLink

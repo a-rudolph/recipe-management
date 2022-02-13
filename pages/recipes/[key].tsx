@@ -22,7 +22,7 @@ const RecipeDetail = ({
 
   return (
     <>
-      <Row style={{ maxWidth: '300px' }}>
+      <Row style={{ maxWidth: '240px' }}>
         <Text.h0>
           {name} <LoafIcon />
         </Text.h0>

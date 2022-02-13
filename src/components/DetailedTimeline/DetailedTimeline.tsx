@@ -62,7 +62,7 @@ const StyledDiv = styled.div`
   }
 
   .time-oval {
-    margin-bottom: -2px;
+    margin-bottom: -4px;
     margin-right: -18px;
     padding: 4px 16px;
     border-radius: 60px;

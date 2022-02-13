@@ -16,6 +16,7 @@ const StyledTimes = styled.div`
 
   .time-label {
     justify-self: right;
+    white-space: nowrap;
   }
 
   .time-divider {

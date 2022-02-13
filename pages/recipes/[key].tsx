@@ -7,8 +7,9 @@ import getRecipeProps from '@utils/getRecipeProps'
 import SimpleTimeline from '@components/SimpleTimeline'
 import TimeDurations from '@components/TimeDurations'
 import BasicLayout from '@layouts/BasicLayout'
-import { Text } from '@components/atoms'
+import { Text, Row } from '@components/atoms'
 import { useState } from 'react'
+import LoafIcon from '@components/icons/Loaf'
 
 const RecipeDetail = ({
   recipe,
@@ -21,7 +22,11 @@ const RecipeDetail = ({
 
   return (
     <>
-      <Text.h1>{name}</Text.h1>
+      <Row style={{ maxWidth: '300px' }}>
+        <Text.h0>
+          {name} <LoafIcon />
+        </Text.h0>
+      </Row>
       <SimpleTimeline start={start} bulk={bulk} proof={proof} />
       <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
       <IngredientDisplay ingredients={ingredients} />

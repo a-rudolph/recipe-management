@@ -1,4 +1,4 @@
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated, config } from 'react-spring'
 import { Row, Text } from '@components/atoms'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
@@ -72,8 +72,8 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
           mix in the morning, bake in the afternoon
         </Text>
       </Row>
-      {samedayers.map((recipe) => (
-        <RecipeLink key={recipe.key} recipe={recipe} />
+      {samedayers.map((recipe, i) => (
+        <RecipeLink key={recipe.key} index={i} recipe={recipe} />
       ))}
       <Row className='centered'>
         <div className='dot' />
@@ -85,19 +85,31 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
           mix in the evening, bake in the morning
         </Text>
       </Row>
-      {overnights.map((recipe) => (
-        <RecipeLink key={recipe.key} recipe={recipe} />
+      {overnights.map((recipe, i) => (
+        <RecipeLink
+          key={recipe.key}
+          index={i + samedayers.length}
+          recipe={recipe}
+        />
       ))}
     </StyledDiv>
   )
 }
 
-const RecipeLink = ({ recipe }: { recipe: RecipeType }) => {
+const RecipeLink = ({
+  recipe,
+  index,
+}: {
+  recipe: RecipeType
+  index: number
+}) => {
   const { name, start, bulk, proof, key } = recipe
 
   const animateProps = useSpring({
     to: { transform: 'translateX(0)' },
     from: { transform: 'translateX(100%)' },
+    config: config.gentle,
+    delay: 200 * index,
   })
 
   return (

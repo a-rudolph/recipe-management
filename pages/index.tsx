@@ -14,6 +14,7 @@ const StyledDiv = styled.div`
     min-height: 60vh;
     margin-bottom: 24px;
     padding: 24px;
+    overflow: hidden;
   }
 
   @media screen and (min-width: ${responsive.md}px) {

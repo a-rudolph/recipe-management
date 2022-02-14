@@ -31,7 +31,7 @@ const StyledDiv = styled.div`
   }
 
   .page-content {
-    margin-top: 16px;
+    margin-top: 24px;
 
     display: flex;
     justify-content: flex-end;

@@ -1,6 +1,25 @@
+import _get from 'lodash/get'
+
 export const BRAND_NAME = 'whea·ti·ful·ly'
 
 // fonts too
+
+export const getColor =
+  (color: keyof ThemeType['colors']) =>
+  ({ theme }: { theme: ThemeType }) => {
+    return _get(theme, `colors.${color}`, theme.colors.wheaty_2)
+  }
+
+type ThemeType = typeof theme
+
+export const getStyle = <
+  A extends keyof ThemeType,
+  B extends keyof ThemeType[A]
+>(
+  ...args: [A, B]
+) => {
+  return ({ theme }) => _get(theme, args.join('.'))
+}
 
 export const theme = {
   colors: {
@@ -14,5 +33,9 @@ export const theme = {
     secondary_1: '#692C20',
     bg_1: '#082032',
     bg_2: '#1C405B',
+  },
+  shade: {
+    small: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+    big: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
 }

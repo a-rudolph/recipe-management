@@ -7,9 +7,11 @@ import getRecipeProps from '@utils/getRecipeProps'
 import SimpleTimeline from '@components/SimpleTimeline'
 import TimeDurations from '@components/TimeDurations'
 import BasicLayout from '@layouts/BasicLayout'
+import DetailIcon from '@components/icons/Detail'
+import { BackButton } from '@components/DetailedTimeline/DetailedTimeline'
+import { useRouter } from 'next/router'
 import { Text, Row } from '@components/atoms'
 import { useState } from 'react'
-import LoafIcon from '@components/icons/Loaf'
 
 const RecipeDetail = ({
   recipe,
@@ -19,13 +21,21 @@ const RecipeDetail = ({
   onClock: VoidFunction
 }) => {
   const { name, start, bulk, proof, ingredients } = recipe
+  const router = useRouter()
+
+  const onBack = () => {
+    router.push('/')
+  }
 
   return (
     <>
-      <Row style={{ maxWidth: '240px' }}>
-        <Text.h0>
-          {name} <LoafIcon />
-        </Text.h0>
+      <Row align='start' justify='space-between'>
+        <div style={{ width: 'max-content', margin: '8px 0' }}>
+          <BackButton onBack={onBack}>
+            <DetailIcon />
+          </BackButton>
+        </div>
+        <Text.h0 style={{ margin: 0, textAlign: 'right' }}>{name}</Text.h0>
       </Row>
       <SimpleTimeline start={start} bulk={bulk} proof={proof} />
       <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />

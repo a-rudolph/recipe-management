@@ -60,9 +60,9 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
   return (
     <StyledDiv>
       <Row>
-        <Text.h2>Recipes</Text.h2>
+        <Text.h2>Basic Recipes</Text.h2>
       </Row>
-      <Row className='centered'>
+      <Row justify='center' align='center'>
         <div className='dot' />
         <Text.h1>Same-day breads</Text.h1>
         <div className='dot' />
@@ -73,7 +73,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
       {samedayers.map((recipe, i) => (
         <RecipeLink key={recipe.key} index={i} recipe={recipe} />
       ))}
-      <Row className='centered'>
+      <Row justify='center' align='center'>
         <div className='dot' />
         <Text.h1>Overnight breads</Text.h1>
         <div className='dot' />

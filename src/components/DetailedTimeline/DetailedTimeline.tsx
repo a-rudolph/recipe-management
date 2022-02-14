@@ -6,24 +6,12 @@ import {
 import { useTrail, animated } from 'react-spring'
 import { Button, Row, Text } from '@components/atoms'
 import { clamp } from '@utils/clamp'
-import DetailIcon from '@components/icons/Detail'
 import responsive from '@constants/responsive'
 import LeftIcon from '@components/icons/Left'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
   width: 100%;
-
-  .go-back-button {
-    position: relative;
-    margin: 8px 4px;
-
-    .left-icon-wrap {
-      position: absolute;
-      left: -20px;
-      top: 4px;
-    }
-  }
 
   .main-col {
     position: relative;
@@ -80,6 +68,38 @@ const StyledDiv = styled.div`
   }
 `
 
+const StyledButton = styled(Button)`
+  &.go-back-button {
+    margin-left: -16px;
+    display: flex;
+    align-items: center;
+    width: calc(100% + 20px);
+
+    .left-icon-wrap {
+      margin-right: 8px;
+    }
+  }
+`
+
+export const BackButton = ({
+  onBack,
+  children,
+}: {
+  onBack?: VoidFunction
+  children: React.ReactNode
+}) => {
+  return (
+    <StyledButton onClick={onBack} className='go-back-button' type='ghost'>
+      <div className='left-icon-wrap'>
+        <Text color='wheaty_1'>
+          <LeftIcon size={12} />
+        </Text>
+      </div>
+      {children}
+    </StyledButton>
+  )
+}
+
 const DetailedTimeline = ({
   recipe,
   onBack,
@@ -98,26 +118,20 @@ const DetailedTimeline = ({
 
   return (
     <StyledDiv>
-      <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button onClick={onBack} className='go-back-button' type='ghost'>
-          <div className='left-icon-wrap'>
-            <Text color='wheaty_1'>
-              <LeftIcon size={12} />
-            </Text>
-          </div>
-          <DetailIcon />
-        </Button>
-        <Text.h0 style={{ marginBottom: '16px' }}>Schedule</Text.h0>
+      <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
+        <BackButton onBack={onBack}>
+          <Text color='wheaty_3' style={{ lineHeight: '40px' }}>
+            {recipe.name}
+          </Text>
+        </BackButton>
+        <Text.h1 style={{ marginBottom: '16px' }}>Schedule</Text.h1>
       </Row>
       <div className='main-col'>
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
             <animated.div style={trail[i]} key={i}>
-              <Row
-                className='main-row'
-                style={{ justifyContent: 'space-between' }}
-              >
+              <Row className='main-row' justify='space-between' align='center'>
                 <Text.h1 style={{ margin: 0 }} weight={600} color='wheaty_2'>
                   {step.title}
                 </Text.h1>

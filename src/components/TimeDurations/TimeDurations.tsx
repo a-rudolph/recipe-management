@@ -21,8 +21,8 @@ const StyledTimes = styled.div`
 
   .time-divider {
     height: 1px;
-    margin: 8px 0;
-    background-color: ${({ theme }) => theme.colors.wheaty_1};
+    margin: 4px 0;
+    background-color: ${({ theme }) => theme.colors.mono_2};
   }
 `
 
@@ -46,14 +46,14 @@ export default function TimeDurations({
   onClock,
 }: TimeDurationsProps) {
   return (
-    <StyledRow>
+    <StyledRow align='center'>
       <StyledTimes>
         <TimeRow label='bulk fermentation' hours={bulk} />
         <div className='time-divider' />
         <TimeRow label='proofing' hours={proof} />
       </StyledTimes>
       <Button type='ghost' onClick={onClock}>
-        <Row className='centered'>
+        <Row align='center' justify='center'>
           <Text style={{ marginTop: '4px' }} color='wheaty_1'>
             <ClockOutline size={56} />
           </Text>

@@ -1,3 +1,4 @@
+import responsive from '@constants/responsive'
 import styled from 'styled-components'
 
 type ButtonProps = {
@@ -10,7 +11,6 @@ type ButtonProps = {
 const Button = styled.div.attrs<ButtonProps>({
   className: `atom-button`,
 })<ButtonProps>`
-  opacity: 0.8;
   font-size: 24px;
   border-radius: 4px;
 
@@ -23,6 +23,10 @@ const Button = styled.div.attrs<ButtonProps>({
     background: transparent;
     border: none;
     color: ${({ theme }) => theme.colors.wheaty_2};
+  }
+
+  @media screen and (min-width: ${responsive.sm}px) {
+    opacity: 0.8;
   }
 
   transition: all 0.1s;

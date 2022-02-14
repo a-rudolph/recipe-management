@@ -77,6 +77,7 @@ const StyledButton = styled(Button)`
 
     .left-icon-wrap {
       margin-right: 8px;
+      margin-bottom: 2px;
     }
   }
 `
@@ -120,9 +121,7 @@ const DetailedTimeline = ({
     <StyledDiv>
       <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
         <BackButton onBack={onBack}>
-          <Text color='wheaty_3' style={{ lineHeight: '40px' }}>
-            {recipe.name}
-          </Text>
+          <Text color='wheaty_3'>{recipe.name}</Text>
         </BackButton>
         <Text.h1 style={{ marginBottom: '16px' }}>Schedule</Text.h1>
       </Row>

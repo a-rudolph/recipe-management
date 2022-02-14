@@ -60,7 +60,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
   return (
     <StyledDiv>
       <Row>
-        <Text.h2>Basic Recipes</Text.h2>
+        <Text.h2>Straight dough Recipes</Text.h2>
       </Row>
       <Row justify='center' align='center'>
         <div className='dot' />

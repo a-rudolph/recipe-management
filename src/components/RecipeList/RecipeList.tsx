@@ -1,5 +1,6 @@
 import { useSpring, animated, config } from 'react-spring'
 import { Row, Text } from '@components/atoms'
+import { getColor } from '@styles/themes'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -8,7 +9,7 @@ const StyledDiv = styled.div`
   .dot {
     height: 8px;
     width: 8px;
-    background: ${({ theme }) => theme.colors.wheaty_1};
+    background: ${getColor('wheaty_1')};
     border-radius: 50%;
     margin: 0 16px;
   }
@@ -16,10 +17,10 @@ const StyledDiv = styled.div`
 
 const StyledItem = styled.div`
   cursor: pointer;
-  border-left: 12px solid;
+  border-left: 8px solid;
   border-bottom: 1px solid;
-  border-color: ${({ theme }) => theme.colors.wheaty_4};
-  border-radius: 12px 0 0 12px;
+  border-color: ${getColor('wheaty_1')};
+  border-radius: 4px 0 0 4px;
   padding: 16px 16px 0;
   margin: 16px 0;
   margin-right: -24px;
@@ -28,13 +29,13 @@ const StyledItem = styled.div`
   .divider {
     margin: 16px -16px;
     height: 1px;
-    background-color: ${({ theme }) => theme.colors.mono_2};
+    background-color: ${getColor('mono_2')};
   }
 
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.wheaty_4}11;
+    background: ${getColor('wheaty_4')}11;
   }
 `
 

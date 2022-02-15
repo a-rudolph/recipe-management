@@ -35,6 +35,7 @@ export const theme = {
     bg_2: '#1C405B',
   },
   shade: {
+    button: '0px 1px 1px rgba(0, 0, 0, 0.25)',
     small: '0px 2px 2px rgba(0, 0, 0, 0.25)',
     big: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },

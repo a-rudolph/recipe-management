@@ -74,6 +74,7 @@ const StyledButton = styled(Button)`
     display: flex;
     align-items: center;
     width: calc(100% + 20px);
+    padding: 0;
 
     .left-icon-wrap {
       margin-right: 8px;

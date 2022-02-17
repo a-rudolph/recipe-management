@@ -49,10 +49,10 @@ const RecipeDetail = ({
 type Views = 'main' | 'time'
 
 const Page = ({ recipe }: { recipe: RecipeType }) => {
-  const animateProps = useSpring({
-    to: { transform: 'translateX(0)', opacity: 1 },
-    from: { transform: 'translateX(100%)', opacity: 0.5 },
-  })
+  // const animateProps = useSpring({
+  //   to: { transform: 'translateX(0)', opacity: 1 },
+  //   from: { transform: 'translateX(100%)', opacity: 0.5 },
+  // })
 
   const [view, setView] = useState<Views>('main')
 
@@ -64,16 +64,14 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
   }
 
   return (
-    <animated.div style={animateProps}>
-      <BasicLayout.Card side='right'>
-        {view === 'main' && (
-          <RecipeDetail recipe={recipe} onClock={changeView} />
-        )}
-        {view === 'time' && (
-          <DetailedTimeline recipe={recipe} onBack={changeView} />
-        )}
-      </BasicLayout.Card>
-    </animated.div>
+    // <animated.div style={animateProps}>
+    <BasicLayout.Card side='right'>
+      {view === 'main' && <RecipeDetail recipe={recipe} onClock={changeView} />}
+      {view === 'time' && (
+        <DetailedTimeline recipe={recipe} onBack={changeView} />
+      )}
+    </BasicLayout.Card>
+    // {/* </animated.div> */}
   )
 }
 

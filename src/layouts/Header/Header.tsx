@@ -32,7 +32,6 @@ export default function Header() {
           {BRAND_NAME}
         </Text>
       </StyledRow>
-      <Button type='secondary'>recipes</Button>
     </StyledHeader>
   )
 }

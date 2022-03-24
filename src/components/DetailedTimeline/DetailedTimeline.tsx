@@ -5,6 +5,7 @@ import {
 } from '@utils/timeline'
 import { useTrail, animated } from 'react-spring'
 import { Button, Row, Text } from '@components/atoms'
+import { getColor } from '@styles/themes'
 import { clamp } from '@utils/clamp'
 import responsive from '@constants/responsive'
 import LeftIcon from '@components/icons/Left'
@@ -29,12 +30,12 @@ const StyledDiv = styled.div`
       height: calc(100% - 16px);
       width: 3px;
       margin: 6px;
-      background: ${({ theme }) => theme.colors.secondary_1};
+      background: ${getColor('secondary_1')};
     }
   }
 
   .main-row {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.wheaty_1};
+    border-bottom: 1px solid ${getColor('wheaty_4')};
     margin-right: 16px;
     margin-bottom: 16px;
   }
@@ -51,8 +52,8 @@ const StyledDiv = styled.div`
     width: 4px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid ${({ theme }) => theme.colors.secondary_1};
-    background: ${({ theme }) => theme.colors.wheaty_1};
+    border: 6px solid ${getColor('secondary_1')};
+    background: ${getColor('wheaty_1')};
   }
 
   .time-oval {
@@ -60,7 +61,7 @@ const StyledDiv = styled.div`
     margin-right: -18px;
     padding: 4px 16px;
     border-radius: 60px;
-    background: ${({ theme }) => theme.colors.secondary_1};
+    background: ${getColor('secondary_1')};
   }
 
   @media screen and (min-width: ${responsive.md}px) {

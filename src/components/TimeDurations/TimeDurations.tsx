@@ -1,4 +1,5 @@
 import { Button, Row, Text } from '@components/atoms'
+import { getColor } from '@styles/themes'
 import ClockOutline from '@components/icons/ClockOutline'
 import fractionize from '@utils/fractionize'
 import RightIcon from '@components/icons/Right'
@@ -22,7 +23,7 @@ const StyledTimes = styled.div`
   .time-divider {
     height: 1px;
     margin: 4px 0;
-    background-color: ${({ theme }) => theme.colors.mono_2};
+    background-color: ${getColor('mono_2')};
   }
 `
 
@@ -72,7 +73,7 @@ const TimeRow = ({ label, hours }: { label: string; hours: number }) => {
   return (
     <div className='time-row-grid'>
       <Text.accent className='time-label'>{label}:</Text.accent>
-      <Text weight={500} fs='18px' color='wheaty_1'>
+      <Text weight={500} fs='18px'>
         {fractionize(hours)} hrs
       </Text>
     </div>

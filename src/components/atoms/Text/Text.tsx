@@ -67,21 +67,18 @@ const Text = ({
 
 const h0Props: Partial<TextProps> = {
   fs: '32px',
-  color: 'wheaty_1',
   weight: 500,
   style: { margin: '8px 0' },
 }
 
 const h1Props: Partial<TextProps> = {
   fs: '24px',
-  color: 'wheaty_1',
   weight: 500,
   style: { margin: '8px 0' },
 }
 
 const h2Props: Partial<TextProps> = {
   fs: '20px',
-  color: 'wheaty_1',
   weight: 500,
   style: { margin: '4px 0' },
 }

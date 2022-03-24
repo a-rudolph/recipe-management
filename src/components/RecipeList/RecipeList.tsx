@@ -7,9 +7,9 @@ import Link from 'next/link'
 
 const StyledDiv = styled.div`
   .dot {
-    height: 8px;
-    width: 8px;
-    background: ${getColor('wheaty_1')};
+    height: 10px;
+    width: 10px;
+    background: ${getColor('secondary_1')};
     border-radius: 50%;
     margin: 0 16px;
   }

@@ -32,7 +32,7 @@ const Button = styled.div.attrs<ButtonProps>({
     background: transparent;
     border: none;
     padding: 0;
-    color: ${getColor('wheaty_2')};
+    color: ${getColor('text_1')};
   }
 
   @media screen and (min-width: ${responsive.sm}px) {

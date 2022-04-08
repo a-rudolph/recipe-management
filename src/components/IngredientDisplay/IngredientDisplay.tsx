@@ -33,7 +33,7 @@ const IngredientDisplay = ({ ingredients }: IngredientDisplayProps) => {
         <Row key={`${name}-${i}`} className='ing-row'>
           <Text fs='24px'>
             {name}{' '}
-            <Text secondary fs='16px' weight={400} color='wheaty_2'>
+            <Text secondary fs='16px' weight={400} color='text_1'>
               {extra}
             </Text>
           </Text>

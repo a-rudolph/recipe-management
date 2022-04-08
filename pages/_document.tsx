@@ -18,7 +18,7 @@ class MyDocument extends Document {
         <Head>
           <meta name='application-name' content={title} />
           <meta name='description' content={description} />
-          <meta name='theme-color' content={theme.colors.mono_1} />
+          <meta name='theme-color' content={theme.colors.primary_1} />
           <link rel='manifest' href={manifest} />
           <link rel='shortcut icon' href='/favicon.ico' />
 

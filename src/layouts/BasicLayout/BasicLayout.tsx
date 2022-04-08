@@ -1,8 +1,6 @@
 import { BG_PATH, BG_SM_PATH } from '@constants/assets'
-// import { Row } from '@components/atoms'
 import breakpoints from '@constants/responsive'
 import responsive from '@constants/responsive'
-// import dynamic from 'next/dynamic'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
 import Card from '@components/atoms/Card/Card'
@@ -10,10 +8,6 @@ import Card from '@components/atoms/Card/Card'
 type BasicLayoutProps = {
   children: React.ReactNode
 }
-
-// const TimerCard = dynamic(() => import('@components/TimerCard'), {
-//   ssr: false,
-// })
 
 const StyledDiv = styled.div`
   min-height: 100vh;

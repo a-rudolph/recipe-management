@@ -38,7 +38,7 @@ type TextProps = {
 
 type Colors = typeof theme.colors
 
-const getColor = (colors: Colors, color: keyof Colors = 'wheaty_2') => {
+const getColor = (colors: Colors, color: keyof Colors = 'text_1') => {
   return _get(colors, color)
 }
 
@@ -97,7 +97,7 @@ Text.h2 = styled(Text).attrs(override(h2Props))``
 Text.accent = styled(Text).attrs((props) => ({
   fs: '18px',
   secondary: true,
-  color: 'wheaty_2',
+  color: 'text_1',
   weight: 400,
   ...props,
 }))``

@@ -133,7 +133,7 @@ const DetailedTimeline = ({
           {steps.map((step, i) => (
             <animated.div style={trail[i]} key={i}>
               <Row className='main-row' justify='space-between' align='center'>
-                <Text.h1 style={{ margin: 0 }} weight={600} color='wheaty_2'>
+                <Text.h1 style={{ margin: 0 }} weight={600} color='text_1'>
                   {step.title}
                 </Text.h1>
                 <div className='time-oval'>

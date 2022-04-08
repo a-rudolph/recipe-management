@@ -1,5 +1,5 @@
 import { getColor, getStyle } from '@styles/themes'
-import responsive from '@constants/responsive'
+import breakpoints from '@constants/breakpoints'
 import styled from 'styled-components'
 
 type ButtonProps = {
@@ -35,7 +35,7 @@ const Button = styled.div.attrs<ButtonProps>({
     color: ${getColor('text_1')};
   }
 
-  @media screen and (min-width: ${responsive.sm}px) {
+  @media screen and (min-width: ${breakpoints.sm}px) {
     opacity: 0.8;
   }
 

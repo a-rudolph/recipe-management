@@ -1,6 +1,5 @@
 import { BG_PATH, BG_SM_PATH } from '@constants/assets'
-import breakpoints from '@constants/responsive'
-import responsive from '@constants/responsive'
+import breakpoints from '@constants/breakpoints'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
 import Card from '@components/atoms/Card/Card'
@@ -30,7 +29,7 @@ const StyledDiv = styled.div`
     display: flex;
     justify-content: flex-end;
 
-    @media screen and (min-width: ${responsive.sm}px) {
+    @media screen and (min-width: ${breakpoints.sm}px) {
       justify-content: space-around;
     }
   }
@@ -40,9 +39,6 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
   return (
     <StyledDiv>
       <Header />
-      {/* <Row className='centered'>
-        <TimerCard />
-      </Row> */}
       <div className='page-content'>{children}</div>
     </StyledDiv>
   )
@@ -55,7 +51,7 @@ const LayoutCard = styled(Card)`
   padding: 24px;
   overflow: hidden;
 
-  @media screen and (min-width: ${responsive.sm}px) {
+  @media screen and (min-width: ${breakpoints.sm}px) {
     width: 320px;
     border-radius: 4px;
   }

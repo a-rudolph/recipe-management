@@ -7,7 +7,7 @@ import { useTrail, animated } from 'react-spring'
 import { Button, Row, Text } from '@components/atoms'
 import { getColor } from '@styles/themes'
 import { clamp } from '@utils/clamp'
-import responsive from '@constants/responsive'
+import breakpoints from '@constants/breakpoints'
 import LeftIcon from '@components/icons/Left'
 import styled from 'styled-components'
 
@@ -64,7 +64,7 @@ const StyledDiv = styled.div`
     background: ${getColor('secondary_1')};
   }
 
-  @media screen and (min-width: ${responsive.md}px) {
+  @media screen and (min-width: ${breakpoints.md}px) {
     min-width: 320px;
   }
 `

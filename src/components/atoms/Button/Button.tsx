@@ -53,7 +53,7 @@ const Button = styled.div.attrs<ButtonProps>({
 `
 
 export default ({
-  type = 'primary',
+  type = 'secondary',
   children,
   onClose,
   icon,

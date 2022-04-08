@@ -1,8 +1,8 @@
-import { BG_PATH, BG_SM_PATH } from '@constants/assets'
+import { getColor } from '@styles/themes'
 import breakpoints from '@constants/breakpoints'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
-import Card from '@components/atoms/Card/Card'
+import Card from '@components/atoms/Card'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -12,16 +12,7 @@ const StyledDiv = styled.div`
   min-height: 100vh;
   width: 100vw;
 
-  background-image: url(${BG_SM_PATH});
-  background-size: 100vw auto;
-  background-color: ${({ theme }) => theme.colors.bg_1};
-  background-repeat: no-repeat;
-  background-position-x: center;
-
-  @media screen and (min-width: ${breakpoints.sm}px) {
-    background-image: url(${BG_PATH});
-    background-position-x: unset;
-  }
+  background-color: ${getColor('primary_1')};
 
   .page-content {
     margin-top: 24px;

@@ -1,5 +1,5 @@
 import { BRAND_NAME, getColor, getStyle } from '@styles/themes'
-import { Text, Row, Button } from '@components/atoms'
+import { Text, Row } from '@components/atoms'
 import LogoIcon from '@components/icons/Logo'
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ const StyledRow = styled(Row)`
 `
 
 const StyledHeader = styled(Row)`
-  background-color: ${getColor('secondary_1')};
+  background: ${({ theme }) => theme.gradient};
   border-bottom: 1px solid ${getColor('mono_2')};
   box-shadow: ${getStyle('shade', 'small')};
   padding: 4px 12px;

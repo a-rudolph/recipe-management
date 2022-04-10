@@ -20,11 +20,13 @@ const StyledText = styled.span<StyledTextProps>`
   ${({ theme, $secondary, $weight = 600 }) =>
     $secondary &&
     css`
-      font-family: Lato, sans-serif;
-      font-style: italic;
-      font-weight: ${$weight};
-      letter-spacing: 0.5px;
-      color: ${getColor(theme.colors, 'text_2')};
+      &.atom-text {
+        font-family: Lato, sans-serif;
+        font-style: italic;
+        font-weight: ${$weight};
+        letter-spacing: 0.5px;
+        color: ${getColor(theme.colors, 'text_2')};
+      }
     `}
 `
 
@@ -43,6 +45,7 @@ const Text = ({
   fs = 'body',
   weight = 400,
   secondary = false,
+  className,
   ...props
 }: TextProps) => {
   return (
@@ -51,6 +54,7 @@ const Text = ({
       $weight={weight}
       $fontSize={fs}
       $secondary={secondary}
+      className={`atom-text ${className}`}
       {...props}
     />
   )
@@ -60,7 +64,7 @@ const getColor = (colors: Colors, color: keyof Colors = 'text_1') => {
   return _get(colors, color)
 }
 
-export const Header = ({
+const Header = ({
   as: fs = 'h2',
   ...props
 }: { as: keyof Size } & TextProps) => {
@@ -88,9 +92,12 @@ export const Header = ({
   return <h2>{Content}</h2>
 }
 
-Text.accent = styled(Text).attrs((props) => ({
+Text.accent = styled(Text).attrs(({ className, ...props }) => ({
+  className: `atom-text atom-text-accent ${className}`,
   secondary: true,
   ...props,
 }))``
+
+Text.Header = Header
 
 export default Text

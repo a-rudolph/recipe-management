@@ -57,4 +57,14 @@ export const theme = {
     big: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
   gradient,
+  font: 'Mukta Mahee, sans-serif',
+  text: {
+    body: '1rem',
+    h1: '2.488rem',
+    h2: '2.074rem',
+    h3: '1.728rem',
+    h4: '1.44rem',
+    h5: '1.2rem',
+    small: '0.833rem',
+  },
 }

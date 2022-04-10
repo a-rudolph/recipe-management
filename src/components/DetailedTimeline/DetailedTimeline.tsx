@@ -123,9 +123,13 @@ const DetailedTimeline = ({
     <StyledDiv>
       <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
         <BackButton onBack={onBack}>
-          <Text color='wheaty_3'>{recipe.name}</Text>
+          <Text fs='h5' color='text_2'>
+            {recipe.name}
+          </Text>
         </BackButton>
-        <Text.h1 style={{ marginBottom: '16px' }}>Schedule</Text.h1>
+        <Text fs='h4' style={{ marginBottom: '16px' }}>
+          Schedule
+        </Text>
       </Row>
       <div className='main-col'>
         <div className='vert-line' />
@@ -133,11 +137,11 @@ const DetailedTimeline = ({
           {steps.map((step, i) => (
             <animated.div style={trail[i]} key={i}>
               <Row className='main-row' justify='space-between' align='center'>
-                <Text.h1 style={{ margin: 0 }} weight={600} color='text_1'>
+                <Text fs='h4' weight={600} color='text_1'>
                   {step.title}
-                </Text.h1>
+                </Text>
                 <div className='time-oval'>
-                  <Text>{hoursToTimeString(step.time)}</Text>
+                  <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
                 </div>
               </Row>
               {step.break && (
@@ -145,15 +149,8 @@ const DetailedTimeline = ({
                   className='break-row'
                   style={{ height: `${clamp(0.5, step.duration, 3) * 3}rem` }}
                 >
-                  <Text fs='18px' secondary>
-                    {step.break}
-                  </Text>
-                  <Text
-                    style={{ margin: '0 4px' }}
-                    fs='18px'
-                    secondary
-                    color='wheaty_1'
-                  >
+                  <Text secondary>{step.break}</Text>
+                  <Text style={{ margin: '0 4px' }} secondary color='wheaty_1'>
                     {hoursToDuration(step.duration)}
                   </Text>
                   <div className='dot' />

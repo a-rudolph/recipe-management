@@ -61,11 +61,11 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
   return (
     <StyledDiv>
       <Row>
-        <Text.h2>Straight dough Recipes</Text.h2>
+        <Text fs='h3'>Straight dough Recipes</Text>
       </Row>
       <Row justify='center' align='center'>
         <div className='dot' />
-        <Text.h1>Same-day breads</Text.h1>
+        <Text fs='h4'>Same-day breads</Text>
         <div className='dot' />
       </Row>
       <Row>
@@ -76,7 +76,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
       ))}
       <Row justify='center' align='center'>
         <div className='dot' />
-        <Text.h1>Overnight breads</Text.h1>
+        <Text fs='h4'>Overnight breads</Text>
         <div className='dot' />
       </Row>
       <Row>
@@ -113,7 +113,7 @@ const RecipeLink = ({
     <animated.div style={animateProps}>
       <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
         <StyledItem>
-          <Text.h2>{name}</Text.h2>
+          <Text fs='h4'>{name}</Text>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </StyledItem>
       </Link>

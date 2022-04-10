@@ -17,6 +17,7 @@ const StyledTimes = styled.div`
 
   .time-label {
     justify-self: right;
+    align-self: center;
     white-space: nowrap;
   }
 
@@ -73,7 +74,7 @@ const TimeRow = ({ label, hours }: { label: string; hours: number }) => {
   return (
     <div className='time-row-grid'>
       <Text.accent className='time-label'>{label}:</Text.accent>
-      <Text weight={500} fs='18px'>
+      <Text weight={500} fs='h5'>
         {fractionize(hours)} hrs
       </Text>
     </div>

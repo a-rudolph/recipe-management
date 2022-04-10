@@ -12,7 +12,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <title>{BRAND_NAME}</title>
         <link rel='icon' href='/favicon.ico' />
         <link
-          href='https://fonts.googleapis.com/css2?family=Roboto&family=Lato:ital@1&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Mukta+Mahee:400&family=Lato:ital@1&display=swap'
           rel='stylesheet'
         ></link>
         <meta

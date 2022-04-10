@@ -28,7 +28,7 @@ export default function Header() {
             <LogoIcon />
           </div>
         </Link>
-        <Text fs='24px' weight={500}>
+        <Text fs='h4' weight={500}>
           {BRAND_NAME}
         </Text>
       </StyledRow>

@@ -81,7 +81,7 @@ export default function SetTimeModal({
   return (
     <StyledModal closeable={false} visible={visible}>
       <Row>
-        <Text color='wheaty_3' weight={500} fs='18px'>
+        <Text color='text_2' weight={500} fs='h5'>
           Set timer
         </Text>
       </Row>

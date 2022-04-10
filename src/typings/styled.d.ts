@@ -25,5 +25,15 @@ declare module 'styled-components' {
       big: string
     }
     gradient: string
+    font: string
+    text: {
+      body: string
+      h1: string
+      h2: string
+      h3: string
+      h4: string
+      h5: string
+      small: string
+    }
   }
 }

@@ -35,9 +35,12 @@ const RecipeDetail = ({
             <DetailIcon />
           </BackButton>
         </div>
-        <Text.h0 style={{ margin: 0, textAlign: 'right', maxWidth: '280px' }}>
+        <Text
+          fs='h4'
+          style={{ margin: 0, textAlign: 'right', maxWidth: '280px' }}
+        >
           {name}
-        </Text.h0>
+        </Text>
       </Row>
       <SimpleTimeline start={start} bulk={bulk} proof={proof} />
       <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />

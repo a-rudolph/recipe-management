@@ -6,18 +6,18 @@ type Colors = typeof theme.colors
 type Size = typeof theme.text
 
 type StyledTextProps = {
-  $color: keyof Colors
+  $color?: keyof Colors
   $fontSize: keyof Size
   $weight: number
   $secondary: boolean
 }
 
 const StyledText = styled.span<StyledTextProps>`
-  color: ${({ $color, theme }) => getColor(theme.colors, $color)};
+  color: ${({ $color = 'text_1', theme }) => getColor(theme.colors, $color)};
   font-size: ${(theme) => getStyle('text', theme.$fontSize)(theme)};
   font-weight: ${({ $weight }) => $weight};
 
-  ${({ theme, $secondary, $weight = 600 }) =>
+  ${({ theme, $secondary, $weight = 600, $color = 'text_2' }) =>
     $secondary &&
     css`
       &.atom-text {
@@ -25,7 +25,7 @@ const StyledText = styled.span<StyledTextProps>`
         font-style: italic;
         font-weight: ${$weight};
         letter-spacing: 0.5px;
-        color: ${getColor(theme.colors, 'text_2')};
+        color: ${getColor(theme.colors, $color)};
       }
     `}
 `
@@ -41,7 +41,7 @@ type TextProps = {
 }
 
 const Text = ({
-  color = 'text_1',
+  color,
   fs = 'body',
   weight = 400,
   secondary = false,

@@ -24,9 +24,7 @@ const IngredientDisplay = ({ ingredients }: IngredientDisplayProps) => {
   return (
     <StyledDiv>
       <Row className='yield-row'>
-        <Text secondary weight={400}>
-          fills two 10-in banneton
-        </Text>
+        <Text secondary>fills two 10-in banneton</Text>
         <Text fs='h4'>2 loaves</Text>
       </Row>
       {ingredients.map(({ name, extra, quantity, unit }, i) => (

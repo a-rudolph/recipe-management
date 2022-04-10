@@ -22,16 +22,16 @@ const StyledHeader = styled(Row)`
 export default function Header() {
   return (
     <StyledHeader justify='space-between' align='center'>
-      <StyledRow align='center'>
-        <Link href='/'>
+      <Link href='/'>
+        <StyledRow align='center'>
           <div className='logo'>
             <LogoIcon />
           </div>
-        </Link>
-        <Text fs='h4' weight={500}>
-          {BRAND_NAME}
-        </Text>
-      </StyledRow>
+          <Text fs='h4' weight={500}>
+            {BRAND_NAME}
+          </Text>
+        </StyledRow>
+      </Link>
     </StyledHeader>
   )
 }

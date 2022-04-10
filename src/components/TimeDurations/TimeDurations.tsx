@@ -73,8 +73,10 @@ export default function TimeDurations({
 const TimeRow = ({ label, hours }: { label: string; hours: number }) => {
   return (
     <div className='time-row-grid'>
-      <Text.accent className='time-label'>{label}:</Text.accent>
-      <Text weight={500} fs='h5'>
+      <Text secondary color='text_1' className='time-label'>
+        {label}:
+      </Text>
+      <Text weight={500} color='wheaty_1' fs='h5'>
         {fractionize(hours)} hrs
       </Text>
     </div>

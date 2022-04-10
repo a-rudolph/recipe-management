@@ -1,6 +1,6 @@
 import { useSpring, animated, config } from 'react-spring'
 import { Row, Text } from '@components/atoms'
-import { getColor } from '@styles/themes'
+import { getColor, getStyle } from '@styles/themes'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -24,7 +24,8 @@ const StyledItem = styled.div`
   padding: 16px 16px 0;
   margin: 16px 0;
   margin-right: -24px;
-  box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+  background: ${({ theme }) => theme.gradient};
+  box-shadow: ${getStyle('shade', 'big')};
 
   .divider {
     margin: 16px -16px;
@@ -69,7 +70,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
         <div className='dot' />
       </Row>
       <Row>
-        <Text.accent>mix in the morning, bake in the afternoon</Text.accent>
+        <Text secondary>mix in the morning, bake in the afternoon</Text>
       </Row>
       {samedayers.map((recipe, i) => (
         <RecipeLink key={recipe.key} index={i} recipe={recipe} />

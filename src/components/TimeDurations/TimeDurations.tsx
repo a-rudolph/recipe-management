@@ -6,7 +6,7 @@ import RightIcon from '@components/icons/Right'
 import styled from 'styled-components'
 
 const StyledTimes = styled.div`
-  margin: 20px 0;
+  margin: 16px 0;
   width: max-content;
 
   .time-row-grid {
@@ -23,7 +23,6 @@ const StyledTimes = styled.div`
 
   .time-divider {
     height: 1px;
-    margin: 4px 0;
     background-color: ${getColor('mono_2')};
   }
 `

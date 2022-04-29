@@ -114,7 +114,9 @@ const RecipeLink = ({
     <animated.div style={animateProps}>
       <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
         <StyledItem>
-          <Text fs='h4'>{name}</Text>
+          <Text fs='h4' style={{ lineHeight: 1 }}>
+            {name}
+          </Text>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </StyledItem>
       </Link>

@@ -32,11 +32,7 @@ const Grid = styled.div`
     width: 70px;
     border-radius: 50px;
     text-align: center;
-    padding: 4px;
-
-    .atom-text {
-      font-size: 18px;
-    }
+    padding: 0 4px;
   }
 
   .line {
@@ -85,17 +81,17 @@ const SimpleTimeline = (props: SimpleTimelineProps) => {
     <StyledDiv>
       <Grid className='label-row'>
         <div className='label'>
-          <Text secondary style={{ lineHeight: 1.2 }}>
+          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
             mix
           </Text>
         </div>
         <div className='label'>
-          <Text secondary style={{ lineHeight: 1.2 }}>
+          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
             shape
           </Text>
         </div>
         <div className='label'>
-          <Text secondary style={{ lineHeight: 1.2 }}>
+          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
             bake
           </Text>
         </div>

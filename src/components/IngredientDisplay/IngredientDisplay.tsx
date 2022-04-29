@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
 
   .ing-row {
     margin: 8px -24px;
-    padding: 8px 24px;
+    padding: 4px 24px;
 
     background-color: ${({ theme }) => theme.colors.secondary_1};
     justify-content: space-between;

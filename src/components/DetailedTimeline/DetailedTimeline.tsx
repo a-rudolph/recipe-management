@@ -59,7 +59,7 @@ const StyledDiv = styled.div`
   .time-oval {
     margin-bottom: -4px;
     margin-right: -18px;
-    padding: 4px 16px;
+    padding: 2px 16px;
     border-radius: 60px;
     background: ${getColor('secondary_1')};
   }
@@ -89,7 +89,7 @@ export const BackButton = ({
   children,
 }: {
   onBack?: VoidFunction
-  children: React.ReactNode
+  children: string
 }) => {
   return (
     <StyledButton onClick={onBack} className='go-back-button' type='ghost'>
@@ -98,7 +98,9 @@ export const BackButton = ({
           <LeftIcon size={12} />
         </Text>
       </div>
-      {children}
+      <Text fs='h5' color='text_2' style={{ letterSpacing: '0.5px' }}>
+        {children}
+      </Text>
     </StyledButton>
   )
 }
@@ -122,11 +124,7 @@ const DetailedTimeline = ({
   return (
     <StyledDiv>
       <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
-        <BackButton onBack={onBack}>
-          <Text fs='h5' color='text_2'>
-            {recipe.name}
-          </Text>
-        </BackButton>
+        <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
         <Text fs='h4' style={{ marginBottom: '16px' }}>
           Schedule
         </Text>
@@ -147,7 +145,7 @@ const DetailedTimeline = ({
               {step.break && (
                 <Row
                   className='break-row'
-                  style={{ height: `${clamp(0.5, step.duration, 3) * 3}rem` }}
+                  style={{ height: `${clamp(0.5, step.duration, 2) * 3}rem` }}
                 >
                   <Text secondary>{step.break}</Text>
                   <Text style={{ margin: '0 4px' }} secondary color='wheaty_1'>

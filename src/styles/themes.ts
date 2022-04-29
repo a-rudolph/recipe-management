@@ -2,8 +2,6 @@ import _get from 'lodash/get'
 
 export const BRAND_NAME = 'whea·ti·ful·ly'
 
-// fonts too
-
 export const getColor =
   (color: keyof ThemeType['colors']) =>
   ({ theme }: { theme: ThemeType }) => {
@@ -57,6 +55,7 @@ export const theme = {
     big: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
   gradient,
+  // font: 'Roboto',
   font: 'Mukta Mahee, sans-serif',
   text: {
     body: '1rem',

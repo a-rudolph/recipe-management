@@ -7,7 +7,6 @@ const StyledButton = styled(Button)`
     margin-left: -16px;
     display: flex;
     align-items: center;
-    width: calc(100% + 20px);
     padding: 0;
 
     .left-icon-wrap {

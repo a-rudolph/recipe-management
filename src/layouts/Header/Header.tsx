@@ -27,7 +27,7 @@ export default function Header() {
           <div className='logo'>
             <LogoIcon />
           </div>
-          <Text fs='h4' weight={500}>
+          <Text fs='h4' color='wheaty_1' weight={500}>
             {BRAND_NAME}
           </Text>
         </StyledRow>

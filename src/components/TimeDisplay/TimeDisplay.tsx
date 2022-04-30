@@ -16,10 +16,10 @@ export default function TimeDisplay(props: TimeDisplayProps) {
 
   return (
     <StyledTime className='time-container' {...rest}>
-      <Text fs='h3' color='wheaty_1'>
+      <Text fs='h1' color='wheaty_1'>
         <span ref={hmRef}>00:00</span>
       </Text>
-      <Text fs='h4' color='wheaty_1'>
+      <Text fs='h1' color='wheaty_1'>
         <span ref={ssRef}>:00</span>
       </Text>
     </StyledTime>

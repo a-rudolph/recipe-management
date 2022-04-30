@@ -1,5 +1,6 @@
-import { getColor, getStyle } from '@styles/themes'
+import { getColor } from '@styles/themes'
 import breakpoints from '@constants/breakpoints'
+import TimerCard from '@components/TimerCard'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
 import Card from '@components/atoms/Card'
@@ -53,12 +54,21 @@ const StyledDiv = styled.div`
       justify-content: space-around;
     }
   }
+
+  .timer-content {
+    margin: 16px;
+    display: flex;
+    justify-content: center;
+  }
 `
 
 const BasicLayout = ({ children }: BasicLayoutProps) => {
   return (
     <StyledDiv>
       <Header />
+      <div className='timer-content'>
+        <TimerCard />
+      </div>
       <div className='page-content'>{children}</div>
     </StyledDiv>
   )

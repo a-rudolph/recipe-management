@@ -24,10 +24,10 @@ const StyledCard = styled(Card)`
       display: flex;
       flex-flow: nowrap;
 
-      font-size: 40px;
+      font-size: 32px;
 
       input {
-        width: 48px;
+        width: 40px;
       }
     }
   }

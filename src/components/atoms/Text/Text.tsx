@@ -1,108 +1,103 @@
-import { theme } from '@styles/themes'
+import { getStyle, theme } from '@styles/themes'
 import styled, { css } from 'styled-components'
 import _get from 'lodash/get'
 
+type Colors = typeof theme.colors
+type Size = typeof theme.text
+
 type StyledTextProps = {
-  $color: keyof Colors
-  $fontSize: string
+  $color?: keyof Colors
+  $fontSize: keyof Size
   $weight: number
   $secondary: boolean
 }
 
 const StyledText = styled.span<StyledTextProps>`
-  color: ${({ $color, theme }) => getColor(theme.colors, $color)};
-  font-weight: ${({ $weight }) => $weight || 400};
-  font-size: ${({ $fontSize }) => $fontSize || '16px'};
-  font-family: Roboto;
+  color: ${({ $color = 'text_1', theme }) => getColor(theme.colors, $color)};
+  font-size: ${(theme) => getStyle('text', theme.$fontSize)(theme)};
+  font-weight: ${({ $weight }) => $weight};
 
-  ${({ theme, $secondary, $weight = 600, $color }) =>
+  ${({ theme, $secondary, $weight = 600, $color = 'text_2' }) =>
     $secondary &&
     css`
-      font-family: Lato, sans-serif;
-      font-style: italic;
-      font-weight: ${$weight};
-      letter-spacing: 0.5px;
-      color: ${getColor(theme.colors, $color || 'wheaty_3')};
+      &.atom-text {
+        font-family: Lato, sans-serif;
+        font-style: italic;
+        font-weight: ${$weight};
+        letter-spacing: 0.5px;
+        color: ${getColor(theme.colors, $color)};
+      }
     `}
 `
 
 type TextProps = {
   children: React.ReactNode
   color?: keyof Colors
-  fs?: string
+  fs?: keyof Size
   weight?: number
   style?: React.CSSProperties
   secondary?: boolean
   className?: string
 }
 
-type Colors = typeof theme.colors
-
-const getColor = (colors: Colors, color: keyof Colors = 'wheaty_2') => {
-  return _get(colors, color)
-}
-
 const Text = ({
-  children,
   color,
-  fs,
-  weight,
+  fs = 'body',
+  weight = 400,
   secondary = false,
-  className = '',
-  ...rest
+  className,
+  ...props
 }: TextProps) => {
   return (
     <StyledText
-      {...rest}
       $color={color}
       $weight={weight}
       $fontSize={fs}
       $secondary={secondary}
       className={`atom-text ${className}`}
-    >
-      {children}
-    </StyledText>
+      {...props}
+    />
   )
 }
 
-const h0Props: Partial<TextProps> = {
-  fs: '32px',
-  color: 'wheaty_1',
-  weight: 500,
-  style: { margin: '8px 0' },
+const getColor = (colors: Colors, color: keyof Colors = 'text_1') => {
+  return _get(colors, color)
 }
 
-const h1Props: Partial<TextProps> = {
-  fs: '24px',
-  color: 'wheaty_1',
-  weight: 500,
-  style: { margin: '8px 0' },
+const Header = ({
+  as: fs = 'h2',
+  ...props
+}: { as: keyof Size } & TextProps) => {
+  const Content = <Text {...props} fs={fs} />
+
+  if (fs === 'h1') {
+    return <h1>{Content}</h1>
+  }
+
+  if (fs === 'h2') {
+  }
+
+  if (fs === 'h3') {
+    return <h3>{Content}</h3>
+  }
+
+  if (fs === 'h4') {
+    return <h4>{Content}</h4>
+  }
+
+  if (fs === 'h5') {
+    return <h5>{Content}</h5>
+  }
+
+  return <h2>{Content}</h2>
 }
 
-const h2Props: Partial<TextProps> = {
-  fs: '20px',
-  color: 'wheaty_1',
-  weight: 500,
-  style: { margin: '4px 0' },
-}
-
-const override = (props) => {
-  return (incomingProps) => ({
-    ...props,
-    ...incomingProps,
-  })
-}
-
-Text.h0 = styled(Text).attrs(override(h0Props))``
-Text.h1 = styled(Text).attrs(override(h1Props))``
-Text.h2 = styled(Text).attrs(override(h2Props))``
-
-Text.accent = styled(Text).attrs((props) => ({
-  fs: '18px',
+Text.accent = styled(Text).attrs(({ className, ...props }) => ({
+  className: `atom-text atom-text-accent ${className}`,
   secondary: true,
-  color: 'wheaty_2',
-  weight: 400,
   ...props,
 }))``
+
+Text.Header = Header
 
 export default Text

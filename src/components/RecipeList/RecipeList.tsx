@@ -1,14 +1,15 @@
 import { useSpring, animated, config } from 'react-spring'
 import { Row, Text } from '@components/atoms'
+import { getColor, getStyle } from '@styles/themes'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 import Link from 'next/link'
 
 const StyledDiv = styled.div`
   .dot {
-    height: 8px;
-    width: 8px;
-    background: ${({ theme }) => theme.colors.wheaty_1};
+    height: 10px;
+    width: 10px;
+    background: ${getColor('secondary_1')};
     border-radius: 50%;
     margin: 0 16px;
   }
@@ -16,25 +17,26 @@ const StyledDiv = styled.div`
 
 const StyledItem = styled.div`
   cursor: pointer;
-  border-left: 12px solid;
+  border-left: 8px solid;
   border-bottom: 1px solid;
-  border-color: ${({ theme }) => theme.colors.wheaty_4};
-  border-radius: 12px 0 0 12px;
+  border-color: ${getColor('wheaty_1')};
+  border-radius: 4px 0 0 4px;
   padding: 16px 16px 0;
   margin: 16px 0;
   margin-right: -24px;
-  box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+  background: ${({ theme }) => theme.gradient};
+  box-shadow: ${getStyle('shade', 'big')};
 
   .divider {
     margin: 16px -16px;
     height: 1px;
-    background-color: ${({ theme }) => theme.colors.mono_2};
+    background-color: ${getColor('mono_2')};
   }
 
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.wheaty_4}11;
+    background: ${getColor('wheaty_4')}11;
   }
 `
 
@@ -60,22 +62,22 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
   return (
     <StyledDiv>
       <Row>
-        <Text.h2>Recipes</Text.h2>
+        <Text fs='h3'>Straight dough Recipes</Text>
       </Row>
-      <Row className='centered'>
+      <Row justify='center' align='center'>
         <div className='dot' />
-        <Text.h1>Same-day breads</Text.h1>
+        <Text fs='h4'>Same-day breads</Text>
         <div className='dot' />
       </Row>
       <Row>
-        <Text.accent>mix in the morning, bake in the afternoon</Text.accent>
+        <Text secondary>mix in the morning, bake in the afternoon</Text>
       </Row>
       {samedayers.map((recipe, i) => (
         <RecipeLink key={recipe.key} index={i} recipe={recipe} />
       ))}
-      <Row className='centered'>
+      <Row justify='center' align='center'>
         <div className='dot' />
-        <Text.h1>Overnight breads</Text.h1>
+        <Text fs='h4'>Overnight breads</Text>
         <div className='dot' />
       </Row>
       <Row>
@@ -112,7 +114,9 @@ const RecipeLink = ({
     <animated.div style={animateProps}>
       <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
         <StyledItem>
-          <Text.h2>{name}</Text.h2>
+          <Text fs='h4' style={{ lineHeight: 1 }}>
+            {name}
+          </Text>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </StyledItem>
       </Link>

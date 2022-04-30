@@ -109,7 +109,7 @@ export default function TimeInput({
 
   return (
     <StyledDiv className='time-input-wrapper'>
-      <Text fs='48px' color='wheaty_1'>
+      <Text style={{ fontSize: '48px' }} color='wheaty_1'>
         {keys.map((key, i) => (
           <Fragment key={i}>
             <input

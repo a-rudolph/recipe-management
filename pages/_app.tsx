@@ -11,8 +11,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>{BRAND_NAME}</title>
         <link rel='icon' href='/favicon.ico' />
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
-          href='https://fonts.googleapis.com/css2?family=Roboto&family=Lato:ital@1&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Mukta+Mahee&display=swap'
           rel='stylesheet'
         ></link>
         <meta

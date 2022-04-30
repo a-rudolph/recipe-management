@@ -17,6 +17,7 @@ const Grid = styled.div`
     .label {
       padding: 2px 4px;
       width: 70px;
+      line-height: 1.2;
     }
   }
 
@@ -31,11 +32,7 @@ const Grid = styled.div`
     width: 70px;
     border-radius: 50px;
     text-align: center;
-    padding: 4px;
-
-    .atom-text {
-      font-size: 18px;
-    }
+    padding: 0 4px;
   }
 
   .line {
@@ -84,32 +81,32 @@ const SimpleTimeline = (props: SimpleTimelineProps) => {
     <StyledDiv>
       <Grid className='label-row'>
         <div className='label'>
-          <Text secondary fs='18px'>
+          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
             mix
           </Text>
         </div>
         <div className='label'>
-          <Text secondary fs='18px'>
+          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
             shape
           </Text>
         </div>
         <div className='label'>
-          <Text secondary fs='18px'>
+          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
             bake
           </Text>
         </div>
       </Grid>
       <Grid>
         <div className='time'>
-          <Text>{mix}</Text>
+          <Text fs='h5'>{mix}</Text>
         </div>
         <div className='line' />
         <div className='time'>
-          <Text>{shape}</Text>
+          <Text fs='h5'>{shape}</Text>
         </div>
         <div className='line' />
         <div className='time'>
-          <Text>{bake}</Text>
+          <Text fs='h5'>{bake}</Text>
         </div>
       </Grid>
     </StyledDiv>

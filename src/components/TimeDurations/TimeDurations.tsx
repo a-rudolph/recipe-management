@@ -1,11 +1,12 @@
 import { Button, Row, Text } from '@components/atoms'
+import { getColor } from '@styles/themes'
 import ClockOutline from '@components/icons/ClockOutline'
 import fractionize from '@utils/fractionize'
 import RightIcon from '@components/icons/Right'
 import styled from 'styled-components'
 
 const StyledTimes = styled.div`
-  margin: 20px 0;
+  margin: 16px 0;
   width: max-content;
 
   .time-row-grid {
@@ -16,13 +17,13 @@ const StyledTimes = styled.div`
 
   .time-label {
     justify-self: right;
+    align-self: center;
     white-space: nowrap;
   }
 
   .time-divider {
     height: 1px;
-    margin: 8px 0;
-    background-color: ${({ theme }) => theme.colors.wheaty_1};
+    background-color: ${getColor('mono_2')};
   }
 `
 
@@ -46,14 +47,14 @@ export default function TimeDurations({
   onClock,
 }: TimeDurationsProps) {
   return (
-    <StyledRow>
+    <StyledRow align='center'>
       <StyledTimes>
         <TimeRow label='bulk fermentation' hours={bulk} />
         <div className='time-divider' />
         <TimeRow label='proofing' hours={proof} />
       </StyledTimes>
       <Button type='ghost' onClick={onClock}>
-        <Row className='centered'>
+        <Row align='center' justify='center'>
           <Text style={{ marginTop: '4px' }} color='wheaty_1'>
             <ClockOutline size={56} />
           </Text>
@@ -71,8 +72,10 @@ export default function TimeDurations({
 const TimeRow = ({ label, hours }: { label: string; hours: number }) => {
   return (
     <div className='time-row-grid'>
-      <Text.accent className='time-label'>{label}:</Text.accent>
-      <Text weight={500} fs='18px' color='wheaty_1'>
+      <Text secondary color='text_1' className='time-label'>
+        {label}:
+      </Text>
+      <Text weight={500} color='wheaty_1' fs='h5'>
         {fractionize(hours)} hrs
       </Text>
     </div>

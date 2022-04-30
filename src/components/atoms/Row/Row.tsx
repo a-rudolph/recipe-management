@@ -1,8 +1,14 @@
-import styled from 'styled-components'
+import styled, { CSSProperties } from 'styled-components'
 
-const Row = styled.div`
+type RowProps = {
+  justify?: CSSProperties['justifyContent']
+  align?: CSSProperties['alignItems']
+}
+
+const Row = styled.div<RowProps>`
   display: flex;
-  align-items: center;
+  align-items: ${({ align }) => align};
+  justify-content: ${({ justify }) => justify};
 
   &.centered {
     justify-content: center;

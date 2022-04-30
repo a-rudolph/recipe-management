@@ -5,6 +5,7 @@ import { Card } from '@components/atoms'
 import styled from 'styled-components'
 import TimeDisplay from '@components/TimeDisplay'
 import SetTimeModal from '@components/SetTimeModal'
+import { getColor } from '@styles/themes'
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -16,7 +17,7 @@ const StyledCard = styled(Card)`
   width: 168px;
 
   .time-container {
-    border-bottom: 1px dashed ${({ theme }) => theme.colors.wheaty_2};
+    border-bottom: 1px dashed ${getColor('text_1')};
   }
 `
 

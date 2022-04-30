@@ -1,10 +1,13 @@
-const getShortName = (mode) => {
+import { NextApiHandler } from 'next'
+import { theme } from '@styles/themes'
+
+const getShortName = (mode: string) => {
   if (mode === 'production') return 'Wheatifully'
 
   return mode
 }
 
-export default function handler(req, res) {
+const handler: NextApiHandler = (req, res) => {
   const mode = process.env.NODE_ENV
 
   const manifest = {
@@ -28,8 +31,8 @@ export default function handler(req, res) {
         type: 'image/png',
       },
     ],
-    theme_color: '#222528',
-    background_color: '#082032',
+    theme_color: theme.colors.primary_1,
+    background_color: theme.colors.secondary_1,
     start_url: '/',
     display: 'standalone',
     orientation: 'portrait',
@@ -37,3 +40,5 @@ export default function handler(req, res) {
 
   res.status(200).json(manifest)
 }
+
+export default handler

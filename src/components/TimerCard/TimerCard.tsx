@@ -2,9 +2,9 @@ import TimeDisplay from '@components/TimeDisplay'
 import TimeInput from '@components/TimeInput'
 import TimeRing from '@components/TimeRing'
 import styled from 'styled-components'
+import Play from '@components/icons/Play'
 import Plus from '@components/icons/Plus'
 import Stop from '@components/icons/Stop'
-import Play from '@components/icons/Play'
 import { useTimer } from '@hooks/useTimer'
 import { Button, Card, Row } from '@components/atoms'
 import { useRef, useState, useEffect } from 'react'
@@ -62,8 +62,6 @@ export default function TimerCard() {
   const hmRef = useRef<HTMLSpanElement>(null)
   const ssRef = useRef<HTMLSpanElement>(null)
 
-  const total = useRef<number>(0)
-
   const [percent, setPercent] = useState(0)
 
   const setTimeDisplay = ({ hh, mm, ss }: TimeValue, remaining: number) => {
@@ -72,12 +70,15 @@ export default function TimerCard() {
     hmRef.current.innerText = `${hh}:${mm}`
     ssRef.current.innerText = `:${ss}`
 
-    const percent = remaining / total.current
+    const percent = remaining / totalSeconds
 
     setPercent(percent)
   }
 
-  const { startTimer, stopTimer, isTimerRunning } = useTimer(setTimeDisplay)
+  const { startTimer, stopTimer, isTimerRunning, timer } =
+    useTimer(setTimeDisplay)
+
+  const totalSeconds = timer?.totalSeconds || 0
 
   const handleClick = () => {
     setEditing(true)
@@ -91,7 +92,6 @@ export default function TimerCard() {
 
     if (!seconds) return
 
-    total.current = seconds
     startTimer(time)
   }
 

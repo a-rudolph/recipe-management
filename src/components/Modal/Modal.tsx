@@ -1,4 +1,5 @@
 import { Card } from '@components/atoms'
+import { getColor } from '@styles/themes'
 import styled from 'styled-components'
 
 type ModalProps = {
@@ -33,7 +34,7 @@ const StyledMask = styled.div<{ visible?: boolean }>`
     max-width: 80vw;
     width: 400px;
     height: 320px;
-    background-color: ${({ theme }) => theme.colors.mono_1};
+    background-color: ${getColor('primary_1')};
   }
 `
 

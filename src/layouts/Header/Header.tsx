@@ -1,8 +1,9 @@
 import { BRAND_NAME, getColor, getStyle } from '@styles/themes'
-import { Text, Row } from '@components/atoms'
+import { Text, Row, Button } from '@components/atoms'
 import LogoIcon from '@components/icons/Logo'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { randomNotification } from '@hooks/useNotification'
 
 const StyledRow = styled(Row)`
   cursor: pointer;
@@ -32,6 +33,13 @@ export default function Header() {
           </Text>
         </StyledRow>
       </Link>
+      <Button
+        onClick={() => {
+          randomNotification()
+        }}
+      >
+        test
+      </Button>
     </StyledHeader>
   )
 }

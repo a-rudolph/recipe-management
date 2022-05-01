@@ -17,6 +17,18 @@ export const getServiceWorkerRegistration = async () => {
   return navigator.serviceWorker.getRegistration()
 }
 
+export function randomNotification() {
+  console.log('notifying')
+  const randomItem = Math.floor(Math.random() * 100)
+  const notifTitle = `Title ${randomItem}`
+  const notifBody = `Created by ${randomItem}.`
+  const options = {
+    body: notifBody,
+  }
+  new Notification(notifTitle, options)
+  setTimeout(randomNotification, 10000)
+}
+
 export const setNotification = async (
   title: string = 'wheatifully',
   options: NotificationOptions = {}

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import _noop from 'lodash/noop'
 
 const config = {
   badge: '/icons/badge.png',
@@ -8,6 +9,10 @@ const config = {
 export const requestNotificationPermission = (
   cb?: (permission: NotificationPermission) => void
 ) => {
+  if (!('Notification' in window)) {
+    alert('This browser does not support desktop notification')
+  }
+
   Notification.requestPermission(cb)
 }
 
@@ -17,42 +22,39 @@ export const getServiceWorkerRegistration = async () => {
   return navigator.serviceWorker.getRegistration()
 }
 
-export function randomNotification() {
-  console.log('notifying')
-  const randomItem = Math.floor(Math.random() * 100)
-  const notifTitle = `Title ${randomItem}`
-  const notifBody = `Created by ${randomItem}.`
-  const options = {
-    body: notifBody,
-  }
-  new Notification(notifTitle, options)
-  setTimeout(randomNotification, 10000)
+export const getNotifications = async (filter: GetNotificationOptions) => {
+  const sw = await getServiceWorkerRegistration()
+  if (!sw) return
+
+  const notifications = await sw.getNotifications(filter)
+
+  return notifications
 }
 
 export const setNotification = async (
   title: string = 'wheatifully',
-  options: NotificationOptions = {}
+  options: NotificationOptions = {},
+  onClick: any = _noop
 ) => {
   const sw = await getServiceWorkerRegistration()
 
   if (!sw) return
 
-  const tag = `${Math.floor(Math.random() * 10)}`
-
-  Notification.requestPermission((result) => {
+  requestNotificationPermission((result) => {
     if (result === 'granted') {
       sw.showNotification(title, {
         body: 'bread coach',
-        tag,
         ...config,
         ...options,
       })
     }
   })
 
+  sw.addEventListener('notificationclick', onClick, false)
+
   const notifs = await sw.getNotifications()
 
-  return notifs.find((notification) => notification.tag === tag)
+  return notifs.find((notification) => notification.tag === options.tag)
 }
 
 export const useNotification = () => {
@@ -60,7 +62,7 @@ export const useNotification = () => {
     requestNotificationPermission()
   }, [])
 
-  return { setNotification }
+  return { setNotification, getNotifications }
 }
 
 export default useNotification

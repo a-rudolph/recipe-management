@@ -11,6 +11,7 @@ export const requestNotificationPermission = (
 ) => {
   if (!('Notification' in window)) {
     alert('This browser does not support desktop notification')
+    return
   }
 
   Notification.requestPermission(cb)
@@ -50,7 +51,13 @@ export const setNotification = async (
     }
   })
 
-  sw.addEventListener('notificationclick', onClick, false)
+  self.addEventListener(
+    'notificationclick',
+    (args) => {
+      console.log('onClick!', args)
+    },
+    false
+  )
 
   const notifs = await sw.getNotifications()
 

@@ -68,11 +68,11 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
   return (
     <StyledDiv>
       <Header />
-      <div className='page-content'>{children}</div>
-      <div style={{ background: 'green' }}>some random content</div>
       <div className='timer-content'>
         <TimerCard />
       </div>
+      <div style={{ background: 'green' }}>some random content</div>
+      <div className='page-content'>{children}</div>
     </StyledDiv>
   )
 }

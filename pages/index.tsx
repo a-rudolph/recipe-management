@@ -23,12 +23,12 @@ const LayoutCard = styled(Card)`
 `
 
 const Home = ({ recipes }: HomeProps) => {
-  return (
-    <LayoutCard side='right'>
-      recipe LIST
-      {/* <RecipeList recipes={recipes} /> */}
-    </LayoutCard>
-  )
+  return <div style={{ background: 'blue' }}>Another random div</div>
+  // return (
+  //   <LayoutCard side='right'>
+  //     <RecipeList recipes={recipes} />
+  //   </LayoutCard>
+  // )
 }
 
 // export const getStaticProps = async () => {

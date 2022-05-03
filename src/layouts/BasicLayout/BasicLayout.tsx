@@ -71,9 +71,6 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
       <div className='timer-content'>
         <TimerCard />
       </div>
-      <div className='timer-content'>
-        <TimerCard />
-      </div>
       <div style={{ background: 'green' }}>some random content</div>
       <div className='page-content'>{children}</div>
     </StyledDiv>

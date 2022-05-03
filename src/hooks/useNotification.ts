@@ -10,11 +10,11 @@ export const requestNotificationPermission = (
   cb?: (permission: NotificationPermission) => void
 ) => {
   if (!('Notification' in window)) {
-    alert('This browser does not support desktop notification')
+    alert('This browser does not support notifications')
     return
   }
 
-  Notification.requestPermission(cb)
+  window.Notification.requestPermission(cb)
 }
 
 export const getServiceWorkerRegistration = async () => {

@@ -9,7 +9,8 @@ type HomeProps = {
 const Home = ({ recipes }: HomeProps) => {
   return (
     <BasicLayout.Card side='right'>
-      <RecipeList recipes={recipes} />
+      recipe LIST
+      {/* <RecipeList recipes={recipes} /> */}
     </BasicLayout.Card>
   )
 }

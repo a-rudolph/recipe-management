@@ -1,13 +1,15 @@
 import { getColor } from '@styles/themes'
 import breakpoints from '@constants/breakpoints'
-import TimerCard from '@components/TimerCard'
 import styled from 'styled-components'
 import Header from '@layouts/Header'
 import Card from '@components/atoms/Card'
+import dynamic from 'next/dynamic'
 
 type BasicLayoutProps = {
   children: React.ReactNode
 }
+
+const TimerCard = dynamic(() => import('@components/TimerCard'))
 
 const StyledDiv = styled.div`
   min-height: 100vh;

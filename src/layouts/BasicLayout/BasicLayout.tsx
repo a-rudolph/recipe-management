@@ -72,9 +72,9 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
       <div style={{ height: 300, background: 'green' }}>
         some random content
       </div>
-      {/* <div className='timer-content'>
+      <div className='timer-content'>
         <TimerCard />
-      </div> */}
+      </div>
     </StyledDiv>
   )
 }

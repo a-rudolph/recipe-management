@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import _noop from 'lodash/noop'
 
 const config = {
@@ -53,9 +53,9 @@ export const setNotification = async (
 }
 
 export const useNotification = () => {
-  // useEffect(() => {
-  //   requestNotificationPermission()
-  // }, [])
+  useLayoutEffect(() => {
+    requestNotificationPermission()
+  }, [])
 
   return { setNotification, getNotifications }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 import _noop from 'lodash/noop'
 
 const config = {
@@ -14,7 +14,13 @@ export const requestNotificationPermission = (
     return
   }
 
-  Notification?.requestPermission(cb)
+  try {
+    Notification?.requestPermission(cb)
+  } catch (err) {
+    alert(
+      'This browser does not support notifications, you wont be notified when a timer ends'
+    )
+  }
 }
 
 export const getServiceWorkerRegistration =
@@ -53,7 +59,7 @@ export const setNotification = async (
 }
 
 export const useNotification = () => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     requestNotificationPermission()
   }, [])
 

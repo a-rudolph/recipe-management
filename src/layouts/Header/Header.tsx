@@ -31,7 +31,7 @@ export default function Header() {
             {BRAND_NAME}
           </Text>
           <Text secondary style={{ marginLeft: '16px' }}>
-            add random div
+            try other order
           </Text>
         </StyledRow>
       </Link>

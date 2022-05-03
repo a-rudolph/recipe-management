@@ -15,14 +15,14 @@ const Home = ({ recipes }: HomeProps) => {
   )
 }
 
-export const getStaticProps = async () => {
-  const recipes = getAvailableRecipes()
+// export const getStaticProps = async () => {
+//   const recipes = getAvailableRecipes()
 
-  return {
-    props: {
-      recipes,
-    },
-  }
-}
+//   return {
+//     props: {
+//       recipes,
+//     },
+//   }
+// }
 
 export default Home

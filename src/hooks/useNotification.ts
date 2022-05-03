@@ -7,14 +7,19 @@ const config = {
 }
 
 export const requestNotificationPermission = (
-  cb?: (permission: NotificationPermission) => void
+  cb?: (permission: NotificationPermission) => void,
+  onError: VoidFunction = _noop
 ) => {
   if (!('Notification' in window)) {
-    alert('This browser does not support desktop notification')
+    alert('This browser does not support notification')
     return
   }
 
-  Notification.requestPermission(cb)
+  try {
+    Notification.requestPermission(cb)
+  } catch (e) {
+    onError()
+  }
 }
 
 export const getServiceWorkerRegistration = async () => {
@@ -40,15 +45,20 @@ export const setNotification = async (
 
   if (!sw) return
 
-  requestNotificationPermission((result) => {
-    if (result === 'granted') {
-      sw.showNotification(title, {
-        body: 'bread coach',
-        ...config,
-        ...options,
-      })
+  requestNotificationPermission(
+    (result) => {
+      if (result === 'granted') {
+        sw.showNotification(title, {
+          body: 'bread coach',
+          ...config,
+          ...options,
+        })
+      }
+    },
+    () => {
+      alert('This browser does not support notifications')
     }
-  })
+  )
 
   const notifs = await sw.getNotifications()
 

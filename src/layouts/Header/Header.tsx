@@ -30,6 +30,9 @@ export default function Header() {
           <Text fs='h4' color='wheaty_1' weight={500}>
             {BRAND_NAME}
           </Text>
+          <Text secondary style={{ marginLeft: '16px' }}>
+            add random div
+          </Text>
         </StyledRow>
       </Link>
     </StyledHeader>

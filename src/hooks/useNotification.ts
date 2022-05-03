@@ -50,16 +50,12 @@ export const setNotification = async (
       })
     }
   })
-
-  const notifs = await sw.getNotifications()
-
-  return notifs.find((notification) => notification.tag === options.tag)
 }
 
 export const useNotification = () => {
-  useEffect(() => {
-    requestNotificationPermission()
-  }, [])
+  // useEffect(() => {
+  //   requestNotificationPermission()
+  // }, [])
 
   return { setNotification, getNotifications }
 }

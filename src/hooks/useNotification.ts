@@ -9,18 +9,12 @@ const config = {
 export const requestNotificationPermission = (
   cb?: (permission: NotificationPermission) => void
 ) => {
-  if (!('Notification' in window)) {
+  if (!('Notification' in window || Notification === undefined)) {
     alert('This browser does not support notifications')
     return
   }
 
-  try {
-    Notification?.requestPermission(cb)
-  } catch (err) {
-    alert(
-      'This browser does not support notifications, you wont be notified when a timer ends'
-    )
-  }
+  Notification?.requestPermission(cb)
 }
 
 export const getServiceWorkerRegistration =

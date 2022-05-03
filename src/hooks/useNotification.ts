@@ -34,8 +34,7 @@ export const getNotifications = async (filter: GetNotificationOptions) => {
 
 export const setNotification = async (
   title: string = 'wheatifully',
-  options: NotificationOptions = {},
-  onClick: any = _noop
+  options: NotificationOptions = {}
 ) => {
   const sw = await getServiceWorkerRegistration()
 
@@ -50,14 +49,6 @@ export const setNotification = async (
       })
     }
   })
-
-  self.addEventListener(
-    'notificationclick',
-    (args) => {
-      console.log('onClick!', args)
-    },
-    false
-  )
 
   const notifs = await sw.getNotifications()
 

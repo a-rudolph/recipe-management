@@ -39,3 +39,4 @@ yarn-error.log*
 **/public/sw.js
 **/public/sw.js.map
 **/public/worker-*.js
+!/public/worker-extend.js

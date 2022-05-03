@@ -5,7 +5,7 @@ module.exports = withPWA({
   pwa: {
     disable: process.env.NODE_ENV === 'development',
     dest: 'public',
-    importScripts: ['/worker-extend.js'],
+    customWorkerDir: 'serviceworker',
   },
   experimental: {
     styledComponents: true,

@@ -9,6 +9,7 @@ const config = {
 export const requestNotificationPermission = (
   cb?: (permission: NotificationPermission) => void
 ) => {
+  return
   if (!('Notification' in window)) {
     alert('This browser does not support notifications')
     return
@@ -17,11 +18,12 @@ export const requestNotificationPermission = (
   window.Notification.requestPermission(cb)
 }
 
-export const getServiceWorkerRegistration = async () => {
-  if (!('serviceWorker' in navigator)) return null
+export const getServiceWorkerRegistration =
+  async (): Promise<null | ServiceWorkerRegistration> => {
+    if (!('serviceWorker' in navigator)) return null
 
-  return navigator.serviceWorker.getRegistration()
-}
+    return navigator.serviceWorker.getRegistration()
+  }
 
 export const getNotifications = async (filter: GetNotificationOptions) => {
   const sw = await getServiceWorkerRegistration()

@@ -9,13 +9,12 @@ const config = {
 export const requestNotificationPermission = (
   cb?: (permission: NotificationPermission) => void
 ) => {
-  return
   if (!('Notification' in window)) {
     alert('This browser does not support notifications')
     return
   }
 
-  window.Notification.requestPermission(cb)
+  Notification?.requestPermission(cb)
 }
 
 export const getServiceWorkerRegistration =

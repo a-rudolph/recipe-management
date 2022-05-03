@@ -71,7 +71,7 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
       <div className='timer-content'>
         <TimerCard />
       </div>
-      <div className='page-content'>{children}</div>
+      {/* <div className='page-content'>{children}</div> */}
     </StyledDiv>
   )
 }

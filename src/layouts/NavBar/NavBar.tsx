@@ -1,9 +1,11 @@
-import { BRAND_NAME, getColor, getStyle } from '@styles/themes'
+import { getColor, getStyle } from '@styles/themes'
 import { Text, Row, Button } from '@components/atoms'
-import LogoIcon from '@components/icons/Logo'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Link from 'next/link'
 import breakpoints from '@constants/breakpoints'
+import LeftArrow from '@components/icons/LeftArrow'
+import _isArray from 'lodash/isArray'
 
 const StyledRow = styled(Row)`
   background: ${({ theme }) => theme.gradient};
@@ -11,11 +13,9 @@ const StyledRow = styled(Row)`
   height: 100%;
   padding: 8px 12px;
 
-  cursor: pointer;
-
   .atom-button {
     padding: 0;
-    height: 48px;
+    height: 32px;
   }
 
   .logo {
@@ -30,23 +30,41 @@ const StyledNavBar = styled(Row)`
   box-shadow: ${getStyle('shade', 'up')};
   position: fixed;
   bottom: 0;
+  z-index: 10;
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     display: none;
   }
 `
 
+const getTitle = (key?: string | string[]) => {
+  if (!key) return 'recipes'
+
+  if (_isArray(key)) return key
+
+  return (key as string).replace(/-/g, ' ')
+}
+
 export default function NavBar() {
+  const router = useRouter()
+
+  const title = getTitle(router?.query?.key)
+  const isHome = router.pathname === '/'
+
   return (
     <StyledNavBar>
       <StyledRow justify='space-between' align='center'>
-        <Link href='/'>
-          <Button type='ghost'>
-            <LogoIcon />
-          </Button>
-        </Link>
+        <span>
+          {isHome || (
+            <Link href='/'>
+              <Button type='ghost'>
+                <LeftArrow size={32} />
+              </Button>
+            </Link>
+          )}
+        </span>
         <Text fs='h4' color='wheaty_1' weight={500}>
-          {BRAND_NAME}
+          {title}
         </Text>
       </StyledRow>
     </StyledNavBar>

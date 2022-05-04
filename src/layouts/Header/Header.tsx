@@ -14,15 +14,12 @@ const StyledRow = styled(Row)`
 `
 
 const StyledHeader = styled(Row)`
-  background: ${({ theme }) => theme.gradient};
-  border-bottom: 1px solid ${getColor('mono_2')};
-  box-shadow: ${getStyle('shade', 'small')};
   padding: 4px 12px;
 
-  display: none;
-
   @media screen and (min-width: ${breakpoints.sm}px) {
-    display: block;
+    background: ${({ theme }) => theme.gradient};
+    border-bottom: 1px solid ${getColor('mono_2')};
+    box-shadow: ${getStyle('shade', 'small')};
   }
 `
 

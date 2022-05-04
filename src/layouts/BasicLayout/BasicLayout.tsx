@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Header from '@layouts/Header'
 import Card from '@components/atoms/Card'
 import dynamic from 'next/dynamic'
+import NavBar from '@layouts/NavBar'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -14,6 +15,7 @@ const TimerCard = dynamic(() => import('@components/TimerCard'))
 const StyledDiv = styled.div`
   min-height: 100vh;
   width: 100vw;
+  padding-bottom: 60px;
 
   background-color: ${getColor('primary_1')};
 
@@ -72,6 +74,7 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
         <TimerCard />
       </div>
       <div className='page-content'>{children}</div>
+      <NavBar />
     </StyledDiv>
   )
 }

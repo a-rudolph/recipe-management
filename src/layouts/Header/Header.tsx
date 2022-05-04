@@ -3,6 +3,7 @@ import { Text, Row } from '@components/atoms'
 import LogoIcon from '@components/icons/Logo'
 import styled from 'styled-components'
 import Link from 'next/link'
+import breakpoints from '@constants/breakpoints'
 
 const StyledRow = styled(Row)`
   cursor: pointer;
@@ -17,6 +18,12 @@ const StyledHeader = styled(Row)`
   border-bottom: 1px solid ${getColor('mono_2')};
   box-shadow: ${getStyle('shade', 'small')};
   padding: 4px 12px;
+
+  display: none;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    display: block;
+  }
 `
 
 export default function Header() {

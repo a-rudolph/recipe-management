@@ -15,7 +15,10 @@ const TimerCard = dynamic(() => import('@components/TimerCard'))
 const StyledDiv = styled.div`
   min-height: 100vh;
   width: 100vw;
-  padding-bottom: 60px;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    padding-bottom: 60px;
+  }
 
   background-color: ${getColor('primary_1')};
 
@@ -80,11 +83,12 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
 }
 
 const LayoutCard = styled(Card)`
-  width: 80vw;
+  width: 100vw;
   min-height: 60vh;
-  margin-bottom: 24px;
   padding: 24px;
+  padding-bottom: 88px;
   overflow: hidden;
+  border-radius: 0;
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     width: 320px;

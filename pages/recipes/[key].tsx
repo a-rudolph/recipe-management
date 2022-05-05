@@ -6,7 +6,6 @@ import getRecipeProps from '@utils/getRecipeProps'
 import SimpleTimeline from '@components/SimpleTimeline'
 import TimeDurations from '@components/TimeDurations'
 import BasicLayout from '@layouts/BasicLayout'
-import BackButton from '@components/BackButton'
 import { useRouter } from 'next/router'
 import { Text, Row } from '@components/atoms'
 import { useState } from 'react'
@@ -27,8 +26,7 @@ const RecipeDetail = ({
 
   return (
     <>
-      <Row align='start' justify='space-between'>
-        <BackButton onBack={onBack}>recipes</BackButton>
+      <Row align='start' justify='end'>
         <Text
           fs='h3'
           style={{ margin: 0, textAlign: 'right', maxWidth: '280px' }}
@@ -50,7 +48,9 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
 
   const changeView = () => {
     setView((prev) => {
-      if (prev === 'main') return 'time'
+      if (prev === 'main') {
+        return 'time'
+      }
       return 'main'
     })
   }

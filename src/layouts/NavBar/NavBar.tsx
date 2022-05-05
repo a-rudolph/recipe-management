@@ -11,7 +11,7 @@ const StyledRow = styled(Row)`
   background: ${({ theme }) => theme.gradient};
   width: 100%;
   height: 100%;
-  padding: 8px 12px;
+  padding: 12px;
 
   .atom-button {
     padding: 0;
@@ -54,6 +54,9 @@ export default function NavBar() {
   return (
     <StyledNavBar>
       <StyledRow justify='space-between' align='center'>
+        <Text fs='h4' weight={500}>
+          {title}
+        </Text>
         <span>
           {isHome || (
             <Link href='/'>
@@ -63,9 +66,6 @@ export default function NavBar() {
             </Link>
           )}
         </span>
-        <Text fs='h4' color='wheaty_1' weight={500}>
-          {title}
-        </Text>
       </StyledRow>
     </StyledNavBar>
   )

@@ -3,7 +3,6 @@ import {
   hoursToTimeString,
   hoursToDuration,
 } from '@utils/timeline'
-import { useTrail, animated } from 'react-spring'
 import { Row, Text } from '@components/atoms'
 import { getColor } from '@styles/themes'
 import { clamp } from '@utils/clamp'
@@ -31,6 +30,7 @@ const StyledDiv = styled.div`
       width: 3px;
       margin: 6px;
       background: ${getColor('secondary_1')};
+      transform-origin: top;
     }
   }
 
@@ -78,13 +78,6 @@ const DetailedTimeline = ({
 }) => {
   const steps = getTimelineSteps(recipe)
 
-  const trail = useTrail(steps.length, {
-    config: { mass: 5, tension: 1000, friction: 300 },
-    from: { opacity: 0, height: 0 },
-    height: 'auto',
-    opacity: 1,
-  })
-
   return (
     <StyledDiv>
       <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
@@ -97,7 +90,7 @@ const DetailedTimeline = ({
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
-            <animated.div style={trail[i]} key={i}>
+            <div key={i}>
               <Row className='main-row' justify='space-between' align='center'>
                 <Text fs='h4' weight={600} color='text_1'>
                   {step.title}
@@ -118,7 +111,7 @@ const DetailedTimeline = ({
                   <div className='dot' />
                 </Row>
               )}
-            </animated.div>
+            </div>
           ))}
         </div>
       </div>

@@ -85,13 +85,14 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
 const LayoutCard = styled(Card)`
   width: 100vw;
   min-height: 60vh;
-  padding: 24px;
+  padding: 24px 0;
   padding-bottom: 88px;
   overflow: hidden;
   border-radius: 0;
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     width: 320px;
+    padding-bottom: 24px;
     border-radius: 4px;
   }
 `

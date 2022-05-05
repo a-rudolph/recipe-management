@@ -11,7 +11,8 @@ import BackButton from '@components/BackButton'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
-  width: 100%;
+  width: calc(100% - 48px);
+  margin: 0 24px;
 
   .main-col {
     position: relative;

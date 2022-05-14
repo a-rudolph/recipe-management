@@ -5,8 +5,6 @@ import getRecipeProps from '@utils/getRecipeProps'
 import RecipeDetail from '@components/RecipeDetail'
 import BasicLayout from '@layouts/BasicLayout'
 import { useRef, useState } from 'react'
-import { CarouselRef } from 'antd/lib/carousel'
-import { Carousel } from 'antd'
 import styled from 'styled-components'
 import breakpoints from '@constants/breakpoints'
 
@@ -30,15 +28,29 @@ const ScrollContainer = styled.div`
   }
 `
 
+const scrollTo = (ref: React.MutableRefObject<HTMLDivElement>) => {
+  if (!ref) return
+
+  ref.current.scrollIntoView({
+    behavior: 'smooth',
+  })
+}
+
 const Page = ({ recipe }: { recipe: RecipeType }) => {
   const [view, setView] = useState<Views>('main')
 
-  const carouselRef = useRef<CarouselRef>(null)
+  const beforeRef = useRef<HTMLDivElement>(null)
+  const afterRef = useRef<HTMLDivElement>(null)
 
   const goTo = (slide: number) => {
-    if (!carouselRef.current) return
+    if (!beforeRef.current || !afterRef.current) return
 
-    carouselRef.current.goTo(slide)
+    if (slide === 0) {
+      scrollTo(beforeRef)
+      return
+    }
+
+    scrollTo(afterRef)
   }
 
   const changeView = () => {
@@ -56,8 +68,10 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
     <BasicLayout.Card side='right'>
       <ScrollContainer>
         <div className='pages'>
+          <div id='before' ref={beforeRef}></div>
           <RecipeDetail recipe={recipe} onClock={changeView} />
           <DetailedTimeline recipe={recipe} onBack={changeView} />
+          <div id='after' ref={afterRef}></div>
         </div>
       </ScrollContainer>
     </BasicLayout.Card>

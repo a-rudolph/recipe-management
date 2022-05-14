@@ -81,7 +81,7 @@ const DetailedTimeline = ({
 
   return (
     <StyledDiv>
-      <Row style={{ justifyContent: 'end', alignItems: 'start' }}>
+      <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
         <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
         <Text fs='h4' style={{ marginBottom: '16px' }}>
           Schedule

@@ -77,7 +77,7 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
         <TimerCard />
       </div>
       <div className='page-content'>{children}</div>
-      <NavBar />
+      {/* <NavBar /> */}
     </StyledDiv>
   )
 }
@@ -91,7 +91,7 @@ const LayoutCard = styled(Card)`
   border-radius: 0;
 
   @media screen and (min-width: ${breakpoints.sm}px) {
-    width: 320px;
+    width: max-content;
     padding-bottom: 24px;
     border-radius: 4px;
   }

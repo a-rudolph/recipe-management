@@ -5,7 +5,8 @@ import { Text, Row } from '@components/atoms'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
-  margin: 0 24px;
+  padding: 0 24px;
+  width: 100%;
 `
 
 const RecipeDetail = ({

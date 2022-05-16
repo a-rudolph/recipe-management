@@ -1,16 +1,17 @@
+import { animated } from 'react-spring'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import useDragScroller, { SCROLLER_ID } from '@hooks/useDragScroller'
 import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import RecipeDetail from '@components/RecipeDetail'
 import BasicLayout from '@layouts/BasicLayout'
-import { useRef, useState } from 'react'
-import styled from 'styled-components'
 import breakpoints from '@constants/breakpoints'
+import styled from 'styled-components'
 
 type Views = 'main' | 'time'
 
-const ScrollContainer = styled.div`
+const ScrollContainer = styled(animated.div)`
   width: 100vw;
   overflow-x: scroll;
 
@@ -28,50 +29,15 @@ const ScrollContainer = styled.div`
   }
 `
 
-const scrollTo = (ref: React.MutableRefObject<HTMLDivElement>) => {
-  if (!ref) return
-
-  ref.current.scrollIntoView({
-    behavior: 'smooth',
-  })
-}
-
 const Page = ({ recipe }: { recipe: RecipeType }) => {
-  const [view, setView] = useState<Views>('main')
-
-  const beforeRef = useRef<HTMLDivElement>(null)
-  const afterRef = useRef<HTMLDivElement>(null)
-
-  const goTo = (slide: number) => {
-    if (!beforeRef.current || !afterRef.current) return
-
-    if (slide === 0) {
-      scrollTo(beforeRef)
-      return
-    }
-
-    scrollTo(afterRef)
-  }
-
-  const changeView = () => {
-    setView((prev) => {
-      if (prev === 'main') {
-        goTo(1)
-        return 'time'
-      }
-      goTo(0)
-      return 'main'
-    })
-  }
+  const { scroll, goTo } = useDragScroller()
 
   return (
     <BasicLayout.Card side='right'>
-      <ScrollContainer>
+      <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
-          <div id='before' ref={beforeRef}></div>
-          <RecipeDetail recipe={recipe} onClock={changeView} />
-          <DetailedTimeline recipe={recipe} onBack={changeView} />
-          <div id='after' ref={afterRef}></div>
+          <RecipeDetail recipe={recipe} onClock={() => goTo(1)} />
+          <DetailedTimeline recipe={recipe} onBack={() => goTo(0)} />
         </div>
       </ScrollContainer>
     </BasicLayout.Card>

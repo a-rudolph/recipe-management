@@ -1,18 +1,20 @@
-import { animated } from 'react-spring'
-import { getColor } from '@styles/themes'
+import { Col, Row } from 'antd'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import styled, { css } from 'styled-components'
 import useDragScroller, {
   SCROLLER_ID,
   SCROLL_DURATION,
 } from '@hooks/useDragScroller'
+import { animated } from 'react-spring'
+import BasicLayout from '@layouts/BasicLayout'
 import DetailedTimeline from '@components/DetailedTimeline'
+import breakpoints from '@constants/breakpoints'
+import { getColor } from '@styles/themes'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
-import RecipeDetail from '@components/RecipeDetail'
-import BasicLayout from '@layouts/BasicLayout'
-import breakpoints from '@constants/breakpoints'
-import styled, { css } from 'styled-components'
 import NavBar from '@layouts/NavBar'
+import RecipeDetail from '@components/RecipeDetail'
+import { Text } from '@components/atoms'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -46,13 +48,13 @@ const ScrollContainer = styled(animated.div)`
   }
 `
 
-const StyledNav = styled.div<{ $side: number }>`
+const StyledNav = styled.div<{ $side: number; $count: number }>`
   width: 100vw;
   height: 32px;
 
   .slider {
     height: 4px;
-    width: 50vw;
+    width: ${({ $count }) => 100 / $count}vw;
     position: absolute;
     top: 0;
 
@@ -86,8 +88,20 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
       </ScrollContainer>
       <NavBar
         tabs={
-          <StyledNav $side={side}>
+          <StyledNav $count={2} $side={side}>
             <div className='slider'></div>
+            <Row
+              justify='space-between'
+              align='middle'
+              style={{ height: '100%' }}
+            >
+              <Col>
+                <Text>Detail</Text>
+              </Col>
+              <Col>
+                <Text>Schedule</Text>
+              </Col>
+            </Row>
           </StyledNav>
         }
       />

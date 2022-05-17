@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 export const SCROLLER_ID = 'detail-scroller'
 
 const SCROLL_DURATION = 550
-const SPEED_BONUS = 1.1
+const SPEED_BONUS = 1.2
 
 type DragData = {
   timeStamp: number

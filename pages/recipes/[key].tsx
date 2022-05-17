@@ -21,17 +21,7 @@ const ScrollContainer = styled(animated.div)`
   overflow-x: scroll;
 
   ::-webkit-scrollbar {
-    width: 0px;
-    height: 2px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: ${getColor('wheaty_1')};
+    height: 0px;
   }
 
   .pages {
@@ -95,13 +85,13 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
               align='middle'
               style={{ height: '100%' }}
             >
-              <Col>
-                <Button type='ghost'>
+              <Col span={12}>
+                <Button block={true} onClick={() => goTo(0)} type='ghost'>
                   <Text>Detail</Text>
                 </Button>
               </Col>
-              <Col>
-                <Button type='ghost'>
+              <Col span={12}>
+                <Button block={true} type='ghost' onClick={() => goTo(1)}>
                   <Text>Schedule</Text>
                 </Button>
               </Col>

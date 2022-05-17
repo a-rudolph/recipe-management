@@ -50,11 +50,11 @@ const StyledDiv = styled.div`
   }
 
   .dot {
-    height: 4px;
-    width: 4px;
+    height: 14px;
+    width: 14px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid ${getColor('secondary_1')};
+    border: 5px solid ${getColor('secondary_1')};
     background: ${getColor('wheaty_1')};
   }
 

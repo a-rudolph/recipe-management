@@ -1,16 +1,18 @@
 import { animated } from 'react-spring'
 import { getColor } from '@styles/themes'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import useDragScroller, { SCROLLER_ID } from '@hooks/useDragScroller'
+import useDragScroller, {
+  SCROLLER_ID,
+  SCROLL_DURATION,
+} from '@hooks/useDragScroller'
 import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import RecipeDetail from '@components/RecipeDetail'
 import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
-import styled from 'styled-components'
-
-type Views = 'main' | 'time'
+import styled, { css } from 'styled-components'
+import NavBar from '@layouts/NavBar'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -44,8 +46,35 @@ const ScrollContainer = styled(animated.div)`
   }
 `
 
+const StyledNav = styled.div<{ $side: number }>`
+  width: 100vw;
+  height: 32px;
+
+  .slider {
+    height: 4px;
+    width: 50vw;
+    position: absolute;
+    top: 0;
+
+    transition: all ${SCROLL_DURATION / 1_000}s;
+
+    ${({ $side }) => {
+      if ($side === 0) {
+        return css`
+          left: 0;
+        `
+      }
+
+      return css`
+        left: 50vw;
+      `
+    }}
+    background: ${({ theme }) => theme.colors.wheaty_1};
+  }
+`
+
 const Page = ({ recipe }: { recipe: RecipeType }) => {
-  const { scroll, goTo } = useDragScroller()
+  const { side, scroll, goTo } = useDragScroller()
 
   return (
     <BasicLayout.Card side='right'>
@@ -55,6 +84,13 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
           <DetailedTimeline recipe={recipe} onBack={() => goTo(0)} />
         </div>
       </ScrollContainer>
+      <NavBar
+        tabs={
+          <StyledNav $side={side}>
+            <div className='slider'></div>
+          </StyledNav>
+        }
+      />
     </BasicLayout.Card>
   )
 }

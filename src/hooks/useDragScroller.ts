@@ -1,9 +1,9 @@
+import { useEffect, useRef, useState } from 'react'
 import { useSpring, easings } from 'react-spring'
-import { useEffect, useRef } from 'react'
 
 export const SCROLLER_ID = 'detail-scroller'
 
-const SCROLL_DURATION = 550
+export const SCROLL_DURATION = 550
 const SPEED_BONUS = 1.2
 
 type DragData = {
@@ -16,6 +16,8 @@ const initDragData: DragData = { timeStamp: 0, x: 0 }
 export const useDragScroller = () => {
   const startRef = useRef<DragData>(initDragData)
   const endRef = useRef<DragData>(initDragData)
+
+  const [side, setSide] = useState(0)
 
   const onTouchStart = (e) => {
     const x = getScrollPosition()?.current || 0
@@ -53,6 +55,7 @@ export const useDragScroller = () => {
       from: { left: current },
       to: { left: final },
     })
+    setSide(slide)
   }
 
   const onTouchEnd = (e) => {
@@ -92,6 +95,7 @@ export const useDragScroller = () => {
   }
 
   return {
+    side,
     scroll,
     goTo,
   }

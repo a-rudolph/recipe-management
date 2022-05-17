@@ -7,9 +7,9 @@ type ButtonProps = {
   type?: 'primary' | 'ghost' | 'secondary'
   onClose?: VoidFunction
   icon?: React.ReactNode
-} & React.HTMLAttributes<HTMLDivElement>
+} & React.HTMLAttributes<HTMLButtonElement>
 
-const Button = styled.div.attrs<ButtonProps>({
+const Button = styled.button.attrs<ButtonProps>({
   className: `atom-button`,
 })<ButtonProps>`
   font-size: 24px;

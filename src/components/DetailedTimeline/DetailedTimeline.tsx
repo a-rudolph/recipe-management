@@ -1,14 +1,15 @@
+import { Col, Row } from 'antd'
 import {
   getTimelineSteps,
   hoursToTimeString,
   hoursToDuration,
 } from '@utils/timeline'
-import { Row, Text } from '@components/atoms'
-import { getColor } from '@styles/themes'
-import { clamp } from '@utils/clamp'
-import breakpoints from '@constants/breakpoints'
 import BackButton from '@components/BackButton'
+import breakpoints from '@constants/breakpoints'
+import { clamp } from '@utils/clamp'
+import { getColor } from '@styles/themes'
 import styled from 'styled-components'
+import { Text } from '@components/atoms'
 
 const StyledDiv = styled.div`
   width: calc(100% - 48px);
@@ -66,7 +67,7 @@ const StyledDiv = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.md}px) {
-    min-width: 320px;
+    min-width: 360px;
   }
 `
 
@@ -81,18 +82,23 @@ const DetailedTimeline = ({
 
   return (
     <StyledDiv>
-      <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
-        <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
-        <Text fs='h4' style={{ marginBottom: '16px' }}>
-          Schedule
-        </Text>
+      <Row justify='space-between'>
+        <Col md={0}>
+          <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
+        </Col>
+        <Col xs={0} md={1} />
+        <Col>
+          <Text fs='h4' style={{ marginBottom: '16px' }}>
+            Schedule
+          </Text>
+        </Col>
       </Row>
       <div className='main-col'>
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
             <div key={i}>
-              <Row className='main-row' justify='space-between' align='center'>
+              <Row className='main-row' justify='space-between' align='middle'>
                 <Text fs='h4' weight={600} color='text_1'>
                   {step.title}
                 </Text>

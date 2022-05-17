@@ -1,3 +1,4 @@
+import { Button, Text } from '@components/atoms'
 import { Col, Row } from 'antd'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import styled, { css } from 'styled-components'
@@ -14,7 +15,6 @@ import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
-import { Text } from '@components/atoms'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -96,10 +96,14 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
               style={{ height: '100%' }}
             >
               <Col>
-                <Text>Detail</Text>
+                <Button type='ghost'>
+                  <Text>Detail</Text>
+                </Button>
               </Col>
               <Col>
-                <Text>Schedule</Text>
+                <Button type='ghost'>
+                  <Text>Schedule</Text>
+                </Button>
               </Col>
             </Row>
           </StyledNav>

@@ -1,4 +1,5 @@
 import fractionize from './fractionize'
+import { getAutolysisDescription } from '@constants/descriptions'
 import moment from 'moment'
 
 export const hoursToTimeString = (hours: number, format: string = 'h:mm a') => {
@@ -27,7 +28,8 @@ type TimelineStepData = {
   title: string
   time: number
   // extras
-  break?: string
+  subTitle?: string
+  description?: (recipe: RecipeType) => string
   duration?: number
 }
 
@@ -37,7 +39,7 @@ export const getTimelineSteps = ({
   proof,
 }: RecipeType): TimelineStepData[] => {
   const AUTOLYSE_HOURS = 0.5
-  const BAKE_HOURS = 0.75
+  const BAKE_HOURS = 1 // baking + cooling
 
   const autol = start - AUTOLYSE_HOURS
   const mix = start
@@ -48,25 +50,26 @@ export const getTimelineSteps = ({
   return [
     {
       title: 'autolyse',
-      break: 'autolysis',
+      subTitle: 'autolysis',
+      description: getAutolysisDescription,
       duration: AUTOLYSE_HOURS,
       time: autol,
     },
     {
       title: 'mix',
-      break: 'bulk fermentation',
+      subTitle: 'bulk fermentation',
       duration: bulk,
       time: mix,
     },
     {
       title: 'shape',
-      break: 'proofing',
+      subTitle: 'proofing',
       duration: proof,
       time: shape,
     },
     {
       title: 'bake',
-      break: 'baking',
+      subTitle: 'baking',
       duration: BAKE_HOURS,
       time: bake,
     },

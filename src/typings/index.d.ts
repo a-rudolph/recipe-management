@@ -26,8 +26,11 @@ type IngredientType = {
   quantity: number
   unit: string
   name: string
+  category: IngredientCategory
   extra?: string
 }
+
+type IngredientCategory = 'flour' | 'water' | 'salt' | 'yeast'
 
 type RecipeProp = {
   recipe: RecipeType

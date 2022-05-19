@@ -42,7 +42,7 @@ const StyledDiv = styled.div`
     margin-bottom: 16px;
   }
 
-  .break-row {
+  .subTitle-row {
     justify-content: end;
     align-items: center;
     padding-right: 24px;
@@ -96,7 +96,7 @@ const DetailedTimeline = ({
       <div className='main-col'>
         <div className='vert-line' />
         <div className='timeline-content'>
-          {steps.map((step, i) => (
+          {steps.map(({ description = () => null, ...step }, i) => (
             <div key={i}>
               <Row className='main-row' justify='space-between' align='middle'>
                 <Text fs='h4' weight={600} color='text_1'>
@@ -106,12 +106,15 @@ const DetailedTimeline = ({
                   <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
                 </div>
               </Row>
-              {step.break && (
+              <Row>
+                <Text>{description(recipe)}</Text>
+              </Row>
+              {step.subTitle && (
                 <Row
-                  className='break-row'
+                  className='subTitle-row'
                   style={{ height: `${clamp(0.5, step.duration, 2) * 3}rem` }}
                 >
-                  <Text secondary>{step.break}</Text>
+                  <Text secondary>{step.subTitle}</Text>
                   <Text style={{ margin: '0 4px' }} secondary color='wheaty_1'>
                     {hoursToDuration(step.duration)}
                   </Text>

@@ -1,5 +1,5 @@
-import { Button, Text } from '@components/atoms'
-import { Col, Row } from 'antd'
+import { useSpring, animated } from 'react-spring'
+import { Col, Row, Switch } from 'antd'
 import {
   getTimelineSteps,
   hoursToTimeString,
@@ -10,6 +10,7 @@ import breakpoints from '@constants/breakpoints'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
 import styled from 'styled-components'
+import { Text } from '@components/atoms'
 import { useState } from 'react'
 
 const StyledDiv = styled.div`
@@ -74,16 +75,13 @@ const StyledDiv = styled.div`
   .description,
   .post-text,
   .pre-text {
+    height: min-content;
     width: 70vw;
     text-align: justify;
   }
 
-  &.view-short {
-    .description,
-    .post-text,
-    .pre-text {
-      display: none;
-    }
+  .ant-switch-checked {
+    background-color: #ac874e;
   }
 `
 
@@ -97,24 +95,36 @@ const DetailedTimeline = ({
   const steps = getTimelineSteps(recipe)
   const [isShortView, setShortView] = useState(true)
 
-  const view = isShortView ? 'short' : 'long'
-
-  const toggle = () => {
-    setShortView((prev) => !prev)
-  }
+  const style = useSpring({
+    config: { mass: 5, tension: 2000, friction: 200 },
+    opacity: !isShortView ? 1 : 0,
+    x: !isShortView ? 0 : 20,
+    maxHeight: !isShortView ? 110 : 0,
+    from: { opacity: 0, x: 20, maxHeight: 0 },
+  })
 
   return (
-    <StyledDiv className={`view-${view}`}>
-      <Row style={{ marginBottom: '16px' }} justify='space-between'>
+    <StyledDiv>
+      <Row
+        align='middle'
+        style={{ marginBottom: '16px' }}
+        justify='space-between'
+      >
         <Col md={0}>
           <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
         </Col>
         <Col xs={0} md={1} />
         <Col>
-          <Button type='primary' onClick={toggle}>
-            {view}
-          </Button>
-          {/* <Text fs='h4'>Schedule</Text> */}
+          <Row gutter={8}>
+            <Col>
+              <Switch
+                size='small'
+                checked={!isShortView}
+                onChange={(checked) => setShortView(!checked)}
+              />
+            </Col>
+            <Col>show details</Col>
+          </Row>
         </Col>
       </Row>
       <div className='main-col'>
@@ -132,9 +142,11 @@ const DetailedTimeline = ({
             ) => (
               <div key={i}>
                 {preDescription && (
-                  <Row className='pre-text' style={{ marginBottom: '1rem' }}>
-                    <Text>{preDescription(recipe)}</Text>
-                  </Row>
+                  <animated.div style={style}>
+                    <Row className='pre-text' style={{ marginBottom: '1rem' }}>
+                      <Text>{preDescription(recipe)}</Text>
+                    </Row>
+                  </animated.div>
                 )}
                 <Row
                   className='main-row'
@@ -148,9 +160,11 @@ const DetailedTimeline = ({
                     <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
                   </div>
                 </Row>
-                <Row className='description'>
-                  <Text>{description(recipe)}</Text>
-                </Row>
+                <animated.div style={style}>
+                  <Row className='description'>
+                    <Text>{description(recipe)}</Text>
+                  </Row>
+                </animated.div>
                 {step.subTitle && (
                   <Row
                     className='subTitle-row'
@@ -168,9 +182,11 @@ const DetailedTimeline = ({
                   </Row>
                 )}
                 {postDescription && (
-                  <Row className='post-text' style={{ marginBottom: '1rem' }}>
-                    <Text>{postDescription(recipe)}</Text>
-                  </Row>
+                  <animated.div style={style}>
+                    <Row className='post-text' style={{ marginBottom: '1rem' }}>
+                      <Text>{postDescription(recipe)}</Text>
+                    </Row>
+                  </animated.div>
                 )}
               </div>
             )

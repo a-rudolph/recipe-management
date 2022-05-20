@@ -18,6 +18,7 @@ import RecipeDetail from '@components/RecipeDetail'
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
   overflow-x: scroll;
+  padding: 24px 0;
 
   ::-webkit-scrollbar {
     height: 0px;
@@ -90,7 +91,7 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
             >
               <Col span={12}>
                 <Button block={true} onClick={() => goTo(0)} type='ghost'>
-                  <Text>Detail</Text>
+                  <Text>Basics</Text>
                 </Button>
               </Col>
               <Col span={12}>

@@ -85,7 +85,7 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
 const LayoutCard = styled(Card)`
   width: 100vw;
   min-height: 60vh;
-  padding: 24px 0;
+  padding: 0;
   padding-bottom: 64px;
   overflow: hidden;
   border-radius: 0;

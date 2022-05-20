@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 
 const StyledDiv = styled.div`
-  padding: 0 24px;
+  padding: 24px;
 
   .dot {
     height: 10px;

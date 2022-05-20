@@ -26,9 +26,9 @@ const StyledDiv = styled.div`
 
     .vert-line {
       position: absolute;
-      right: 32px;
+      right: 36px;
       top: 0px;
-      height: calc(100% - 16px);
+      height: calc(100% - 32px);
       width: 3px;
       margin: 6px;
       background: ${getColor('secondary_1')};
@@ -45,13 +45,13 @@ const StyledDiv = styled.div`
   .subTitle-row {
     justify-content: end;
     align-items: center;
-    padding-right: 24px;
+    padding-right: 28px;
     margin: 8px 0;
   }
 
   .dot {
-    height: 14px;
-    width: 14px;
+    height: 15px;
+    width: 15px;
     margin: 8px;
     border-radius: 50%;
     border: 5px solid ${getColor('secondary_1')};
@@ -68,6 +68,13 @@ const StyledDiv = styled.div`
 
   @media screen and (min-width: ${breakpoints.md}px) {
     min-width: 360px;
+  }
+
+  .description,
+  .post-text,
+  .pre-text {
+    width: 70vw;
+    text-align: justify;
   }
 `
 
@@ -95,8 +102,21 @@ const DetailedTimeline = ({
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map(
-            ({ description = () => null, postDescription, ...step }, i) => (
+            (
+              {
+                description = () => null,
+                postDescription,
+                preDescription,
+                ...step
+              },
+              i
+            ) => (
               <div key={i}>
+                {preDescription && (
+                  <Row className='pre-text' style={{ marginBottom: '1rem' }}>
+                    <Text>{preDescription(recipe)}</Text>
+                  </Row>
+                )}
                 <Row
                   className='main-row'
                   justify='space-between'
@@ -109,7 +129,7 @@ const DetailedTimeline = ({
                     <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
                   </div>
                 </Row>
-                <Row>
+                <Row className='description'>
                   <Text>{description(recipe)}</Text>
                 </Row>
                 {step.subTitle && (
@@ -129,7 +149,7 @@ const DetailedTimeline = ({
                   </Row>
                 )}
                 {postDescription && (
-                  <Row style={{ marginBottom: '1rem' }}>
+                  <Row className='post-text' style={{ marginBottom: '1rem' }}>
                     <Text>{postDescription(recipe)}</Text>
                   </Row>
                 )}

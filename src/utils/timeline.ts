@@ -1,6 +1,9 @@
 import fractionize from './fractionize'
 import {
   getAutolysisDescription,
+  getBakeDescription,
+  getBakePostDescription,
+  getBakePreDescription,
   getFoldDescription,
   getMixDescription,
   getProofDescription,
@@ -37,6 +40,7 @@ type TimelineStepData = {
   subTitle?: string
   description?: (recipe: RecipeType) => string
   postDescription?: (recipe: RecipeType) => string
+  preDescription?: (recipe: RecipeType) => string
   duration?: number
 }
 
@@ -81,11 +85,14 @@ export const getTimelineSteps = ({
     {
       title: 'bake',
       subTitle: 'baking',
+      preDescription: getBakePreDescription,
+      description: getBakeDescription,
+      postDescription: getBakePostDescription,
       duration: BAKE_HOURS,
       time: bake,
     },
     {
-      title: 'ready to eat',
+      title: 'ready to eat!',
       time: eat,
     },
   ]

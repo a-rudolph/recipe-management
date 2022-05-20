@@ -82,47 +82,60 @@ const DetailedTimeline = ({
 
   return (
     <StyledDiv>
-      <Row justify='space-between'>
+      <Row style={{ marginBottom: '16px' }} justify='space-between'>
         <Col md={0}>
           <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
         </Col>
         <Col xs={0} md={1} />
         <Col>
-          <Text fs='h4' style={{ marginBottom: '16px' }}>
-            Schedule
-          </Text>
+          <Text fs='h4'>Schedule</Text>
         </Col>
       </Row>
       <div className='main-col'>
         <div className='vert-line' />
         <div className='timeline-content'>
-          {steps.map(({ description = () => null, ...step }, i) => (
-            <div key={i}>
-              <Row className='main-row' justify='space-between' align='middle'>
-                <Text fs='h4' weight={600} color='text_1'>
-                  {step.title}
-                </Text>
-                <div className='time-oval'>
-                  <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
-                </div>
-              </Row>
-              <Row>
-                <Text>{description(recipe)}</Text>
-              </Row>
-              {step.subTitle && (
+          {steps.map(
+            ({ description = () => null, postDescription, ...step }, i) => (
+              <div key={i}>
                 <Row
-                  className='subTitle-row'
-                  style={{ height: `${clamp(0.5, step.duration, 2) * 3}rem` }}
+                  className='main-row'
+                  justify='space-between'
+                  align='middle'
                 >
-                  <Text secondary>{step.subTitle}</Text>
-                  <Text style={{ margin: '0 4px' }} secondary color='wheaty_1'>
-                    {hoursToDuration(step.duration)}
+                  <Text fs='h4' weight={600} color='text_1'>
+                    {step.title}
                   </Text>
-                  <div className='dot' />
+                  <div className='time-oval'>
+                    <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
+                  </div>
                 </Row>
-              )}
-            </div>
-          ))}
+                <Row>
+                  <Text>{description(recipe)}</Text>
+                </Row>
+                {step.subTitle && (
+                  <Row
+                    className='subTitle-row'
+                    style={{ height: `${clamp(0.5, step.duration, 1) * 3}rem` }}
+                  >
+                    <Text secondary>{step.subTitle}</Text>
+                    <Text
+                      style={{ margin: '0 4px' }}
+                      secondary
+                      color='wheaty_1'
+                    >
+                      {hoursToDuration(step.duration)}
+                    </Text>
+                    <div className='dot' />
+                  </Row>
+                )}
+                {postDescription && (
+                  <Row style={{ marginBottom: '1rem' }}>
+                    <Text>{postDescription(recipe)}</Text>
+                  </Row>
+                )}
+              </div>
+            )
+          )}
         </div>
       </div>
     </StyledDiv>

@@ -6,6 +6,7 @@ export const recipes: RecipeType[] = [
     bulk: 5,
     proof: 1.25,
     start: 8,
+    foldCount: 3,
     times: {
       bulk: [5],
       proof: [1.25],
@@ -49,6 +50,7 @@ export const recipes: RecipeType[] = [
     bulk: 13,
     proof: 1.25,
     start: 19,
+    foldCount: 3,
     times: {
       bulk: [12, 14],
       proof: [1.25],
@@ -92,6 +94,7 @@ export const recipes: RecipeType[] = [
     bulk: 5,
     proof: 13,
     start: 15,
+    foldCount: 3,
     times: {
       bulk: [5],
       proof: [12, 14],

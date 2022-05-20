@@ -1,36 +1,7 @@
-type MetaCallback = (recipe: RecipeType) => string | number
-
-type StepDescriptor = (recipe: RecipeType) => string
-
-const createStepDescriptor = (
-  texts: TemplateStringsArray,
-  ...args: MetaCallback[]
-): StepDescriptor => {
-  return (recipe) => {
-    let acc = ''
-
-    texts.forEach((text, i) => {
-      acc = acc.concat(text)
-      if (args[i]) {
-        acc = acc.concat(String(args[i](recipe)))
-      }
-    })
-
-    return acc
-  }
-}
-
-const getIngredientStringByCategory = (...categories: IngredientCategory[]) => {
-  return ({ ingredients }: RecipeType): string => {
-    const filtered = ingredients.filter(({ category }) => {
-      return categories.includes(category)
-    })
-
-    const mapped = filtered.map(getIngredientString)
-
-    return joiner(mapped, getSeperator)
-  }
-}
+import {
+  createStepDescriptor,
+  getIngredientStringByCategory,
+} from '@utils/description-helpers'
 
 export const getAutolysisDescription = createStepDescriptor`
 Combine the ${getIngredientStringByCategory(
@@ -38,37 +9,19 @@ Combine the ${getIngredientStringByCategory(
   'water'
 )}. Mix by hand just until incorporated. Cover and let rest.`
 
-const getIngredientString = ({
-  quantity,
-  name,
-  unit,
-  extra,
-}: IngredientType) => {
-  const text = `${quantity} ${unit} of ${name}`
+export const getMixDescription = createStepDescriptor`
+Sprinkle the ${getIngredientStringByCategory(
+  'salt',
+  'yeast'
+)} over the dough. Incorporate using the pincer method.`
 
-  if (extra) {
-    return text.concat(` (${extra})`)
-  }
+export const getFoldDescription = createStepDescriptor`
+The dough requires ${(recipe) => recipe.foldCount} folds during this time.`
 
-  return text
+export const getShapeDescription = (loafCount: number) => {
+  return `Tip the dough onto a floured workstation, divide in ${loafCount} and shape each into a tight ball. Place seam side down into a floured banneton. Cover and let rest.`
 }
 
-const joiner = <T>(
-  arr: T[],
-  getSeperator: (index: number, arr: T[]) => string
-) => {
-  let acc = ''
-
-  arr.forEach((item, i) => {
-    acc = acc.concat(String(item)).concat(getSeperator(i, arr))
-  })
-
-  return acc
-}
-
-const getSeperator = (index: number, arr: string[]) => {
-  if (index < arr.length - 2) return ', '
-  if (index < arr.length - 1) return ' and '
-
-  return ''
+export const getProofDescription = () => {
+  return `Use the finger dent test to know when the loaves are fully proofed.`
 }

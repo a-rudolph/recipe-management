@@ -7,6 +7,7 @@ type RecipeType = {
   proof: number
   start: number
   btf: Btf
+  foldCount: number
 
   // deprecated
   times: {

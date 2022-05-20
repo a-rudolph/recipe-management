@@ -1,5 +1,11 @@
 import fractionize from './fractionize'
-import { getAutolysisDescription } from '@constants/descriptions'
+import {
+  getAutolysisDescription,
+  getFoldDescription,
+  getMixDescription,
+  getProofDescription,
+  getShapeDescription,
+} from '@constants/descriptions'
 import moment from 'moment'
 
 export const hoursToTimeString = (hours: number, format: string = 'h:mm a') => {
@@ -30,6 +36,7 @@ type TimelineStepData = {
   // extras
   subTitle?: string
   description?: (recipe: RecipeType) => string
+  postDescription?: (recipe: RecipeType) => string
   duration?: number
 }
 
@@ -57,13 +64,17 @@ export const getTimelineSteps = ({
     },
     {
       title: 'mix',
+      description: getMixDescription,
       subTitle: 'bulk fermentation',
+      postDescription: getFoldDescription,
       duration: bulk,
       time: mix,
     },
     {
       title: 'shape',
       subTitle: 'proofing',
+      description: () => getShapeDescription(2),
+      postDescription: getProofDescription,
       duration: proof,
       time: shape,
     },

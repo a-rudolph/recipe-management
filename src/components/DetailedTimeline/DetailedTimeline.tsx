@@ -1,3 +1,4 @@
+import { Button, Text } from '@components/atoms'
 import { Col, Row } from 'antd'
 import {
   getTimelineSteps,
@@ -9,7 +10,7 @@ import breakpoints from '@constants/breakpoints'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { useState } from 'react'
 
 const StyledDiv = styled.div`
   width: calc(100% - 48px);
@@ -76,6 +77,14 @@ const StyledDiv = styled.div`
     width: 70vw;
     text-align: justify;
   }
+
+  &.view-short {
+    .description,
+    .post-text,
+    .pre-text {
+      display: none;
+    }
+  }
 `
 
 const DetailedTimeline = ({
@@ -86,16 +95,26 @@ const DetailedTimeline = ({
   onBack?: VoidFunction
 }) => {
   const steps = getTimelineSteps(recipe)
+  const [isShortView, setShortView] = useState(true)
+
+  const view = isShortView ? 'short' : 'long'
+
+  const toggle = () => {
+    setShortView((prev) => !prev)
+  }
 
   return (
-    <StyledDiv>
+    <StyledDiv className={`view-${view}`}>
       <Row style={{ marginBottom: '16px' }} justify='space-between'>
         <Col md={0}>
           <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
         </Col>
         <Col xs={0} md={1} />
         <Col>
-          <Text fs='h4'>Schedule</Text>
+          <Button type='primary' onClick={toggle}>
+            {view}
+          </Button>
+          {/* <Text fs='h4'>Schedule</Text> */}
         </Col>
       </Row>
       <div className='main-col'>

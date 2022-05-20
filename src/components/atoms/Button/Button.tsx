@@ -21,6 +21,7 @@ const Button = styled.button.attrs<ButtonProps>({
   &.primary {
     border: 1px solid ${getColor('wheaty_1')};
     color: ${getColor('wheaty_1')};
+    background-color: transparent;
   }
 
   &.block {

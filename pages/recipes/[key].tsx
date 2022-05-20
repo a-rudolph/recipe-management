@@ -10,7 +10,6 @@ import { animated } from 'react-spring'
 import BasicLayout from '@layouts/BasicLayout'
 import DetailedTimeline from '@components/DetailedTimeline'
 import breakpoints from '@constants/breakpoints'
-import { getColor } from '@styles/themes'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import NavBar from '@layouts/NavBar'
@@ -27,6 +26,10 @@ const ScrollContainer = styled(animated.div)`
   .pages {
     display: flex;
     width: 200vw;
+  }
+
+  .scroll-column {
+    height: 100vw;
   }
 
   @media screen and (min-width: ${breakpoints.sm}px) {

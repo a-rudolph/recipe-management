@@ -52,8 +52,6 @@ const StyledDiv = styled.div`
   }
 
   .page-content {
-    margin-top: 24px;
-
     display: flex;
     justify-content: flex-end;
 
@@ -70,12 +68,16 @@ const StyledDiv = styled.div`
 `
 
 const BasicLayout = ({ children }: BasicLayoutProps) => {
+  const timerEnabled = false
+
   return (
     <StyledDiv>
       <Header />
-      <div className='timer-content'>
-        <TimerCard />
-      </div>
+      {timerEnabled && (
+        <div className='timer-content'>
+          <TimerCard />
+        </div>
+      )}
       <div className='page-content'>{children}</div>
       {/* <NavBar /> */}
     </StyledDiv>

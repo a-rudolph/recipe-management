@@ -68,14 +68,15 @@ export default ({
   onClose,
   icon,
   block,
+  className = '',
   ...rest
 }: ButtonProps) => {
-  let className: string = icon ? 'ghost' : type
+  let extraClass: string = icon ? 'ghost' : type
 
-  className = block ? `${className} block` : className
+  extraClass = block ? `${extraClass} block` : extraClass
 
   return (
-    <Button className={className} {...rest}>
+    <Button className={`${extraClass} ${className}`} {...rest}>
       {icon}
       {children}
     </Button>

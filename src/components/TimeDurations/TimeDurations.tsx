@@ -55,11 +55,11 @@ export default function TimeDurations({
       </StyledTimes>
       <Button type='ghost' onClick={onClock}>
         <Row align='center' justify='center'>
-          <Text style={{ marginTop: '4px' }} color='wheaty_1'>
+          <Text style={{ marginTop: '8px' }} color='wheaty_1'>
             <ClockOutline size={56} />
           </Text>
           {onClock && (
-            <Text color='wheaty_1'>
+            <Text fs={24} color='wheaty_1'>
               <RightIcon size={12} />
             </Text>
           )}

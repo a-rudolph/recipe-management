@@ -5,7 +5,6 @@ import {
   hoursToTimeString,
   hoursToDuration,
 } from '@utils/timeline'
-import BackButton from '@components/BackButton'
 import breakpoints from '@constants/breakpoints'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
@@ -111,7 +110,9 @@ const DetailedTimeline = ({
         justify='space-between'
       >
         <Col md={0}>
-          <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
+          <Text fs='h5' color='text_2' style={{ letterSpacing: '0.5px' }}>
+            {recipe.name.toLowerCase()}
+          </Text>
         </Col>
         <Col xs={0} md={1} />
         <Col>

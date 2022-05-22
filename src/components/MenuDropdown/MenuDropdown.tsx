@@ -1,9 +1,9 @@
 import { animated, useSpring } from 'react-spring'
+import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
 import { getColor, getStyle } from '@styles/themes'
 import { PropsWithChildren, useState } from 'react'
 import { Row, Button } from '@components/atoms'
 import breakpoints from '@constants/breakpoints'
-import BurgerMenu from '@components/BurgerMenu'
 import dynamic from 'next/dynamic'
 import styled from 'styled-components'
 
@@ -13,7 +13,6 @@ const StyledHeader = styled(Row)`
   padding: 4px 12px;
 
   .burger-button {
-    font-size: unset;
     height: 32px;
   }
 
@@ -43,6 +42,18 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
     duration: 500,
   })
 
+  // open timer icon
+  const openStyle = useSpring({
+    opacity: isOpen ? 0 : 1,
+    duration: 200,
+  })
+
+  // close icon
+  const closeStyle = useSpring({
+    opacity: isOpen ? 1 : 0,
+    duration: 200,
+  })
+
   const toggle = () => {
     setIsOpen((prev) => !prev)
   }
@@ -52,7 +63,12 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
       <StyledHeader justify='space-between' align='center'>
         {children}
         <Button className='burger-button' onClick={toggle} type='ghost'>
-          <BurgerMenu isOpen={isOpen} />
+          <animated.div style={{ position: 'absolute', ...openStyle }}>
+            <FieldTimeOutlined />
+          </animated.div>
+          <animated.div style={{ ...closeStyle }}>
+            <CloseOutlined />
+          </animated.div>
         </Button>
       </StyledHeader>
       <StyledDropdownRow>

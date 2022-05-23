@@ -1,4 +1,5 @@
 import { useSpring, animated } from 'react-spring'
+import { CardTitle, Text } from '@components/atoms'
 import { Col, Row, Switch } from 'antd'
 import {
   getTimelineSteps,
@@ -9,7 +10,6 @@ import breakpoints from '@constants/breakpoints'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
 import { useState } from 'react'
 
 const StyledDiv = styled.div`
@@ -104,22 +104,22 @@ const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
         justify='space-between'
       >
         <Col md={0}>
-          <Text fs='h5' color='text_2' style={{ letterSpacing: '0.5px' }}>
-            {recipe.name.toLowerCase()}
-          </Text>
+          <CardTitle>{recipe.name}</CardTitle>
         </Col>
         <Col xs={0} md={1} />
         <Col>
-          <Row gutter={8}>
-            <Col>
-              <Switch
-                size='small'
-                checked={!isShortView}
-                onChange={(checked) => setShortView(!checked)}
-              />
-            </Col>
-            <Col>show details</Col>
-          </Row>
+          <label>
+            <Row gutter={8}>
+              <Col>
+                <Switch
+                  size='small'
+                  checked={!isShortView}
+                  onChange={(checked) => setShortView(!checked)}
+                />
+              </Col>
+              <Col>show details</Col>
+            </Row>
+          </label>
         </Col>
       </Row>
       <div className='main-col'>

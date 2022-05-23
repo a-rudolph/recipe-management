@@ -1,8 +1,9 @@
 import IngredientDisplay from '@components/IngredientDisplay'
+import { Col, Row } from 'antd'
 import SimpleTimeline from '@components/SimpleTimeline'
-import TimeDurations from '@components/TimeDurations'
-import { Text, Row } from '@components/atoms'
 import styled from 'styled-components'
+import { Text } from '@components/atoms'
+import TimeDurations from '@components/TimeDurations'
 
 const StyledDiv = styled.div`
   padding: 0 24px;
@@ -20,7 +21,7 @@ const RecipeDetail = ({
 
   return (
     <StyledDiv>
-      <Row align='start' justify='end'>
+      <Row align='middle' justify='end'>
         <Text
           fs='h3'
           style={{ margin: 0, textAlign: 'right', maxWidth: '280px' }}
@@ -28,8 +29,14 @@ const RecipeDetail = ({
           {name}
         </Text>
       </Row>
-      <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-      <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
+      <Row justify='end' gutter={16}>
+        <Col>
+          <SimpleTimeline start={start} bulk={bulk} proof={proof} />
+        </Col>
+        <Col>
+          <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
+        </Col>
+      </Row>
       <IngredientDisplay ingredients={ingredients} />
     </StyledDiv>
   )

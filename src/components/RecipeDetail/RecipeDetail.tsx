@@ -1,5 +1,6 @@
-import IngredientDisplay from '@components/IngredientDisplay'
 import { Col, Row } from 'antd'
+import breakpoints from '@constants/breakpoints'
+import IngredientDisplay from '@components/IngredientDisplay'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
@@ -8,6 +9,10 @@ import TimeDurations from '@components/TimeDurations'
 const StyledDiv = styled.div`
   padding: 0 24px;
   width: 100%;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    width: 50%;
+  }
 `
 
 const RecipeDetail = ({

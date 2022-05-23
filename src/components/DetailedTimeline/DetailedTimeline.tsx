@@ -16,6 +16,10 @@ const StyledDiv = styled.div`
   width: calc(100% - 48px);
   margin: 0 24px;
 
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    width: 50%;
+  }
+
   .main-col {
     position: relative;
 
@@ -67,15 +71,11 @@ const StyledDiv = styled.div`
     background: ${getColor('secondary_1')};
   }
 
-  @media screen and (min-width: ${breakpoints.md}px) {
-    min-width: 360px;
-  }
-
   .description,
   .post-text,
   .pre-text {
     height: min-content;
-    width: 70vw;
+    width: calc(100% - 64px);
     text-align: justify;
   }
 
@@ -84,13 +84,7 @@ const StyledDiv = styled.div`
   }
 `
 
-const DetailedTimeline = ({
-  recipe,
-  onBack,
-}: {
-  recipe: RecipeType
-  onBack?: VoidFunction
-}) => {
+const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
   const steps = getTimelineSteps(recipe)
   const [isShortView, setShortView] = useState(true)
 

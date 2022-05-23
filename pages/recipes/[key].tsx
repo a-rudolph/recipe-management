@@ -77,7 +77,7 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
           <RecipeDetail recipe={recipe} onClock={() => goTo(1)} />
-          <DetailedTimeline recipe={recipe} onBack={() => goTo(0)} />
+          <DetailedTimeline recipe={recipe} />
         </div>
       </ScrollContainer>
       <NavBar

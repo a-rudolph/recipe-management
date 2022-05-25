@@ -4,7 +4,7 @@ import { useSpring, easings } from 'react-spring'
 export const SCROLLER_ID = 'detail-scroller'
 
 export const SCROLL_DURATION = 550
-const SPEED_BONUS = 1.2
+const SPEED_BONUS = 1.3
 
 type DragData = {
   timeStamp: number

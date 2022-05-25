@@ -31,7 +31,7 @@ const StyledDiv = styled.div`
       width: 3px;
       margin: 6px;
       background: ${getColor('secondary_1')};
-      transform-origin: top;
+      pointer-events: none;
     }
   }
 `

@@ -1,11 +1,12 @@
 import { animated, useSpring } from 'react-spring'
 import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
-import { getColor, getStyle } from '@styles/themes'
 import { PropsWithChildren, useState } from 'react'
 import { Row, Button } from '@components/atoms'
 import breakpoints from '@constants/breakpoints'
+import { Drawer } from 'antd'
 import dynamic from 'next/dynamic'
 import styled from 'styled-components'
+import useScreenWidth from '@hooks/useScreenWidth'
 
 const TimerCard = dynamic(() => import('@components/TimerCard'))
 
@@ -54,6 +55,24 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
 
   const toggle = () => {
     setIsOpen((prev) => !prev)
+  }
+
+  const screenWidth = useScreenWidth()
+
+  if (screenWidth > breakpoints.md) {
+    return (
+      <>
+        <StyledHeader justify='space-between' align='center'>
+          {children}
+          <Button className='burger-button' onClick={toggle} type='ghost'>
+            <FieldTimeOutlined />
+          </Button>
+        </StyledHeader>
+        <Drawer push={true} onClose={() => setIsOpen(false)} visible={isOpen}>
+          <TimerCard />
+        </Drawer>
+      </>
+    )
   }
 
   return (

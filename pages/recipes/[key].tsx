@@ -70,7 +70,9 @@ const StyledNav = styled.div<{ $side: number; $count: number }>`
 `
 
 const Page = ({ recipe }: { recipe: RecipeType }) => {
-  const { side, scroll, goTo } = useDragScroller()
+  const { side, scroll, goTo } = useDragScroller({
+    initialSlide: 0,
+  })
 
   return (
     <BasicLayout.Card>

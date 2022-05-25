@@ -69,7 +69,7 @@ const StyledButton = styled.button`
 
   .pre-text {
     text-align: center;
-    padding: 0 16px;
+    padding: 0 8px;
   }
 `
 
@@ -114,7 +114,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
       </Row>
       <animated.div style={style}>
         <Row className='description'>
-          <Text>{description}</Text>
+          <Text>{renderDangerousSpan(description)}</Text>
         </Row>
       </animated.div>
       {subTitle && (
@@ -132,7 +132,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
       {postDescription && (
         <animated.div style={style}>
           <Row className='post-text' style={{ marginBottom: '1rem' }}>
-            <Text>{postDescription}</Text>
+            <Text>{renderDangerousSpan(postDescription)}</Text>
           </Row>
         </animated.div>
       )}
@@ -144,7 +144,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
             style={{ marginBottom: '1rem' }}
           >
             <Col>
-              <Text>{preDescription}</Text>
+              <Text>{renderDangerousSpan(preDescription)}</Text>
             </Col>
           </Row>
         </animated.div>
@@ -154,3 +154,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
 }
 
 export default TimelineItem
+
+const renderDangerousSpan = (html: string) => {
+  return <span dangerouslySetInnerHTML={{ __html: html }} />
+}

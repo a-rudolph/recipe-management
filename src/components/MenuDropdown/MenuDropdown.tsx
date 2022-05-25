@@ -18,14 +18,12 @@ const StyledHeader = styled(Row)`
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     background: ${({ theme }) => theme.gradient};
-    border-bottom: 1px solid ${getColor('mono_2')};
-    box-shadow: ${getStyle('shade', 'small')};
   }
 `
 
 const StyledDropdownRow = styled(Row)`
   margin: 16px;
-  margin-bottom: 24px;
+  padding-bottom: 24px;
   display: flex;
   justify-content: center;
 `

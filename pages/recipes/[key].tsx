@@ -73,7 +73,7 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
   const { side, scroll, goTo } = useDragScroller()
 
   return (
-    <BasicLayout.Card side='right'>
+    <BasicLayout.Card>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
           <RecipeDetail recipe={recipe} onClock={() => goTo(1)} />

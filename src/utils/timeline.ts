@@ -33,22 +33,20 @@ export const hoursToDuration = (hours: number): string => {
   return `${fractionize(hours)} hours`
 }
 
-type TimelineStepData = {
+export type TimelineStepData = {
   title: string
   time: number
   // extras
   subTitle?: string
-  description?: (recipe: RecipeType) => string
-  postDescription?: (recipe: RecipeType) => string
-  preDescription?: (recipe: RecipeType) => string
+  description?: string
+  postDescription?: string
+  preDescription?: string
   duration?: number
 }
 
-export const getTimelineSteps = ({
-  start,
-  bulk,
-  proof,
-}: RecipeType): TimelineStepData[] => {
+export const getTimelineSteps = (recipe: RecipeType): TimelineStepData[] => {
+  const { start, bulk, proof } = recipe
+
   const AUTOLYSE_HOURS = 0.5
   const BAKE_HOURS = 1 // baking + cooling
 
@@ -62,32 +60,32 @@ export const getTimelineSteps = ({
     {
       title: 'autolyse',
       subTitle: 'autolysis',
-      description: getAutolysisDescription,
+      description: getAutolysisDescription(recipe),
       duration: AUTOLYSE_HOURS,
       time: autol,
     },
     {
       title: 'mix',
-      description: getMixDescription,
+      description: getMixDescription(recipe),
       subTitle: 'bulk fermentation',
-      postDescription: getFoldDescription,
+      postDescription: getFoldDescription(recipe),
       duration: bulk,
       time: mix,
     },
     {
       title: 'shape',
       subTitle: 'proofing',
-      description: () => getShapeDescription(2),
-      postDescription: getProofDescription,
+      description: getShapeDescription(2),
+      postDescription: getProofDescription(),
       duration: proof,
       time: shape,
     },
     {
       title: 'bake',
       subTitle: 'baking',
-      preDescription: getBakePreDescription,
-      description: getBakeDescription,
-      postDescription: getBakePostDescription,
+      preDescription: getBakePreDescription(recipe),
+      description: getBakeDescription(recipe),
+      postDescription: getBakePostDescription(recipe),
       duration: BAKE_HOURS,
       time: bake,
     },

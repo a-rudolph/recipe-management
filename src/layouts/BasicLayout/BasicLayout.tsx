@@ -68,6 +68,7 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
 
 const LayoutCard = styled(Card)`
   width: 100vw;
+  max-width: 820px;
   min-height: 60vh;
   padding: 0;
   padding-bottom: 64px;
@@ -76,6 +77,7 @@ const LayoutCard = styled(Card)`
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     width: max-content;
+    margin-top: 24px;
     padding-bottom: 24px;
     border-radius: 4px;
   }

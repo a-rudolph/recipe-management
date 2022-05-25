@@ -6,7 +6,7 @@ import {
 } from '@utils/timeline'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
-import { Row } from 'antd'
+import { Col, Row } from 'antd'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
 import { useState } from 'react'
@@ -66,6 +66,11 @@ const StyledButton = styled.button`
     text-align: justify;
     pointer-events: none;
   }
+
+  .pre-text {
+    text-align: center;
+    padding: 0 16px;
+  }
 `
 
 type TimelineItemProps = {
@@ -99,13 +104,6 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
 
   return (
     <StyledButton className={isShortView ? 'closed' : 'open'} onClick={toggle}>
-      {preDescription && (
-        <animated.div style={style}>
-          <Row className='pre-text' style={{ marginBottom: '1rem' }}>
-            <Text>{preDescription}</Text>
-          </Row>
-        </animated.div>
-      )}
       <Row className='main-row' justify='space-between' align='middle'>
         <Text fs='h4' weight={600} color='text_1'>
           {title}
@@ -135,6 +133,19 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
         <animated.div style={style}>
           <Row className='post-text' style={{ marginBottom: '1rem' }}>
             <Text>{postDescription}</Text>
+          </Row>
+        </animated.div>
+      )}
+      {preDescription && (
+        <animated.div style={style}>
+          <Row
+            className='pre-text'
+            justify='center'
+            style={{ marginBottom: '1rem' }}
+          >
+            <Col>
+              <Text>{preDescription}</Text>
+            </Col>
           </Row>
         </animated.div>
       )}

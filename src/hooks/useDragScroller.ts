@@ -13,11 +13,17 @@ type DragData = {
 
 const initDragData: DragData = { timeStamp: 0, x: 0 }
 
-export const useDragScroller = () => {
+type DragScrollerOptions = {
+  initialSlide?: number
+}
+
+export const useDragScroller = (options: DragScrollerOptions = {}) => {
+  const { initialSlide = 0 } = options
+
   const startRef = useRef<DragData>(initDragData)
   const endRef = useRef<DragData>(initDragData)
 
-  const [side, setSide] = useState(0)
+  const [side, setSide] = useState(initialSlide)
 
   const onTouchStart = (e) => {
     const x = getScrollPosition()?.current || 0
@@ -29,7 +35,7 @@ export const useDragScroller = () => {
   }
 
   const [scroll, api] = useSpring(() => ({
-    left: 0,
+    left: initialSlide * 1000,
     config: {
       duration: SCROLL_DURATION,
       easing: easings.easeOutCubic,
@@ -128,6 +134,21 @@ const getScrollPosition = () => {
   if (!scroller) return {}
 
   return { current: scroller.scrollLeft, max: scroller.scrollWidth / 2 }
+}
+
+const goToSlide = (slideIndex: number) => {
+  const position = getSlidePosition(slideIndex, 2)
+  scrollToPosition(position)
+}
+
+const getSlidePosition = (slideIndex: number, totalSlides: number) => {
+  const scroller = getScroller()
+
+  if (!scroller) return 0
+
+  const slideWidth = scroller.scrollWidth / totalSlides
+
+  return slideWidth * slideIndex
 }
 
 const scrollToPosition = (position: number) => {

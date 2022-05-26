@@ -1,9 +1,9 @@
-import { Button, Row, Text } from '@components/atoms'
-import { getColor } from '@styles/themes'
+import { Col, Row } from 'antd'
 import ClockOutline from '@components/icons/ClockOutline'
 import fractionize from '@utils/fractionize'
-import RightIcon from '@components/icons/Right'
+import { getColor } from '@styles/themes'
 import styled from 'styled-components'
+import { Text } from '@components/atoms'
 
 const StyledTimes = styled.div`
   margin: 16px 0;
@@ -27,45 +27,29 @@ const StyledTimes = styled.div`
   }
 `
 
-const StyledRow = styled(Row)`
-  justify-content: end;
-
-  .clock-outline-icon {
-    margin: 0 8px;
-  }
-`
-
 type TimeDurationsProps = {
   bulk: number
   proof: number
-  onClock?: VoidFunction
 }
 
-export default function TimeDurations({
-  bulk,
-  proof,
-  onClock,
-}: TimeDurationsProps) {
+export default function TimeDurations({ bulk, proof }: TimeDurationsProps) {
   return (
-    <StyledRow align='center'>
-      <StyledTimes>
-        <TimeRow label='bulk fermentation' hours={bulk} />
-        <div className='time-divider' />
-        <TimeRow label='proofing' hours={proof} />
-      </StyledTimes>
-      <Button type='ghost' onClick={onClock}>
-        <Row align='center' justify='center'>
+    <Row justify='end' gutter={8} align='middle'>
+      <Col>
+        <StyledTimes>
+          <TimeRow label='bulk fermentation' hours={bulk} />
+          <div className='time-divider' />
+          <TimeRow label='proofing' hours={proof} />
+        </StyledTimes>
+      </Col>
+      <Col>
+        <Row align='middle' justify='center'>
           <Text style={{ marginTop: '8px' }} color='wheaty_1'>
             <ClockOutline size={56} />
           </Text>
-          {onClock && (
-            <Text fs={24} color='wheaty_1'>
-              <RightIcon size={12} />
-            </Text>
-          )}
         </Row>
-      </Button>
-    </StyledRow>
+      </Col>
+    </Row>
   )
 }
 

@@ -15,24 +15,18 @@ const StyledDiv = styled.div`
   }
 `
 
-const RecipeDetail = ({
-  recipe,
-  onClock,
-}: {
-  recipe: RecipeType
-  onClock: VoidFunction
-}) => {
+const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
   const { name, start, bulk, proof, ingredients } = recipe
 
   return (
     <StyledDiv>
       <CardTitle>{name}</CardTitle>
-      <Row justify='end' gutter={16}>
+      <Row justify='end' gutter={16} style={{ marginRight: '-12px' }}>
         <Col>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </Col>
         <Col>
-          <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
+          <TimeDurations bulk={bulk} proof={proof} />
         </Col>
       </Row>
       <IngredientDisplay ingredients={ingredients} />

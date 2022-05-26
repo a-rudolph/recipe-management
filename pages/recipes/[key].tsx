@@ -8,8 +8,8 @@ import useDragScroller, {
 } from '@hooks/useDragScroller'
 import { animated } from 'react-spring'
 import BasicLayout from '@layouts/BasicLayout'
-import DetailedTimeline from '@components/DetailedTimeline'
 import breakpoints from '@constants/breakpoints'
+import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
 import NavBar from '@layouts/NavBar'
@@ -78,7 +78,7 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
     <BasicLayout.Card>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
-          <RecipeDetail recipe={recipe} onClock={() => goTo(1)} />
+          <RecipeDetail recipe={recipe} />
           <DetailedTimeline recipe={recipe} />
         </div>
       </ScrollContainer>

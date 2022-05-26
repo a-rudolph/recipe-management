@@ -1,4 +1,7 @@
+import { CloseOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
+import Text from '@components/atoms/Text'
+import { Button } from 'antd'
 
 export type CardProps = {
   side?: 'left' | 'right'
@@ -8,16 +11,7 @@ export type CardProps = {
 const Card = styled.div.attrs<CardProps>({
   className: `atom-card`,
 })<CardProps>`
-  border-radius: ${({ side }) => {
-    switch (side) {
-      case 'left':
-        return '0 15px 15px 0'
-      case 'right':
-        return '15px 0 0 15px'
-      default:
-        return '15px'
-    }
-  }};
+  border-radius: 15px;
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background: ${({ theme }) => theme.gradient};
@@ -25,16 +19,14 @@ const Card = styled.div.attrs<CardProps>({
   position: relative;
 `
 
-const Close = styled.button`
-  top: 0;
+const Close = styled(Button)`
+  top: 8px;
   right: 8px;
   position: absolute;
   padding: 4px 8px;
   background: transparent;
   opacity: 0.6;
   border: none;
-  font-size: 24px;
-  color: white;
 
   transition: all 0.1s;
   &:hover {
@@ -45,7 +37,13 @@ const Close = styled.button`
 export default ({ children, onClose, ...rest }: CardProps) => {
   return (
     <Card {...rest}>
-      {onClose && <Close onClick={onClose}>x</Close>}
+      {onClose && (
+        <Close onClick={onClose}>
+          <Text>
+            <CloseOutlined />
+          </Text>
+        </Close>
+      )}
       {children}
     </Card>
   )

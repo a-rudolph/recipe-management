@@ -24,7 +24,7 @@ const StyledHeader = styled(Row)`
 
 const StyledDropdownRow = styled(Row)`
   margin: 16px;
-  padding-bottom: 24px;
+  padding-bottom: 16px;
   display: flex;
   justify-content: center;
 `

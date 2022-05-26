@@ -42,7 +42,7 @@ export const getIngredientString = ({
   unit,
   extra,
 }: IngredientType) => {
-  const text = `${formatNumber(quantity)} ${unit} of ${name}`
+  const text = `${formatNumber(quantity)}&nbsp;${unit} of ${name}`
 
   if (extra) {
     return text.concat(` (${extra})`)

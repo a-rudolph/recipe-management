@@ -4,22 +4,23 @@ import {
 } from '@utils/description-helpers'
 
 export const getAutolysisDescription = createStepDescriptor`
-Combine the ${getIngredientStringByCategory(
+Combine the <b>${getIngredientStringByCategory(
   'flour',
   'water'
-)}. Mix by hand just until incorporated. Cover and let&nbsp;rest.`
+)}</b>. Mix by hand until incorporated. Cover and let&nbsp;rest.`
 
 export const getMixDescription = createStepDescriptor`
-Sprinkle the ${getIngredientStringByCategory(
+Sprinkle the <b>${getIngredientStringByCategory(
   'salt',
   'yeast'
-)} over the dough. Incorporate using the pincer&nbsp;method.`
+)}</b> over the dough. Incorporate using the pincer&nbsp;method.`
 
 export const getFoldDescription = createStepDescriptor`
-The dough requires ${(recipe) => recipe.foldCount} folds during this&nbsp;time.`
+The dough <b>requires ${(recipe) =>
+  recipe.foldCount} folds</b> during this&nbsp;time.`
 
 export const getShapeDescription = (loafCount: number) => {
-  return `Tip the dough onto a floured workstation, divide in ${loafCount} and shape each into a tight ball. Place seam side down into a floured banneton. Cover and let&nbsp;rest.`
+  return `Tip the dough onto a floured workstation, <b>divide in ${loafCount} and shape each into a tight ball</b>. Place seam side down into a floured banneton. Cover and let&nbsp;rest.`
 }
 
 export const getProofDescription = () => {
@@ -27,10 +28,10 @@ export const getProofDescription = () => {
 }
 
 export const getBakePreDescription = createStepDescriptor`
-Remember! 45 minutes prior to baking, start preheating the oven to 475°F. Place the dutch oven on the middle rack to heat&nbsp;up.`
+Remember! Start <b>preheating the oven to 475°F, 45 minutes</b> prior to baking. Place the dutch oven on the middle rack to heat&nbsp;up.`
 
 export const getBakeDescription = createStepDescriptor`
-Carefully remove the dutch oven (it’s going to be extremely hot). Place the loaf inside and return to the&nbsp;oven.`
+Carefully remove the dutch oven. Place the loaf inside, cover it and return to the oven. <b>Bake for 30 minutes with the lid&nbsp;on</b>`
 
 export const getBakePostDescription = createStepDescriptor`
-Carefully remove the lid and bake for another 15-20 minutes, until you have achieved a deep brown&nbsp;crust.`
+Remove the lid and <b>bake for another 15-20 minutes</b>, until you have achieved a deep brown&nbsp;crust.`

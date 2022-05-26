@@ -72,6 +72,11 @@ const StyledButton = styled.button`
     text-align: center;
     padding: 0 8px;
   }
+
+  b {
+    color: ${getColor('wheaty_1')};
+    letter-spacing: 1px;
+  }
 `
 
 type TimelineItemProps = {
@@ -106,7 +111,12 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
   return (
     <StyledButton className={isShortView ? 'closed' : 'open'} onClick={toggle}>
       <Row className='main-row' justify='space-between' align='middle'>
-        <Text fs='h4' weight={600} color='text_1'>
+        <Text
+          fs='h4'
+          weight={600}
+          color='text_1'
+          style={{ letterSpacing: '1px' }}
+        >
           {title}
         </Text>
         <div className='time-oval'>

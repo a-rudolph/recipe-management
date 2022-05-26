@@ -1,6 +1,6 @@
 import { animated, useSpring } from 'react-spring'
 import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useRef, useState } from 'react'
 import { Row, Button } from '@components/atoms'
 import breakpoints from '@constants/breakpoints'
 import { Drawer } from 'antd'
@@ -33,8 +33,27 @@ const Wrapper = styled(animated.div)`
   overflow-y: hidden;
 `
 
+const useEasterEgg = () => {
+  const counter = useRef(0)
+  const [isEnabled, setEnabled] = useState(false)
+
+  const onClick = () => {
+    counter.current++
+
+    if (counter.current >= 7) {
+      setEnabled(true)
+    }
+  }
+
+  return {
+    onClick,
+    isEnabled,
+  }
+}
+
 const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
   const [isOpen, setIsOpen] = useState(false)
+  const { onClick, isEnabled } = useEasterEgg()
 
   const style = useSpring({
     maxHeight: isOpen ? 400 : 62,
@@ -54,6 +73,10 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
   })
 
   const toggle = () => {
+    if (!isEnabled) {
+      return
+    }
+
     setIsOpen((prev) => !prev)
   }
 
@@ -64,13 +87,19 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
       <>
         <StyledHeader justify='space-between' align='center'>
           {children}
-          <Button className='burger-button' onClick={toggle} type='ghost'>
-            <FieldTimeOutlined />
-          </Button>
+          {isEnabled ? (
+            <Button className='burger-button' onClick={toggle} type='ghost'>
+              <FieldTimeOutlined />
+            </Button>
+          ) : (
+            <span onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
+          )}
         </StyledHeader>
-        <Drawer push={true} onClose={() => setIsOpen(false)} visible={isOpen}>
-          <TimerCard />
-        </Drawer>
+        {isEnabled && (
+          <Drawer push={true} onClose={() => setIsOpen(false)} visible={isOpen}>
+            <TimerCard />
+          </Drawer>
+        )}
       </>
     )
   }
@@ -79,18 +108,24 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
     <Wrapper style={style}>
       <StyledHeader justify='space-between' align='center'>
         {children}
-        <Button className='burger-button' onClick={toggle} type='ghost'>
-          <animated.div style={{ position: 'absolute', ...openStyle }}>
-            <FieldTimeOutlined />
-          </animated.div>
-          <animated.div style={{ ...closeStyle }}>
-            <CloseOutlined />
-          </animated.div>
-        </Button>
+        {isEnabled ? (
+          <Button className='burger-button' onClick={toggle} type='ghost'>
+            <animated.div style={{ position: 'absolute', ...openStyle }}>
+              <FieldTimeOutlined />
+            </animated.div>
+            <animated.div style={{ ...closeStyle }}>
+              <CloseOutlined />
+            </animated.div>
+          </Button>
+        ) : (
+          <span onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
+        )}
       </StyledHeader>
-      <StyledDropdownRow>
-        <TimerCard />
-      </StyledDropdownRow>
+      {isEnabled && (
+        <StyledDropdownRow>
+          <TimerCard />
+        </StyledDropdownRow>
+      )}
     </Wrapper>
   )
 }

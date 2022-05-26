@@ -115,11 +115,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
       </Row>
       <animated.div style={style}>
         <Row className='description'>
-          <Text>
-            {renderDangerousSpan(
-              `<b onmouseover="alert('mouseover');">ipsum</b>`
-            )}
-          </Text>
+          <Text>{renderDangerousSpan(description)}</Text>
         </Row>
       </animated.div>
       {subTitle && (
@@ -161,7 +157,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
 export default TimelineItem
 
 const renderDangerousSpan = (html: string) => {
-  const sanitized = () => DOMPurify.sanitize(html)
+  const sanitized = DOMPurify.sanitize(html)
 
-  return <span dangerouslySetInnerHTML={{ __html: sanitized() }} />
+  return <span dangerouslySetInnerHTML={{ __html: sanitized }} />
 }

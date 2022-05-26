@@ -10,6 +10,7 @@ import { Col, Row } from 'antd'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
 import { useState } from 'react'
+import DOMPurify from 'isomorphic-dompurify'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -114,7 +115,11 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
       </Row>
       <animated.div style={style}>
         <Row className='description'>
-          <Text>{renderDangerousSpan(description)}</Text>
+          <Text>
+            {renderDangerousSpan(
+              `<b onmouseover="alert('mouseover');">ipsum</b>`
+            )}
+          </Text>
         </Row>
       </animated.div>
       {subTitle && (
@@ -156,5 +161,7 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
 export default TimelineItem
 
 const renderDangerousSpan = (html: string) => {
-  return <span dangerouslySetInnerHTML={{ __html: html }} />
+  const sanitized = () => DOMPurify.sanitize(html)
+
+  return <span dangerouslySetInnerHTML={{ __html: sanitized() }} />
 }

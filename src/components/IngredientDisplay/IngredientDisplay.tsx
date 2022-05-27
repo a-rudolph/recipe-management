@@ -1,4 +1,5 @@
 import { Text, Row } from '@components/atoms'
+import { formatNumber } from '@utils/formatNumber'
 import styled from 'styled-components'
 
 type IngredientDisplayProps = {
@@ -36,7 +37,7 @@ const IngredientDisplay = ({ ingredients }: IngredientDisplayProps) => {
             </Text>
           </Text>
           <Text fs='h4'>
-            {quantity} {unit}
+            {formatNumber(quantity)} {unit}
           </Text>
         </Row>
       ))}

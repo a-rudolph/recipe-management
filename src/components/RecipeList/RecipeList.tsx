@@ -1,11 +1,13 @@
 import { useSpring, animated, config } from 'react-spring'
-import { Row, Text } from '@components/atoms'
+import { CardTitle, Row, Text } from '@components/atoms'
 import { getColor, getStyle } from '@styles/themes'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
 import Link from 'next/link'
 
 const StyledDiv = styled.div`
+  padding: 24px;
+
   .dot {
     height: 10px;
     width: 10px;
@@ -61,9 +63,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
 
   return (
     <StyledDiv>
-      <Row>
-        <Text fs='h3'>Straight dough Recipes</Text>
-      </Row>
+      <CardTitle>Straight dough Recipes</CardTitle>
       <Row justify='center' align='center'>
         <div className='dot' />
         <Text fs='h4'>Same-day breads</Text>
@@ -106,7 +106,11 @@ const RecipeLink = ({
   const animateProps = useSpring({
     to: { transform: 'translateX(0)' },
     from: { transform: 'translateX(100%)' },
-    config: config.gentle,
+    config: {
+      tension: 120,
+      friction: 14,
+      bounce: true,
+    } as typeof config.gentle,
     delay: 200 * index,
   })
 

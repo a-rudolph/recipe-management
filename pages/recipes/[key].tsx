@@ -1,66 +1,110 @@
+import { Button, Text } from '@components/atoms'
+import { Col, Row } from 'antd'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import IngredientDisplay from '@components/IngredientDisplay'
+import styled, { css } from 'styled-components'
+import useDragScroller, {
+  SCROLLER_ID,
+  SCROLL_DURATION,
+} from '@hooks/useDragScroller'
+import { animated } from 'react-spring'
+import BasicLayout from '@layouts/BasicLayout'
+import breakpoints from '@constants/breakpoints'
 import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
 import getRecipeProps from '@utils/getRecipeProps'
-import SimpleTimeline from '@components/SimpleTimeline'
-import TimeDurations from '@components/TimeDurations'
-import BasicLayout from '@layouts/BasicLayout'
-import { useRouter } from 'next/router'
-import { Text, Row } from '@components/atoms'
-import { useState } from 'react'
+import NavBar from '@layouts/NavBar'
+import RecipeDetail from '@components/RecipeDetail'
 
-const RecipeDetail = ({
-  recipe,
-  onClock,
-}: {
-  recipe: RecipeType
-  onClock: VoidFunction
-}) => {
-  const { name, start, bulk, proof, ingredients } = recipe
-  const router = useRouter()
+const ScrollContainer = styled(animated.div)`
+  width: 100vw;
+  overflow-x: scroll;
+  padding: 24px 0;
 
-  const onBack = () => {
-    router.push('/')
+  ::-webkit-scrollbar {
+    height: 0px;
   }
 
-  return (
-    <>
-      <Row align='start' justify='end'>
-        <Text
-          fs='h3'
-          style={{ margin: 0, textAlign: 'right', maxWidth: '280px' }}
-        >
-          {name}
-        </Text>
-      </Row>
-      <SimpleTimeline start={start} bulk={bulk} proof={proof} />
-      <TimeDurations onClock={onClock} bulk={bulk} proof={proof} />
-      <IngredientDisplay ingredients={ingredients} />
-    </>
-  )
-}
+  .pages {
+    display: flex;
+    width: 200vw;
+  }
 
-type Views = 'main' | 'time'
+  .scroll-column {
+    height: 100vw;
+  }
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    width: auto;
+
+    .pages {
+      width: auto;
+    }
+  }
+`
+
+const StyledNav = styled.div<{ $side: number; $count: number }>`
+  width: 100vw;
+  height: 32px;
+
+  .slider {
+    height: 4px;
+    width: ${({ $count }) => 100 / $count}vw;
+    position: absolute;
+    top: 0;
+
+    transition: all ${SCROLL_DURATION / 1_000}s;
+
+    ${({ $side }) => {
+      if ($side === 0) {
+        return css`
+          left: 0;
+        `
+      }
+
+      return css`
+        left: 50vw;
+      `
+    }}
+    background: ${({ theme }) => theme.colors.wheaty_1};
+  }
+`
 
 const Page = ({ recipe }: { recipe: RecipeType }) => {
-  const [view, setView] = useState<Views>('main')
-
-  const changeView = () => {
-    setView((prev) => {
-      if (prev === 'main') {
-        return 'time'
-      }
-      return 'main'
-    })
-  }
+  const { side, scroll, goTo } = useDragScroller({
+    initialSlide: 0,
+  })
 
   return (
-    <BasicLayout.Card side='right'>
-      {view === 'main' && <RecipeDetail recipe={recipe} onClock={changeView} />}
-      {view === 'time' && (
-        <DetailedTimeline recipe={recipe} onBack={changeView} />
-      )}
+    <BasicLayout.Card>
+      <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
+        <div className='pages'>
+          <RecipeDetail recipe={recipe} />
+          <DetailedTimeline recipe={recipe} />
+        </div>
+      </ScrollContainer>
+      <NavBar
+        tabs={
+          <StyledNav $count={2} $side={side}>
+            <div className='slider'></div>
+            <Row
+              justify='space-between'
+              align='middle'
+              style={{ height: '100%' }}
+            >
+              <Col span={12}>
+                <Button block={true} onClick={() => goTo(0)} type='ghost'>
+                  <Text>Basics</Text>
+                </Button>
+              </Col>
+              <Col span={12}>
+                <Button block={true} type='ghost' onClick={() => goTo(1)}>
+                  <Text>Schedule</Text>
+                </Button>
+              </Col>
+            </Row>
+          </StyledNav>
+        }
+      />
     </BasicLayout.Card>
   )
 }

@@ -1,6 +1,7 @@
 import { getColor, getStyle } from '@styles/themes'
 import { Text, Row, Button } from '@components/atoms'
 import { useRouter } from 'next/router'
+import { ReactNode } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import breakpoints from '@constants/breakpoints'
@@ -12,15 +13,6 @@ const StyledRow = styled(Row)`
   width: 100%;
   height: 100%;
   padding: 12px;
-
-  .atom-button {
-    padding: 0;
-    height: 32px;
-  }
-
-  .logo {
-    margin-right: 12px;
-  }
 `
 
 const StyledNavBar = styled(Row)`
@@ -45,7 +37,7 @@ const getTitle = (key?: string | string[]) => {
   return (key as string).replace(/-/g, ' ')
 }
 
-export default function NavBar() {
+export default function NavBar({ tabs }: { tabs?: ReactNode }) {
   const router = useRouter()
 
   const title = getTitle(router?.query?.key)
@@ -54,18 +46,22 @@ export default function NavBar() {
   return (
     <StyledNavBar>
       <StyledRow justify='space-between' align='center'>
-        <Text fs='h4' weight={500}>
-          {title}
-        </Text>
-        <span>
-          {isHome || (
-            <Link href='/'>
-              <Button type='ghost'>
-                <LeftArrow size={32} />
-              </Button>
-            </Link>
-          )}
-        </span>
+        {tabs || (
+          <>
+            <Text fs='h4' weight={500}>
+              {title}
+            </Text>
+            <span>
+              {isHome || (
+                <Link href='/'>
+                  <Button type='ghost'>
+                    <LeftArrow size={32} />
+                  </Button>
+                </Link>
+              )}
+            </span>
+          </>
+        )}
       </StyledRow>
     </StyledNavBar>
   )

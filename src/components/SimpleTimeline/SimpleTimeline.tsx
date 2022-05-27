@@ -1,9 +1,10 @@
-import { Text } from '@components/atoms'
 import moment from 'moment'
 import styled from 'styled-components'
+import { Text } from '@components/atoms'
 
 const StyledDiv = styled.div`
   margin: 8px 0;
+  width: 286px;
 `
 
 const Grid = styled.div`
@@ -17,11 +18,9 @@ const Grid = styled.div`
     .label {
       padding: 2px 4px;
       width: 70px;
-      line-height: 1.2;
+      line-height: 1;
     }
   }
-
-  max-width: 280px;
 
   .line,
   .time {
@@ -81,17 +80,17 @@ const SimpleTimeline = (props: SimpleTimelineProps) => {
     <StyledDiv>
       <Grid className='label-row'>
         <div className='label'>
-          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
+          <Text fs='h5' secondary>
             mix
           </Text>
         </div>
         <div className='label'>
-          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
+          <Text fs='h5' secondary>
             shape
           </Text>
         </div>
         <div className='label'>
-          <Text fs='h5' secondary style={{ lineHeight: 1 }}>
+          <Text fs='h5' secondary>
             bake
           </Text>
         </div>

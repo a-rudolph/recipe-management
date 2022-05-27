@@ -1,17 +1,18 @@
-import {
-  getTimelineSteps,
-  hoursToTimeString,
-  hoursToDuration,
-} from '@utils/timeline'
-import { Row, Text } from '@components/atoms'
-import { getColor } from '@styles/themes'
-import { clamp } from '@utils/clamp'
+import { CardTitle } from '@components/atoms'
+import { Col, Row } from 'antd'
+import { getTimelineSteps } from '@utils/timeline'
 import breakpoints from '@constants/breakpoints'
-import BackButton from '@components/BackButton'
+import { getColor } from '@styles/themes'
 import styled from 'styled-components'
+import TimelineItem from '@components/TimelineItem'
 
 const StyledDiv = styled.div`
-  width: 100%;
+  width: calc(100% - 48px);
+  margin: 0 24px;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    width: 50%;
+  }
 
   .main-col {
     position: relative;
@@ -24,94 +25,36 @@ const StyledDiv = styled.div`
 
     .vert-line {
       position: absolute;
-      right: 32px;
+      right: 36px;
       top: 0px;
-      height: calc(100% - 16px);
+      height: calc(100% - 32px);
       width: 3px;
       margin: 6px;
       background: ${getColor('secondary_1')};
-      transform-origin: top;
+      pointer-events: none;
     }
-  }
-
-  .main-row {
-    border-bottom: 1px solid ${getColor('wheaty_4')};
-    margin-right: 16px;
-    margin-bottom: 16px;
-  }
-
-  .break-row {
-    justify-content: end;
-    align-items: center;
-    padding-right: 24px;
-    margin: 8px 0;
-  }
-
-  .dot {
-    height: 4px;
-    width: 4px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid ${getColor('secondary_1')};
-    background: ${getColor('wheaty_1')};
-  }
-
-  .time-oval {
-    margin-bottom: -4px;
-    margin-right: -18px;
-    padding: 2px 16px;
-    border-radius: 60px;
-    background: ${getColor('secondary_1')};
-  }
-
-  @media screen and (min-width: ${breakpoints.md}px) {
-    min-width: 320px;
   }
 `
 
-const DetailedTimeline = ({
-  recipe,
-  onBack,
-}: {
-  recipe: RecipeType
-  onBack?: VoidFunction
-}) => {
+const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
   const steps = getTimelineSteps(recipe)
 
   return (
     <StyledDiv>
-      <Row style={{ justifyContent: 'space-between', alignItems: 'start' }}>
-        <BackButton onBack={onBack}>{recipe.name.toLowerCase()}</BackButton>
-        <Text fs='h4' style={{ marginBottom: '16px' }}>
-          Schedule
-        </Text>
+      <Row
+        align='middle'
+        style={{ marginBottom: '16px' }}
+        justify='space-between'
+      >
+        <Col md={0}>
+          <CardTitle>{recipe.name}</CardTitle>
+        </Col>
       </Row>
       <div className='main-col'>
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
-            <div key={i}>
-              <Row className='main-row' justify='space-between' align='center'>
-                <Text fs='h4' weight={600} color='text_1'>
-                  {step.title}
-                </Text>
-                <div className='time-oval'>
-                  <Text fs='h5'>{hoursToTimeString(step.time)}</Text>
-                </div>
-              </Row>
-              {step.break && (
-                <Row
-                  className='break-row'
-                  style={{ height: `${clamp(0.5, step.duration, 2) * 3}rem` }}
-                >
-                  <Text secondary>{step.break}</Text>
-                  <Text style={{ margin: '0 4px' }} secondary color='wheaty_1'>
-                    {hoursToDuration(step.duration)}
-                  </Text>
-                  <div className='dot' />
-                </Row>
-              )}
-            </div>
+            <TimelineItem key={i} showHelp={i === 0} step={step} />
           ))}
         </div>
       </div>

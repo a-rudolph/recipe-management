@@ -1,16 +1,12 @@
-import { getColor } from '@styles/themes'
 import breakpoints from '@constants/breakpoints'
-import styled from 'styled-components'
-import Header from '@layouts/Header'
 import Card from '@components/atoms/Card'
-import dynamic from 'next/dynamic'
-import NavBar from '@layouts/NavBar'
+import { getColor } from '@styles/themes'
+import Header from '@layouts/Header'
+import styled from 'styled-components'
 
 type BasicLayoutProps = {
   children: React.ReactNode
 }
-
-const TimerCard = dynamic(() => import('@components/TimerCard'))
 
 const StyledDiv = styled.div`
   min-height: 100vh;
@@ -52,8 +48,6 @@ const StyledDiv = styled.div`
   }
 
   .page-content {
-    margin-top: 24px;
-
     display: flex;
     justify-content: flex-end;
 
@@ -61,38 +55,33 @@ const StyledDiv = styled.div`
       justify-content: space-around;
     }
   }
-
-  .timer-content {
-    margin: 16px;
-    display: flex;
-    justify-content: center;
-  }
 `
 
 const BasicLayout = ({ children }: BasicLayoutProps) => {
   return (
     <StyledDiv>
       <Header />
-      <div className='timer-content'>
-        <TimerCard />
-      </div>
       <div className='page-content'>{children}</div>
-      <NavBar />
     </StyledDiv>
   )
 }
 
 const LayoutCard = styled(Card)`
-  width: 100vw;
-  min-height: 60vh;
-  padding: 24px;
-  padding-bottom: 88px;
-  overflow: hidden;
-  border-radius: 0;
+  &.atom-card {
+    width: 100vw;
+    max-width: 820px;
+    min-height: 60vh;
+    padding: 0;
+    padding-bottom: 64px;
+    overflow: hidden;
+    border-radius: 0px;
 
-  @media screen and (min-width: ${breakpoints.sm}px) {
-    width: 320px;
-    border-radius: 4px;
+    @media screen and (min-width: ${breakpoints.sm}px) {
+      width: max-content;
+      margin-top: 24px;
+      padding-bottom: 24px;
+      border-radius: 4px;
+    }
   }
 `
 

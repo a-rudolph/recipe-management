@@ -1,9 +1,9 @@
-import { BRAND_NAME, getColor, getStyle } from '@styles/themes'
 import { Text, Row } from '@components/atoms'
-import LogoIcon from '@components/icons/Logo'
-import styled from 'styled-components'
+import { BRAND_NAME } from '@styles/themes'
 import Link from 'next/link'
-import breakpoints from '@constants/breakpoints'
+import LogoIcon from '@components/icons/Logo'
+import MenuDropdown from '@components/MenuDropdown'
+import styled from 'styled-components'
 
 const StyledRow = styled(Row)`
   cursor: pointer;
@@ -13,19 +13,9 @@ const StyledRow = styled(Row)`
   }
 `
 
-const StyledHeader = styled(Row)`
-  padding: 4px 12px;
-
-  @media screen and (min-width: ${breakpoints.sm}px) {
-    background: ${({ theme }) => theme.gradient};
-    border-bottom: 1px solid ${getColor('mono_2')};
-    box-shadow: ${getStyle('shade', 'small')};
-  }
-`
-
 export default function Header() {
   return (
-    <StyledHeader justify='space-between' align='center'>
+    <MenuDropdown>
       <Link href='/'>
         <StyledRow align='center'>
           <div className='logo'>
@@ -36,6 +26,6 @@ export default function Header() {
           </Text>
         </StyledRow>
       </Link>
-    </StyledHeader>
+    </MenuDropdown>
   )
 }

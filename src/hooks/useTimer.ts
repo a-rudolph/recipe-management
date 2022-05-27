@@ -82,9 +82,12 @@ export const useTimer = (
   const stopTimer = async () => {
     const notifications = await getNotifications({ tag: TIMER_RUNNING })
 
-    const notification = notifications[0] as Notification | undefined
+    if (notifications) {
+      const notification = notifications[0]
 
-    notification?.close()
+      notification?.close()
+    }
+
     setTime({ hh: '00', mm: '00', ss: '00' }, 0)
     endInterval()
     setTimer(null)

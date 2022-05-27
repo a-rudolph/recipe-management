@@ -54,7 +54,7 @@ const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
-            <TimelineItem key={i} step={step} />
+            <TimelineItem key={i} showHelp={i === 0} step={step} />
           ))}
         </div>
       </div>

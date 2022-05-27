@@ -13,15 +13,6 @@ const StyledRow = styled(Row)`
   width: 100%;
   height: 100%;
   padding: 12px;
-  /* 
-  .atom-button {
-    padding: 0;
-    height: 32px;
-  }
-
-  .logo {
-    margin-right: 12px;
-  } */
 `
 
 const StyledNavBar = styled(Row)`

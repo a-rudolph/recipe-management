@@ -1,16 +1,16 @@
 import { useSpring, animated } from 'react-spring'
+import { Col, Row } from 'antd'
 import {
   hoursToTimeString,
   hoursToDuration,
   TimelineStepData,
 } from '@utils/timeline'
 import { clamp } from '@utils/clamp'
+import DOMPurify from 'isomorphic-dompurify'
 import { getColor } from '@styles/themes'
-import { Col, Row } from 'antd'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
 import { useState } from 'react'
-import DOMPurify from 'isomorphic-dompurify'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -23,7 +23,26 @@ const StyledButton = styled.button`
   .main-row {
     border-bottom: 1px solid ${getColor('wheaty_4')};
     margin-right: 16px;
-    margin-bottom: 16px;
+  }
+
+  .help-column {
+    height: 18px;
+    padding: 2px 2px 0;
+    margin-right: 48px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  &:hover {
+    .help-column {
+      opacity: 1;
+    }
+  }
+
+  &.open {
+    .help-column {
+      opacity: 0;
+    }
   }
 
   .subTitle-row {
@@ -62,7 +81,7 @@ const StyledButton = styled.button`
   .description,
   .post-text,
   .pre-text {
-    height: min-content;
+    height: max-content;
     width: calc(100% - 64px);
     text-align: justify;
     pointer-events: none;
@@ -81,17 +100,18 @@ const StyledButton = styled.button`
 
 type TimelineItemProps = {
   step: TimelineStepData
+  showHelp: boolean
 }
 
-const TimelineItem = ({ step }: TimelineItemProps) => {
-  const [isShortView, setShortView] = useState(true)
+const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
+  const [isCollapsed, setIsCollapsed] = useState(true)
 
   const style = useSpring({
     config: { mass: 5, tension: 2000, friction: 200 },
-    opacity: !isShortView ? 1 : 0,
-    x: !isShortView ? 0 : 20,
-    maxHeight: !isShortView ? 110 : 0,
-    from: { opacity: 0, x: 20, maxHeight: 0 },
+    opacity: isCollapsed ? 0.5 : 1,
+    x: isCollapsed ? 20 : 0,
+    maxHeight: isCollapsed ? 0 : 140,
+    overflow: 'hidden',
   })
 
   const {
@@ -99,29 +119,40 @@ const TimelineItem = ({ step }: TimelineItemProps) => {
     time,
     duration,
     subTitle,
-    preDescription,
     description,
+    preDescription,
     postDescription,
   } = step
 
   const toggle = () => {
-    setShortView((prev) => !prev)
+    setIsCollapsed((prev) => !prev)
   }
 
   return (
-    <StyledButton className={isShortView ? 'closed' : 'open'} onClick={toggle}>
+    <StyledButton className={isCollapsed ? 'closed' : 'open'} onClick={toggle}>
       <Row className='main-row' justify='space-between' align='middle'>
-        <Text
-          fs='h4'
-          weight={600}
-          color='text_1'
-          style={{ letterSpacing: '1px' }}
-        >
-          {title}
-        </Text>
-        <div className='time-oval'>
+        <Col>
+          <Text
+            fs='h4'
+            weight={600}
+            color='text_1'
+            style={{ letterSpacing: '1px' }}
+          >
+            {title}
+          </Text>
+        </Col>
+        <Col className='time-oval'>
           <Text fs='h5'>{hoursToTimeString(time)}</Text>
-        </div>
+        </Col>
+      </Row>
+      <Row justify='end'>
+        <Col className='help-column'>
+          {showHelp && (
+            <Text fs='small' color='text_2'>
+              click to show details
+            </Text>
+          )}
+        </Col>
       </Row>
       <animated.div style={style}>
         <Row className='description'>

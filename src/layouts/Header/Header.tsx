@@ -1,9 +1,10 @@
-import { Text, Row } from '@components/atoms'
 import { BRAND_NAME } from '@styles/themes'
 import Link from 'next/link'
 import LogoIcon from '@components/icons/Logo'
 import MenuDropdown from '@components/MenuDropdown'
+import { Row } from 'antd'
 import styled from 'styled-components'
+import { Text } from '@components/atoms'
 
 const StyledRow = styled(Row)`
   cursor: pointer;
@@ -17,7 +18,7 @@ export default function Header() {
   return (
     <MenuDropdown>
       <Link href='/'>
-        <StyledRow align='center'>
+        <StyledRow align='middle'>
           <div className='logo'>
             <LogoIcon />
           </div>

@@ -13,6 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.20.2",
     "axios": "^0.21.0",
     "dayjs": "^1.10.7",

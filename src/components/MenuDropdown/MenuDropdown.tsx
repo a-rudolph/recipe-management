@@ -88,7 +88,7 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
       <>
         <StyledHeader justify='space-between' align='middle'>
           <Col>
-            <Row align='middle' gutter={16}>
+            <Row align='middle' gutter={32}>
               <Col>{children}</Col>
               <Col>
                 <QrCodeButton />

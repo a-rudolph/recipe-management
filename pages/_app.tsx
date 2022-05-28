@@ -1,5 +1,4 @@
-import 'antd/dist/antd.css'
-import '@styles/index.css'
+import '@styles/index.less'
 import { BasicLayout } from 'layouts'
 import { BRAND_NAME } from '@styles/themes'
 import { AppProps } from 'next/app'

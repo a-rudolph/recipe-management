@@ -1,4 +1,14 @@
 import fractionize from './fractionize'
+import {
+  getAutolysisDescription,
+  getBakeDescription,
+  getBakePostDescription,
+  getBakePreDescription,
+  getFoldDescription,
+  getMixDescription,
+  getProofDescription,
+  getShapeDescription,
+} from '@constants/descriptions'
 import moment from 'moment'
 
 export const hoursToTimeString = (hours: number, format: string = 'h:mm a') => {
@@ -23,21 +33,22 @@ export const hoursToDuration = (hours: number): string => {
   return `${fractionize(hours)} hours`
 }
 
-type TimelineStepData = {
+export type TimelineStepData = {
   title: string
   time: number
   // extras
-  break?: string
+  subTitle?: string
+  description?: string
+  postDescription?: string
+  preDescription?: string
   duration?: number
 }
 
-export const getTimelineSteps = ({
-  start,
-  bulk,
-  proof,
-}: RecipeType): TimelineStepData[] => {
+export const getTimelineSteps = (recipe: RecipeType): TimelineStepData[] => {
+  const { start, bulk, proof } = recipe
+
   const AUTOLYSE_HOURS = 0.5
-  const BAKE_HOURS = 0.75
+  const BAKE_HOURS = 1 // baking + cooling
 
   const autol = start - AUTOLYSE_HOURS
   const mix = start
@@ -48,30 +59,38 @@ export const getTimelineSteps = ({
   return [
     {
       title: 'autolyse',
-      break: 'autolysis',
+      subTitle: 'autolysis',
+      description: getAutolysisDescription(recipe),
       duration: AUTOLYSE_HOURS,
       time: autol,
     },
     {
       title: 'mix',
-      break: 'bulk fermentation',
+      description: getMixDescription(recipe),
+      subTitle: 'bulk fermentation',
+      postDescription: getFoldDescription(recipe),
       duration: bulk,
       time: mix,
     },
     {
       title: 'shape',
-      break: 'proofing',
+      subTitle: 'proofing',
+      description: getShapeDescription(2),
+      postDescription: getProofDescription(),
+      preDescription: getBakePreDescription(recipe),
       duration: proof,
       time: shape,
     },
     {
       title: 'bake',
-      break: 'baking',
+      subTitle: 'baking',
+      description: getBakeDescription(recipe),
+      postDescription: getBakePostDescription(recipe),
       duration: BAKE_HOURS,
       time: bake,
     },
     {
-      title: 'ready to eat',
+      title: 'ready to eat!',
       time: eat,
     },
   ]

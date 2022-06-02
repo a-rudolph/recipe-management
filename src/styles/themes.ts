@@ -30,6 +30,19 @@ const grad_3 = '#262B31'
 const gradient =
   'linear-gradient(3.39deg, rgba(38, 43, 49, 0.5) 4.14%, rgba(55, 60, 64, 0.5) 35.13%, rgba(66, 72, 77, 0.5) 98.58%)'
 
+const wheaties = {
+  0: '#36302a',
+  1: '#4d4130',
+  2: '#62523a',
+  3: '#816943',
+  4: '#ac874e', // active 👌
+  5: '#d6a55a',
+  6: '#e9c485',
+  7: '#f4ddb1',
+  8: '#f8f0da',
+  9: '#fbf7ec',
+}
+
 export const theme = {
   colors: {
     wheaty_1,
@@ -53,9 +66,9 @@ export const theme = {
     button: '0px 1px 1px rgba(0, 0, 0, 0.25)',
     small: '0px 2px 2px rgba(0, 0, 0, 0.25)',
     big: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    up: '0px -1px 2px rgba(0, 0, 0, 0.25)',
   },
   gradient,
-  // font: 'Roboto',
   font: 'Mukta Mahee, sans-serif',
   text: {
     body: '1rem',

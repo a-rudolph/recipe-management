@@ -12,8 +12,8 @@ import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
 
 const StyledCard = styled(Card)`
   position: relative;
-  height: 200px;
-  width: 240px;
+  height: 232px;
+  width: 272px;
 
   display: flex;
   align-items: center;
@@ -24,7 +24,7 @@ const StyledCard = styled(Card)`
       display: flex;
       flex-flow: nowrap;
 
-      font-size: 40px;
+      font-size: 38px;
 
       input {
         width: 48px;

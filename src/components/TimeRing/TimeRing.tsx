@@ -8,10 +8,10 @@ const StyledRing = styled.div<{ diameter: number; perimeter: number }>`
 
     border-width: 1px;
     border-style: solid;
-    border-color: ${({ theme }) => theme.colors.wheaty_1};
+    border-color: ${({ theme }) => theme.colors.secondary_1};
     border-radius: 50%;
-    height: ${({ diameter }) => diameter}px;
-    width: ${({ diameter }) => diameter}px;
+    height: ${({ diameter }) => diameter + 2}px;
+    width: ${({ diameter }) => diameter + 2}px;
     transform: rotate(-90deg);
 
     circle {

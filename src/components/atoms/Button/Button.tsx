@@ -7,9 +7,10 @@ type ButtonProps = {
   type?: 'primary' | 'ghost' | 'secondary'
   onClose?: VoidFunction
   icon?: React.ReactNode
-} & React.HTMLAttributes<HTMLDivElement>
+  block?: boolean
+} & React.HTMLAttributes<HTMLButtonElement>
 
-const Button = styled.div.attrs<ButtonProps>({
+const Button = styled.button.attrs<ButtonProps>({
   className: `atom-button`,
 })<ButtonProps>`
   font-size: 24px;
@@ -20,6 +21,15 @@ const Button = styled.div.attrs<ButtonProps>({
   &.primary {
     border: 1px solid ${getColor('wheaty_1')};
     color: ${getColor('wheaty_1')};
+    background-color: transparent;
+  }
+
+  &.block {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &.secondary {
@@ -57,12 +67,16 @@ export default ({
   children,
   onClose,
   icon,
+  block,
+  className = '',
   ...rest
 }: ButtonProps) => {
-  const className = icon ? 'ghost' : type
+  let extraClass: string = icon ? 'ghost' : type
+
+  extraClass = block ? `${extraClass} block` : extraClass
 
   return (
-    <Button className={className} {...rest}>
+    <Button className={`${extraClass} ${className}`} {...rest}>
       {icon}
       {children}
     </Button>

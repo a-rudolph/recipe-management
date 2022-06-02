@@ -1,8 +1,8 @@
-import { getColor, getStyle } from '@styles/themes'
 import breakpoints from '@constants/breakpoints'
-import styled from 'styled-components'
-import Header from '@layouts/Header'
 import Card from '@components/atoms/Card'
+import { getColor } from '@styles/themes'
+import Header from '@layouts/Header'
+import styled from 'styled-components'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -11,6 +11,10 @@ type BasicLayoutProps = {
 const StyledDiv = styled.div`
   min-height: 100vh;
   width: 100vw;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    padding-bottom: 60px;
+  }
 
   background-color: ${getColor('primary_1')};
 
@@ -44,8 +48,6 @@ const StyledDiv = styled.div`
   }
 
   .page-content {
-    margin-top: 24px;
-
     display: flex;
     justify-content: flex-end;
 
@@ -65,15 +67,21 @@ const BasicLayout = ({ children }: BasicLayoutProps) => {
 }
 
 const LayoutCard = styled(Card)`
-  width: 80vw;
-  min-height: 60vh;
-  margin-bottom: 24px;
-  padding: 24px;
-  overflow: hidden;
+  &.atom-card {
+    width: 100vw;
+    max-width: 820px;
+    min-height: 60vh;
+    padding: 0;
+    padding-bottom: 64px;
+    overflow: hidden;
+    border-radius: 0px;
 
-  @media screen and (min-width: ${breakpoints.sm}px) {
-    width: 320px;
-    border-radius: 4px;
+    @media screen and (min-width: ${breakpoints.sm}px) {
+      width: max-content;
+      margin-top: 24px;
+      padding-bottom: 24px;
+      border-radius: 4px;
+    }
   }
 `
 

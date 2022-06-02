@@ -1,9 +1,9 @@
+import '@styles/index.less'
 import { BasicLayout } from 'layouts'
 import { BRAND_NAME } from '@styles/themes'
 import { AppProps } from 'next/app'
 import AppContext from '@hooks/AppContext'
 import Head from 'next/head'
-import '@styles/index.css'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (

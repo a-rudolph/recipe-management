@@ -1,20 +1,33 @@
 import { getStyle, theme } from '@styles/themes'
 import styled, { css } from 'styled-components'
 import _get from 'lodash/get'
+import _isNumber from 'lodash/isNumber'
 
 type Colors = typeof theme.colors
 type Size = typeof theme.text
 
 type StyledTextProps = {
   $color?: keyof Colors
-  $fontSize: keyof Size
+  $fontSize: keyof Size | number
   $weight: number
   $secondary: boolean
 }
 
+function isThemeProp<T>(property: T | number): property is T {
+  return !_isNumber(property)
+}
+
 const StyledText = styled.span<StyledTextProps>`
   color: ${({ $color = 'text_1', theme }) => getColor(theme.colors, $color)};
-  font-size: ${(theme) => getStyle('text', theme.$fontSize)(theme)};
+  font-size: ${(props) => {
+    const { $fontSize } = props
+
+    if (!isThemeProp($fontSize)) {
+      return `${$fontSize}px`
+    }
+
+    return getStyle('text', $fontSize)(props)
+  }};
   font-weight: ${({ $weight }) => $weight};
 
   ${({ theme, $secondary, $weight = 600, $color = 'text_2' }) =>
@@ -33,7 +46,7 @@ const StyledText = styled.span<StyledTextProps>`
 type TextProps = {
   children: React.ReactNode
   color?: keyof Colors
-  fs?: keyof Size
+  fs?: keyof Size | number
   weight?: number
   style?: React.CSSProperties
   secondary?: boolean

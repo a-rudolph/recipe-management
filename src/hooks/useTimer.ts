@@ -12,31 +12,8 @@ import dayjs from 'dayjs'
 import { Howl } from 'howler'
 import { useSettingContext } from '@components/SoundToggle'
 
-const useNotificationAction = (onActions: {
-  [key: string]: (not: Notification) => void
-}) => {
-  useEffect(() => {
-    const listener = (event) => {
-      const action = event.action
-      const notification = event.notification
-
-      alert(String(event.notification))
-      notification.close()
-
-      const handler = onActions[action]
-
-      if (handler) handler(notification)
-    }
-
-    console.log(onActions)
-
-    self.addEventListener('notificationclick', listener)
-
-    return () => {
-      self.removeEventListener('notificationclick', listener)
-    }
-  }, [])
-}
+const TIMER_RUNNING = 'TIMER_RUNNING_TAG'
+const TIMER_FINISHED = 'TIMER_FINISHED_TAG'
 
 export const useTimer = (
   setTime: (time: TimeValue, secondsRemaining: number) => void
@@ -46,16 +23,9 @@ export const useTimer = (
 
   const endTimeNumber = timer?.endTime
 
-  const { setNotification } = useNotification()
+  const { setNotification, getNotifications } = useNotification()
 
   const timeoutRef = useRef<NodeJS.Timeout>()
-  const runningNoticeRef = useRef<Notification | null>()
-
-  useNotificationAction({
-    finishedOk: (notification) => {
-      notification.close()
-    },
-  })
 
   useEffect(() => {
     if (endTimeNumber) startInterval()
@@ -75,6 +45,7 @@ export const useTimer = (
 
     setNotification('Timer finished', {
       body: "Time's up",
+      tag: TIMER_FINISHED,
       requireInteraction: true,
       dir: 'rtl',
       actions: [
@@ -84,6 +55,10 @@ export const useTimer = (
         },
       ],
     })
+  }
+
+  const updateNotification = async () => {
+    createRunningNotice(endTimeNumber)
   }
 
   const startInterval = (endTime?: number) => {
@@ -96,14 +71,23 @@ export const useTimer = (
         return
       }
 
+      updateNotification()
+
       setTime(timeLeft, secondsLeft)
     }, 1000)
 
     timeoutRef.current = intervalId
   }
 
-  const stopTimer = () => {
-    runningNoticeRef.current?.close()
+  const stopTimer = async () => {
+    const notifications = await getNotifications({ tag: TIMER_RUNNING })
+
+    if (notifications) {
+      const notification = notifications[0]
+
+      notification?.close()
+    }
+
     setTime({ hh: '00', mm: '00', ss: '00' }, 0)
     endInterval()
     setTimer(null)
@@ -114,10 +98,17 @@ export const useTimer = (
   }
 
   const createRunningNotice = async (endTime: number) => {
-    const formatted = dayjs(endTime).format('h[:]mm a')
+    const endMoment = dayjs(endTime)
 
-    runningNoticeRef.current = await setNotification('Timer Running', {
-      body: `Ending at ${formatted}`,
+    const formatted = endMoment.format('h[:]mm a')
+
+    const timeLeft = getTimeToEndTime(endTime || endTimeNumber)
+
+    const hmsString = `${timeLeft.hh}:${timeLeft.mm}:${timeLeft.ss}`
+
+    await setNotification('Timer Running', {
+      body: `Time left: ${hmsString}, Ending at ${formatted}`,
+      tag: TIMER_RUNNING,
       silent: true,
     })
   }

@@ -30,18 +30,18 @@ const grad_3 = '#262B31'
 const gradient =
   'linear-gradient(3.39deg, rgba(38, 43, 49, 0.5) 4.14%, rgba(55, 60, 64, 0.5) 35.13%, rgba(66, 72, 77, 0.5) 98.58%)'
 
-const colorArr = [
-  '#36302a',
-  '#4d4130',
-  '#62523a',
-  '#816943',
-  '#ac874e', // active 👌
-  '#d6a55a',
-  '#e9c485',
-  '#f4ddb1',
-  '#f8f0da',
-  '#fbf7ec',
-]
+const wheaties = {
+  0: '#36302a',
+  1: '#4d4130',
+  2: '#62523a',
+  3: '#816943',
+  4: '#ac874e', // active 👌
+  5: '#d6a55a',
+  6: '#e9c485',
+  7: '#f4ddb1',
+  8: '#f8f0da',
+  9: '#fbf7ec',
+}
 
 export const theme = {
   colors: {

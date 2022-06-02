@@ -1,10 +1,11 @@
 import { animated, useSpring } from 'react-spring'
 import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
+import { Drawer, Row, Col } from 'antd'
 import { PropsWithChildren, useRef, useState } from 'react'
-import { Row, Button } from '@components/atoms'
 import breakpoints from '@constants/breakpoints'
-import { Drawer } from 'antd'
+import { Button } from '@components/atoms'
 import dynamic from 'next/dynamic'
+import QrCodeButton from '@components/QrCodeButton'
 import styled from 'styled-components'
 import useScreenWidth from '@hooks/useScreenWidth'
 
@@ -85,15 +86,27 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
   if (screenWidth > breakpoints.md) {
     return (
       <>
-        <StyledHeader justify='space-between' align='center'>
-          {children}
-          {isEnabled ? (
-            <Button className='burger-button' onClick={toggle} type='ghost'>
-              <FieldTimeOutlined />
-            </Button>
-          ) : (
-            <span onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
-          )}
+        <StyledHeader justify='space-between' align='middle'>
+          <Col>
+            <Row align='middle' gutter={32}>
+              <Col>{children}</Col>
+              <Col>
+                <QrCodeButton />
+              </Col>
+            </Row>
+          </Col>
+          <Col>
+            {isEnabled ? (
+              <Button className='burger-button' onClick={toggle} type='ghost'>
+                <FieldTimeOutlined />
+              </Button>
+            ) : (
+              <span
+                onClick={onClick}
+                style={{ height: '1rem', width: '1rem' }}
+              />
+            )}
+          </Col>
         </StyledHeader>
         {isEnabled && (
           <Drawer push={true} onClose={() => setIsOpen(false)} visible={isOpen}>
@@ -106,7 +119,7 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
 
   return (
     <Wrapper style={style}>
-      <StyledHeader justify='space-between' align='center'>
+      <StyledHeader justify='space-between' align='middle'>
         {children}
         {isEnabled ? (
           <Button className='burger-button' onClick={toggle} type='ghost'>

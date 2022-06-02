@@ -16,6 +16,7 @@ const customJestConfig = {
     '^@layouts/(.*)$': '<rootDir>/src/layouts/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
+  // install these first: yarn install @testing-library/react @testing-library/jest-dom
   // testEnvironment: 'jest-environment-jsdom',
 }
 

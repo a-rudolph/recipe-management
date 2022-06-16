@@ -3,6 +3,13 @@ console.log('serviceworker: starting')
 import { getSecondsToEndTime, getTimeToEndTime } from '../src/utils/formatTime'
 import moment from 'moment'
 
+// if we could replace global with ServiceWorkerGlobalScope it would be great.
+// for now these are the only two globals we're using
+declare global {
+  var registration: ServiceWorkerRegistration
+  var clients: Clients
+}
+
 const TIMER_START = 'TIMER_START'
 const TIMER_FINISH = 'TIMER_FINISH'
 const TIMER_STOP = 'TIMER_STOP'
@@ -11,7 +18,7 @@ const TIMER_RUNNING = 'TIMER_RUNNING'
 self.addEventListener(
   'notificationclick',
   function (event) {
-    clients.openWindow('/')
+    self.clients.openWindow('/')
   },
   false
 )
@@ -37,7 +44,8 @@ self.addEventListener('message', (event) => {
     return
   }
 
-  event.source.postMessage(`received unknown message type: ${type}`)
+  console.error(`received unknown message type: ${type}`)
+  // event.source.postMessage(`received unknown message type: ${type}`)
 })
 
 const config = {

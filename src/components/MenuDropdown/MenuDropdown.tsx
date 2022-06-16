@@ -1,6 +1,6 @@
 import { animated, useSpring } from 'react-spring'
 import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
-import { Drawer, Row, Col } from 'antd'
+import { Row, Col } from 'antd'
 import { PropsWithChildren, useRef, useState } from 'react'
 import breakpoints from '@constants/breakpoints'
 import { Button } from '@components/atoms'
@@ -40,6 +40,7 @@ const useEasterEgg = () => {
 
   const onClick = () => {
     counter.current++
+    console.log('.'.repeat(counter.current))
 
     if (counter.current >= 7) {
       setEnabled(true)
@@ -47,14 +48,16 @@ const useEasterEgg = () => {
   }
 
   return {
-    onClick,
     isEnabled,
+    onClick,
   }
 }
 
 const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
   const [isOpen, setIsOpen] = useState(false)
   const { isEnabled, onClick } = useEasterEgg()
+
+  const screenWidth = useScreenWidth()
 
   const style = useSpring({
     maxHeight: isOpen ? 400 : 62,
@@ -81,58 +84,33 @@ const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
     setIsOpen((prev) => !prev)
   }
 
-  const screenWidth = useScreenWidth()
-
-  if (screenWidth > breakpoints.md) {
-    return (
-      <>
-        <StyledHeader justify='space-between' align='middle'>
-          <Col>
-            <Row align='middle' gutter={32}>
-              <Col>{children}</Col>
-              <Col>
-                <QrCodeButton />
-              </Col>
-            </Row>
-          </Col>
-          <Col>
-            {isEnabled ? (
-              <Button className='burger-button' onClick={toggle} type='ghost'>
-                <FieldTimeOutlined />
-              </Button>
-            ) : (
-              <span
-                onClick={onClick}
-                style={{ height: '1rem', width: '1rem' }}
-              />
-            )}
-          </Col>
-        </StyledHeader>
-        {isEnabled && (
-          <Drawer push={true} onClose={() => setIsOpen(false)} visible={isOpen}>
-            <TimerCard />
-          </Drawer>
-        )}
-      </>
-    )
-  }
-
   return (
     <Wrapper style={style}>
       <StyledHeader justify='space-between' align='middle'>
-        {children}
-        {isEnabled ? (
-          <Button className='burger-button' onClick={toggle} type='ghost'>
-            <animated.div style={{ position: 'absolute', ...openStyle }}>
-              <FieldTimeOutlined />
-            </animated.div>
-            <animated.div style={{ ...closeStyle }}>
-              <CloseOutlined />
-            </animated.div>
-          </Button>
-        ) : (
-          <span onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
-        )}
+        <Col>
+          <Row align='middle'>
+            <Col>{children}</Col>
+            {Boolean(screenWidth > breakpoints.md) && (
+              <Col style={{ marginLeft: '32px' }}>
+                <QrCodeButton />
+              </Col>
+            )}
+          </Row>
+        </Col>
+        <Col>
+          {isEnabled ? (
+            <Button className='burger-button' onClick={toggle} type='ghost'>
+              <animated.div style={{ position: 'absolute', ...openStyle }}>
+                <FieldTimeOutlined />
+              </animated.div>
+              <animated.div style={{ ...closeStyle }}>
+                <CloseOutlined />
+              </animated.div>
+            </Button>
+          ) : (
+            <div onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
+          )}
+        </Col>
       </StyledHeader>
       {isEnabled && (
         <StyledDropdownRow>

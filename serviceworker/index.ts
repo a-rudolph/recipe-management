@@ -45,7 +45,6 @@ self.addEventListener('message', (event) => {
   }
 
   console.error(`received unknown message type: ${type}`)
-  // event.source.postMessage(`received unknown message type: ${type}`)
 })
 
 const config = {

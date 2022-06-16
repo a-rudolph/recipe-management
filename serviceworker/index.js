@@ -1,3 +1,5 @@
+console.log('serviceworker: starting')
+
 import { getSecondsToEndTime, getTimeToEndTime } from '../src/utils/formatTime'
 import moment from 'moment'
 
@@ -15,6 +17,8 @@ self.addEventListener(
 )
 
 self.addEventListener('message', (event) => {
+  console.log('serviceworker: receiving message', event)
+
   const { data } = event
   const { type, payload } = data
 

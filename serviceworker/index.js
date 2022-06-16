@@ -1,4 +1,4 @@
-import { getTimeToEndTime } from '../src/utils/formatTime'
+import { getSecondsToEndTime, getTimeToEndTime } from '../src/utils/formatTime'
 import moment from 'moment'
 
 const TIMER_START = 'TIMER_START'
@@ -48,15 +48,50 @@ const showNotification = (title, options = {}) => {
   })
 }
 
+const closeNotification = async (tag) => {
+  const notifications = await self.registration.getNotifications({
+    tag,
+  })
+
+  if (notifications) {
+    const notification = notifications[0]
+
+    notification?.close()
+  }
+}
+
+let timer = null
+
+const startTimer = (seconds) => {
+  const timeout = setTimeout(() => {
+    receiveTimerFinish()
+    stopTimer()
+  }, seconds * 1_000)
+
+  timer = {
+    timeout,
+  }
+}
+
+const stopTimer = () => {
+  // clear timout and close notification
+  if (timer?.timeout) {
+    clearTimeout(timer?.timeout)
+  }
+
+  closeNotification(TIMER_RUNNING)
+}
+
 const receiveTimerStart = (payload) => {
   const { endTimeNumber } = payload
 
-  const endMoment = moment(endTimeNumber)
+  const secondsToEndTime = getSecondsToEndTime(endTimeNumber)
+  startTimer(secondsToEndTime)
 
+  const endMoment = moment(endTimeNumber)
   const formatted = endMoment.format('h[:]mm a')
 
   const timeLeft = getTimeToEndTime(endTimeNumber)
-
   const hmsString = `${timeLeft.hh}:${timeLeft.mm}:${timeLeft.ss}`
 
   showNotification('timer started', {
@@ -67,22 +102,12 @@ const receiveTimerStart = (payload) => {
 }
 
 const receiveTimerFinish = () => {
-  setNotification('Timer finished', {
+  showNotification('Timer finished', {
     body: `Time's up`,
     requireInteraction: true,
   })
 }
 
-const receiveTimerStop = async () => {
-  // end timer interval if there is one
-
-  const notifications = await self.registration.getNotifications({
-    tag: TIMER_RUNNING,
-  })
-
-  if (notifications) {
-    const notification = notifications[0]
-
-    notification?.close()
-  }
+const receiveTimerStop = () => {
+  stopTimer()
 }

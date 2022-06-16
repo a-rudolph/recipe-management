@@ -36,7 +36,7 @@ const Wrapper = styled(animated.div)`
 
 const useEasterEgg = () => {
   const counter = useRef(0)
-  const [isEnabled, setEnabled] = useState(false)
+  const [isEnabled, setEnabled] = useState(!IS_PRODUCTION)
 
   const onClick = () => {
     counter.current++
@@ -54,7 +54,7 @@ const useEasterEgg = () => {
 
 const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { onClick, isEnabled } = useEasterEgg()
+  const { isEnabled, onClick } = useEasterEgg()
 
   const style = useSpring({
     maxHeight: isOpen ? 400 : 62,

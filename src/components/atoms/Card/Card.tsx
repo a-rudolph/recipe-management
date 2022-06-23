@@ -8,7 +8,7 @@ export type CardProps = {
   onClose?: VoidFunction
 } & React.HTMLAttributes<HTMLDivElement>
 
-const Card = styled.div.attrs<CardProps>({
+const StyledCard = styled.div.attrs<CardProps>({
   className: `atom-card`,
 })<CardProps>`
   border-radius: 15px;
@@ -34,9 +34,9 @@ const Close = styled(Button)`
   }
 `
 
-export default ({ children, onClose, ...rest }: CardProps) => {
+const Card = ({ children, onClose, ...rest }: CardProps) => {
   return (
-    <Card {...rest}>
+    <StyledCard {...rest}>
       {onClose && (
         <Close onClick={onClose}>
           <Text>
@@ -45,6 +45,8 @@ export default ({ children, onClose, ...rest }: CardProps) => {
         </Close>
       )}
       {children}
-    </Card>
+    </StyledCard>
   )
 }
+
+export default Card

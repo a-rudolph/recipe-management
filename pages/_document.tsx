@@ -73,6 +73,10 @@ class MyDocument extends Document {
             sizes='180x180'
             href='/icons/apple-icon-180x180.png'
           />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Mukta+Mahee&display=swap'
+            rel='stylesheet'
+          ></link>
         </Head>
         <body>
           <Main />

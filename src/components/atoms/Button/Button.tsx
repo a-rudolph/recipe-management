@@ -10,7 +10,7 @@ type ButtonProps = {
   block?: boolean
 } & React.HTMLAttributes<HTMLButtonElement>
 
-const Button = styled.button.attrs<ButtonProps>({
+const StyledButton = styled.button.attrs<ButtonProps>({
   className: `atom-button`,
 })<ButtonProps>`
   font-size: 24px;
@@ -62,7 +62,7 @@ const Button = styled.button.attrs<ButtonProps>({
   -webkit-tap-highlight-color: transparent;
 `
 
-export default ({
+const Button = ({
   type = 'secondary',
   children,
   onClose,
@@ -76,9 +76,11 @@ export default ({
   extraClass = block ? `${extraClass} block` : extraClass
 
   return (
-    <Button className={`${extraClass} ${className}`} {...rest}>
+    <StyledButton className={`${extraClass} ${className}`} {...rest}>
       {icon}
       {children}
-    </Button>
+    </StyledButton>
   )
 }
+
+export default Button

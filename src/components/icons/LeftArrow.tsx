@@ -10,14 +10,14 @@ export default function LeftArrow({ size = 16 }: IconProps) {
       <path
         d='M16.25 5L4 17.25L16.25 29.5'
         stroke='#FFE3B9'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M4 17.25L32 17.25'
         stroke='#FFE3B9'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   )

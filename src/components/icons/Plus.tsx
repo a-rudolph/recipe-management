@@ -1,4 +1,4 @@
-const PlusButton = (props) => {
+const PlusButton = (props: React.HTMLAttributes<{}>) => {
   return (
     <svg
       {...props}

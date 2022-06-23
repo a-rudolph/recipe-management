@@ -15,7 +15,7 @@ export const useTimer = (
 ) => {
   const { timer, setTimer } = useTimerContext()
 
-  const endTimeNumber = timer?.endTime
+  const endTimeNumber = timer?.endTime || null
 
   useNotification()
 
@@ -58,7 +58,9 @@ export const useTimer = (
   }
 
   const endInterval = () => {
-    clearInterval(intervalRef.current)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+    }
   }
 
   const createRunningNotice = async (endTimeNumber: number) => {

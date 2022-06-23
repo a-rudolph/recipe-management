@@ -134,7 +134,7 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
   }
 
   useEffect(() => {
-    const enterHandler = (e) => {
+    const enterHandler = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         handleDone()
       }

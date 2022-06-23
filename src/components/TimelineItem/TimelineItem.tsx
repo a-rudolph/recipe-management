@@ -197,7 +197,7 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
 
 export default TimelineItem
 
-const renderDangerousSpan = (html: string) => {
+const renderDangerousSpan = (html: string = '') => {
   const sanitized = DOMPurify.sanitize(html)
 
   return <span dangerouslySetInnerHTML={{ __html: sanitized }} />

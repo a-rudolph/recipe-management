@@ -5,8 +5,8 @@ import { Text } from '@components/atoms'
 const StyledTime = styled.div``
 
 type TimeDisplayProps = {
-  hmRef: MutableRefObject<HTMLSpanElement>
-  ssRef: MutableRefObject<HTMLSpanElement>
+  hmRef: MutableRefObject<HTMLSpanElement | null>
+  ssRef: MutableRefObject<HTMLSpanElement | null>
   onClick?: VoidFunction
   style?: CSSProperties
 }

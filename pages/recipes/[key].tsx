@@ -11,9 +11,9 @@ import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
 import DetailedTimeline from '@components/DetailedTimeline'
 import getRecipePaths from '@utils/getRecipePaths'
-import getRecipeProps from '@utils/getRecipeProps'
 import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
+import { recipes } from '@constants/recipes'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -116,8 +116,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const recipe = recipes.find((recipe) => recipe.key === params?.key)
   return {
-    ...getRecipeProps(params),
+    props: { recipe },
   }
 }
 

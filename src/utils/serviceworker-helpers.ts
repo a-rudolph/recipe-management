@@ -9,7 +9,7 @@ export const getServiceWorker = async () => {
 
   const registration = await getServiceWorkerRegistration()
 
-  return registration.active
+  return registration?.active
 }
 
 export const setupMessageListener = () => {

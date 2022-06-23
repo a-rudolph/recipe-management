@@ -56,7 +56,7 @@ export default function SetTimeModal({
   }
 
   useEffect(() => {
-    const enterHandler = (e) => {
+    const enterHandler = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         handleDone()
       }

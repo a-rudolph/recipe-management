@@ -52,14 +52,14 @@ const config = {
   icon: '/icons/wheat.png',
 }
 
-const showNotification = (title, options = {}) => {
+const showNotification = (title: string, options: NotificationOptions = {}) => {
   self.registration.showNotification(title, {
     ...config,
     ...options,
   })
 }
 
-const closeNotification = async (tag) => {
+const closeNotification = async (tag: string) => {
   const notifications = await self.registration.getNotifications({
     tag,
   })
@@ -71,9 +71,13 @@ const closeNotification = async (tag) => {
   }
 }
 
-let timer = null
+type TimerType = {
+  timeout?: NodeJS.Timeout
+}
 
-const startTimer = (seconds) => {
+let timer: TimerType | null = null
+
+const startTimer = (seconds: number) => {
   const timeout = setTimeout(() => {
     receiveTimerFinish()
     stopTimer()
@@ -93,7 +97,7 @@ const stopTimer = () => {
   closeNotification(TIMER_RUNNING)
 }
 
-const receiveTimerStart = (payload) => {
+const receiveTimerStart = (payload: { endTimeNumber: number }) => {
   const { endTimeNumber } = payload
 
   const secondsToEndTime = getSecondsToEndTime(endTimeNumber)

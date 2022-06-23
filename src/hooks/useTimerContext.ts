@@ -1,5 +1,5 @@
 import { getNow } from '@utils/formatTime'
-import {
+import React, {
   createContext,
   createElement,
   useContext,
@@ -9,15 +9,16 @@ import {
 
 type TimerContextType = {
   timer: Timer | null
-  setTimer: (timer: Timer) => void
+  setTimer: React.Dispatch<React.SetStateAction<Timer | null>>
 }
 
-export const TimerProvider = ({ children }) => {
+export const TimerProvider: React.FC = ({ children }) => {
   const [timer, setTimer] = useState<Timer | null>(null)
 
   useEffect(() => {
     const stored = window.localStorage.getItem('timer')
-    const timer = JSON.parse(stored) as Timer | null
+
+    const timer: Timer | null = stored ? JSON.parse(stored) : null
 
     if (!timer || timer?.endTime <= getNow()) {
       return setTimer(null)

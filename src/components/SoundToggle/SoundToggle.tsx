@@ -4,12 +4,12 @@ import Sound from '@components/icons/Sound'
 
 const SOUND_SETTING = 'wheatifully_sound_enabled'
 
-export const SoundSettingProvider = ({ children }) => {
+export const SoundSettingProvider: React.FC = ({ children }) => {
   const [on, setOn] = useState(false)
 
   useEffect(() => {
     const stored = window.localStorage.getItem(SOUND_SETTING)
-    const on = JSON.parse(stored) || false
+    const on = stored ? JSON.parse(stored) : false
 
     setOn(on)
   }, [])

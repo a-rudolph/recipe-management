@@ -22,8 +22,8 @@ const StyledCard = styled(Card)`
 `
 
 export default function TimeCard() {
-  const hmRef = useRef<HTMLSpanElement>(null)
-  const ssRef = useRef<HTMLSpanElement>(null)
+  const hmRef = useRef<HTMLSpanElement | null>(null)
+  const ssRef = useRef<HTMLSpanElement | null>(null)
 
   const setTimeDisplay = ({ hh, mm, ss }: TimeValue) => {
     if (!hmRef.current || !ssRef.current) return

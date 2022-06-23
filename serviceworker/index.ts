@@ -113,6 +113,7 @@ const receiveTimerStart = (payload) => {
 }
 
 const receiveTimerFinish = () => {
+  stopTimer()
   showNotification('Timer finished', {
     body: `Time's up`,
     requireInteraction: true,

@@ -1,5 +1,5 @@
-import getAvailableRecipes from '@utils/getAvailableRecipes'
 import BasicLayout from '@layouts/BasicLayout'
+import getAvailableRecipes from '@utils/getAvailableRecipes'
 import RecipeList from '@components/RecipeList'
 
 type HomeProps = {

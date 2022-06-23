@@ -1,4 +1,4 @@
-import { Row, Col, Dropdown, Button } from 'antd'
+import { Button, Col, Dropdown, Row } from 'antd'
 import styled, { useTheme } from 'styled-components'
 import QRCode from 'qrcode'
 import { QrcodeOutlined } from '@ant-design/icons'

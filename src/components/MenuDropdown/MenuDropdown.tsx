@@ -1,7 +1,7 @@
 import { animated, useSpring } from 'react-spring'
 import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
-import { Row, Col } from 'antd'
-import { PropsWithChildren, useRef, useState } from 'react'
+import { Col, Row } from 'antd'
+import { useRef, useState } from 'react'
 import breakpoints from '@constants/breakpoints'
 import { Button } from '@components/atoms'
 import dynamic from 'next/dynamic'
@@ -53,7 +53,7 @@ const useEasterEgg = () => {
   }
 }
 
-const MenuDropdown = ({ children }: PropsWithChildren<{}>) => {
+const MenuDropdown: React.FC = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { isEnabled, onClick } = useEasterEgg()
 

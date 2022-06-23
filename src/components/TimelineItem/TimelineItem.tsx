@@ -1,8 +1,8 @@
-import { useSpring, animated } from 'react-spring'
+import { animated, useSpring } from 'react-spring'
 import { Col, Row } from 'antd'
 import {
-  hoursToTimeString,
   hoursToDuration,
+  hoursToTimeString,
   TimelineStepData,
 } from '@utils/timeline'
 import { clamp } from '@utils/clamp'

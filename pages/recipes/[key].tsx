@@ -3,8 +3,8 @@ import { Col, Row } from 'antd'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import styled, { css } from 'styled-components'
 import useDragScroller, {
-  SCROLLER_ID,
   SCROLL_DURATION,
+  SCROLLER_ID,
 } from '@hooks/useDragScroller'
 import { animated } from 'react-spring'
 import BasicLayout from '@layouts/BasicLayout'

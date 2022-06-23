@@ -1,4 +1,4 @@
-import { Text, Row } from '@components/atoms'
+import { Row, Text } from '@components/atoms'
 import { formatNumber } from '@utils/formatNumber'
 import styled from 'styled-components'
 

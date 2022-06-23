@@ -1,9 +1,9 @@
-import { useSpring, animated, config } from 'react-spring'
+import { animated, config, useSpring } from 'react-spring'
 import { CardTitle, Row, Text } from '@components/atoms'
 import { getColor, getStyle } from '@styles/themes'
+import Link from 'next/link'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
-import Link from 'next/link'
 
 const StyledDiv = styled.div`
   padding: 24px;

@@ -1,11 +1,11 @@
-import { requestNotificationPermission } from '@hooks/useNotification'
 import { useRef, useState } from 'react'
-import { useTimer } from '@hooks/useTimer'
 import { Card } from '@components/atoms'
+import { getColor } from '@styles/themes'
+import { requestNotificationPermission } from '@hooks/useNotification'
+import SetTimeModal from '@components/SetTimeModal'
 import styled from 'styled-components'
 import TimeDisplay from '@components/TimeDisplay'
-import SetTimeModal from '@components/SetTimeModal'
-import { getColor } from '@styles/themes'
+import { useTimer } from '@hooks/useTimer'
 
 const StyledCard = styled(Card)`
   display: flex;

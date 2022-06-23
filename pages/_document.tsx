@@ -1,12 +1,6 @@
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-  DocumentInitialProps,
-} from 'next/document'
 import { BRAND_NAME, theme } from '@styles/themes'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import type { DocumentContext, DocumentInitialProps } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends Document {

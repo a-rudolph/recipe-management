@@ -1,8 +1,8 @@
-import { CardTitle } from '@components/atoms'
 import { Col, Row } from 'antd'
-import { getTimelineSteps } from '@utils/timeline'
 import breakpoints from '@constants/breakpoints'
+import { CardTitle } from '@components/atoms'
 import { getColor } from '@styles/themes'
+import { getTimelineSteps } from '@utils/timeline'
 import styled from 'styled-components'
 import TimelineItem from '@components/TimelineItem'
 

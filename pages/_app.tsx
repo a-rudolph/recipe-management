@@ -5,7 +5,6 @@ import type { AppType } from 'next/dist/shared/lib/utils'
 import { BasicLayout } from 'layouts'
 import { BRAND_NAME } from '@styles/themes'
 import Head from 'next/head'
-import { trpcUrl } from '@utils/trpc'
 import { withTRPC } from '@trpc/next'
 
 const MyApp: AppType = ({ Component, pageProps }) => {
@@ -36,7 +35,9 @@ export default withTRPC<AppRouter>({
      */
 
     return {
-      url: trpcUrl,
+      url: process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}/api/trpc`
+        : 'http://localhost:3000/api/trpc',
       /**
        * @link https://react-query.tanstack.com/reference/QueryClient
        */

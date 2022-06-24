@@ -1,11 +1,14 @@
 import '@styles/index.less'
 import AppContext from '@hooks/AppContext'
-import type { AppProps } from 'next/app'
+import { AppRouter } from '@pages/api/trpc/[trpc]'
+import type { AppType } from 'next/dist/shared/lib/utils'
 import { BasicLayout } from 'layouts'
 import { BRAND_NAME } from '@styles/themes'
 import Head from 'next/head'
+import { trpcUrl } from '@utils/trpc'
+import { withTRPC } from '@trpc/next'
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <AppContext>
       <Head>
@@ -24,3 +27,24 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </AppContext>
   )
 }
+
+export default withTRPC<AppRouter>({
+  config({ ctx }) {
+    /**
+     * If you want to use SSR, you need to use the server's full URL
+     * @link https://trpc.io/docs/ssr
+     */
+
+    return {
+      url: trpcUrl,
+      /**
+       * @link https://react-query.tanstack.com/reference/QueryClient
+       */
+      // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+    }
+  },
+  /**
+   * @link https://trpc.io/docs/ssr
+   */
+  ssr: false,
+})(MyApp)

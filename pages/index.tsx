@@ -1,4 +1,5 @@
 import BasicLayout from '@layouts/BasicLayout'
+import { client } from '@utils/trpc'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
 import RecipeList from '@components/RecipeList'
 
@@ -16,6 +17,10 @@ const Home = ({ recipes }: HomeProps) => {
 
 export const getStaticProps = async () => {
   const recipes = getAvailableRecipes()
+
+  const response = await client.query('hello')
+
+  console.log(response)
 
   return {
     props: {

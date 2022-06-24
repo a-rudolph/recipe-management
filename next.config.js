@@ -20,6 +20,7 @@ module.exports = withLess(
           '@components': path.resolve(__dirname, 'src/components'),
           '@constants': path.resolve(__dirname, 'src/constants'),
           '@hooks': path.resolve(__dirname, 'src/hooks'),
+          '@pages': path.resolve(__dirname, 'pages'),
           '@styles': path.resolve(__dirname, 'src/styles'),
           '@layouts': path.resolve(__dirname, 'src/layouts'),
           '@utils': path.resolve(__dirname, 'src/utils'),

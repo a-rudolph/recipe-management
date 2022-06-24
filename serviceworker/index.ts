@@ -1,13 +1,15 @@
 console.log('serviceworker: starting')
+self.__WB_DISABLE_DEV_LOGS = true
 
 import { getSecondsToEndTime, getTimeToEndTime } from '../src/utils/formatTime'
 import moment from 'moment'
 
 // if we could replace global with ServiceWorkerGlobalScope it would be great.
-// for now these are the only two globals we're using
+// for now these are the only three globals we're using
 declare global {
   var registration: ServiceWorkerRegistration
   var clients: Clients
+  var __WB_DISABLE_DEV_LOGS: boolean
 }
 
 const TIMER_START = 'TIMER_START'

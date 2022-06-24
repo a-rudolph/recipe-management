@@ -1,12 +1,11 @@
+import { Button, Row, Text } from '@components/atoms'
 import { getColor, getStyle } from '@styles/themes'
-import { Text, Row, Button } from '@components/atoms'
-import { useRouter } from 'next/router'
-import { ReactNode } from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
+import _isArray from 'lodash/isArray'
 import breakpoints from '@constants/breakpoints'
 import LeftArrow from '@components/icons/LeftArrow'
-import _isArray from 'lodash/isArray'
+import Link from 'next/link'
+import styled from 'styled-components'
+import { useRouter } from 'next/router'
 
 const StyledRow = styled(Row)`
   background: ${({ theme }) => theme.gradient};
@@ -37,7 +36,7 @@ const getTitle = (key?: string | string[]) => {
   return (key as string).replace(/-/g, ' ')
 }
 
-export default function NavBar({ tabs }: { tabs?: ReactNode }) {
+export default function NavBar({ tabs }: { tabs?: React.ReactNode }) {
   const router = useRouter()
 
   const title = getTitle(router?.query?.key)
@@ -53,7 +52,7 @@ export default function NavBar({ tabs }: { tabs?: ReactNode }) {
             </Text>
             <span>
               {isHome || (
-                <Link href='/'>
+                <Link as='/' href='/'>
                   <Button type='ghost'>
                     <LeftArrow size={32} />
                   </Button>

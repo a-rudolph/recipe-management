@@ -1,11 +1,10 @@
 import BasicLayout from '@layouts/BasicLayout'
 import { client } from '@utils/trpc'
 import getAvailableRecipes from '@utils/getAvailableRecipes'
+import type { InferGetStaticPropsType } from 'next'
 import RecipeList from '@components/RecipeList'
 
-type HomeProps = {
-  recipes: RecipeType[]
-}
+type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Home = ({ recipes }: HomeProps) => {
   return (

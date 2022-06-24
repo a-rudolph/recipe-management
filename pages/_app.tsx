@@ -34,6 +34,8 @@ export default withTRPC<AppRouter>({
      * @link https://trpc.io/docs/ssr
      */
 
+    console.log('process.env.VERCEL_URL: ', process.env.VERCEL_URL)
+
     return {
       url: process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}/api/trpc`

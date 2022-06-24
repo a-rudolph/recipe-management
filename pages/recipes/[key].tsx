@@ -1,19 +1,23 @@
 import { Button, Text } from '@components/atoms'
 import { Col, Row } from 'antd'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import type {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next'
 import styled, { css } from 'styled-components'
 import useDragScroller, {
   SCROLL_DURATION,
   SCROLLER_ID,
 } from '@hooks/useDragScroller'
 import { animated } from 'react-spring'
+import { appRouter } from '@pages/api/trpc/[trpc]'
 import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
+import { createSSGHelpers } from '@trpc/react/ssg'
 import DetailedTimeline from '@components/DetailedTimeline'
-import getRecipePaths from '@utils/getRecipePaths'
 import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
-import { recipes } from '@constants/recipes'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -69,7 +73,9 @@ const StyledNav = styled.div<{ $side: number; $count: number }>`
   }
 `
 
-const Page = ({ recipe }: { recipe: RecipeType }) => {
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const Page: React.FC<PageProps> = ({ recipe }) => {
   const { side, scroll, goTo } = useDragScroller({
     initialSlide: 0,
   })
@@ -110,15 +116,37 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const ssg = await createSSGHelpers({
+    router: appRouter,
+    ctx: () => null,
+  })
+
+  const data = await ssg.fetchQuery('get-all-recipes')
+
+  const paths = data.recipes.map((recipe) => {
+    return {
+      params: { key: recipe.key },
+    }
+  })
+
   return {
-    ...getRecipePaths(),
+    fallback: false,
+    paths,
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const recipe = recipes.find((recipe) => recipe.key === params?.key)
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext<{ key: string }>) => {
+  const ssg = await createSSGHelpers({
+    router: appRouter,
+    ctx: () => null,
+  })
+
+  const data = await ssg.fetchQuery('get-recipe', { key: params?.key })
+
   return {
-    props: { recipe },
+    props: { recipe: data.recipe },
   }
 }
 

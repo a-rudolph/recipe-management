@@ -13,9 +13,9 @@ export const appRouter = trpc
     },
   })
   .query('get-recipe', {
-    input: z.string(),
+    input: z.object({ key: z.string().nullish() }),
     resolve({ input }) {
-      const recipe = recipes.find((recipe) => recipe.key === input)
+      const recipe = recipes.find((recipe) => recipe.key === input.key)
 
       if (!recipe) {
         throw new trpc.TRPCError({

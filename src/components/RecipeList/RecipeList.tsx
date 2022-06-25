@@ -1,5 +1,6 @@
 import { animated, config, useSpring } from 'react-spring'
-import { CardTitle, Row, Text } from '@components/atoms'
+import { Button, Col, Row } from 'antd'
+import { CardTitle, Text } from '@components/atoms'
 import { getColor, getStyle } from '@styles/themes'
 import Link from 'next/link'
 import SimpleTimeline from '@components/SimpleTimeline'
@@ -64,7 +65,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
   return (
     <StyledDiv>
       <CardTitle>Straight dough Recipes</CardTitle>
-      <Row justify='center' align='center'>
+      <Row justify='center' align='middle'>
         <div className='dot' />
         <Text fs='h4'>Same-day breads</Text>
         <div className='dot' />
@@ -75,7 +76,7 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
       {samedayers.map((recipe, i) => (
         <RecipeLink key={recipe.key} index={i} recipe={recipe} />
       ))}
-      <Row justify='center' align='center'>
+      <Row justify='center' align='middle'>
         <div className='dot' />
         <Text fs='h4'>Overnight breads</Text>
         <div className='dot' />
@@ -115,12 +116,23 @@ const RecipeLink = ({
   })
 
   return (
-    <animated.div style={animateProps}>
-      <Link key={key} href='/recipes/[key]' as={`/recipes/${key}`}>
+    <animated.div key={key} style={animateProps}>
+      <Link href='/recipes/[key]' as={`/recipes/${key}`}>
         <StyledItem>
-          <Text fs='h4' style={{ lineHeight: 1 }}>
-            {name}
-          </Text>
+          <Row gutter={16} align='middle'>
+            <Col>
+              <Text fs='h4' style={{ lineHeight: 1 }}>
+                {name}
+              </Text>
+            </Col>
+            <Col>
+              <Link href='/baking' as='/baking'>
+                <Button>
+                  <Text>start</Text>
+                </Button>
+              </Link>
+            </Col>
+          </Row>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </StyledItem>
       </Link>

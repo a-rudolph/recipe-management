@@ -1,5 +1,5 @@
-import { Button, Text } from '@components/atoms'
-import { Col, Row } from 'antd'
+import { Button as AntdButton, Col, Row } from 'antd'
+import { Button, CardTitle, Text } from '@components/atoms'
 import type {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -16,6 +16,7 @@ import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import DetailedTimeline from '@components/DetailedTimeline'
+import Link from 'next/link'
 import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
 
@@ -82,6 +83,18 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
 
   return (
     <BasicLayout.Card>
+      <Row style={{ margin: '16px 16px 0' }} justify='space-between'>
+        <Col>
+          <CardTitle style={{}}>{recipe.name}</CardTitle>
+        </Col>
+        <Col>
+          <Link href='/baking' as='/baking'>
+            <AntdButton>
+              <Text>start</Text>
+            </AntdButton>
+          </Link>
+        </Col>
+      </Row>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
           <RecipeDetail recipe={recipe} />

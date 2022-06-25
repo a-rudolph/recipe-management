@@ -1,6 +1,5 @@
 import { Col, Row } from 'antd'
 import breakpoints from '@constants/breakpoints'
-import { CardTitle } from '@components/atoms'
 import IngredientDisplay from '@components/IngredientDisplay'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
@@ -16,11 +15,10 @@ const StyledDiv = styled.div`
 `
 
 const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
-  const { name, start, bulk, proof, ingredients } = recipe
+  const { start, bulk, proof, ingredients } = recipe
 
   return (
     <StyledDiv>
-      <CardTitle>{name}</CardTitle>
       <Row justify='end' gutter={16} style={{ marginRight: '-12px' }}>
         <Col>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />

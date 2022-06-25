@@ -1,6 +1,4 @@
-import { Col, Row } from 'antd'
 import breakpoints from '@constants/breakpoints'
-import { CardTitle } from '@components/atoms'
 import { getColor } from '@styles/themes'
 import { getTimelineSteps } from '@utils/timeline'
 import styled from 'styled-components'
@@ -41,15 +39,6 @@ const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
 
   return (
     <StyledDiv>
-      <Row
-        align='middle'
-        style={{ marginBottom: '16px' }}
-        justify='space-between'
-      >
-        <Col md={0}>
-          <CardTitle>{recipe.name}</CardTitle>
-        </Col>
-      </Row>
       <div className='main-col'>
         <div className='vert-line' />
         <div className='timeline-content'>

@@ -1,8 +1,38 @@
 import _get from 'lodash/get'
-
+import breakpoints from '@constants/breakpoints'
+import { css } from 'styled-components'
 import type { StyledProps } from 'styled-components'
 
 export const BRAND_NAME = 'whea·ti·ful·ly'
+
+type StyleArg = ReturnType<typeof css>
+
+export const createResponsiveStyle = (
+  bp: keyof typeof breakpoints,
+  style: StyleArg
+) => {
+  return css`
+    @media screen and (min-width: ${breakpoints[bp]}px) {
+      ${style}
+    }
+  `
+}
+
+createResponsiveStyle.mobile = (style: StyleArg) => {
+  return css`
+    @media screen and (max-width: ${breakpoints.md}px) {
+      ${style}
+    }
+  `
+}
+
+createResponsiveStyle.desktop = (style: StyleArg) => {
+  return css`
+    @media screen and (min-width: ${breakpoints.md}px) {
+      ${style}
+    }
+  `
+}
 
 export const getColor =
   <P = {}>(color: keyof ThemeType['colors']) =>

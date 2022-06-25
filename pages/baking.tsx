@@ -58,6 +58,11 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
     setShowingStepIndex((prev) => prev + 1)
   }
 
+  const resetSteps = () => {
+    setCurrentStepIndex(0)
+    setShowingStepIndex(0)
+  }
+
   const showingStep = steps[showingStepIndex]
 
   return (
@@ -83,24 +88,29 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
           <Row style={{ marginBottom: '8px', height: '200px' }}>
             {renderDangerous.div(showingStep.description)}
           </Row>
-          {showingStepIndex === currentStepIndex &&
-            showingStepIndex < steps.length - 1 && (
-              <Row justify='end'>
+          <Row justify='end'>
+            {showingStepIndex === currentStepIndex &&
+              showingStepIndex < steps.length - 1 && (
                 <Button onClick={onNext}>
                   <Text>Next</Text>
                 </Button>
-              </Row>
-            )}
-          {/* if we're not on the current step show a button to show current */}
-          {showingStepIndex !== currentStepIndex && (
-            <Row justify='end'>
+              )}
+            {/* if we're not on the current step show a button to show current */}
+            {showingStepIndex !== currentStepIndex && (
               <Button onClick={() => setShowingStepIndex(currentStepIndex)}>
                 {showingStepIndex > currentStepIndex && <LeftOutlined />}
                 <Text>current step</Text>
                 {showingStepIndex < currentStepIndex && <RightOutlined />}
               </Button>
-            </Row>
-          )}
+            )}
+            {/* show start again button for last step */}
+            {showingStepIndex === steps.length - 1 &&
+              currentStepIndex === steps.length - 1 && (
+                <Button onClick={resetSteps}>
+                  <Text>Start again</Text>
+                </Button>
+              )}
+          </Row>
         </StyledCard>
       </Row>
     </PageLayout>
@@ -119,17 +129,16 @@ const ProgressItem = styled.button<{
 
   background-color: ${({ $isShowing, $state, theme }) => {
     if ($isShowing && $state !== 'current') {
-      return theme.colors.text_1
+      return theme.colors.text_2
     }
 
     switch ($state) {
-      case 'past':
-        return theme.colors.secondary_1
       case 'current':
         return theme.colors.wheaty_1
+      case 'past':
       case 'future':
       default:
-        return theme.colors.text_2
+        return theme.colors.secondary_1
     }
   }};
 `

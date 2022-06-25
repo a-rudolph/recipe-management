@@ -1,12 +1,15 @@
-import { Card, Row } from 'antd'
+import { Button, Card, Col, Row } from 'antd'
 import { createResponsiveStyle, getColor } from '@styles/themes'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import styled, { css } from 'styled-components'
+import _noop from 'lodash/noop'
 import { appRouter } from './api/trpc/[trpc]'
 import { createSSGHelpers } from '@trpc/react/ssg'
-import { getAutolysisDescription } from '@constants/descriptions'
+import { getTimelineSteps } from '@utils/timeline'
 import { InferGetStaticPropsType } from 'next'
 import { renderDangerous } from '@utils/dangerous-renders'
 import { Text } from '@components/atoms'
+import { useState } from 'react'
 
 const StyledPage = styled.div`
   padding: 16px;
@@ -45,20 +48,128 @@ const StyledCard = styled(Card)`
 type BakingPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [showingStepIndex, setShowingStepIndex] = useState(0)
+
+  const steps = getTimelineSteps(recipe)
+
+  const onNext = () => {
+    setCurrentStepIndex((prev) => prev + 1)
+    setShowingStepIndex((prev) => prev + 1)
+  }
+
+  const showingStep = steps[showingStepIndex]
+
   return (
     <PageLayout>
       <Row style={{ marginBottom: '8px' }}>
-        <Text fs='h5'>getting started</Text>
+        <Text fs='h5'>{recipe.name}</Text>
+      </Row>
+      <Row>
+        <ProgressSteps
+          onStepClick={(index) => {
+            setShowingStepIndex(index)
+          }}
+          showing={showingStepIndex}
+          total={steps.length}
+          current={currentStepIndex}
+        />
       </Row>
       <Row>
         <StyledCard>
           <Row style={{ marginBottom: '8px' }}>
-            <Text fs='h4'>Autolyse</Text>
+            <Text fs='h4'>{showingStep.title}</Text>
           </Row>
-          {renderDangerous.div(getAutolysisDescription(recipe))}
+          <Row style={{ marginBottom: '8px', height: '200px' }}>
+            {renderDangerous.div(showingStep.description)}
+          </Row>
+          {showingStepIndex === currentStepIndex &&
+            showingStepIndex < steps.length - 1 && (
+              <Row justify='end'>
+                <Button onClick={onNext}>
+                  <Text>Next</Text>
+                </Button>
+              </Row>
+            )}
+          {/* if we're not on the current step show a button to show current */}
+          {showingStepIndex !== currentStepIndex && (
+            <Row justify='end'>
+              <Button onClick={() => setShowingStepIndex(currentStepIndex)}>
+                {showingStepIndex > currentStepIndex && <LeftOutlined />}
+                <Text>current step</Text>
+                {showingStepIndex < currentStepIndex && <RightOutlined />}
+              </Button>
+            </Row>
+          )}
         </StyledCard>
       </Row>
     </PageLayout>
+  )
+}
+
+const ProgressItem = styled.button<{
+  $isShowing: boolean
+  $state: 'past' | 'current' | 'future'
+}>`
+  border: none;
+  cursor: pointer;
+
+  height: 4px;
+  width: 40px;
+
+  background-color: ${({ $isShowing, $state, theme }) => {
+    if ($isShowing && $state !== 'current') {
+      return theme.colors.text_1
+    }
+
+    switch ($state) {
+      case 'past':
+        return theme.colors.secondary_1
+      case 'current':
+        return theme.colors.wheaty_1
+      case 'future':
+      default:
+        return theme.colors.text_2
+    }
+  }};
+`
+
+type ProgressStepProps = {
+  total: number
+  current: number
+  showing?: number
+  onStepClick?: (step: number) => void
+}
+
+const ProgressSteps: React.FC<ProgressStepProps> = ({
+  total,
+  current,
+  showing,
+  onStepClick = _noop,
+}) => {
+  const steps = Array.from({ length: total })
+
+  return (
+    <Row gutter={8} style={{ marginBottom: '16px' }}>
+      {steps.map((_, index) => {
+        const state =
+          index < current ? 'past' : index === current ? 'current' : 'future'
+
+        const isShowing = index === showing
+
+        return (
+          <Col key={index}>
+            <ProgressItem
+              onClick={() => {
+                onStepClick(index)
+              }}
+              $isShowing={isShowing}
+              $state={state}
+            />
+          </Col>
+        )
+      })}
+    </Row>
   )
 }
 

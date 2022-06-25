@@ -1,4 +1,5 @@
 import { Button, Card, Col, Row } from 'antd'
+import { CardTitle, Text } from '@components/atoms'
 import { createResponsiveStyle, getColor } from '@styles/themes'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import styled, { css } from 'styled-components'
@@ -7,8 +8,8 @@ import { appRouter } from './api/trpc/[trpc]'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import { getTimelineSteps } from '@utils/timeline'
 import { InferGetStaticPropsType } from 'next'
+import Link from 'next/link'
 import { renderDangerous } from '@utils/dangerous-renders'
-import { Text } from '@components/atoms'
 import { useState } from 'react'
 
 const StyledPage = styled.div`
@@ -68,7 +69,11 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
   return (
     <PageLayout>
       <Row style={{ marginBottom: '8px' }}>
-        <Text fs='h5'>{recipe.name}</Text>
+        <Link href='/recipes/[key]' as={`/recipes/${recipe.key}`}>
+          <a>
+            <CardTitle style={{}}>{recipe.name}</CardTitle>
+          </a>
+        </Link>
       </Row>
       <Row>
         <ProgressSteps

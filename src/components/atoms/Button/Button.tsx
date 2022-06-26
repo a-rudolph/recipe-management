@@ -5,7 +5,6 @@ import styled from 'styled-components'
 type ButtonProps = {
   side?: 'left' | 'right'
   type?: 'primary' | 'ghost' | 'secondary'
-  onClose?: VoidFunction
   icon?: React.ReactNode
   block?: boolean
 } & React.HTMLAttributes<HTMLButtonElement>
@@ -65,7 +64,6 @@ const StyledButton = styled.button.attrs<ButtonProps>({
 const Button = ({
   type = 'secondary',
   children,
-  onClose,
   icon,
   block,
   className = '',

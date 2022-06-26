@@ -1,5 +1,5 @@
 import { animated, useSpring } from 'react-spring'
-import { Button, Card, Row } from 'antd'
+import { Button, Card, Col, Row } from 'antd'
 import { CardTitle, Text } from '@components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
@@ -85,6 +85,7 @@ const BakingPage: React.FC = () => {
   }
 
   if (!data) {
+    // we can replace this with some select recipe page
     return <StyledPage>Come back with a recipe key</StyledPage>
   }
 
@@ -147,35 +148,73 @@ const BakingPage: React.FC = () => {
           <Row style={{ marginBottom: '8px', height: '200px' }}>
             <Text>{renderDangerous.div(showingStep.description)}</Text>
           </Row>
-          <Row justify='end'>
-            {showingStepIndex === currentStepIndex &&
-              showingStepIndex < steps.length - 1 && (
-                <Button onClick={onNext}>
-                  <Text>Next</Text>
+          <Row justify='space-between'>
+            <Col>
+              {steps[showingStepIndex - 1] && (
+                <Button
+                  onClick={() => {
+                    setShowingStepIndex((prev) => {
+                      slide(prev, prev - 1)
+                      return prev - 1
+                    })
+                  }}
+                  type='text'
+                >
+                  <LeftOutlined />
+                  <Text>{steps[showingStepIndex - 1]?.title}</Text>
                 </Button>
               )}
-            {/* if we're not on the current step show a button to show current */}
-            {showingStepIndex !== currentStepIndex && (
-              <Button
-                onClick={() =>
-                  setShowingStepIndex((prev) => {
-                    slide(prev, currentStepIndex)
-                    return currentStepIndex
-                  })
-                }
-              >
-                {showingStepIndex > currentStepIndex && <LeftOutlined />}
-                <Text>current step</Text>
-                {showingStepIndex < currentStepIndex && <RightOutlined />}
-              </Button>
-            )}
-            {/* show start again button for last step */}
-            {showingStepIndex === steps.length - 1 &&
-              currentStepIndex === steps.length - 1 && (
-                <Button onClick={resetSteps}>
-                  <Text>Start again</Text>
+            </Col>
+            <Col>
+              {showingStepIndex === currentStepIndex &&
+                showingStepIndex < steps.length - 1 && (
+                  <Button
+                    style={{ width: '120px' }}
+                    type='primary'
+                    onClick={onNext}
+                  >
+                    Done
+                  </Button>
+                )}
+              {/* if we're not on the current step show a button to show current */}
+              {showingStepIndex !== currentStepIndex && (
+                <Button
+                  onClick={() =>
+                    setShowingStepIndex((prev) => {
+                      slide(prev, currentStepIndex)
+                      return currentStepIndex
+                    })
+                  }
+                >
+                  {showingStepIndex > currentStepIndex && <LeftOutlined />}
+                  <Text>current step</Text>
+                  {showingStepIndex < currentStepIndex && <RightOutlined />}
                 </Button>
               )}
+              {/* show start again button for last step */}
+              {showingStepIndex === steps.length - 1 &&
+                currentStepIndex === steps.length - 1 && (
+                  <Button onClick={resetSteps}>
+                    <Text>Start again</Text>
+                  </Button>
+                )}
+            </Col>
+            <Col>
+              {steps[showingStepIndex + 1] && (
+                <Button
+                  onClick={() => {
+                    setShowingStepIndex((prev) => {
+                      slide(prev, prev + 1)
+                      return prev + 1
+                    })
+                  }}
+                  type='text'
+                >
+                  <Text>{steps[showingStepIndex + 1]?.title}</Text>
+                  <RightOutlined />
+                </Button>
+              )}
+            </Col>
           </Row>
         </StyledCard>
       </Row>

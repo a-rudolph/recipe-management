@@ -18,12 +18,12 @@ const useLocalStorage = <T, S = T>(
   const [value, setValue] = useState<T>(() => {
     const getInitialValue = _isFunction(initialValue)
       ? initialValue
-      : () => initialValue
+      : (value: T = initialValue) => value
 
     try {
       const item = localStorage.getItem(storage_key)
 
-      return getInitialValue(item ? JSON.parse(item) : null)
+      return getInitialValue(item ? JSON.parse(item) : initialValue)
     } catch (error) {
       return getInitialValue()
     }

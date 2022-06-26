@@ -27,6 +27,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   )
 }
 
+const getBaseUrl = () => {
+  if (process.browser) return '' // Browser should use current path
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}` // SSR should use vercel url
+
+  return `http://localhost:${process.env.PORT ?? 3000}` // dev SSR should use localhost
+}
+
 export default withTRPC<AppRouter>({
   config({ ctx }) {
     /**
@@ -35,9 +42,7 @@ export default withTRPC<AppRouter>({
      */
 
     return {
-      url: process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}/api/trpc`
-        : 'http://localhost:3000/api/trpc',
+      url: `${getBaseUrl()}/api/trpc`,
       /**
        * @link https://react-query.tanstack.com/reference/QueryClient
        */

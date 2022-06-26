@@ -5,6 +5,7 @@ import { getColor, getStyle } from '@styles/themes'
 import Link from 'next/link'
 import SimpleTimeline from '@components/SimpleTimeline'
 import styled from 'styled-components'
+import { useTimerContext } from '@hooks/useTimerContext'
 
 const StyledDiv = styled.div`
   padding: 24px;
@@ -102,6 +103,8 @@ const RecipeLink = ({
   recipe: RecipeType
   index: number
 }) => {
+  const { setKeyRecipe } = useTimerContext()
+
   const { name, start, bulk, proof, key } = recipe
 
   const animateProps = useSpring({
@@ -126,8 +129,12 @@ const RecipeLink = ({
               </Text>
             </Col>
             <Col>
-              <Link href='/baking' as='/baking'>
-                <Button>
+              <Link href='/baking' as={`/baking?recipeKey=${key}`}>
+                <Button
+                  onClick={() => {
+                    setKeyRecipe({ key })
+                  }}
+                >
                   <Text>start</Text>
                 </Button>
               </Link>

@@ -2,16 +2,16 @@ import { animated, useSpring } from 'react-spring'
 import { Button, Card, Row } from 'antd'
 import { CardTitle, Text } from '@components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { useEffect, useState } from 'react'
 import _noop from 'lodash/noop'
-import { appRouter } from './api/trpc/[trpc]'
-import { createSSGHelpers } from '@trpc/react/ssg'
 import { getTimelineSteps } from '@utils/timeline'
-import { InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 import ProgressSteps from '@components/ProgressSteps'
 import { renderDangerous } from '@utils/dangerous-renders'
 import styled from 'styled-components'
-import { useState } from 'react'
+import { trpc } from '@utils/trpc'
+import { useRouter } from 'next/router'
+import { useTimerContext } from '@hooks/useTimerContext'
 
 const StyledPage = styled.div`
   padding: 16px;
@@ -42,13 +42,51 @@ const PageLayout: React.FC = ({ children }) => {
 
 const StyledCard = styled(animated(Card))``
 
-type BakingPageProps = InferGetStaticPropsType<typeof getStaticProps>
+const useBakingRecipe = () => {
+  const { keyRecipe, setKeyRecipe } = useTimerContext()
 
-const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
+  const router = useRouter()
+  const recipeQuery = router?.query?.recipeKey
+  const recipeQueryKey = Array.isArray(recipeQuery)
+    ? recipeQuery[0]
+    : recipeQuery
+
+  useEffect(() => {
+    if (recipeQueryKey) {
+      setKeyRecipe({ key: recipeQueryKey })
+      return
+    }
+
+    if (keyRecipe?.key) {
+      // add key to query
+      router.push(`/baking?recipeKey=${keyRecipe.key}`)
+      return
+    }
+  }, [recipeQueryKey])
+
+  return {
+    recipeKey: keyRecipe?.key || null,
+    setRecipeKey: (key: string) => setKeyRecipe({ key }),
+  }
+}
+
+const BakingPage: React.FC = () => {
+  const { recipeKey } = useBakingRecipe()
+
+  const { data, isLoading } = trpc.useQuery(['get-recipe', { key: recipeKey }])
+
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [showingStepIndex, setShowingStepIndex] = useState(0)
 
   const [style, api] = useSpring(() => ({ transform: 'translateX(0%)' }))
+
+  if (isLoading) {
+    return <StyledPage>Loading...</StyledPage>
+  }
+
+  if (!data) {
+    return <StyledPage>Come back with a recipe key</StyledPage>
+  }
 
   const slide = (prev: number, next: number) => {
     const factor = prev < next ? 1 : -1
@@ -59,7 +97,7 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
     })
   }
 
-  const steps = getTimelineSteps(recipe)
+  const steps = getTimelineSteps(data.recipe)
 
   const onNext = () => {
     // next is always in one direction
@@ -82,9 +120,9 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
   return (
     <PageLayout>
       <Row style={{ marginBottom: '8px' }}>
-        <Link href='/recipes/[key]' as={`/recipes/${recipe.key}`}>
+        <Link href='/recipes/[key]' as={`/recipes/${data.recipe.key}`}>
           <a>
-            <CardTitle style={{}}>{recipe.name}</CardTitle>
+            <CardTitle style={{}}>{data.recipe.name}</CardTitle>
           </a>
         </Link>
       </Row>
@@ -143,21 +181,6 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
       </Row>
     </PageLayout>
   )
-}
-
-export const getStaticProps = async () => {
-  const ssg = await createSSGHelpers({
-    router: appRouter,
-    ctx: () => null,
-  })
-
-  const data = await ssg.fetchQuery('get-recipe', {
-    key: 'saturday-white-bread',
-  })
-
-  return {
-    props: { recipe: data.recipe },
-  }
 }
 
 export default BakingPage

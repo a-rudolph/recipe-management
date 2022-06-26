@@ -1,7 +1,7 @@
 import { SoundSettingProvider } from '@components/SoundToggle'
+import { theme } from '@styles/themes'
 import { ThemeProvider } from 'styled-components'
 import { TimerProvider } from './useTimerContext'
-import { theme } from '@styles/themes'
 
 const AppContext = ({ children }: { children: React.ReactNode }) => {
   return (

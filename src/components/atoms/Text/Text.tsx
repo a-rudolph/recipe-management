@@ -41,6 +41,11 @@ const StyledText = styled.span<StyledTextProps>`
         color: ${getColor(theme.colors, $color)};
       }
     `}
+
+  b {
+    color: ${getStyle('colors', 'wheaty_1')};
+    letter-spacing: 1px;
+  }
 `
 
 type TextProps = {

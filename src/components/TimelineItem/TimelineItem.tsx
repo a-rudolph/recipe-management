@@ -91,11 +91,6 @@ const StyledButton = styled.button`
     text-align: center;
     padding: 0 8px;
   }
-
-  b {
-    color: ${getColor('wheaty_1')};
-    letter-spacing: 1px;
-  }
 `
 
 type TimelineItemProps = {

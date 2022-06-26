@@ -1,15 +1,16 @@
-import { Button, Card, Col, Row } from 'antd'
+import { animated, useSpring } from 'react-spring'
+import { Button, Card, Row } from 'antd'
 import { CardTitle, Text } from '@components/atoms'
-import { createResponsiveStyle, getColor } from '@styles/themes'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-import styled, { css } from 'styled-components'
 import _noop from 'lodash/noop'
 import { appRouter } from './api/trpc/[trpc]'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import { getTimelineSteps } from '@utils/timeline'
 import { InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
+import ProgressSteps from '@components/ProgressSteps'
 import { renderDangerous } from '@utils/dangerous-renders'
+import styled from 'styled-components'
 import { useState } from 'react'
 
 const StyledPage = styled.div`
@@ -19,15 +20,15 @@ const StyledPage = styled.div`
   justify-content: center;
   width: 100%;
 
+  overflow-x: hidden;
+
   & > div {
     width: 100%;
-    max-width: 800px;
+    max-width: 560px;
   }
 
   .ant-card {
-    ${createResponsiveStyle.mobile(css`
-      width: 100%;
-    `)}
+    width: 100%;
   }
 `
 
@@ -39,12 +40,7 @@ const PageLayout: React.FC = ({ children }) => {
   )
 }
 
-const StyledCard = styled(Card)`
-  b {
-    color: ${getColor('wheaty_1')};
-    letter-spacing: 1px;
-  }
-`
+const StyledCard = styled(animated(Card))``
 
 type BakingPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -52,14 +48,31 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [showingStepIndex, setShowingStepIndex] = useState(0)
 
+  const [style, api] = useSpring(() => ({ transform: 'translateX(0%)' }))
+
+  const slide = (prev: number, next: number) => {
+    const factor = prev < next ? 1 : -1
+
+    api.start({
+      from: { transform: `translateX(${100 * factor}%)` },
+      to: { transform: 'translateX(0%)' },
+    })
+  }
+
   const steps = getTimelineSteps(recipe)
 
   const onNext = () => {
+    // next is always in one direction
+    slide(0, 1)
+
     setCurrentStepIndex((prev) => prev + 1)
     setShowingStepIndex((prev) => prev + 1)
   }
 
   const resetSteps = () => {
+    // reset is always in one direction
+    slide(1, 0)
+
     setCurrentStepIndex(0)
     setShowingStepIndex(0)
   }
@@ -78,7 +91,10 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
       <Row>
         <ProgressSteps
           onStepClick={(index) => {
-            setShowingStepIndex(index)
+            setShowingStepIndex((prev) => {
+              slide(prev, index)
+              return index
+            })
           }}
           showing={showingStepIndex}
           total={steps.length}
@@ -86,12 +102,12 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
         />
       </Row>
       <Row>
-        <StyledCard>
+        <StyledCard style={style}>
           <Row style={{ marginBottom: '8px' }}>
             <Text fs='h4'>{showingStep.title}</Text>
           </Row>
           <Row style={{ marginBottom: '8px', height: '200px' }}>
-            {renderDangerous.div(showingStep.description)}
+            <Text>{renderDangerous.div(showingStep.description)}</Text>
           </Row>
           <Row justify='end'>
             {showingStepIndex === currentStepIndex &&
@@ -102,7 +118,14 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
               )}
             {/* if we're not on the current step show a button to show current */}
             {showingStepIndex !== currentStepIndex && (
-              <Button onClick={() => setShowingStepIndex(currentStepIndex)}>
+              <Button
+                onClick={() =>
+                  setShowingStepIndex((prev) => {
+                    slide(prev, currentStepIndex)
+                    return currentStepIndex
+                  })
+                }
+              >
                 {showingStepIndex > currentStepIndex && <LeftOutlined />}
                 <Text>current step</Text>
                 {showingStepIndex < currentStepIndex && <RightOutlined />}
@@ -119,71 +142,6 @@ const BakingPage: React.FC<BakingPageProps> = ({ recipe }) => {
         </StyledCard>
       </Row>
     </PageLayout>
-  )
-}
-
-const ProgressItem = styled.button<{
-  $isShowing: boolean
-  $state: 'past' | 'current' | 'future'
-}>`
-  border: none;
-  cursor: pointer;
-
-  height: 4px;
-  width: 40px;
-
-  background-color: ${({ $isShowing, $state, theme }) => {
-    if ($isShowing && $state !== 'current') {
-      return theme.colors.text_2
-    }
-
-    switch ($state) {
-      case 'current':
-        return theme.colors.wheaty_1
-      case 'past':
-      case 'future':
-      default:
-        return theme.colors.secondary_1
-    }
-  }};
-`
-
-type ProgressStepProps = {
-  total: number
-  current: number
-  showing?: number
-  onStepClick?: (step: number) => void
-}
-
-const ProgressSteps: React.FC<ProgressStepProps> = ({
-  total,
-  current,
-  showing,
-  onStepClick = _noop,
-}) => {
-  const steps = Array.from({ length: total })
-
-  return (
-    <Row gutter={8} style={{ marginBottom: '16px' }}>
-      {steps.map((_, index) => {
-        const state =
-          index < current ? 'past' : index === current ? 'current' : 'future'
-
-        const isShowing = index === showing
-
-        return (
-          <Col key={index}>
-            <ProgressItem
-              onClick={() => {
-                onStepClick(index)
-              }}
-              $isShowing={isShowing}
-              $state={state}
-            />
-          </Col>
-        )
-      })}
-    </Row>
   )
 }
 

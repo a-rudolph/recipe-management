@@ -2,7 +2,7 @@ import { animated, useSpring } from 'react-spring'
 import { Button, Card, Col, Row } from 'antd'
 import { CardTitle, Text } from '@components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import _noop from 'lodash/noop'
 import { getTimelineSteps } from '@utils/timeline'
 import Link from 'next/link'
@@ -80,6 +80,72 @@ const BakingPage: React.FC = () => {
 
   const [style, api] = useSpring(() => ({ transform: 'translateX(0%)' }))
 
+  const steps = data ? getTimelineSteps(data.recipe) : []
+
+  const goToSlide = (
+    next: number | ((prev: number) => number),
+    moveCurrent?: boolean
+  ) => {
+    setShowingStepIndex((prevSlide) => {
+      const nextSlide = typeof next === 'function' ? next(prevSlide) : next
+
+      slide(prevSlide, nextSlide)
+
+      if (moveCurrent) {
+        setCurrentStepIndex(nextSlide)
+      }
+
+      return nextSlide
+    })
+  }
+
+  // left and right arrows changes showingStepIndex
+  const handleArrowClick = useCallback(
+    (direction: 'left' | 'right', moveCurrent?: boolean) => {
+      if (direction === 'left') {
+        if (showingStepIndex > 0) {
+          goToSlide((prev) => prev - 1, moveCurrent)
+        }
+      }
+
+      if (direction === 'right') {
+        if (showingStepIndex < steps.length - 1) {
+          goToSlide((prev) => prev + 1, moveCurrent)
+        }
+      }
+    },
+    [showingStepIndex, steps]
+  )
+
+  // handleArrowClick eventListener
+  useEffect(() => {
+    const handleArrowClickEvent = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        handleArrowClick('left')
+      }
+
+      if (e.key === 'ArrowRight') {
+        handleArrowClick('right')
+      }
+
+      // enterkey movesCurrent as well
+      if (e.key === 'Enter' && currentStepIndex === showingStepIndex) {
+        handleArrowClick('right', true)
+      }
+
+      // backspace key movesCurrent back
+      if (e.key === 'Backspace' && currentStepIndex === showingStepIndex) {
+        handleArrowClick('left', true)
+      }
+    }
+
+    window.addEventListener('keydown', handleArrowClickEvent)
+
+    return () => {
+      window.removeEventListener('keydown', handleArrowClickEvent)
+    }
+  }, [handleArrowClick, currentStepIndex, showingStepIndex])
+
   if (isLoading) {
     return <StyledPage>Loading...</StyledPage>
   }
@@ -98,22 +164,14 @@ const BakingPage: React.FC = () => {
     })
   }
 
-  const steps = getTimelineSteps(data.recipe)
-
   const onNext = () => {
-    // next is always in one direction
-    slide(0, 1)
-
+    goToSlide((prev) => prev + 1)
     setCurrentStepIndex((prev) => prev + 1)
-    setShowingStepIndex((prev) => prev + 1)
   }
 
   const resetSteps = () => {
-    // reset is always in one direction
-    slide(1, 0)
-
+    goToSlide(0)
     setCurrentStepIndex(0)
-    setShowingStepIndex(0)
   }
 
   const showingStep = steps[showingStepIndex]

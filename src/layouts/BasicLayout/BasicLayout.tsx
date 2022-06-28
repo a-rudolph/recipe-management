@@ -12,6 +12,9 @@ const StyledDiv = styled.div`
   min-height: 100vh;
   width: 100vw;
 
+  display: flex;
+  flex-direction: column;
+
   @media screen and (min-width: ${breakpoints.sm}px) {
     padding-bottom: 60px;
   }
@@ -48,6 +51,7 @@ const StyledDiv = styled.div`
   }
 
   .page-content {
+    flex: 1;
     display: flex;
     justify-content: flex-end;
 

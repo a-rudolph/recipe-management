@@ -6,7 +6,7 @@ type ProgressStepProps = {
   total: number
   current: number
   showing?: number
-  onStepClick?: (step: number) => void
+  onStepClick?: (_step: number) => void
 }
 
 const ProgressItem = styled.button<{

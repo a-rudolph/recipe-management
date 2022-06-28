@@ -35,7 +35,7 @@ const StyledModal = styled(Modal)`
 type SetTimeModalProps = {
   visible: boolean
   onClose: VoidFunction
-  onDone: (time: Required<TimeValue>) => void
+  onDone: (_time: Required<TimeValue>) => void
 }
 
 export default function SetTimeModal({

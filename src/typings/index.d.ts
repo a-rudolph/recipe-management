@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 declare const IS_PRODUCTION: boolean
 
 type RecipeType = {

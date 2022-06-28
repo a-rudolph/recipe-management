@@ -1,5 +1,6 @@
 {
   "extends": "next/core-web-vitals",
+  "ignorePatterns": ["**/*.d.ts"],
   "rules": {
     "eol-last": "error",
     "sort-imports": ["error", { "ignoreCase": true }],

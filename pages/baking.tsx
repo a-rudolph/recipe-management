@@ -206,23 +206,7 @@ const BakingPage: React.FC = () => {
           <Row style={{ marginBottom: '8px', height: '200px' }}>
             <Text>{renderDangerous.div(showingStep.description)}</Text>
           </Row>
-          <Row justify='space-between'>
-            <Col>
-              {steps[showingStepIndex - 1] && (
-                <Button
-                  onClick={() => {
-                    setShowingStepIndex((prev) => {
-                      slide(prev, prev - 1)
-                      return prev - 1
-                    })
-                  }}
-                  type='text'
-                >
-                  <LeftOutlined />
-                  <Text>{steps[showingStepIndex - 1]?.title}</Text>
-                </Button>
-              )}
-            </Col>
+          <Row justify='end'>
             <Col>
               {showingStepIndex === currentStepIndex &&
                 showingStepIndex < steps.length - 1 && (
@@ -257,24 +241,45 @@ const BakingPage: React.FC = () => {
                   </Button>
                 )}
             </Col>
-            <Col>
-              {steps[showingStepIndex + 1] && (
-                <Button
-                  onClick={() => {
-                    setShowingStepIndex((prev) => {
-                      slide(prev, prev + 1)
-                      return prev + 1
-                    })
-                  }}
-                  type='text'
-                >
-                  <Text>{steps[showingStepIndex + 1]?.title}</Text>
-                  <RightOutlined />
-                </Button>
-              )}
-            </Col>
           </Row>
         </StyledCard>
+        <Row
+          justify='space-between'
+          style={{ width: '100%', marginTop: '8px' }}
+        >
+          <Col>
+            {steps[showingStepIndex - 1] && (
+              <Button
+                onClick={() => {
+                  setShowingStepIndex((prev) => {
+                    slide(prev, prev - 1)
+                    return prev - 1
+                  })
+                }}
+                type='text'
+              >
+                <LeftOutlined />
+                <Text>{steps[showingStepIndex - 1]?.title}</Text>
+              </Button>
+            )}
+          </Col>
+          <Col>
+            {steps[showingStepIndex + 1] && (
+              <Button
+                onClick={() => {
+                  setShowingStepIndex((prev) => {
+                    slide(prev, prev + 1)
+                    return prev + 1
+                  })
+                }}
+                type='text'
+              >
+                <Text>{steps[showingStepIndex + 1]?.title}</Text>
+                <RightOutlined />
+              </Button>
+            )}
+          </Col>
+        </Row>
       </Row>
     </PageLayout>
   )

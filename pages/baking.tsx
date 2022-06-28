@@ -2,8 +2,7 @@ import { animated, useSpring } from 'react-spring'
 import { Button, Card, Col, Row } from 'antd'
 import { CardTitle, Text } from '@components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-import { useCallback, useEffect, useState } from 'react'
-import _noop from 'lodash/noop'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getTimelineSteps } from '@utils/timeline'
 import Link from 'next/link'
 import ProgressSteps from '@components/ProgressSteps'
@@ -46,6 +45,7 @@ const useBakingRecipe = () => {
   const { keyRecipe, setKeyRecipe } = useTimerContext()
 
   const router = useRouter()
+
   const recipeQuery = router?.query?.recipeKey
   const recipeQueryKey = Array.isArray(recipeQuery)
     ? recipeQuery[0]
@@ -62,7 +62,7 @@ const useBakingRecipe = () => {
       router.push(`/baking?recipeKey=${keyRecipe.key}`)
       return
     }
-  }, [recipeQueryKey])
+  }, [recipeQueryKey, keyRecipe?.key, router, setKeyRecipe])
 
   return {
     recipeKey: keyRecipe?.key || null,
@@ -80,24 +80,39 @@ const BakingPage: React.FC = () => {
 
   const [style, api] = useSpring(() => ({ transform: 'translateX(0%)' }))
 
-  const steps = data ? getTimelineSteps(data.recipe) : []
+  const steps = useMemo(
+    () => (data ? getTimelineSteps(data.recipe) : []),
+    [data]
+  )
 
-  const goToSlide = (
-    next: number | ((prev: number) => number),
-    moveCurrent?: boolean
-  ) => {
-    setShowingStepIndex((prevSlide) => {
-      const nextSlide = typeof next === 'function' ? next(prevSlide) : next
+  const slide = useCallback(
+    (prev: number, next: number) => {
+      const factor = prev < next ? 1 : -1
 
-      slide(prevSlide, nextSlide)
+      api.start({
+        from: { transform: `translateX(${100 * factor}%)` },
+        to: { transform: 'translateX(0%)' },
+      })
+    },
+    [api]
+  )
 
-      if (moveCurrent) {
-        setCurrentStepIndex(nextSlide)
-      }
+  const goToSlide = useCallback(
+    (next: number | ((_prev: number) => number), moveCurrent?: boolean) => {
+      setShowingStepIndex((prevSlide) => {
+        const nextSlide = typeof next === 'function' ? next(prevSlide) : next
 
-      return nextSlide
-    })
-  }
+        slide(prevSlide, nextSlide)
+
+        if (moveCurrent) {
+          setCurrentStepIndex(nextSlide)
+        }
+
+        return nextSlide
+      })
+    },
+    [slide]
+  )
 
   // left and right arrows changes showingStepIndex
   const handleArrowClick = useCallback(
@@ -114,7 +129,7 @@ const BakingPage: React.FC = () => {
         }
       }
     },
-    [showingStepIndex, steps]
+    [showingStepIndex, steps, goToSlide]
   )
 
   // handleArrowClick eventListener
@@ -153,15 +168,6 @@ const BakingPage: React.FC = () => {
   if (!data) {
     // we can replace this with some select recipe page
     return <StyledPage>Come back with a recipe key</StyledPage>
-  }
-
-  const slide = (prev: number, next: number) => {
-    const factor = prev < next ? 1 : -1
-
-    api.start({
-      from: { transform: `translateX(${100 * factor}%)` },
-      to: { transform: 'translateX(0%)' },
-    })
   }
 
   const onNext = () => {

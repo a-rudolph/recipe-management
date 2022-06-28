@@ -2,6 +2,8 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "eol-last": "error",
-    "sort-imports": ["error", { "ignoreCase": true }]
+    "sort-imports": ["error", { "ignoreCase": true }],
+    // no unused variables
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
   }
 }

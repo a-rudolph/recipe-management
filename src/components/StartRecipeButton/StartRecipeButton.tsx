@@ -1,6 +1,7 @@
 import { Button } from 'antd'
 import Link from 'next/link'
 import { PlayCircleOutlined } from '@ant-design/icons'
+import { Text } from '@components/atoms'
 
 const StartRecipeButton: React.FC<{
   recipeKey: string
@@ -13,7 +14,11 @@ const StartRecipeButton: React.FC<{
       ) : (
         <Button
           type='text'
-          icon={<PlayCircleOutlined style={{ fontSize: '24px' }} />}
+          icon={
+            <Text color='wheaty_1'>
+              <PlayCircleOutlined style={{ fontSize: '24px' }} />
+            </Text>
+          }
         />
       )}
     </Link>

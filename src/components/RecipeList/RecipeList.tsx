@@ -40,7 +40,7 @@ const StyledItem = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${getColor('wheaty_4')}11;
+    background-color: ${getColor('wheaty_4')}22;
   }
 `
 

@@ -1,5 +1,5 @@
-import { Button as AntdButton, Col, Row } from 'antd'
 import { Button, CardTitle, Text } from '@components/atoms'
+import { Col, Row } from 'antd'
 import type {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -16,9 +16,9 @@ import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import DetailedTimeline from '@components/DetailedTimeline'
-import Link from 'next/link'
 import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
+import StartRecipeButton from '@components/StartRecipeButton'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -88,11 +88,7 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
           <CardTitle style={{}}>{recipe.name}</CardTitle>
         </Col>
         <Col>
-          <Link href='/baking' as='/baking'>
-            <AntdButton>
-              <Text>start</Text>
-            </AntdButton>
-          </Link>
+          <StartRecipeButton fullButton={true} recipeKey={recipe.key} />
         </Col>
       </Row>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>

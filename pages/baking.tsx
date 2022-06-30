@@ -2,7 +2,7 @@ import { animated, useSpring } from 'react-spring'
 import { Button, Card, Col, Row } from 'antd'
 import { CardTitle, Text } from '@components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { getTimelineSteps } from '@utils/timeline'
 import Link from 'next/link'
 import ProgressSteps from '@components/ProgressSteps'
@@ -61,12 +61,20 @@ const useBakingRecipe = () => {
 
   const router = useRouter()
 
+  const firstRenderRef = useRef(true)
+
   const recipeQuery = router?.query?.recipeKey
   const recipeQueryKey = Array.isArray(recipeQuery)
     ? recipeQuery[0]
     : recipeQuery
 
   useEffect(() => {
+    // query is always empty on first render
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false
+      return
+    }
+
     if (recipeQueryKey) {
       setKeyRecipe({ key: recipeQueryKey })
       return

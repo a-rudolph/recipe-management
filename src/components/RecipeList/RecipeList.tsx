@@ -2,6 +2,7 @@ import { animated, config, useSpring } from 'react-spring'
 import { CardTitle, Text } from '@components/atoms'
 import { Col, Row } from 'antd'
 import { getColor, getStyle } from '@styles/themes'
+import { BAKING_PROCESS } from '@constants/features'
 import Link from 'next/link'
 import SimpleTimeline from '@components/SimpleTimeline'
 import StartRecipeButton from '@components/StartRecipeButton'
@@ -126,9 +127,11 @@ const RecipeLink = ({
                 {name}
               </Text>
             </Col>
-            <Col>
-              <StartRecipeButton recipeKey={key} />
-            </Col>
+            {BAKING_PROCESS && (
+              <Col>
+                <StartRecipeButton recipeKey={key} />
+              </Col>
+            )}
           </Row>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </StyledItem>

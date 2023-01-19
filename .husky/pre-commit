@@ -13,4 +13,13 @@ done
 
 # yarn next lint
 
-yarn tsc --noEmit
+# use yarn if available
+if command -v yarn >/dev/null 2>&1; then
+  yarn typecheck
+  # else use pnpm
+elif command -v pnpm >/dev/null 2>&1; then
+  pnpm run typecheck
+else # fallback to npm
+  npm run typecheck
+fi
+

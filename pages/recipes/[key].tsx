@@ -12,6 +12,7 @@ import useDragScroller, {
 } from '@hooks/useDragScroller'
 import { animated } from 'react-spring'
 import { appRouter } from '@pages/api/trpc/[trpc]'
+import { BAKING_PROCESS } from '@constants/features'
 import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
@@ -87,9 +88,11 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
         <Col>
           <CardTitle style={{}}>{recipe.name}</CardTitle>
         </Col>
-        <Col>
-          <StartRecipeButton fullButton={true} recipeKey={recipe.key} />
-        </Col>
+        {BAKING_PROCESS && (
+          <Col>
+            <StartRecipeButton fullButton={true} recipeKey={recipe.key} />
+          </Col>
+        )}
       </Row>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>

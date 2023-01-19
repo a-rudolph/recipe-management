@@ -20,7 +20,6 @@ export const getStaticProps = async () => {
     ctx: () => null,
   })
 
-  // Prefetch `get-all-recipes`
   const data = await ssg.fetchQuery('get-all-recipes')
 
   return {

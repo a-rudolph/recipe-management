@@ -5,19 +5,19 @@ import {
   getTimeToEndTime,
   timeToSeconds,
 } from '@utils/formatTime'
-import { useRef, useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { messageSW } from '@utils/serviceworker-helpers'
 import { useNotification } from '@hooks/useNotification'
 import { useTimerContext } from './useTimerContext'
 
 export const useTimer = (
-  setTime: (time: TimeValue, secondsRemaining: number) => void
+  setTime: (_time: TimeValue, _secondsRemaining: number) => void
 ) => {
   const { timer, setTimer } = useTimerContext()
 
   const endTimeNumber = timer?.endTime || null
 
-  useNotification()
+  const { requestPermission } = useNotification()
 
   const intervalRef = useRef<NodeJS.Timeout>()
 
@@ -68,16 +68,18 @@ export const useTimer = (
   }
 
   const startTimer = (timeToEnd: TimeValue) => {
-    endInterval()
-    const seconds = timeToSeconds(timeToEnd)
+    requestPermission(() => {
+      endInterval()
+      const seconds = timeToSeconds(timeToEnd)
 
-    setTime(timeToEnd, seconds)
+      setTime(timeToEnd, seconds)
 
-    const endTime = getEndTime(seconds)
+      const endTime = getEndTime(seconds)
 
-    setTimer({ endTime, totalSeconds: seconds })
-    startInterval(endTime)
-    createRunningNotice(endTime)
+      setTimer({ endTime, totalSeconds: seconds })
+      startInterval(endTime)
+      createRunningNotice(endTime)
+    })
   }
 
   const endTime = useMemo(() => {

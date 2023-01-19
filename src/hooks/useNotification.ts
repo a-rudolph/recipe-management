@@ -11,7 +11,7 @@ const config = {
 }
 
 export const requestNotificationPermission = (
-  cb?: (permission: NotificationPermission) => void,
+  cb?: (_permission: NotificationPermission) => void,
   onError: VoidFunction = _noop
 ) => {
   if (!('Notification' in window)) {
@@ -65,11 +65,15 @@ export const setNotification = async (
 
 export const useNotification = () => {
   useEffect(() => {
-    requestNotificationPermission()
+    // requestNotificationPermission()
     setupMessageListener()
   }, [])
 
-  return { setNotification, getNotifications }
+  return {
+    setNotification,
+    getNotifications,
+    requestPermission: requestNotificationPermission,
+  }
 }
 
 export default useNotification

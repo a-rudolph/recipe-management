@@ -127,8 +127,7 @@ const stopTimer = () => {
 const receiveTimerStart = (payload: { endTimeNumber: number }) => {
   const { endTimeNumber } = payload
 
-  const secondsToEndTime = getSecondsToEndTime(endTimeNumber)
-  startTimer(secondsToEndTime)
+  startTimer(endTimeNumber)
 
   const endMoment = moment(endTimeNumber)
   const formatted = endMoment.format('h[:]mm a')

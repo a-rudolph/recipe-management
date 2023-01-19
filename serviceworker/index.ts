@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 console.log('serviceworker: starting')
-self.__WB_DISABLE_DEV_LOGS = true
+self.__WB_DISABLE_DEV_LOGS = false
 
 import { getSecondsToEndTime, getTimeToEndTime } from '../src/utils/formatTime'
 import moment from 'moment'
@@ -19,7 +20,7 @@ const TIMER_RUNNING = 'TIMER_RUNNING'
 
 self.addEventListener(
   'notificationclick',
-  function (event) {
+  function (_event) {
     self.clients.openWindow('/')
   },
   false
@@ -75,18 +76,42 @@ const closeNotification = async (tag: string) => {
 
 type TimerType = {
   timeout?: NodeJS.Timeout
+  endTimeNumber?: number
 }
 
 let timer: TimerType | null = null
 
-const startTimer = (seconds: number) => {
-  const timeout = setTimeout(() => {
-    receiveTimerFinish()
-    stopTimer()
-  }, seconds * 1_000)
+const startTimer = (endTimeNumber: number) => {
+  const timeout = setInterval(() => {
+    checkTimer()
+  }, 10_000)
 
   timer = {
     timeout,
+    endTimeNumber,
+  }
+}
+
+const checkTimer = () => {
+  console.log('checking timer', timer)
+
+  if (!timer) {
+    stopTimer()
+    return
+  }
+
+  const { endTimeNumber } = timer
+
+  if (!endTimeNumber) {
+    stopTimer()
+    return
+  }
+
+  const secondsToEndTime = getSecondsToEndTime(endTimeNumber)
+
+  if (secondsToEndTime <= 0) {
+    receiveTimerFinish()
+    stopTimer()
   }
 }
 

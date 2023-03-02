@@ -78,6 +78,7 @@ const StyledButton = styled.button`
     padding: 2px 16px;
     border-radius: 60px;
     background: ${getColor('secondary_1')};
+    user-select: none;
   }
 
   .description,
@@ -186,25 +187,31 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
     null
   )
 
+  const touchStart = () => {
+    setHoldingTimeout(
+      setTimeout(() => {
+        setStep(stepIndex)
+        setHoldingTimeout(null)
+        setIsCollapsed(false)
+      }, 2_000)
+    )
+  }
+
+  const touchEnd = () => {
+    if (holdingTimeout) {
+      clearTimeout(holdingTimeout)
+      setHoldingTimeout(null)
+      toggle()
+    }
+  }
+
   return (
     <StyledButton
       className={status.concat(isCollapsed ? ' closed' : ' open')}
-      onMouseDown={() => {
-        setHoldingTimeout(
-          setTimeout(() => {
-            setStep(stepIndex)
-            setHoldingTimeout(null)
-            setIsCollapsed(false)
-          }, 2_000)
-        )
-      }}
-      onMouseUp={() => {
-        if (holdingTimeout) {
-          clearTimeout(holdingTimeout)
-          setHoldingTimeout(null)
-          toggle()
-        }
-      }}
+      onMouseDown={touchStart}
+      onTouchStart={touchStart}
+      onMouseUp={touchEnd}
+      onTouchEnd={touchEnd}
     >
       <Row className='main-row' justify='space-between' align='middle'>
         <Col>

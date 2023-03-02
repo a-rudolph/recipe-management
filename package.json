@@ -40,6 +40,7 @@
     "zod": "^3.17.3"
   },
   "devDependencies": {
+    "@locator/babel-jsx": "^0.2.4",
     "@types/lodash": "^4.14.182",
     "@types/node": "^14.14.6",
     "@types/qrcode": "^1.4.2",

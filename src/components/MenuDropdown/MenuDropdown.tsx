@@ -36,7 +36,9 @@ const Wrapper = styled(animated.div)`
 
 const useEasterEgg = () => {
   const counter = useRef(0)
-  const [isEnabled, setEnabled] = useState(true)
+  const [isEnabled, setEnabled] = useState(
+    process.env.NODE_ENV === 'development'
+  )
 
   const onClick = () => {
     counter.current++

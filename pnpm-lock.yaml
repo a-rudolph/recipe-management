@@ -40,6 +40,7 @@ specifiers:
   tslib: ^2.5.0
   typescript: 4.3.2
   zod: ^3.17.3
+  zustand: ^4.3.5
 
 dependencies:
   '@ant-design/icons': 4.7.0_sfoxds7t5ydpegc3knd667wn6m
@@ -66,6 +67,7 @@ dependencies:
   react-spring: 9.5.5_sfoxds7t5ydpegc3knd667wn6m
   styled-components: 5.3.6_sfoxds7t5ydpegc3knd667wn6m
   zod: 3.20.2
+  zustand: 4.3.5_react@17.0.2
 
 devDependencies:
   '@locator/babel-jsx': 0.2.4
@@ -8611,4 +8613,20 @@ packages:
 
   /zod/3.20.2:
     resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
+    dev: false
+
+  /zustand/4.3.5_react@17.0.2:
+    resolution: {integrity: sha512-2iPUzfwx+g3f0PagOMz2vDO9mZzEp2puFpNe7vrAymVPOEIEUjCPkC4/zy84eAscxIWmTU4j9g6upXYkJdzEFQ==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 17.0.2
+      use-sync-external-store: 1.2.0_react@17.0.2
     dev: false

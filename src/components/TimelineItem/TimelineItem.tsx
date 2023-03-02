@@ -5,13 +5,14 @@ import {
   hoursToTimeString,
   TimelineStepData,
 } from '@utils/timeline'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import _isNumber from 'lodash/isNumber'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
 import { renderDangerous } from '@utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
+import { useCurrentRecipeStore } from 'stores/current-recipe'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -128,19 +129,18 @@ type TimelineItemProps = {
   step: TimelineStepData
   showHelp: boolean
   stepIndex: number
-  status?: 'active' | 'inactive' | 'default'
-  setStep: (_step: number) => void
-  currentStep?: number
 }
 
-const TimelineItem = ({
-  step,
-  showHelp,
-  stepIndex,
-  currentStep,
-  setStep,
-}: TimelineItemProps) => {
+const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
+
+  const { setStep, step: currentStep } = useCurrentRecipeStore()
+
+  useEffect(() => {
+    if (stepIndex === currentStep) {
+      setIsCollapsed(false)
+    }
+  }, [currentStep, stepIndex])
 
   const status = useMemo(() => {
     if (stepIndex === currentStep) {

@@ -3,7 +3,6 @@ import { getColor } from '@styles/themes'
 import { getTimelineSteps } from '@utils/timeline'
 import styled from 'styled-components'
 import TimelineItem from '@components/TimelineItem'
-import { useState } from 'react'
 
 const StyledDiv = styled.div`
   width: calc(100% - 48px);
@@ -38,8 +37,6 @@ const StyledDiv = styled.div`
 const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
   const steps = getTimelineSteps(recipe)
 
-  const [currentStep, setCurrentStep] = useState(0)
-
   return (
     <StyledDiv>
       <div className='main-col'>
@@ -47,8 +44,6 @@ const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
         <div className='timeline-content'>
           {steps.map((step, i) => (
             <TimelineItem
-              currentStep={currentStep}
-              setStep={setCurrentStep}
               key={i}
               stepIndex={i}
               showHelp={i === 0}

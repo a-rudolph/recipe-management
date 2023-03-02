@@ -21,6 +21,7 @@ import NavBar from '@layouts/NavBar'
 import PlayButton from '@components/icons/Play'
 import RecipeDetail from '@components/RecipeDetail'
 import StartRecipeButton from '@components/StartRecipeButton'
+import { useCurrentRecipeStore } from 'stores/current-recipe'
 
 const StyledButton = styled.button`
   width: 88px;
@@ -120,6 +121,8 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
     initialSlide: 0,
   })
 
+  const { startRecipe, stopRecipe, step } = useCurrentRecipeStore()
+
   return (
     <BasicLayout.Card>
       <Row style={{ margin: '16px 16px 0' }} justify='space-between'>
@@ -157,7 +160,13 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
               >
                 <StyledButton
                   onClick={() => {
-                    console.log('start recipe')
+                    if (step !== null) {
+                      stopRecipe()
+                      return
+                    }
+
+                    goTo(1)
+                    startRecipe()
                   }}
                 >
                   <PlayButton />

@@ -18,8 +18,46 @@ import breakpoints from '@constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import DetailedTimeline from '@components/DetailedTimeline'
 import NavBar from '@layouts/NavBar'
+import PlayButton from '@components/icons/Play'
 import RecipeDetail from '@components/RecipeDetail'
 import StartRecipeButton from '@components/StartRecipeButton'
+
+const StyledButton = styled.button`
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  transform: translate(0, -50%);
+  z-index: 10;
+
+  border: 8px solid;
+  border-color: #2d3134;
+
+  box-shadow: ${({ theme }) => theme.shadows.up};
+
+  background: ${({ theme }) => theme.colors.secondary_1};
+
+  svg {
+    transform: translate(2px, 2px);
+  }
+
+  position: relative;
+
+  &:after {
+    content: '';
+    background: ${({ theme }) => theme.gradient};
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 0 0;
+    z-index: -1;
+  }
+`
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -109,12 +147,23 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
               align='middle'
               style={{ height: '100%' }}
             >
-              <Col span={12}>
+              <Col style={{ flex: 1 }}>
                 <Button block={true} onClick={() => goTo(0)} type='ghost'>
                   <Text>Basics</Text>
                 </Button>
               </Col>
-              <Col span={12}>
+              <Col
+                style={{ width: '88px', position: 'relative', height: '1px' }}
+              >
+                <StyledButton
+                  onClick={() => {
+                    console.log('start recipe')
+                  }}
+                >
+                  <PlayButton />
+                </StyledButton>
+              </Col>
+              <Col style={{ flex: 1 }}>
                 <Button block={true} type='ghost' onClick={() => goTo(1)}>
                   <Text>Schedule</Text>
                 </Button>

@@ -34,7 +34,7 @@ const StyledButton = styled.button.attrs<ButtonProps>({
   &.secondary {
     color: ${getColor('secondary_1')};
     background-color: ${getColor('wheaty_1')};
-    box-shadow: ${getStyle('shade', 'button')};
+    box-shadow: ${getStyle('shadows', 'button')};
   }
 
   &.ghost {

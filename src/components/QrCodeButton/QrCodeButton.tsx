@@ -8,7 +8,7 @@ const CANVAS_ID = 'qr-canvas-id'
 const StyledCanvas = styled.canvas`
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.secondary_1};
-  box-shadow: ${({ theme }) => theme.shade.small};
+  box-shadow: ${({ theme }) => theme.shadows.small};
   background: ${({ theme }) => theme.colors.primary_1};
 `
 

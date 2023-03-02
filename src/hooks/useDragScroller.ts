@@ -1,5 +1,5 @@
+import { easings, useSpring } from 'react-spring'
 import { useEffect, useRef, useState } from 'react'
-import { useSpring, easings } from 'react-spring'
 
 export const SCROLLER_ID = 'detail-scroller'
 
@@ -136,8 +136,7 @@ const getScrollPosition = () => {
   return { current: scroller.scrollLeft, max: scroller.scrollWidth / 2 }
 }
 
-// @ts-ignore no-unused-var
-const goToSlide = (slideIndex: number) => {
+const _goToSlide = (slideIndex: number) => {
   const position = getSlidePosition(slideIndex, 2)
   scrollToPosition(position)
 }

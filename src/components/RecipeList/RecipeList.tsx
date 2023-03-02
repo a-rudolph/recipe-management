@@ -30,7 +30,7 @@ const StyledItem = styled.div`
   margin: 16px 0;
   margin-right: -24px;
   background: ${({ theme }) => theme.gradient};
-  box-shadow: ${getStyle('shade', 'big')};
+  box-shadow: ${getStyle('shadows', 'big')};
 
   .divider {
     margin: 16px -16px;

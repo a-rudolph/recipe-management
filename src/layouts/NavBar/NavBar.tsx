@@ -18,7 +18,7 @@ const StyledNavBar = styled(Row)`
   width: 100vw;
   background-color: ${getColor('primary_1')};
   border-top: 1px solid ${getColor('mono_2')};
-  box-shadow: ${getStyle('shade', 'up')};
+  box-shadow: ${getStyle('shadows', 'up')};
   position: fixed;
   bottom: 0;
   z-index: 10;

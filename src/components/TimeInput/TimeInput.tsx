@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useRef } from 'react'
-import { padNumber } from '@utils/formatTime'
-import { Text } from '@components/atoms'
-import styled from 'styled-components'
 import _noop from 'lodash/noop'
+import { padNumber } from '@utils/formatTime'
+import styled from 'styled-components'
+import { Text } from '@components/atoms'
 
 type TimeInputProps = {
   value?: TimeValue
@@ -35,14 +35,16 @@ const isJustDigits = (value: string | number = '') => {
   return valid
 }
 
+type RefType = HTMLInputElement | null
+
 export default function TimeInput({
   value = { hh: '', mm: '', ss: '' },
   onChange = _noop,
 }: TimeInputProps) {
-  const refs: Record<TimeKey, React.MutableRefObject<HTMLInputElement>> = {
-    hh: useRef<HTMLInputElement>(null),
-    mm: useRef<HTMLInputElement>(null),
-    ss: useRef<HTMLInputElement>(null),
+  const refs: Record<TimeKey, React.MutableRefObject<RefType>> = {
+    hh: useRef<RefType>(null),
+    mm: useRef<RefType>(null),
+    ss: useRef<RefType>(null),
   }
 
   useEffect(() => {
@@ -76,9 +78,9 @@ export default function TimeInput({
   }
 
   const shouldNext = (value: TimeValue) => {
-    const hhNext = value.hh > 1
-    const mmNext = value.mm > 5
-    const ssNext = value.ss > 5
+    const hhNext = value.hh ? value.hh > 1 : false
+    const mmNext = value.mm ? value.mm > 5 : false
+    const ssNext = value.ss ? value.ss > 5 : false
 
     const twoDigits = String(value.hh || value.mm || value.ss).length === 2
 

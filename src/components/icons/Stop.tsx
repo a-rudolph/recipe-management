@@ -1,4 +1,4 @@
-const StopButton = (props) => {
+const StopButton = (props: React.HTMLAttributes<{}>) => {
   return (
     <svg
       {...props}

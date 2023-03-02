@@ -1,19 +1,25 @@
-import { Button, Text } from '@components/atoms'
+import { Button, CardTitle, Text } from '@components/atoms'
 import { Col, Row } from 'antd'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import type {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next'
 import styled, { css } from 'styled-components'
 import useDragScroller, {
-  SCROLLER_ID,
   SCROLL_DURATION,
+  SCROLLER_ID,
 } from '@hooks/useDragScroller'
 import { animated } from 'react-spring'
+import { appRouter } from '@pages/api/trpc/[trpc]'
+import { BAKING_PROCESS } from '@constants/features'
 import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
+import { createSSGHelpers } from '@trpc/react/ssg'
 import DetailedTimeline from '@components/DetailedTimeline'
-import getRecipePaths from '@utils/getRecipePaths'
-import getRecipeProps from '@utils/getRecipeProps'
 import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
+import StartRecipeButton from '@components/StartRecipeButton'
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -69,13 +75,25 @@ const StyledNav = styled.div<{ $side: number; $count: number }>`
   }
 `
 
-const Page = ({ recipe }: { recipe: RecipeType }) => {
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const Page: React.FC<PageProps> = ({ recipe }) => {
   const { side, scroll, goTo } = useDragScroller({
     initialSlide: 0,
   })
 
   return (
     <BasicLayout.Card>
+      <Row style={{ margin: '16px 16px 0' }} justify='space-between'>
+        <Col>
+          <CardTitle style={{}}>{recipe.name}</CardTitle>
+        </Col>
+        {BAKING_PROCESS && (
+          <Col>
+            <StartRecipeButton fullButton={true} recipeKey={recipe.key} />
+          </Col>
+        )}
+      </Row>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
           <RecipeDetail recipe={recipe} />
@@ -110,14 +128,37 @@ const Page = ({ recipe }: { recipe: RecipeType }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const ssg = await createSSGHelpers({
+    router: appRouter,
+    ctx: () => null,
+  })
+
+  const data = await ssg.fetchQuery('get-all-recipes')
+
+  const paths = data.recipes.map((recipe) => {
+    return {
+      params: { key: recipe.key },
+    }
+  })
+
   return {
-    ...getRecipePaths(),
+    fallback: false,
+    paths,
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext<{ key: string }>) => {
+  const ssg = await createSSGHelpers({
+    router: appRouter,
+    ctx: () => null,
+  })
+
+  const data = await ssg.fetchQuery('get-recipe', { key: params?.key })
+
   return {
-    ...getRecipeProps(params),
+    props: { recipe: data.recipe },
   }
 }
 

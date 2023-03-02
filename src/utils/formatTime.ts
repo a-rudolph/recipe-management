@@ -99,7 +99,7 @@ export const getSecondsToEndTime = (end: number | null) => {
 }
 
 export const padNumber = (n?: number | string) => {
-  if (_isUndefined(n)) return
+  if (_isUndefined(n)) return '00'
 
   const s = String(n)
 

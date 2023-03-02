@@ -1,11 +1,11 @@
-import { requestNotificationPermission } from '@hooks/useNotification'
 import { useRef, useState } from 'react'
-import { useTimer } from '@hooks/useTimer'
 import { Card } from '@components/atoms'
+import { getColor } from '@styles/themes'
+import { requestNotificationPermission } from '@hooks/useNotification'
+import SetTimeModal from '@components/SetTimeModal'
 import styled from 'styled-components'
 import TimeDisplay from '@components/TimeDisplay'
-import SetTimeModal from '@components/SetTimeModal'
-import { getColor } from '@styles/themes'
+import { useTimer } from '@hooks/useTimer'
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -22,8 +22,8 @@ const StyledCard = styled(Card)`
 `
 
 export default function TimeCard() {
-  const hmRef = useRef<HTMLSpanElement>(null)
-  const ssRef = useRef<HTMLSpanElement>(null)
+  const hmRef = useRef<HTMLSpanElement | null>(null)
+  const ssRef = useRef<HTMLSpanElement | null>(null)
 
   const setTimeDisplay = ({ hh, mm, ss }: TimeValue) => {
     if (!hmRef.current || !ssRef.current) return

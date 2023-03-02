@@ -1,67 +1,39 @@
-import { useRef, useEffect, useMemo } from 'react'
-import { useNotification } from '@hooks/useNotification'
-import { useTimerContext } from './useTimerContext'
 import {
+  dateToTime,
+  getEndTime,
   getSecondsToEndTime,
   getTimeToEndTime,
   timeToSeconds,
-  getEndTime,
-  dateToTime,
 } from '@utils/formatTime'
-import dayjs from 'dayjs'
-import { Howl } from 'howler'
-import { useSettingContext } from '@components/SoundToggle'
-
-const TIMER_RUNNING = 'TIMER_RUNNING_TAG'
-const TIMER_FINISHED = 'TIMER_FINISHED_TAG'
+import { useEffect, useMemo, useRef } from 'react'
+import { messageSW } from '@utils/serviceworker-helpers'
+import { useNotification } from '@hooks/useNotification'
+import { useTimerContext } from './useTimerContext'
 
 export const useTimer = (
-  setTime: (time: TimeValue, secondsRemaining: number) => void
+  setTime: (_time: TimeValue, _secondsRemaining: number) => void
 ) => {
   const { timer, setTimer } = useTimerContext()
-  const { on: soundEnabled } = useSettingContext()
 
-  const endTimeNumber = timer?.endTime
+  const endTimeNumber = timer?.endTime || null
 
-  const { setNotification, getNotifications } = useNotification()
+  const { requestPermission } = useNotification()
 
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const intervalRef = useRef<NodeJS.Timeout>()
 
   useEffect(() => {
-    if (endTimeNumber) startInterval()
+    if (endTimeNumber) {
+      startInterval(endTimeNumber)
+    }
 
     return endInterval
   }, [endTimeNumber])
 
   const handleTimerFinished = () => {
     stopTimer()
-
-    if (soundEnabled) {
-      const sound = new Howl({
-        src: ['beep.mp3'],
-      })
-      sound.play()
-    }
-
-    setNotification('Timer finished', {
-      body: "Time's up",
-      tag: TIMER_FINISHED,
-      requireInteraction: true,
-      dir: 'rtl',
-      actions: [
-        {
-          title: 'ok',
-          action: 'finishedOk',
-        },
-      ],
-    })
   }
 
-  const updateNotification = async () => {
-    createRunningNotice(endTimeNumber)
-  }
-
-  const startInterval = (endTime?: number) => {
+  const startInterval = (endTime: number) => {
     const intervalId = setInterval(() => {
       const timeLeft = getTimeToEndTime(endTime || endTimeNumber)
       const secondsLeft = getSecondsToEndTime(endTime || endTimeNumber)
@@ -71,22 +43,14 @@ export const useTimer = (
         return
       }
 
-      updateNotification()
-
       setTime(timeLeft, secondsLeft)
-    }, 1000)
+    }, 1_000)
 
-    timeoutRef.current = intervalId
+    intervalRef.current = intervalId
   }
 
-  const stopTimer = async () => {
-    const notifications = await getNotifications({ tag: TIMER_RUNNING })
-
-    if (notifications) {
-      const notification = notifications[0]
-
-      notification?.close()
-    }
+  const stopTimer = () => {
+    messageSW({ type: 'TIMER_STOP' })
 
     setTime({ hh: '00', mm: '00', ss: '00' }, 0)
     endInterval()
@@ -94,36 +58,28 @@ export const useTimer = (
   }
 
   const endInterval = () => {
-    clearInterval(timeoutRef.current)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+    }
   }
 
-  const createRunningNotice = async (endTime: number) => {
-    const endMoment = dayjs(endTime)
-
-    const formatted = endMoment.format('h[:]mm a')
-
-    const timeLeft = getTimeToEndTime(endTime || endTimeNumber)
-
-    const hmsString = `${timeLeft.hh}:${timeLeft.mm}:${timeLeft.ss}`
-
-    await setNotification('Timer Running', {
-      body: `Time left: ${hmsString}, Ending at ${formatted}`,
-      tag: TIMER_RUNNING,
-      silent: true,
-    })
+  const createRunningNotice = async (endTimeNumber: number) => {
+    messageSW({ type: 'TIMER_START', payload: { endTimeNumber } })
   }
 
   const startTimer = (timeToEnd: TimeValue) => {
-    endInterval()
-    const seconds = timeToSeconds(timeToEnd)
+    requestPermission(() => {
+      endInterval()
+      const seconds = timeToSeconds(timeToEnd)
 
-    setTime(timeToEnd, seconds)
+      setTime(timeToEnd, seconds)
 
-    const endTime = getEndTime(seconds)
+      const endTime = getEndTime(seconds)
 
-    setTimer({ endTime, totalSeconds: seconds })
-    startInterval(endTime)
-    createRunningNotice(endTime)
+      setTimer({ endTime, totalSeconds: seconds })
+      startInterval(endTime)
+      createRunningNotice(endTime)
+    })
   }
 
   const endTime = useMemo(() => {

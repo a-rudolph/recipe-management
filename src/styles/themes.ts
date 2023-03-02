@@ -1,10 +1,42 @@
 import _get from 'lodash/get'
+import breakpoints from '@constants/breakpoints'
+import { css } from 'styled-components'
+import type { StyledProps } from 'styled-components'
 
 export const BRAND_NAME = 'whea·ti·ful·ly'
 
+type StyleArg = ReturnType<typeof css>
+
+export const createResponsiveStyle = (
+  bp: keyof typeof breakpoints,
+  style: StyleArg
+) => {
+  return css`
+    @media screen and (min-width: ${breakpoints[bp]}px) {
+      ${style}
+    }
+  `
+}
+
+createResponsiveStyle.mobile = (style: StyleArg) => {
+  return css`
+    @media screen and (max-width: ${breakpoints.md}px) {
+      ${style}
+    }
+  `
+}
+
+createResponsiveStyle.desktop = (style: StyleArg) => {
+  return css`
+    @media screen and (min-width: ${breakpoints.md}px) {
+      ${style}
+    }
+  `
+}
+
 export const getColor =
-  (color: keyof ThemeType['colors']) =>
-  ({ theme }: { theme: ThemeType }) => {
+  <P = {}>(color: keyof ThemeType['colors']) =>
+  ({ theme }: StyledProps<P>) => {
     return _get(theme, `colors.${color}`, theme.colors.text_1)
   }
 
@@ -16,7 +48,7 @@ export const getStyle = <
 >(
   ...args: [A, B]
 ) => {
-  return ({ theme }) => _get(theme, args.join('.'))
+  return (props: StyledProps<{}>) => _get(props.theme, args.join('.'))
 }
 
 const wheaty_1 = '#F6BB63'
@@ -30,7 +62,7 @@ const grad_3 = '#262B31'
 const gradient =
   'linear-gradient(3.39deg, rgba(38, 43, 49, 0.5) 4.14%, rgba(55, 60, 64, 0.5) 35.13%, rgba(66, 72, 77, 0.5) 98.58%)'
 
-const wheaties = {
+export const wheaties = {
   0: '#36302a',
   1: '#4d4130',
   2: '#62523a',

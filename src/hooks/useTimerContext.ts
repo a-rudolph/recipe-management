@@ -1,50 +1,59 @@
-import { getNow } from '@utils/formatTime'
-import {
+import React, {
   createContext,
   createElement,
   useContext,
   useEffect,
-  useState,
 } from 'react'
+import { getNow } from '@utils/formatTime'
+import useLocalStorage from './useLocalStorage'
 
 type TimerContextType = {
+  keyRecipe: { key: string } | null
   timer: Timer | null
-  setTimer: (timer: Timer) => void
+  setTimer: React.Dispatch<React.SetStateAction<Timer | null>>
+  setKeyRecipe: React.Dispatch<React.SetStateAction<{ key: string } | null>>
 }
 
-export const TimerProvider = ({ children }) => {
-  const [timer, setTimer] = useState<Timer | null>(null)
+const DEPRECATED_TIMER_STORAGE = 'timer'
+const DEPRECATED_UNDEFINED = 'wheatifully_undefined'
+
+export const TimerProvider: React.FC = ({ children }) => {
+  const [timer, setTimer] = useLocalStorage<Timer | null>(
+    'timer_storage',
+    (timer) => {
+      if (!timer || timer?.endTime <= getNow()) {
+        return null
+      }
+
+      return timer
+    }
+  )
 
   useEffect(() => {
-    const stored = window.localStorage.getItem('timer')
-    const timer = JSON.parse(stored) as Timer | null
-
-    if (!timer || timer?.endTime <= getNow()) {
-      return setTimer(null)
-    }
-
-    setTimer(timer)
+    // remove deprecated timer storage from local storage
+    localStorage.removeItem(DEPRECATED_TIMER_STORAGE)
+    localStorage.removeItem(DEPRECATED_UNDEFINED)
   }, [])
 
-  useEffect(() => {
-    if (timer) {
-      window.localStorage.setItem('timer', JSON.stringify(timer))
-    }
+  const [keyRecipe, setKeyRecipe] = useLocalStorage<{ key: string } | null>(
+    'recipe_storage',
+    null
+  )
 
-    if (!timer) {
-      window.localStorage.removeItem('timer')
-    }
-  }, [timer])
-
-  return createElement(TimerContext.Provider, {
-    children,
-    value: { timer, setTimer },
-  })
+  return createElement(
+    TimerContext.Provider,
+    {
+      value: { timer, setTimer, keyRecipe, setKeyRecipe },
+    },
+    children
+  )
 }
 
 const initialContext: TimerContextType = {
   timer: null,
   setTimer: () => {},
+  keyRecipe: null,
+  setKeyRecipe: () => {},
 }
 
 const TimerContext = createContext<TimerContextType>(initialContext)

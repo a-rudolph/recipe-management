@@ -25,7 +25,7 @@ export const useDragScroller = (options: DragScrollerOptions = {}) => {
 
   const [side, setSide] = useState(initialSlide)
 
-  const onTouchStart = (e) => {
+  const onTouchStart = (e: Event) => {
     const x = getScrollPosition()?.current || 0
 
     startRef.current = {
@@ -64,7 +64,7 @@ export const useDragScroller = (options: DragScrollerOptions = {}) => {
     setSide(slide)
   }
 
-  const onTouchEnd = (e) => {
+  const onTouchEnd = (e: Event) => {
     const x = getScrollPosition()?.current || 0
     endRef.current = {
       timeStamp: e.timeStamp,
@@ -131,11 +131,12 @@ const getCloserSlide = () => {
 const getScrollPosition = () => {
   const scroller = getScroller()
 
-  if (!scroller) return {}
+  if (!scroller) return { current: 0, max: 0 }
 
   return { current: scroller.scrollLeft, max: scroller.scrollWidth / 2 }
 }
 
+// @ts-ignore no-unused-var
 const goToSlide = (slideIndex: number) => {
   const position = getSlidePosition(slideIndex, 2)
   scrollToPosition(position)
@@ -163,7 +164,10 @@ const getScroller = () => {
   return document.getElementById(SCROLLER_ID)
 }
 
-const addEvent = (eventType: string, handler) => {
+const addEvent = (
+  eventType: string,
+  handler: EventListenerOrEventListenerObject
+) => {
   const scroller = getScroller()
 
   if (!scroller) return
@@ -171,11 +175,14 @@ const addEvent = (eventType: string, handler) => {
   scroller.addEventListener(eventType, handler)
 }
 
-const addTouchEnd = (handler) => {
+const addTouchEnd = (handler: EventListenerOrEventListenerObject) => {
   addEvent('touchend', handler)
 }
 
-const removeEvent = (eventType: string, handler) => {
+const removeEvent = (
+  eventType: string,
+  handler: EventListenerOrEventListenerObject
+) => {
   const scroller = getScroller()
 
   if (!scroller) return
@@ -183,6 +190,6 @@ const removeEvent = (eventType: string, handler) => {
   scroller.removeEventListener(eventType, handler)
 }
 
-const removeTouchEnd = (handler) => {
+const removeTouchEnd = (handler: EventListenerOrEventListenerObject) => {
   removeEvent('touchend', handler)
 }

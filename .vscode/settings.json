@@ -1,6 +1,0 @@
-{
-    "workbench.sideBar.location": "right",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "vim.matchpairs": "(:),{:},[:]",
-}

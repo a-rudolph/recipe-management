@@ -1,0 +1,10 @@
+{
+  "extends": "next/core-web-vitals",
+  "ignorePatterns": ["**/*.d.ts"],
+  "rules": {
+    "eol-last": "error",
+    "sort-imports": ["error", { "ignoreCase": true }],
+    // no unused variables
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
+}

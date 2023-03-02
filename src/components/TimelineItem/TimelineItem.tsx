@@ -1,13 +1,13 @@
-import { useSpring, animated } from 'react-spring'
+import { animated, useSpring } from 'react-spring'
 import { Col, Row } from 'antd'
 import {
-  hoursToTimeString,
   hoursToDuration,
+  hoursToTimeString,
   TimelineStepData,
 } from '@utils/timeline'
 import { clamp } from '@utils/clamp'
-import DOMPurify from 'isomorphic-dompurify'
 import { getColor } from '@styles/themes'
+import { renderDangerous } from '@utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
 import { useState } from 'react'
@@ -91,11 +91,6 @@ const StyledButton = styled.button`
     text-align: center;
     padding: 0 8px;
   }
-
-  b {
-    color: ${getColor('wheaty_1')};
-    letter-spacing: 1px;
-  }
 `
 
 type TimelineItemProps = {
@@ -156,7 +151,7 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
       </Row>
       <animated.div style={style}>
         <Row className='description'>
-          <Text>{renderDangerousSpan(description)}</Text>
+          <Text>{renderDangerous.span(description)}</Text>
         </Row>
       </animated.div>
       {subTitle && (
@@ -174,7 +169,7 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
       {postDescription && (
         <animated.div style={style}>
           <Row className='post-text' style={{ marginBottom: '1rem' }}>
-            <Text>{renderDangerousSpan(postDescription)}</Text>
+            <Text>{renderDangerous.span(postDescription)}</Text>
           </Row>
         </animated.div>
       )}
@@ -186,7 +181,7 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
             style={{ marginBottom: '1rem' }}
           >
             <Col>
-              <Text>{renderDangerousSpan(preDescription)}</Text>
+              <Text>{renderDangerous.span(preDescription)}</Text>
             </Col>
           </Row>
         </animated.div>
@@ -196,9 +191,3 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
 }
 
 export default TimelineItem
-
-const renderDangerousSpan = (html: string) => {
-  const sanitized = DOMPurify.sanitize(html)
-
-  return <span dangerouslySetInnerHTML={{ __html: sanitized }} />
-}

@@ -1,4 +1,4 @@
-const PlayButton = (props) => {
+const PlayButton = (props: React.HTMLAttributes<{}>) => {
   return (
     <svg
       {...props}

@@ -1,4 +1,4 @@
-import { useSpring, animated } from 'react-spring'
+import { animated, useSpring } from 'react-spring'
 
 const BurgerMenu = ({ isOpen }: { isOpen: boolean }) => {
   const first = useSpring({

@@ -1,22 +1,10 @@
-import { useState, useEffect, createContext, useContext } from 'react'
+import { createContext, useContext } from 'react'
 import { Button } from '@components/atoms'
 import Sound from '@components/icons/Sound'
+import useLocalStorage from '@hooks/useLocalStorage'
 
-const SOUND_SETTING = 'wheatifully_sound_enabled'
-
-export const SoundSettingProvider = ({ children }) => {
-  const [on, setOn] = useState(false)
-
-  useEffect(() => {
-    const stored = window.localStorage.getItem(SOUND_SETTING)
-    const on = JSON.parse(stored) || false
-
-    setOn(on)
-  }, [])
-
-  useEffect(() => {
-    window.localStorage.setItem(SOUND_SETTING, JSON.stringify(on))
-  }, [on])
+export const SoundSettingProvider: React.FC = ({ children }) => {
+  const [on, setOn] = useLocalStorage('sound_enabled', false)
 
   return (
     <SettingContext.Provider value={{ on, setOn }}>

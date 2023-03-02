@@ -17,7 +17,7 @@ const StyledRow = styled(Row)`
 export default function Header() {
   return (
     <MenuDropdown>
-      <Link href='/'>
+      <Link href='/' as='/'>
         <StyledRow align='middle'>
           <div className='logo'>
             <LogoIcon />

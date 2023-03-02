@@ -1,9 +1,12 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { BRAND_NAME, theme } from '@styles/themes'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import type { DocumentContext, DocumentInitialProps } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
 
@@ -64,6 +67,10 @@ class MyDocument extends Document {
             sizes='180x180'
             href='/icons/apple-icon-180x180.png'
           />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Mukta+Mahee&display=swap'
+            rel='stylesheet'
+          ></link>
         </Head>
         <body>
           <Main />

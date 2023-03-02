@@ -1,5 +1,9 @@
-import { useEffect } from 'react'
+import {
+  getServiceWorkerRegistration,
+  setupMessageListener,
+} from '@utils/serviceworker-helpers'
 import _noop from 'lodash/noop'
+import { useEffect } from 'react'
 
 const config = {
   badge: '/icons/badge.png',
@@ -7,7 +11,7 @@ const config = {
 }
 
 export const requestNotificationPermission = (
-  cb?: (permission: NotificationPermission) => void,
+  cb?: (_permission: NotificationPermission) => void,
   onError: VoidFunction = _noop
 ) => {
   if (!('Notification' in window)) {
@@ -20,12 +24,6 @@ export const requestNotificationPermission = (
   } catch (e) {
     onError()
   }
-}
-
-export const getServiceWorkerRegistration = async () => {
-  if (!('serviceWorker' in navigator)) return null
-
-  return navigator.serviceWorker.getRegistration()
 }
 
 export const getNotifications = async (filter: GetNotificationOptions) => {
@@ -67,10 +65,15 @@ export const setNotification = async (
 
 export const useNotification = () => {
   useEffect(() => {
-    requestNotificationPermission()
+    // requestNotificationPermission()
+    setupMessageListener()
   }, [])
 
-  return { setNotification, getNotifications }
+  return {
+    setNotification,
+    getNotifications,
+    requestPermission: requestNotificationPermission,
+  }
 }
 
 export default useNotification

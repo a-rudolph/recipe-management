@@ -1,14 +1,14 @@
-import TimeDisplay from '@components/TimeDisplay'
-import TimeInput from '@components/TimeInput'
-import TimeRing from '@components/TimeRing'
-import styled from 'styled-components'
+import { Button, Card, Row } from '@components/atoms'
+import { normalizeTimeValue, timeToSeconds } from '@utils/formatTime'
+import { useEffect, useRef, useState } from 'react'
 import Play from '@components/icons/Play'
 import Plus from '@components/icons/Plus'
 import Stop from '@components/icons/Stop'
+import styled from 'styled-components'
+import TimeDisplay from '@components/TimeDisplay'
+import TimeInput from '@components/TimeInput'
+import TimeRing from '@components/TimeRing'
 import { useTimer } from '@hooks/useTimer'
-import { Button, Card, Row } from '@components/atoms'
-import { useRef, useState, useEffect } from 'react'
-import { timeToSeconds, normalizeTimeValue } from '@utils/formatTime'
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -134,7 +134,7 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
   }
 
   useEffect(() => {
-    const enterHandler = (e) => {
+    const enterHandler = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         handleDone()
       }

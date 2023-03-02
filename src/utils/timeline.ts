@@ -41,7 +41,7 @@ export type TimelineStepData = {
   description?: string
   postDescription?: string
   preDescription?: string
-  duration?: number
+  duration: number
 }
 
 export const getTimelineSteps = (recipe: RecipeType): TimelineStepData[] => {
@@ -92,6 +92,7 @@ export const getTimelineSteps = (recipe: RecipeType): TimelineStepData[] => {
     {
       title: 'ready to eat!',
       time: eat,
+      duration: 0,
     },
   ]
 }

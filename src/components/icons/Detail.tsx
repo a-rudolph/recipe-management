@@ -1,4 +1,4 @@
-export default function DetailIcon({ size = 16 }: IconProps) {
+export default function DetailIcon() {
   return (
     <svg
       width='41'

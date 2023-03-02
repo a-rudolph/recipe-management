@@ -5,12 +5,13 @@ import {
   hoursToTimeString,
   TimelineStepData,
 } from '@utils/timeline'
+import { useMemo, useState } from 'react'
+import _isNumber from 'lodash/isNumber'
 import { clamp } from '@utils/clamp'
 import { getColor } from '@styles/themes'
 import { renderDangerous } from '@utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
-import { useState } from 'react'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -91,15 +92,73 @@ const StyledButton = styled.button`
     text-align: center;
     padding: 0 8px;
   }
+
+  &:not(.default) {
+    &.active .time-oval .atom-text,
+    &:not(.active) .atom-text {
+      opacity: 0.6;
+      color: ${getColor('text_2')};
+    }
+
+    &.upcoming .help-column .atom-text,
+    &.upcoming .time-oval .atom-text {
+      color: ${getColor('text_1')};
+      opacity: 1;
+    }
+  }
+
+  &.upcoming .time-oval.holding {
+    animation: focus-on 3s ease;
+  }
+
+  @keyframes focus-on {
+    10% {
+      box-shadow: none;
+    }
+    11% {
+      box-shadow: 0 0 8px 4px ${getColor('wheaty_1')};
+    }
+    100% {
+      box-shadow: 0 0 0px 2px ${getColor('wheaty_1')};
+    }
+  }
 `
 
 type TimelineItemProps = {
   step: TimelineStepData
   showHelp: boolean
+  stepIndex: number
+  status?: 'active' | 'inactive' | 'default'
+  setStep: (_step: number) => void
+  currentStep?: number
 }
 
-const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
+const TimelineItem = ({
+  step,
+  showHelp,
+  stepIndex,
+  currentStep,
+  setStep,
+}: TimelineItemProps) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
+
+  const status = useMemo(() => {
+    if (stepIndex === currentStep) {
+      return 'active'
+    }
+
+    if (stepIndex - 1 === currentStep) {
+      return 'upcoming'
+    }
+
+    if (_isNumber(currentStep)) {
+      return 'inactive'
+    }
+
+    return 'default'
+  }, [stepIndex, currentStep])
+
+  const isActive = status === 'active'
 
   const style = useSpring({
     config: { mass: 5, tension: 2000, friction: 200 },
@@ -123,20 +182,45 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
     setIsCollapsed((prev) => !prev)
   }
 
+  const [holdingTimeout, setHoldingTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  )
+
   return (
-    <StyledButton className={isCollapsed ? 'closed' : 'open'} onClick={toggle}>
+    <StyledButton
+      className={status.concat(isCollapsed ? ' closed' : ' open')}
+      onMouseDown={() => {
+        setHoldingTimeout(
+          setTimeout(() => {
+            setStep(stepIndex)
+            setHoldingTimeout(null)
+            setIsCollapsed(false)
+          }, 2_000)
+        )
+      }}
+      onMouseUp={() => {
+        if (holdingTimeout) {
+          clearTimeout(holdingTimeout)
+          setHoldingTimeout(null)
+          toggle()
+        }
+      }}
+    >
       <Row className='main-row' justify='space-between' align='middle'>
         <Col>
           <Text
             fs='h4'
             weight={600}
-            color='text_1'
-            style={{ letterSpacing: '1px' }}
+            color={isActive ? 'wheaty_1' : 'text_1'}
+            style={{
+              letterSpacing: '1px',
+              textTransform: isActive ? 'uppercase' : 'none',
+            }}
           >
             {title}
           </Text>
         </Col>
-        <Col className='time-oval'>
+        <Col className={'time-oval'.concat(holdingTimeout ? ' holding' : '')}>
           <Text fs='h5'>{hoursToTimeString(time)}</Text>
         </Col>
       </Row>
@@ -145,6 +229,11 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
           {showHelp && (
             <Text fs='small' color='text_2'>
               click to show details
+            </Text>
+          )}
+          {status === 'upcoming' && (
+            <Text fs='small' color='text_1'>
+              hold for next step
             </Text>
           )}
         </Col>

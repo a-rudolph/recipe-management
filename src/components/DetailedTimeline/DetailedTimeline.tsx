@@ -1,8 +1,8 @@
 import breakpoints from '@constants/breakpoints'
 import { getColor } from '@styles/themes'
-import { getTimelineSteps } from '@utils/timeline'
 import styled from 'styled-components'
 import TimelineItem from '@components/TimelineItem'
+import { useTimelineSteps } from '@utils/timeline'
 
 const StyledDiv = styled.div`
   width: calc(100% - 48px);
@@ -35,7 +35,7 @@ const StyledDiv = styled.div`
 `
 
 const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
-  const steps = getTimelineSteps(recipe)
+  const steps = useTimelineSteps(recipe)
 
   return (
     <StyledDiv>

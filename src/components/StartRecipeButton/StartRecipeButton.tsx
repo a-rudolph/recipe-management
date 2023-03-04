@@ -34,7 +34,7 @@ const StyledButton = styled.button`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50% 50% 0 0;
+    border-radius: 50%;
     z-index: -1;
   }
 `

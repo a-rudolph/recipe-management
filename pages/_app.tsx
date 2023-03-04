@@ -5,9 +5,12 @@ import type { AppType } from 'next/dist/shared/lib/utils'
 import { BasicLayout } from 'layouts'
 import { BRAND_NAME } from '@styles/themes'
 import Head from 'next/head'
+import { useSetDevice } from '@hooks/useDeviceType'
 import { withTRPC } from '@trpc/next'
 
 const MyApp: AppType = ({ Component, pageProps }) => {
+  useSetDevice()
+
   return (
     <AppContext>
       <Head>

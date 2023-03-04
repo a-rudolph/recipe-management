@@ -13,6 +13,7 @@ import { renderDangerous } from '@utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
+import { useDeviceType } from '@hooks/useDeviceType'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -187,6 +188,8 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
     null
   )
 
+  const { isDesktop } = useDeviceType()
+
   const touchStart = () => {
     setHoldingTimeout(
       setTimeout(() => {
@@ -201,13 +204,21 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
     if (holdingTimeout) {
       clearTimeout(holdingTimeout)
       setHoldingTimeout(null)
-      toggle()
+
+      if (isDesktop) {
+        toggle()
+      }
     }
   }
 
   return (
     <StyledButton
       className={status.concat(isCollapsed ? ' closed' : ' open')}
+      onClick={() => {
+        if (isDesktop) return
+
+        toggle()
+      }}
       onMouseDown={touchStart}
       onTouchStart={touchStart}
       onMouseUp={touchEnd}

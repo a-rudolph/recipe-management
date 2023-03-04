@@ -2,7 +2,7 @@ const PlayButton = (props: React.HTMLAttributes<{}>) => {
   return (
     <svg
       {...props}
-      className='plus-icon'
+      className='play-icon'
       width='24'
       height='28'
       viewBox='0 0 24 28'

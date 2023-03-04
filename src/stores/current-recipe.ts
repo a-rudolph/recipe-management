@@ -1,18 +1,26 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-export const useCurrentRecipeStore = create<{
-  step: number | null
-  startTime: number | null
-  startRecipe: () => void
-  stopRecipe: () => void
-  setStep: (_step: number) => void
-}>((set) => ({
-  startTime: null,
-  step: null,
-  startRecipe: () => set({ step: 0, startTime: getStartHours() }),
-  stopRecipe: () => set({ step: null, startTime: null }),
-  setStep: (step: number) => set({ step }),
-}))
+export const useCurrentRecipeStore = create(
+  persist<{
+    startTime: number | null
+    step: number | null
+    startRecipe: () => void
+    stopRecipe: () => void
+    setStep: (_step: number) => void
+  }>(
+    (set) => ({
+      startTime: null,
+      step: null,
+      startRecipe: () => set({ step: 0, startTime: getStartHours() }),
+      stopRecipe: () => set({ step: null, startTime: null }),
+      setStep: (step: number) => set({ step }),
+    }),
+    {
+      name: 'current-recipe',
+    }
+  )
+)
 
 const getStartHours = () => {
   const now = new Date()

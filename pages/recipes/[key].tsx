@@ -12,53 +12,16 @@ import useDragScroller, {
 } from '@hooks/useDragScroller'
 import { animated } from 'react-spring'
 import { appRouter } from '@pages/api/trpc/[trpc]'
-import { BAKING_PROCESS } from '@constants/features'
 import BasicLayout from '@layouts/BasicLayout'
 import breakpoints from '@constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import DetailedTimeline from '@components/DetailedTimeline'
+import dynamic from 'next/dynamic'
 import NavBar from '@layouts/NavBar'
-import PlayButton from '@components/icons/Play'
 import RecipeDetail from '@components/RecipeDetail'
-import StartRecipeButton from '@components/StartRecipeButton'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
 
-const StyledButton = styled.button`
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-
-  position: absolute;
-  bottom: 24px;
-  left: 0;
-  transform: translate(0, -50%);
-  z-index: 10;
-
-  border: 8px solid;
-  border-color: #2d3134;
-
-  box-shadow: ${({ theme }) => theme.shadows.up};
-
-  background: ${({ theme }) => theme.colors.secondary_1};
-
-  svg {
-    transform: translate(2px, 2px);
-  }
-
-  position: relative;
-
-  &:after {
-    content: '';
-    background: ${({ theme }) => theme.gradient};
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50% 50% 0 0;
-    z-index: -1;
-  }
-`
+const StartRecipeButton = dynamic(() => import('@components/StartRecipeButton'))
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -125,15 +88,10 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
 
   return (
     <BasicLayout.Card>
-      <Row style={{ margin: '16px 16px 0' }} justify='space-between'>
+      <Row style={{ margin: '16px 16px 0' }}>
         <Col>
           <CardTitle style={{}}>{recipe.name}</CardTitle>
         </Col>
-        {BAKING_PROCESS && (
-          <Col>
-            <StartRecipeButton fullButton={true} recipeKey={recipe.key} />
-          </Col>
-        )}
       </Row>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
@@ -158,7 +116,8 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
               <Col
                 style={{ width: '88px', position: 'relative', height: '1px' }}
               >
-                <StyledButton
+                <StartRecipeButton
+                  step={step}
                   onClick={() => {
                     if (step !== null) {
                       stopRecipe()
@@ -168,9 +127,7 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
                     goTo(1)
                     startRecipe()
                   }}
-                >
-                  <PlayButton />
-                </StyledButton>
+                />
               </Col>
               <Col style={{ flex: 1 }}>
                 <Button block={true} type='ghost' onClick={() => goTo(1)}>

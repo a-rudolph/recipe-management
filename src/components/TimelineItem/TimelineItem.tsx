@@ -96,6 +96,12 @@ const StyledButton = styled.button`
     padding: 0 8px;
   }
 
+  &.active {
+    .main-row {
+      border-bottom: 1px solid ${getColor('wheaty_1')};
+    }
+  }
+
   &:not(.default) {
     &.active .time-oval .atom-text,
     &:not(.active) .atom-text {
@@ -103,8 +109,8 @@ const StyledButton = styled.button`
       color: ${getColor('text_2')};
     }
 
-    &.upcoming .help-column .atom-text,
-    &.upcoming .time-oval .atom-text {
+    &.active .time-oval .atom-text,
+    &.upcoming .help-column .atom-text {
       color: ${getColor('text_1')};
       opacity: 1;
     }

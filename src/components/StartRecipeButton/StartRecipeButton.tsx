@@ -1,37 +1,59 @@
-import { Button } from 'antd'
-import Link from 'next/link'
-import { PlayCircleOutlined } from '@ant-design/icons'
-import { Text } from '@components/atoms'
-import { useTimerContext } from '@hooks/useTimerContext'
+import PlayButton from '@components/icons/Play'
+import StopButton from '@components/icons/Stop'
+import styled from 'styled-components'
+
+const StyledButton = styled.button`
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  transform: translate(0, -50%);
+  z-index: 10;
+
+  border: 8px solid;
+  border-color: #2d3134;
+
+  box-shadow: ${({ theme }) => theme.shadows.up};
+
+  background: ${({ theme }) => theme.colors.secondary_1};
+
+  position: relative;
+
+  &:after {
+    content: '';
+    background: ${({ theme }) => theme.gradient};
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 0 0;
+    z-index: -1;
+  }
+`
 
 const StartRecipeButton: React.FC<{
-  recipeKey: string
-  fullButton?: boolean
-}> = ({ recipeKey, fullButton = false }) => {
-  const { setKeyRecipe } = useTimerContext()
-
-  const onClick = () => {
-    setKeyRecipe({ key: recipeKey })
-  }
-
+  onClick: () => void
+  step: number | null
+}> = ({ onClick, step }) => {
   return (
-    <Link href='/baking' as={`/baking?recipeKey=${recipeKey}`}>
-      {fullButton ? (
-        <Button onClick={onClick} icon={<PlayCircleOutlined />}>
-          Start Recipe
-        </Button>
-      ) : (
-        <Button
-          onClick={onClick}
-          type='text'
-          icon={
-            <Text color='wheaty_1'>
-              <PlayCircleOutlined style={{ fontSize: '24px' }} />
-            </Text>
-          }
+    <StyledButton onClick={onClick}>
+      {step !== null && <StopButton />}
+      {step === null && (
+        <PlayButton
+          style={{
+            transform: 'translateX(2px)',
+          }}
         />
       )}
-    </Link>
+    </StyledButton>
   )
 }
 

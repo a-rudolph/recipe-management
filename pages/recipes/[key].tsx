@@ -21,7 +21,12 @@ import NavBar from '@layouts/NavBar'
 import RecipeDetail from '@components/RecipeDetail'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
 
-const StartRecipeButton = dynamic(() => import('@components/StartRecipeButton'))
+const StartRecipeButton = dynamic(
+  () => import('@components/StartRecipeButton'),
+  {
+    ssr: false,
+  }
+)
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;

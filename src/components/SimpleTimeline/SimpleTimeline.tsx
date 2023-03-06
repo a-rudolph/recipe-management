@@ -28,10 +28,10 @@ const Grid = styled.div`
   }
 
   .time {
-    width: 70px;
+    width: 72px;
     border-radius: 50px;
     text-align: center;
-    padding: 0 4px;
+    padding: 4px;
   }
 
   .line {

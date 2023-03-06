@@ -1,5 +1,6 @@
 import { animated, useSpring } from 'react-spring'
 import { Col, Row } from 'antd'
+import { createResponsiveStyle, getColor } from '@styles/themes'
 import {
   hoursToDuration,
   hoursToTimeString,
@@ -8,7 +9,6 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import _isNumber from 'lodash/isNumber'
 import { clamp } from '@utils/clamp'
-import { getColor } from '@styles/themes'
 import { renderDangerous } from '@utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@components/atoms'
@@ -18,6 +18,10 @@ import { useDeviceType } from '@hooks/useDeviceType'
 const StyledButton = styled.button`
   width: 100%;
   cursor: pointer;
+
+  ${createResponsiveStyle.mobile`
+    user-select: none;
+  `}
 
   background: transparent;
   border: none;
@@ -79,7 +83,6 @@ const StyledButton = styled.button`
     padding: 2px 16px;
     border-radius: 60px;
     background: ${getColor('secondary_1')};
-    user-select: none;
   }
 
   .description,

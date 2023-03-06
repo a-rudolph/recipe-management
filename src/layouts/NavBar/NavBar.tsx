@@ -36,7 +36,7 @@ const getTitle = (key?: string | string[]) => {
   return (key as string).replace(/-/g, ' ')
 }
 
-export default function NavBar({ tabs }: { tabs?: React.ReactNode }) {
+export default function NavBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter()
 
   const title = getTitle(router?.query?.key)
@@ -45,7 +45,7 @@ export default function NavBar({ tabs }: { tabs?: React.ReactNode }) {
   return (
     <StyledNavBar>
       <StyledRow justify='space-between' align='center'>
-        {tabs || (
+        {children || (
           <>
             <Text fs='h4' weight={500}>
               {title}

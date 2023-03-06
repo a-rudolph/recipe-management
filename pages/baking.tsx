@@ -207,7 +207,7 @@ const BakingPage: React.FC = () => {
       <Row style={{ marginBottom: '8px' }}>
         <Link href='/recipes/[key]' as={`/recipes/${data.recipe.key}`}>
           <a>
-            <CardTitle style={{}}>{data.recipe.name}</CardTitle>
+            <CardTitle>{data.recipe.name}</CardTitle>
           </a>
         </Link>
       </Row>

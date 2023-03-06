@@ -93,56 +93,48 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
 
   return (
     <BasicLayout.Card>
-      <Row style={{ margin: '16px 16px 0' }}>
-        <Col>
-          <CardTitle style={{}}>{recipe.name}</CardTitle>
-        </Col>
-      </Row>
+      <CardTitle>{recipe.name}</CardTitle>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
           <RecipeDetail recipe={recipe} />
           <DetailedTimeline recipe={recipe} />
         </div>
       </ScrollContainer>
-      <NavBar
-        tabs={
-          <StyledNav $count={2} $side={side}>
-            <div className='slider'></div>
-            <Row
-              justify='space-between'
-              align='middle'
-              style={{ height: '100%' }}
-            >
-              <Col style={{ flex: 1 }}>
-                <Button block={true} onClick={() => goTo(0)} type='ghost'>
-                  <Text>Basics</Text>
-                </Button>
-              </Col>
-              <Col
-                style={{ width: '88px', position: 'relative', height: '1px' }}
-              >
-                <StartRecipeButton
-                  step={step}
-                  onClick={() => {
-                    if (step !== null) {
-                      stopRecipe()
-                      return
-                    }
+      <NavBar>
+        <StyledNav $count={2} $side={side}>
+          <div className='slider'></div>
+          <Row
+            justify='space-between'
+            align='middle'
+            style={{ height: '100%' }}
+          >
+            <Col style={{ flex: 1 }}>
+              <Button block={true} onClick={() => goTo(0)} type='ghost'>
+                <Text>Basics</Text>
+              </Button>
+            </Col>
+            <Col style={{ width: '88px', position: 'relative', height: '1px' }}>
+              <StartRecipeButton
+                step={step}
+                onClick={() => {
+                  if (step !== null) {
+                    stopRecipe()
+                    return
+                  }
 
-                    goTo(1)
-                    startRecipe()
-                  }}
-                />
-              </Col>
-              <Col style={{ flex: 1 }}>
-                <Button block={true} type='ghost' onClick={() => goTo(1)}>
-                  <Text>Schedule</Text>
-                </Button>
-              </Col>
-            </Row>
-          </StyledNav>
-        }
-      />
+                  goTo(1)
+                  startRecipe()
+                }}
+              />
+            </Col>
+            <Col style={{ flex: 1 }}>
+              <Button block={true} type='ghost' onClick={() => goTo(1)}>
+                <Text>Schedule</Text>
+              </Button>
+            </Col>
+          </Row>
+        </StyledNav>
+      </NavBar>
     </BasicLayout.Card>
   )
 }

@@ -5,8 +5,8 @@ import TimelineItem from '@components/TimelineItem'
 import { useTimelineSteps } from '@utils/timeline'
 
 const StyledDiv = styled.div`
-  width: calc(100% - 48px);
-  margin: 0 24px;
+  width: calc(100% - 16px);
+  margin: 0 16px;
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     width: 50%;

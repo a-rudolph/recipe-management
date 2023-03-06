@@ -1,9 +1,10 @@
-import { Button, Row, Text } from '@components/atoms'
+import { Button, Text } from '@components/atoms'
 import { getColor, getStyle } from '@styles/themes'
 import _isArray from 'lodash/isArray'
 import breakpoints from '@constants/breakpoints'
 import LeftArrow from '@components/icons/LeftArrow'
 import Link from 'next/link'
+import { Row } from 'antd'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 
@@ -44,7 +45,7 @@ export default function NavBar({ children }: { children?: React.ReactNode }) {
 
   return (
     <StyledNavBar>
-      <StyledRow justify='space-between' align='center'>
+      <StyledRow justify='space-between' align='middle'>
         {children || (
           <>
             <Text fs='h4' weight={500}>

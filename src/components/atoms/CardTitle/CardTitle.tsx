@@ -1,5 +1,5 @@
-import { Row, Text } from '@components/atoms'
-import { Col } from 'antd'
+import { Col, Row } from 'antd'
+import { Text } from '@components/atoms'
 
 const CardTitle: React.FC<{ style?: React.CSSProperties }> = ({
   children,

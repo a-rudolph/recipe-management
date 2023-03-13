@@ -112,7 +112,7 @@ export default function TimerCard() {
         hmRef={hmRef}
         ssRef={ssRef}
       />
-      <Row className='action-row centered'>
+      <Row className='action-row' justify='center'>
         {isTimerRunning && <Button icon={<Stop />} onClick={stopTimer} />}
         {plussable && <Button icon={<Plus />} onClick={handleClick} />}
       </Row>
@@ -151,7 +151,7 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
   return (
     <>
       <TimeInput value={value} onChange={setValue} />
-      <Row className='action-row centered'>
+      <Row className='action-row' justify='center'>
         <Button icon={<Play />} onClick={handleDone} />
       </Row>
     </>

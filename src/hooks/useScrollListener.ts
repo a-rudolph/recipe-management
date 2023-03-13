@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 export default function useScrollListener(
-  cb: (position: number) => void,
+  cb: (_position: number) => void,
   dep?: any[]
 ) {
   const getScrollY = () => {

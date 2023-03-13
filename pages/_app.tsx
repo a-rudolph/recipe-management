@@ -8,7 +8,14 @@ import Head from 'next/head'
 import { useSetDevice } from '@hooks/useDeviceType'
 import { withTRPC } from '@trpc/next'
 
+const setupLocatorUI = () => {
+  if (process.env.NODE_ENV === 'development') {
+    import('@locator/runtime').then((m) => m.setup())
+  }
+}
+
 const MyApp: AppType = ({ Component, pageProps }) => {
+  setupLocatorUI()
   useSetDevice()
 
   return (

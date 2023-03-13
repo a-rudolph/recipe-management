@@ -17,6 +17,7 @@ export const useCurrentRecipeStore = create(
       setStep: (step: number) => set({ step }),
     }),
     {
+      // name of the localStorage key
       name: 'current-recipe',
     }
   )

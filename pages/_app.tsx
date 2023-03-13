@@ -4,22 +4,21 @@ import { AppRouter } from '@pages/api/trpc/[trpc]'
 import type { AppType } from 'next/dist/shared/lib/utils'
 import { BasicLayout } from 'layouts'
 import { BRAND_NAME } from '@styles/themes'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useSetDevice } from '@hooks/useDeviceType'
 import { withTRPC } from '@trpc/next'
 
-const setupLocatorUI = () => {
-  if (process.env.NODE_ENV === 'development') {
-    import('@locator/runtime').then((m) => m.setup())
-  }
-}
+const SetupLocatorUI = dynamic(() => import('@utils/locator'), {
+  ssr: false,
+})
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  setupLocatorUI()
   useSetDevice()
 
   return (
     <AppContext>
+      <SetupLocatorUI />
       <Head>
         <title>{BRAND_NAME}</title>
         <link rel='icon' href='/favicon.ico' />

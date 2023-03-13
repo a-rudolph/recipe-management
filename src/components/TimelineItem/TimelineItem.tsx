@@ -145,7 +145,12 @@ type TimelineItemProps = {
 const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
 
-  const { setStep, step: currentStep } = useCurrentRecipeStore()
+  const { setStep, step: currentStep } = useCurrentRecipeStore(
+    ({ setStep, step }) => ({
+      setStep,
+      step,
+    })
+  )
 
   useEffect(() => {
     if (stepIndex === currentStep) {

@@ -82,14 +82,26 @@ const StyledNav = styled.div<{ $side: number; $count: number }>`
   }
 `
 
+const FloatingButton = styled.div`
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10;
+  display: none;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    display: block;
+  }
+`
+
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Page: React.FC<PageProps> = ({ recipe }) => {
-  const { side, scroll, goTo } = useDragScroller({
-    initialSlide: 0,
-  })
-
   const { startRecipe, stopRecipe, step } = useCurrentRecipeStore()
+
+  const { side, scroll, goTo } = useDragScroller({
+    initialSlide: step === null ? 0 : 1,
+  })
 
   return (
     <BasicLayout.Card>
@@ -100,6 +112,20 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
           <DetailedTimeline recipe={recipe} />
         </div>
       </ScrollContainer>
+      <FloatingButton>
+        <StartRecipeButton
+          step={step}
+          onClick={() => {
+            if (step !== null) {
+              stopRecipe()
+              return
+            }
+
+            goTo(1)
+            startRecipe()
+          }}
+        />
+      </FloatingButton>
       <NavBar>
         <StyledNav $count={2} $side={side}>
           <div className='slider'></div>
@@ -116,6 +142,7 @@ const Page: React.FC<PageProps> = ({ recipe }) => {
             <Col style={{ width: '88px', position: 'relative', height: '1px' }}>
               <StartRecipeButton
                 step={step}
+                centered={true}
                 onClick={() => {
                   if (step !== null) {
                     stopRecipe()

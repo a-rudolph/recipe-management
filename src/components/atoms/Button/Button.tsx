@@ -1,5 +1,5 @@
-import { getColor, getStyle } from '@styles/themes'
-import breakpoints from '@constants/breakpoints'
+import { getColor, getStyle } from '@/styles/themes'
+import breakpoints from '@/constants/breakpoints'
 import styled from 'styled-components'
 
 type ButtonProps = {

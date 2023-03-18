@@ -1,9 +1,9 @@
 import { Col, Row } from 'antd'
-import ClockOutline from '@components/icons/ClockOutline'
-import fractionize from '@utils/fractionize'
-import { getColor } from '@styles/themes'
+import ClockOutline from '@/components/icons/ClockOutline'
+import fractionize from '@/utils/fractionize'
+import { getColor } from '@/styles/themes'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 const StyledTimes = styled.div`
   margin: 16px 0;

@@ -1,4 +1,4 @@
-import { getStyle, theme } from '@styles/themes'
+import { getStyle, theme } from '@/styles/themes'
 import styled, { css } from 'styled-components'
 import _get from 'lodash/get'
 import _isNumber from 'lodash/isNumber'

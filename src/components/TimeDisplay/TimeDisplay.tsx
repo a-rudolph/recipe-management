@@ -1,5 +1,5 @@
 import type { CSSProperties, MutableRefObject } from 'react'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 type TimeDisplayProps = {
   hmRef: MutableRefObject<HTMLSpanElement | null>

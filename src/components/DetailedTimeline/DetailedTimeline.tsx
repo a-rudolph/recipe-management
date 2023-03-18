@@ -1,8 +1,8 @@
-import breakpoints from '@constants/breakpoints'
-import { getColor } from '@styles/themes'
+import breakpoints from '@/constants/breakpoints'
+import { getColor } from '@/styles/themes'
 import styled from 'styled-components'
-import TimelineItem from '@components/TimelineItem'
-import { useTimelineSteps } from '@utils/timeline'
+import TimelineItem from '@/components/TimelineItem'
+import { useTimelineSteps } from '@/utils/timeline'
 
 const StyledDiv = styled.div`
   width: calc(100% - 16px);

@@ -4,10 +4,10 @@ import {
   getSecondsToEndTime,
   getTimeToEndTime,
   timeToSeconds,
-} from '@utils/formatTime'
+} from '@/utils/formatTime'
 import { useEffect, useMemo, useRef } from 'react'
-import { messageSW } from '@utils/serviceworker-helpers'
-import { useNotification } from '@hooks/useNotification'
+import { messageSW } from '@/utils/serviceworker-helpers'
+import { useNotification } from '@/hooks/useNotification'
 import { useTimerContext } from './useTimerContext'
 
 export const useTimer = (

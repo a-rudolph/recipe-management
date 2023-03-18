@@ -1,9 +1,9 @@
 import { animated, config, useSpring } from 'react-spring'
-import { CardTitle, Text } from '@components/atoms'
+import { CardTitle, Text } from '@/components/atoms'
 import { Col, Row } from 'antd'
-import { getColor, getStyle } from '@styles/themes'
+import { getColor, getStyle } from '@/styles/themes'
 import Link from 'next/link'
-import SimpleTimeline from '@components/SimpleTimeline'
+import SimpleTimeline from '@/components/SimpleTimeline'
 import styled from 'styled-components'
 
 const StyledDot = styled.div`

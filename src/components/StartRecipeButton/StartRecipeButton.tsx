@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
-import breakpoints from '@constants/breakpoints'
-import PlayButton from '@components/icons/Play'
-import StopButton from '@components/icons/Stop'
-import { Text } from '@components/atoms'
+import breakpoints from '@/constants/breakpoints'
+import PlayButton from '@/components/icons/Play'
+import StopButton from '@/components/icons/Stop'
+import { Text } from '@/components/atoms'
 
 const StyledButton = styled.button<{ $centered?: boolean }>`
   width: 88px;

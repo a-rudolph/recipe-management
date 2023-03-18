@@ -1,10 +1,10 @@
-import { BRAND_NAME } from '@styles/themes'
+import { BRAND_NAME } from '@/styles/themes'
 import Link from 'next/link'
-import LogoIcon from '@components/icons/Logo'
-import MenuDropdown from '@components/MenuDropdown'
+import LogoIcon from '@/components/icons/Logo'
+import MenuDropdown from '@/components/MenuDropdown'
 import { Row } from 'antd'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 const StyledRow = styled(Row)`
   cursor: pointer;

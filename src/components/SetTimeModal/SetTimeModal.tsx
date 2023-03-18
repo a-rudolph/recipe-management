@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import Modal from '@components/Modal'
-import { normalizeTimeValue } from '@utils/formatTime'
+import Modal from '@/components/Modal'
+import { normalizeTimeValue } from '@/utils/formatTime'
 import { Row } from 'antd'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
-import TimeInput from '@components/TimeInput'
+import { Text } from '@/components/atoms'
+import TimeInput from '@/components/TimeInput'
 
 const StyledModal = styled(Modal)`
   .atom-modal-card.atom-card {

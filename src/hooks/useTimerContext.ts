@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
 } from 'react'
-import { getNow } from '@utils/formatTime'
+import { getNow } from '@/utils/formatTime'
 import useLocalStorage from './useLocalStorage'
 
 type TimerContextType = {

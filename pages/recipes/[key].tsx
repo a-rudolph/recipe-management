@@ -1,4 +1,4 @@
-import { Button, CardTitle, Text } from '@components/atoms'
+import { Button, CardTitle, Text } from '@/components/atoms'
 import { Col, Row } from 'antd'
 import type {
   GetStaticPaths,
@@ -9,20 +9,20 @@ import styled, { css } from 'styled-components'
 import useDragScroller, {
   SCROLL_DURATION,
   SCROLLER_ID,
-} from '@hooks/useDragScroller'
+} from '@/hooks/useDragScroller'
 import { animated } from 'react-spring'
-import { appRouter } from '@pages/api/trpc/[trpc]'
-import BasicLayout from '@layouts/BasicLayout'
-import breakpoints from '@constants/breakpoints'
+import { appRouter } from '@/pages/api/trpc/[trpc]'
+import BasicLayout from '@/layouts/BasicLayout'
+import breakpoints from '@/constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
-import DetailedTimeline from '@components/DetailedTimeline'
+import DetailedTimeline from '@/components/DetailedTimeline'
 import dynamic from 'next/dynamic'
-import NavBar from '@layouts/NavBar'
-import RecipeDetail from '@components/RecipeDetail'
+import NavBar from '@/layouts/NavBar'
+import RecipeDetail from '@/components/RecipeDetail'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
 
 const StartRecipeButton = dynamic(
-  () => import('@components/StartRecipeButton'),
+  () => import('@/components/StartRecipeButton'),
   {
     ssr: false,
   }

@@ -1,6 +1,6 @@
 import { css, DefaultTheme } from 'styled-components'
 import _get from 'lodash/get'
-import breakpoints from '@constants/breakpoints'
+import breakpoints from '@/constants/breakpoints'
 import type { StyledProps } from 'styled-components'
 
 export const BRAND_NAME = 'whea·ti·ful·ly'

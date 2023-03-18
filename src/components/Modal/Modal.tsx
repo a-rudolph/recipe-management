@@ -1,5 +1,5 @@
-import { Card } from '@components/atoms'
-import { getColor } from '@styles/themes'
+import { Card } from '@/components/atoms'
+import { getColor } from '@/styles/themes'
 import styled from 'styled-components'
 
 type ModalProps = {

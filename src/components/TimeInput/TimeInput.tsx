@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useRef } from 'react'
 import _noop from 'lodash/noop'
-import { padNumber } from '@utils/formatTime'
+import { padNumber } from '@/utils/formatTime'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 type TimeInputProps = {
   value?: TimeValue

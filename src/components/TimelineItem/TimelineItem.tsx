@@ -1,19 +1,19 @@
 import { animated, useSpring } from 'react-spring'
 import { Col, Row } from 'antd'
-import { createResponsiveStyle, getColor } from '@styles/themes'
+import { createResponsiveStyle, getColor } from '@/styles/themes'
 import {
   hoursToDuration,
   hoursToTimeString,
   TimelineStepData,
-} from '@utils/timeline'
+} from '@/utils/timeline'
 import { useEffect, useMemo, useState } from 'react'
 import _isNumber from 'lodash/isNumber'
-import { clamp } from '@utils/clamp'
-import { renderDangerous } from '@utils/dangerous-renders'
+import { clamp } from '@/utils/clamp'
+import { renderDangerous } from '@/utils/dangerous-renders'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
-import { useDeviceType } from '@hooks/useDeviceType'
+import { useDeviceType } from '@/hooks/useDeviceType'
 
 const StyledButton = styled.button`
   width: 100%;

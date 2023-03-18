@@ -1,6 +1,6 @@
 import moment from 'moment'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 const StyledDiv = styled.div`
   margin: 8px 0;

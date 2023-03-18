@@ -1,7 +1,7 @@
-import { formatNumber } from '@utils/formatNumber'
+import { formatNumber } from '@/utils/formatNumber'
 import { Row } from 'antd'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 type IngredientDisplayProps = {
   ingredients: IngredientType[]

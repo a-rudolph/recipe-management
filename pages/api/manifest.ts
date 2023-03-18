@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next'
-import { theme } from '@styles/themes'
+import { theme } from '@/styles/themes'
 
 const getShortName = (mode: string) => {
   if (mode === 'production') return 'Wheatifully'

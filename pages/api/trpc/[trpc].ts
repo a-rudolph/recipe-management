@@ -1,6 +1,6 @@
 import * as trpc from '@trpc/server'
 import * as trpcNext from '@trpc/server/adapters/next'
-import { recipes } from '@constants/recipes'
+import { recipes } from '@/constants/recipes'
 import { z } from 'zod'
 
 export const appRouter = trpc

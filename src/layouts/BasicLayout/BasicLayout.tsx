@@ -1,7 +1,7 @@
-import breakpoints from '@constants/breakpoints'
-import Card from '@components/atoms/Card'
-import { getColor } from '@styles/themes'
-import Header from '@layouts/Header'
+import breakpoints from '@/constants/breakpoints'
+import Card from '@/components/atoms/Card'
+import { getColor } from '@/styles/themes'
+import Header from '@/layouts/Header'
 import styled from 'styled-components'
 
 type BasicLayoutProps = {

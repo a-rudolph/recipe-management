@@ -1,4 +1,4 @@
-import { BRAND_NAME, theme } from '@styles/themes'
+import { BRAND_NAME, theme } from '@/styles/themes'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import type { DocumentContext, DocumentInitialProps } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'

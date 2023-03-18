@@ -1,16 +1,16 @@
 import { animated, useSpring } from 'react-spring'
 import { Button, Card, Col, Row } from 'antd'
-import { CardTitle, Text } from '@components/atoms'
+import { CardTitle, Text } from '@/components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import ProgressSteps from '@components/ProgressSteps'
-import { renderDangerous } from '@utils/dangerous-renders'
+import ProgressSteps from '@/components/ProgressSteps'
+import { renderDangerous } from '@/utils/dangerous-renders'
 import styled from 'styled-components'
-import { trpc } from '@utils/trpc'
+import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/router'
-import { useTimelineSteps } from '@utils/timeline'
-import { useTimerContext } from '@hooks/useTimerContext'
+import { useTimelineSteps } from '@/utils/timeline'
+import { useTimerContext } from '@/hooks/useTimerContext'
 
 const StyledPage = styled.div`
   padding: 16px;

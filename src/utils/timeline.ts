@@ -7,7 +7,7 @@ import {
   getMixDescription,
   getProofDescription,
   getShapeDescription,
-} from '@constants/descriptions'
+} from '@/constants/descriptions'
 import fractionize from './fractionize'
 import moment from 'moment'
 import { useCurrentRecipeStore } from 'stores/current-recipe'

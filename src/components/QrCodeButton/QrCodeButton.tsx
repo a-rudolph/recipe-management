@@ -37,9 +37,9 @@ const QrCodeButton = ({ value }: QrCodeButtonProps) => {
   return (
     <Dropdown
       forceRender={true}
-      onVisibleChange={onVisibleChange}
+      onOpenChange={onVisibleChange}
       trigger={['click']}
-      overlay={<StyledCanvas id={CANVAS_ID} />}
+      overlay={<StyledCanvas id={CANVAS_ID} data-testid='qr-canvas' />}
     >
       <Button type='ghost'>
         <Row gutter={8}>

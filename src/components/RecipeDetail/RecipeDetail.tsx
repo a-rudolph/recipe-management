@@ -1,9 +1,9 @@
 import { Col, Row } from 'antd'
-import breakpoints from '@constants/breakpoints'
-import IngredientDisplay from '@components/IngredientDisplay'
-import SimpleTimeline from '@components/SimpleTimeline'
+import breakpoints from '@/constants/breakpoints'
+import IngredientDisplay from '@/components/IngredientDisplay'
+import SimpleTimeline from '@/components/SimpleTimeline'
 import styled from 'styled-components'
-import TimeDurations from '@components/TimeDurations'
+import TimeDurations from '@/components/TimeDurations'
 
 const StyledDiv = styled.div`
   padding: 0 24px;

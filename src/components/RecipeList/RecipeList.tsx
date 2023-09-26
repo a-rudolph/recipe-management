@@ -1,23 +1,17 @@
 import { animated, config, useSpring } from 'react-spring'
-import { CardTitle, Text } from '@components/atoms'
+import { CardTitle, Text } from '@/components/atoms'
 import { Col, Row } from 'antd'
-import { getColor, getStyle } from '@styles/themes'
-import { BAKING_PROCESS } from '@constants/features'
+import { getColor, getStyle } from '@/styles/themes'
 import Link from 'next/link'
-import SimpleTimeline from '@components/SimpleTimeline'
-import StartRecipeButton from '@components/StartRecipeButton'
+import SimpleTimeline from '@/components/SimpleTimeline'
 import styled from 'styled-components'
 
-const StyledDiv = styled.div`
-  padding: 24px;
-
-  .dot {
-    height: 10px;
-    width: 10px;
-    background: ${getColor('secondary_1')};
-    border-radius: 50%;
-    margin: 0 16px;
-  }
+const StyledDot = styled.div`
+  height: 10px;
+  width: 10px;
+  background: ${getColor('secondary_1')};
+  border-radius: 50%;
+  margin: 0 16px;
 `
 
 const StyledItem = styled.div`
@@ -30,7 +24,7 @@ const StyledItem = styled.div`
   margin: 16px 0;
   margin-right: -24px;
   background: ${({ theme }) => theme.gradient};
-  box-shadow: ${getStyle('shade', 'big')};
+  box-shadow: ${getStyle('shadows', 'big')};
 
   .divider {
     margin: 16px -16px;
@@ -65,35 +59,41 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
   })
 
   return (
-    <StyledDiv>
+    <>
       <CardTitle>Straight dough Recipes</CardTitle>
-      <Row justify='center' align='middle'>
-        <div className='dot' />
-        <Text fs='h4'>Same-day breads</Text>
-        <div className='dot' />
-      </Row>
-      <Row>
-        <Text secondary>mix in the morning, bake in the afternoon</Text>
-      </Row>
-      {samedayers.map((recipe, i) => (
-        <RecipeLink key={recipe.key} index={i} recipe={recipe} />
-      ))}
-      <Row justify='center' align='middle'>
-        <div className='dot' />
-        <Text fs='h4'>Overnight breads</Text>
-        <div className='dot' />
-      </Row>
-      <Row>
-        <Text.accent>mix in the evening, bake in the morning</Text.accent>
-      </Row>
-      {overnights.map((recipe, i) => (
-        <RecipeLink
-          key={recipe.key}
-          index={i + samedayers.length}
-          recipe={recipe}
-        />
-      ))}
-    </StyledDiv>
+      <div
+        style={{
+          margin: '16px',
+        }}
+      >
+        <Row justify='center' align='middle'>
+          <StyledDot />
+          <Text fs='h4'>Same-day breads</Text>
+          <StyledDot />
+        </Row>
+        <Row>
+          <Text secondary>mix in the morning, bake in the afternoon</Text>
+        </Row>
+        {samedayers.map((recipe, i) => (
+          <RecipeLink key={recipe.key} index={i} recipe={recipe} />
+        ))}
+        <Row justify='center' align='middle'>
+          <StyledDot />
+          <Text fs='h4'>Overnight breads</Text>
+          <StyledDot />
+        </Row>
+        <Row>
+          <Text.accent>mix in the evening, bake in the morning</Text.accent>
+        </Row>
+        {overnights.map((recipe, i) => (
+          <RecipeLink
+            key={recipe.key}
+            index={i + samedayers.length}
+            recipe={recipe}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 
@@ -127,11 +127,6 @@ const RecipeLink = ({
                 {name}
               </Text>
             </Col>
-            {BAKING_PROCESS && (
-              <Col>
-                <StartRecipeButton recipeKey={key} />
-              </Col>
-            )}
           </Row>
           <SimpleTimeline start={start} bulk={bulk} proof={proof} />
         </StyledItem>

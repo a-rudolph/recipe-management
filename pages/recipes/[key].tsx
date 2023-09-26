@@ -1,4 +1,4 @@
-import { Button, CardTitle, Text } from '@components/atoms'
+import { Button, CardTitle, Text } from '@/components/atoms'
 import { Col, Row } from 'antd'
 import type {
   GetStaticPaths,
@@ -9,17 +9,24 @@ import styled, { css } from 'styled-components'
 import useDragScroller, {
   SCROLL_DURATION,
   SCROLLER_ID,
-} from '@hooks/useDragScroller'
+} from '@/hooks/useDragScroller'
 import { animated } from 'react-spring'
-import { appRouter } from '@pages/api/trpc/[trpc]'
-import { BAKING_PROCESS } from '@constants/features'
-import BasicLayout from '@layouts/BasicLayout'
-import breakpoints from '@constants/breakpoints'
+import { appRouter } from '@/pages/api/trpc/[trpc]'
+import BasicLayout from '@/layouts/BasicLayout'
+import breakpoints from '@/constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
-import DetailedTimeline from '@components/DetailedTimeline'
-import NavBar from '@layouts/NavBar'
-import RecipeDetail from '@components/RecipeDetail'
-import StartRecipeButton from '@components/StartRecipeButton'
+import DetailedTimeline from '@/components/DetailedTimeline'
+import dynamic from 'next/dynamic'
+import NavBar from '@/layouts/NavBar'
+import RecipeDetail from '@/components/RecipeDetail'
+import { useCurrentRecipeStore } from 'stores/current-recipe'
+
+const StartRecipeButton = dynamic(
+  () => import('@/components/StartRecipeButton'),
+  {
+    ssr: false,
+  }
+)
 
 const ScrollContainer = styled(animated.div)`
   width: 100vw;
@@ -75,54 +82,86 @@ const StyledNav = styled.div<{ $side: number; $count: number }>`
   }
 `
 
+const FloatingButton = styled.div`
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10;
+  display: none;
+
+  @media screen and (min-width: ${breakpoints.sm}px) {
+    display: block;
+  }
+`
+
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Page: React.FC<PageProps> = ({ recipe }) => {
+  const { startRecipe, stopRecipe, step } = useCurrentRecipeStore()
+
   const { side, scroll, goTo } = useDragScroller({
-    initialSlide: 0,
+    initialSlide: step === null ? 0 : 1,
   })
 
   return (
     <BasicLayout.Card>
-      <Row style={{ margin: '16px 16px 0' }} justify='space-between'>
-        <Col>
-          <CardTitle style={{}}>{recipe.name}</CardTitle>
-        </Col>
-        {BAKING_PROCESS && (
-          <Col>
-            <StartRecipeButton fullButton={true} recipeKey={recipe.key} />
-          </Col>
-        )}
-      </Row>
+      <CardTitle>{recipe.name}</CardTitle>
       <ScrollContainer scrollLeft={scroll.left} id={SCROLLER_ID}>
         <div className='pages'>
           <RecipeDetail recipe={recipe} />
           <DetailedTimeline recipe={recipe} />
         </div>
       </ScrollContainer>
-      <NavBar
-        tabs={
-          <StyledNav $count={2} $side={side}>
-            <div className='slider'></div>
-            <Row
-              justify='space-between'
-              align='middle'
-              style={{ height: '100%' }}
-            >
-              <Col span={12}>
-                <Button block={true} onClick={() => goTo(0)} type='ghost'>
-                  <Text>Basics</Text>
-                </Button>
-              </Col>
-              <Col span={12}>
-                <Button block={true} type='ghost' onClick={() => goTo(1)}>
-                  <Text>Schedule</Text>
-                </Button>
-              </Col>
-            </Row>
-          </StyledNav>
-        }
-      />
+      <FloatingButton>
+        <StartRecipeButton
+          step={step}
+          onClick={() => {
+            if (step !== null) {
+              stopRecipe()
+              return
+            }
+
+            goTo(1)
+            startRecipe()
+          }}
+        />
+      </FloatingButton>
+      <NavBar>
+        <StyledNav $count={2} $side={side}>
+          <div className='slider'></div>
+          <Row
+            justify='space-between'
+            align='middle'
+            style={{ height: '100%' }}
+          >
+            <Col style={{ flex: 1 }}>
+              <Button block={true} onClick={() => goTo(0)} type='ghost'>
+                <Text>Basics</Text>
+              </Button>
+            </Col>
+            <Col style={{ width: '88px', position: 'relative', height: '1px' }}>
+              <StartRecipeButton
+                step={step}
+                centered={true}
+                onClick={() => {
+                  if (step !== null) {
+                    stopRecipe()
+                    return
+                  }
+
+                  goTo(1)
+                  startRecipe()
+                }}
+              />
+            </Col>
+            <Col style={{ flex: 1 }}>
+              <Button block={true} type='ghost' onClick={() => goTo(1)}>
+                <Text>Schedule</Text>
+              </Button>
+            </Col>
+          </Row>
+        </StyledNav>
+      </NavBar>
     </BasicLayout.Card>
   )
 }

@@ -1,8 +1,8 @@
 import { appRouter } from './api/trpc/[trpc]'
-import BasicLayout from '@layouts/BasicLayout'
+import BasicLayout from '@/layouts/BasicLayout'
 import { createSSGHelpers } from '@trpc/react/ssg'
 import type { InferGetStaticPropsType } from 'next'
-import RecipeList from '@components/RecipeList'
+import RecipeList from '@/components/RecipeList'
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
 

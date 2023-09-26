@@ -1,4 +1,3 @@
-import fractionize from './fractionize'
 import {
   getAutolysisDescription,
   getBakeDescription,
@@ -8,8 +7,10 @@ import {
   getMixDescription,
   getProofDescription,
   getShapeDescription,
-} from '@constants/descriptions'
+} from '@/constants/descriptions'
+import fractionize from './fractionize'
 import moment from 'moment'
+import { useCurrentRecipeStore } from 'stores/current-recipe'
 
 export const hoursToTimeString = (hours: number, format: string = 'h:mm a') => {
   return moment({
@@ -44,8 +45,14 @@ export type TimelineStepData = {
   duration: number
 }
 
-export const getTimelineSteps = (recipe: RecipeType): TimelineStepData[] => {
-  const { start, bulk, proof } = recipe
+export const useTimelineSteps = (recipe?: RecipeType): TimelineStepData[] => {
+  const currentStart = useCurrentRecipeStore((state) => state.startTime)
+
+  if (!recipe) return []
+
+  const { start: defaultStart, bulk, proof } = recipe
+
+  const start = currentStart || defaultStart
 
   const AUTOLYSE_HOURS = 0.5
   const BAKE_HOURS = 1 // baking + cooling

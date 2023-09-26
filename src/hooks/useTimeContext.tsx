@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
 import moment, { Moment } from 'moment'
-import { getNextMoment } from '@utils/time'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { getNextMoment } from '@/utils/time'
 
 type AppContext = {
   time: TimeType

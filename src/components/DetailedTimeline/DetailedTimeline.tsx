@@ -1,12 +1,12 @@
-import breakpoints from '@constants/breakpoints'
-import { getColor } from '@styles/themes'
-import { getTimelineSteps } from '@utils/timeline'
+import breakpoints from '@/constants/breakpoints'
+import { getColor } from '@/styles/themes'
 import styled from 'styled-components'
-import TimelineItem from '@components/TimelineItem'
+import TimelineItem from '@/components/TimelineItem'
+import { useTimelineSteps } from '@/utils/timeline'
 
 const StyledDiv = styled.div`
-  width: calc(100% - 48px);
-  margin: 0 24px;
+  width: calc(100% - 16px);
+  margin: 0 16px;
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     width: 50%;
@@ -35,7 +35,7 @@ const StyledDiv = styled.div`
 `
 
 const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
-  const steps = getTimelineSteps(recipe)
+  const steps = useTimelineSteps(recipe)
 
   return (
     <StyledDiv>
@@ -43,7 +43,12 @@ const DetailedTimeline = ({ recipe }: { recipe: RecipeType }) => {
         <div className='vert-line' />
         <div className='timeline-content'>
           {steps.map((step, i) => (
-            <TimelineItem key={i} showHelp={i === 0} step={step} />
+            <TimelineItem
+              key={i}
+              stepIndex={i}
+              showHelp={i === 0}
+              step={step}
+            />
           ))}
         </div>
       </div>

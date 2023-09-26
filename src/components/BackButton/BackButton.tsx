@@ -1,6 +1,6 @@
-import { Button, Text } from '@components/atoms'
+import { Button, Text } from '@/components/atoms'
 import { Col, Row } from 'antd'
-import LeftIcon from '@components/icons/Left'
+import LeftIcon from '@/components/icons/Left'
 
 export const BackButton = ({
   onBack,

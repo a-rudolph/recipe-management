@@ -1,20 +1,27 @@
 import { animated, useSpring } from 'react-spring'
-import { Col, Row } from 'antd'
+import { Checkbox, Col, Row } from 'antd'
+import { createResponsiveStyle, getColor } from '@/styles/themes'
 import {
   hoursToDuration,
   hoursToTimeString,
   TimelineStepData,
-} from '@utils/timeline'
-import { clamp } from '@utils/clamp'
-import { getColor } from '@styles/themes'
-import { renderDangerous } from '@utils/dangerous-renders'
+} from '@/utils/timeline'
+import { useEffect, useMemo, useState } from 'react'
+import _isNumber from 'lodash/isNumber'
+import _upperFirst from 'lodash/upperFirst'
+import { clamp } from '@/utils/clamp'
+import { renderDangerous } from '@/utils/dangerous-renders'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
-import { useState } from 'react'
+import { Text } from '@/components/atoms'
+import { useCurrentRecipeStore } from 'stores/current-recipe'
 
 const StyledButton = styled.button`
   width: 100%;
   cursor: pointer;
+
+  ${createResponsiveStyle.mobile`
+    user-select: none;
+  `}
 
   background: transparent;
   border: none;
@@ -91,15 +98,95 @@ const StyledButton = styled.button`
     text-align: center;
     padding: 0 8px;
   }
+
+  &.active {
+    .main-row {
+      border-bottom: 1px solid ${getColor('wheaty_1')};
+    }
+
+    .ant-checkbox-inner {
+      border-color: ${getColor('wheaty_1')};
+    }
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: ${getColor('primary_1')};
+    border-color: ${getColor('text_2')};
+    color: ${getColor('text_2')};
+  }
+
+  &:not(.default) {
+    &.active .time-oval .atom-text,
+    &:not(.active) .atom-text {
+      opacity: 0.6;
+      color: ${getColor('text_2')};
+    }
+
+    &.active .time-oval .atom-text,
+    &.upcoming .help-column .atom-text {
+      color: ${getColor('text_1')};
+      opacity: 1;
+    }
+  }
+
+  &.upcoming .time-oval.holding {
+    animation: focus-on 3s ease;
+  }
+
+  @keyframes focus-on {
+    10% {
+      box-shadow: none;
+    }
+    11% {
+      box-shadow: 0 0 8px 4px ${getColor('wheaty_1')};
+    }
+    100% {
+      box-shadow: 0 0 0px 2px ${getColor('wheaty_1')};
+    }
+  }
 `
+
+const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
 
 type TimelineItemProps = {
   step: TimelineStepData
   showHelp: boolean
+  stepIndex: number
 }
 
-const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
+const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
   const [isCollapsed, setIsCollapsed] = useState(true)
+
+  const { setStep, step: currentStep } = useCurrentRecipeStore(
+    ({ setStep, step }) => ({
+      setStep,
+      step,
+    })
+  )
+
+  useEffect(() => {
+    if (stepIndex === currentStep) {
+      setIsCollapsed(false)
+    }
+  }, [currentStep, stepIndex])
+
+  const status = useMemo(() => {
+    if (stepIndex === currentStep) {
+      return 'active'
+    }
+
+    if (stepIndex - 1 === currentStep) {
+      return 'upcoming'
+    }
+
+    if (_isNumber(currentStep)) {
+      return 'inactive'
+    }
+
+    return 'default'
+  }, [stepIndex, currentStep])
+
+  const isActive = status === 'active'
 
   const style = useSpring({
     config: { mass: 5, tension: 2000, friction: 200 },
@@ -124,19 +211,48 @@ const TimelineItem = ({ step, showHelp }: TimelineItemProps) => {
   }
 
   return (
-    <StyledButton className={isCollapsed ? 'closed' : 'open'} onClick={toggle}>
+    <StyledButton
+      className={cn(status, isCollapsed ? 'closed' : 'open')}
+      onClick={() => {
+        toggle()
+      }}
+    >
       <Row className='main-row' justify='space-between' align='middle'>
         <Col>
-          <Text
-            fs='h4'
-            weight={600}
-            color='text_1'
-            style={{ letterSpacing: '1px' }}
-          >
-            {title}
-          </Text>
+          <Row align='middle' gutter={8}>
+            {_isNumber(currentStep) && (
+              <Col>
+                <Checkbox
+                  checked={stepIndex < currentStep}
+                  onChange={(e) => {
+                    e.stopPropagation()
+                    if (e.target.checked) {
+                      setIsCollapsed(true)
+                      setStep(stepIndex + 1)
+                      return
+                    }
+
+                    setStep(stepIndex)
+                  }}
+                />
+              </Col>
+            )}
+            <Col>
+              <Text
+                fs='h4'
+                weight={600}
+                color={isActive ? 'wheaty_1' : 'text_1'}
+                style={{
+                  letterSpacing: '1px',
+                  textTransform: isActive ? 'uppercase' : 'none',
+                }}
+              >
+                {_upperFirst(title)}
+              </Text>
+            </Col>
+          </Row>
         </Col>
-        <Col className='time-oval'>
+        <Col className={'time-oval'}>
           <Text fs='h5'>{hoursToTimeString(time)}</Text>
         </Col>
       </Row>

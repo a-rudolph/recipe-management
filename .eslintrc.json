@@ -5,6 +5,9 @@
     "eol-last": "error",
     "sort-imports": ["error", { "ignoreCase": true }],
     // no unused variables
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    "no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ]
   }
 }

@@ -19,10 +19,11 @@ declare module 'styled-components' {
       bg_1: string
       bg_2: string
     }
-    shade: {
+    shadows: {
       button: string
       small: string
       big: string
+      up: string
     }
     gradient: string
     font: string

@@ -1,8 +1,8 @@
 import { formatNumber } from './formatNumber'
 
-type MetaCallback = (recipe: RecipeType) => string | number
+type MetaCallback = (_recipe: RecipeType) => string | number
 
-type StepDescriptor = (recipe: RecipeType) => string
+type StepDescriptor = (_recipe: RecipeType) => string
 
 export const createStepDescriptor = (
   texts: TemplateStringsArray,
@@ -53,7 +53,7 @@ export const getIngredientString = ({
 
 export const joiner = <T>(
   arr: T[],
-  getSeperator: (index: number, arr: T[]) => string
+  getSeperator: (_index: number, _arr: T[]) => string
 ) => {
   let acc = ''
 

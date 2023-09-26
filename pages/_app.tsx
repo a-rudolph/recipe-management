@@ -1,15 +1,24 @@
-import '@styles/index.less'
-import AppContext from '@hooks/AppContext'
-import { AppRouter } from '@pages/api/trpc/[trpc]'
+import '@/styles/index.less'
+import AppContext from '@/hooks/AppContext'
+import { AppRouter } from '@/pages/api/trpc/[trpc]'
 import type { AppType } from 'next/dist/shared/lib/utils'
 import { BasicLayout } from 'layouts'
-import { BRAND_NAME } from '@styles/themes'
+import { BRAND_NAME } from '@/styles/themes'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useSetDevice } from '@/hooks/useDeviceType'
 import { withTRPC } from '@trpc/next'
 
+const SetupLocatorUI = dynamic(() => import('@/utils/locator'), {
+  ssr: false,
+})
+
 const MyApp: AppType = ({ Component, pageProps }) => {
+  useSetDevice()
+
   return (
     <AppContext>
+      <SetupLocatorUI />
       <Head>
         <title>{BRAND_NAME}</title>
         <link rel='icon' href='/favicon.ico' />

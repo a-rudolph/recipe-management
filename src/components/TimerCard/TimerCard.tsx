@@ -1,14 +1,15 @@
-import { Button, Card, Row } from '@components/atoms'
-import { normalizeTimeValue, timeToSeconds } from '@utils/formatTime'
+import { Button, Card } from '@/components/atoms'
+import { normalizeTimeValue, timeToSeconds } from '@/utils/formatTime'
 import { useEffect, useRef, useState } from 'react'
-import Play from '@components/icons/Play'
-import Plus from '@components/icons/Plus'
-import Stop from '@components/icons/Stop'
+import Play from '@/components/icons/Play'
+import Plus from '@/components/icons/Plus'
+import { Row } from 'antd'
+import Stop from '@/components/icons/Stop'
 import styled from 'styled-components'
-import TimeDisplay from '@components/TimeDisplay'
-import TimeInput from '@components/TimeInput'
-import TimeRing from '@components/TimeRing'
-import { useTimer } from '@hooks/useTimer'
+import TimeDisplay from '@/components/TimeDisplay'
+import TimeInput from '@/components/TimeInput'
+import TimeRing from '@/components/TimeRing'
+import { useTimer } from '@/hooks/useTimer'
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -111,7 +112,7 @@ export default function TimerCard() {
         hmRef={hmRef}
         ssRef={ssRef}
       />
-      <Row className='action-row centered'>
+      <Row className='action-row' justify='center'>
         {isTimerRunning && <Button icon={<Stop />} onClick={stopTimer} />}
         {plussable && <Button icon={<Plus />} onClick={handleClick} />}
       </Row>
@@ -150,7 +151,7 @@ const AugmentedTimeInput = ({ onEnter }: { onEnter: TimeChangeHandler }) => {
   return (
     <>
       <TimeInput value={value} onChange={setValue} />
-      <Row className='action-row centered'>
+      <Row className='action-row' justify='center'>
         <Button icon={<Play />} onClick={handleDone} />
       </Row>
     </>

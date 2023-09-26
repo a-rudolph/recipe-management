@@ -2,14 +2,14 @@ import { animated, useSpring } from 'react-spring'
 import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
 import { Col, Row } from 'antd'
 import { useRef, useState } from 'react'
-import breakpoints from '@constants/breakpoints'
-import { Button } from '@components/atoms'
+import breakpoints from '@/constants/breakpoints'
+import { Button } from '@/components/atoms'
 import dynamic from 'next/dynamic'
-import QrCodeButton from '@components/QrCodeButton'
+import QrCodeButton from '@/components/QrCodeButton'
 import styled from 'styled-components'
-import useScreenWidth from '@hooks/useScreenWidth'
+import useScreenWidth from '@/hooks/useScreenWidth'
 
-const TimerCard = dynamic(() => import('@components/TimerCard'))
+const TimerCard = dynamic(() => import('@/components/TimerCard'))
 
 const StyledHeader = styled(Row)`
   padding: 4px 12px;

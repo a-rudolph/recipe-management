@@ -8,7 +8,7 @@ const CANVAS_ID = 'qr-canvas-id'
 const StyledCanvas = styled.canvas`
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.secondary_1};
-  box-shadow: ${({ theme }) => theme.shade.small};
+  box-shadow: ${({ theme }) => theme.shadows.small};
   background: ${({ theme }) => theme.colors.primary_1};
 `
 
@@ -37,9 +37,9 @@ const QrCodeButton = ({ value }: QrCodeButtonProps) => {
   return (
     <Dropdown
       forceRender={true}
-      onVisibleChange={onVisibleChange}
+      onOpenChange={onVisibleChange}
       trigger={['click']}
-      overlay={<StyledCanvas id={CANVAS_ID} />}
+      overlay={<StyledCanvas id={CANVAS_ID} data-testid='qr-canvas' />}
     >
       <Button type='ghost'>
         <Row gutter={8}>

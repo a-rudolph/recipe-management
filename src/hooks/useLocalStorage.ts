@@ -11,7 +11,7 @@ const storageKeys = {
 
 const useLocalStorage = <T, S = T>(
   key: keyof typeof storageKeys,
-  initialValue: T | ((storage?: S | null) => T)
+  initialValue: T | ((_storage?: S | null) => T)
 ) => {
   const storage_key = PREFIX + storageKeys[key]
 

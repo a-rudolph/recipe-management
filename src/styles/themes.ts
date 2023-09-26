@@ -1,6 +1,6 @@
+import { css, DefaultTheme } from 'styled-components'
 import _get from 'lodash/get'
-import breakpoints from '@constants/breakpoints'
-import { css } from 'styled-components'
+import breakpoints from '@/constants/breakpoints'
 import type { StyledProps } from 'styled-components'
 
 export const BRAND_NAME = 'whea·ti·ful·ly'
@@ -75,7 +75,7 @@ export const wheaties = {
   9: '#fbf7ec',
 }
 
-export const theme = {
+export const theme: DefaultTheme = {
   colors: {
     wheaty_1,
     primary_1,
@@ -94,7 +94,7 @@ export const theme = {
     bg_1: '#082032',
     bg_2: '#1C405B',
   },
-  shade: {
+  shadows: {
     button: '0px 1px 1px rgba(0, 0, 0, 0.25)',
     small: '0px 2px 2px rgba(0, 0, 0, 0.25)',
     big: '0px 4px 4px rgba(0, 0, 0, 0.25)',

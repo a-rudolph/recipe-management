@@ -1,6 +1,6 @@
 import moment from 'moment'
 import styled from 'styled-components'
-import { Text } from '@components/atoms'
+import { Text } from '@/components/atoms'
 
 const StyledDiv = styled.div`
   margin: 8px 0;
@@ -28,10 +28,10 @@ const Grid = styled.div`
   }
 
   .time {
-    width: 70px;
+    width: 72px;
     border-radius: 50px;
     text-align: center;
-    padding: 0 4px;
+    padding: 4px;
   }
 
   .line {

@@ -1,7 +1,7 @@
 import {
   getServiceWorkerRegistration,
   setupMessageListener,
-} from '@utils/serviceworker-helpers'
+} from '@/utils/serviceworker-helpers'
 import _noop from 'lodash/noop'
 import { useEffect } from 'react'
 

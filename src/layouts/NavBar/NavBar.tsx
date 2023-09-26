@@ -1,9 +1,10 @@
-import { Button, Row, Text } from '@components/atoms'
-import { getColor, getStyle } from '@styles/themes'
+import { Button, Text } from '@/components/atoms'
+import { getColor, getStyle } from '@/styles/themes'
 import _isArray from 'lodash/isArray'
-import breakpoints from '@constants/breakpoints'
-import LeftArrow from '@components/icons/LeftArrow'
+import breakpoints from '@/constants/breakpoints'
+import LeftArrow from '@/components/icons/LeftArrow'
 import Link from 'next/link'
+import { Row } from 'antd'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 
@@ -18,7 +19,7 @@ const StyledNavBar = styled(Row)`
   width: 100vw;
   background-color: ${getColor('primary_1')};
   border-top: 1px solid ${getColor('mono_2')};
-  box-shadow: ${getStyle('shade', 'up')};
+  box-shadow: ${getStyle('shadows', 'up')};
   position: fixed;
   bottom: 0;
   z-index: 10;
@@ -36,7 +37,7 @@ const getTitle = (key?: string | string[]) => {
   return (key as string).replace(/-/g, ' ')
 }
 
-export default function NavBar({ tabs }: { tabs?: React.ReactNode }) {
+export default function NavBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter()
 
   const title = getTitle(router?.query?.key)
@@ -44,8 +45,8 @@ export default function NavBar({ tabs }: { tabs?: React.ReactNode }) {
 
   return (
     <StyledNavBar>
-      <StyledRow justify='space-between' align='center'>
-        {tabs || (
+      <StyledRow justify='space-between' align='middle'>
+        {children || (
           <>
             <Text fs='h4' weight={500}>
               {title}

@@ -1,7 +1,7 @@
 import {
   createStepDescriptor,
   getIngredientStringByCategory,
-} from '@utils/description-helpers'
+} from '@/utils/description-helpers'
 
 export const getAutolysisDescription = createStepDescriptor`
 Combine the <b>${getIngredientStringByCategory(

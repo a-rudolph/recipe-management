@@ -1,7 +1,7 @@
 import { Button } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
-import Text from '@components/atoms/Text'
+import Text from '@/components/atoms/Text'
 
 export type CardProps = {
   side?: 'left' | 'right'

@@ -1,16 +1,16 @@
 import { animated, useSpring } from 'react-spring'
 import { Button, Card, Col, Row } from 'antd'
-import { CardTitle, Text } from '@components/atoms'
+import { CardTitle, Text } from '@/components/atoms'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { getTimelineSteps } from '@utils/timeline'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import ProgressSteps from '@components/ProgressSteps'
-import { renderDangerous } from '@utils/dangerous-renders'
+import ProgressSteps from '@/components/ProgressSteps'
+import { renderDangerous } from '@/utils/dangerous-renders'
 import styled from 'styled-components'
-import { trpc } from '@utils/trpc'
+import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/router'
-import { useTimerContext } from '@hooks/useTimerContext'
+import { useTimelineSteps } from '@/utils/timeline'
+import { useTimerContext } from '@/hooks/useTimerContext'
 
 const StyledPage = styled.div`
   padding: 16px;
@@ -103,10 +103,7 @@ const BakingPage: React.FC = () => {
 
   const [style, api] = useSpring(() => ({ transform: 'translateX(0%)' }))
 
-  const steps = useMemo(
-    () => (data ? getTimelineSteps(data.recipe) : []),
-    [data]
-  )
+  const steps = useTimelineSteps(data?.recipe)
 
   const slide = useCallback(
     (prev: number, next: number) => {
@@ -210,7 +207,7 @@ const BakingPage: React.FC = () => {
       <Row style={{ marginBottom: '8px' }}>
         <Link href='/recipes/[key]' as={`/recipes/${data.recipe.key}`}>
           <a>
-            <CardTitle style={{}}>{data.recipe.name}</CardTitle>
+            <CardTitle>{data.recipe.name}</CardTitle>
           </a>
         </Link>
       </Row>

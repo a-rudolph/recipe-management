@@ -78,9 +78,9 @@ export default function TimeInput({
   }
 
   const shouldNext = (value: TimeValue) => {
-    const hhNext = value.hh ? value.hh > 1 : false
-    const mmNext = value.mm ? value.mm > 5 : false
-    const ssNext = value.ss ? value.ss > 5 : false
+    const hhNext = value.hh ? Number(value.hh) > 1 : false
+    const mmNext = value.mm ? Number(value.mm) > 5 : false
+    const ssNext = value.ss ? Number(value.ss) > 5 : false
 
     const twoDigits = String(value.hh || value.mm || value.ss).length === 2
 

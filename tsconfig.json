@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "WebWorker"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,21 +16,11 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@/pages/*": [
-        "../pages/*"
-      ]
+      "@/*": ["./*"],
+      "@/pages/*": ["../pages/*"]
     },
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

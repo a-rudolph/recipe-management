@@ -1,5 +1,5 @@
 import { animated, useSpring } from 'react-spring'
-import { Col, Row } from 'antd'
+import { Checkbox, Col, Row } from 'antd'
 import { createResponsiveStyle, getColor } from '@/styles/themes'
 import {
   hoursToDuration,
@@ -8,12 +8,12 @@ import {
 } from '@/utils/timeline'
 import { useEffect, useMemo, useState } from 'react'
 import _isNumber from 'lodash/isNumber'
+import _upperFirst from 'lodash/upperFirst'
 import { clamp } from '@/utils/clamp'
 import { renderDangerous } from '@/utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@/components/atoms'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
-import { useDeviceType } from '@/hooks/useDeviceType'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -103,6 +103,16 @@ const StyledButton = styled.button`
     .main-row {
       border-bottom: 1px solid ${getColor('wheaty_1')};
     }
+
+    .ant-checkbox-inner {
+      border-color: ${getColor('wheaty_1')};
+    }
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: ${getColor('primary_1')};
+    border-color: ${getColor('text_2')};
+    color: ${getColor('text_2')};
   }
 
   &:not(.default) {
@@ -135,6 +145,8 @@ const StyledButton = styled.button`
     }
   }
 `
+
+const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
 
 type TimelineItemProps = {
   step: TimelineStepData
@@ -198,61 +210,49 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
     setIsCollapsed((prev) => !prev)
   }
 
-  const [holdingTimeout, setHoldingTimeout] = useState<NodeJS.Timeout | null>(
-    null
-  )
-
-  const { isDesktop } = useDeviceType()
-
-  const touchStart = () => {
-    setHoldingTimeout(
-      setTimeout(() => {
-        setStep(stepIndex)
-        setHoldingTimeout(null)
-        setIsCollapsed(false)
-      }, 2_000)
-    )
-  }
-
-  const touchEnd = () => {
-    if (holdingTimeout) {
-      clearTimeout(holdingTimeout)
-      setHoldingTimeout(null)
-
-      if (isDesktop) {
-        toggle()
-      }
-    }
-  }
-
   return (
     <StyledButton
-      className={status.concat(isCollapsed ? ' closed' : ' open')}
+      className={cn(status, isCollapsed ? 'closed' : 'open')}
       onClick={() => {
-        if (isDesktop) return
-
         toggle()
       }}
-      onMouseDown={touchStart}
-      onTouchStart={touchStart}
-      onMouseUp={touchEnd}
-      onTouchEnd={touchEnd}
     >
       <Row className='main-row' justify='space-between' align='middle'>
         <Col>
-          <Text
-            fs='h4'
-            weight={600}
-            color={isActive ? 'wheaty_1' : 'text_1'}
-            style={{
-              letterSpacing: '1px',
-              textTransform: isActive ? 'uppercase' : 'none',
-            }}
-          >
-            {title}
-          </Text>
+          <Row align='middle' gutter={8}>
+            {_isNumber(currentStep) && (
+              <Col>
+                <Checkbox
+                  checked={stepIndex < currentStep}
+                  onChange={(e) => {
+                    e.stopPropagation()
+                    if (e.target.checked) {
+                      setIsCollapsed(true)
+                      setStep(stepIndex + 1)
+                      return
+                    }
+
+                    setStep(stepIndex)
+                  }}
+                />
+              </Col>
+            )}
+            <Col>
+              <Text
+                fs='h4'
+                weight={600}
+                color={isActive ? 'wheaty_1' : 'text_1'}
+                style={{
+                  letterSpacing: '1px',
+                  textTransform: isActive ? 'uppercase' : 'none',
+                }}
+              >
+                {_upperFirst(title)}
+              </Text>
+            </Col>
+          </Row>
         </Col>
-        <Col className={'time-oval'.concat(holdingTimeout ? ' holding' : '')}>
+        <Col className={'time-oval'}>
           <Text fs='h5'>{hoursToTimeString(time)}</Text>
         </Col>
       </Row>
@@ -261,11 +261,6 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
           {showHelp && (
             <Text fs='small' color='text_2'>
               click to show details
-            </Text>
-          )}
-          {status === 'upcoming' && (
-            <Text fs='small' color='text_1'>
-              hold for next step
             </Text>
           )}
         </Col>

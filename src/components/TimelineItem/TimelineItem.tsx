@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import { Text } from '@/components/atoms'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
 import DayNight from '../DayNight'
+import moment from 'moment'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -258,7 +259,7 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
           </Row>
         </Col>
         <Col className={'time-oval'}>
-          <DayNight time={time} />
+          <DayNight time={moment().set('hours', time)} />
           <Text fs='h5'>{hoursToTimeString(time)}</Text>
         </Col>
       </Row>

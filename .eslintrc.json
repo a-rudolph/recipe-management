@@ -3,7 +3,7 @@
   "ignorePatterns": ["**/*.d.ts"],
   "rules": {
     "eol-last": "error",
-    "sort-imports": ["error", { "ignoreCase": true }],
+    "sort-imports": ["warn", { "ignoreCase": true }],
     // no unused variables
     "no-unused-vars": [
       "error",

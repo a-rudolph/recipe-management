@@ -14,6 +14,7 @@ import { renderDangerous } from '@/utils/dangerous-renders'
 import styled from 'styled-components'
 import { Text } from '@/components/atoms'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
+import DayNight from '../DayNight'
 
 const StyledButton = styled.button`
   width: 100%;
@@ -80,9 +81,13 @@ const StyledButton = styled.button`
   .time-oval {
     margin-bottom: -4px;
     margin-right: -18px;
-    padding: 2px 16px;
+    padding: 2px 12px 2px 8px;
     border-radius: 60px;
     background: ${getColor('secondary_1')};
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .description,
@@ -253,6 +258,7 @@ const TimelineItem = ({ step, showHelp, stepIndex }: TimelineItemProps) => {
           </Row>
         </Col>
         <Col className={'time-oval'}>
+          <DayNight time={time} />
           <Text fs='h5'>{hoursToTimeString(time)}</Text>
         </Col>
       </Row>

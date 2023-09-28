@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledRing = styled.div<{ diameter: number; perimeter: number }>`
+const StyledRing = styled.div<{ $diameter: number; perimeter: number }>`
   .ring {
     position: absolute;
     top: 16px;
@@ -10,8 +10,8 @@ const StyledRing = styled.div<{ diameter: number; perimeter: number }>`
     border-style: solid;
     border-color: ${({ theme }) => theme.colors.secondary_1};
     border-radius: 50%;
-    height: ${({ diameter }) => diameter + 2}px;
-    width: ${({ diameter }) => diameter + 2}px;
+    height: ${({ $diameter }) => $diameter + 2}px;
+    width: ${({ $diameter }) => $diameter + 2}px;
     transform: rotate(-90deg);
 
     circle {
@@ -39,7 +39,7 @@ export default function TimeRing({ percent = 0, width = 200 }: TimeRingProps) {
   const offset = perimeter * (1 - percent)
 
   return (
-    <StyledRing diameter={diameter} perimeter={perimeter}>
+    <StyledRing $diameter={diameter} perimeter={perimeter}>
       <svg className='ring' xmlns='http://www.w3.org/2000/svg'>
         <circle cx={r} cy={r} r={r} strokeDashoffset={offset} />
       </svg>

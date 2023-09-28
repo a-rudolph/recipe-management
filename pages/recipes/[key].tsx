@@ -15,11 +15,18 @@ import { appRouter } from '@/pages/api/trpc/[trpc]'
 import BasicLayout from '@/layouts/BasicLayout'
 import breakpoints from '@/constants/breakpoints'
 import { createSSGHelpers } from '@trpc/react/ssg'
-import DetailedTimeline from '@/components/DetailedTimeline'
 import dynamic from 'next/dynamic'
 import NavBar from '@/layouts/NavBar'
 import RecipeDetail from '@/components/RecipeDetail'
 import { useCurrentRecipeStore } from 'stores/current-recipe'
+import { createResponsiveStyle } from '@/styles/themes'
+
+const DetailedTimeline = dynamic(
+  () => import('@/components/DetailedTimeline'),
+  {
+    ssr: false,
+  }
+)
 
 const StartRecipeButton = dynamic(
   () => import('@/components/StartRecipeButton'),
@@ -89,9 +96,9 @@ const FloatingButton = styled.div`
   z-index: 10;
   display: none;
 
-  @media screen and (min-width: ${breakpoints.sm}px) {
+  ${createResponsiveStyle.desktop`
     display: block;
-  }
+  `}
 `
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>

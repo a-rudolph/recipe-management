@@ -1,6 +1,7 @@
 import moment from 'moment'
 import styled from 'styled-components'
 import { Text } from '@/components/atoms'
+import DayNight from '../DayNight'
 
 const StyledDiv = styled.div`
   margin: 8px 0;
@@ -28,10 +29,13 @@ const Grid = styled.div`
   }
 
   .time {
-    width: 72px;
+    min-width: 72px;
     border-radius: 50px;
     text-align: center;
-    padding: 4px;
+    padding: 4px 12px 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .line {
@@ -50,6 +54,11 @@ type SimpleTimelineData = {
   mix: string
   shape: string
   bake: string
+  raw: {
+    mix: moment.Moment
+    shape: moment.Moment
+    bake: moment.Moment
+  }
 }
 
 const getTimeStrings = ({
@@ -70,11 +79,16 @@ const getTimeStrings = ({
     mix: mix.format('h a'),
     shape: shape.format('h a'),
     bake: bake.format('h a'),
+    raw: {
+      mix,
+      shape,
+      bake,
+    },
   }
 }
 
 const SimpleTimeline = (props: SimpleTimelineProps) => {
-  const { mix, shape, bake } = getTimeStrings(props)
+  const { mix, shape, bake, raw } = getTimeStrings(props)
 
   return (
     <StyledDiv>
@@ -97,14 +111,17 @@ const SimpleTimeline = (props: SimpleTimelineProps) => {
       </Grid>
       <Grid>
         <div className='time'>
+          <DayNight time={raw.mix} />
           <Text fs='h5'>{mix}</Text>
         </div>
         <div className='line' />
         <div className='time'>
+          <DayNight time={raw.shape} />
           <Text fs='h5'>{shape}</Text>
         </div>
         <div className='line' />
         <div className='time'>
+          <DayNight time={raw.bake} />
           <Text fs='h5'>{bake}</Text>
         </div>
       </Grid>

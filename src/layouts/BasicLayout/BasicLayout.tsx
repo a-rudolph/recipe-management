@@ -82,6 +82,7 @@ const LayoutCard = styled(Card)`
 
     @media screen and (min-width: ${breakpoints.sm}px) {
       width: max-content;
+      min-width: 480px;
       margin-top: 24px;
       padding-bottom: 24px;
       border-radius: 4px;

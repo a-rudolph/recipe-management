@@ -8,7 +8,7 @@ type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Home = ({ recipes }: HomeProps) => {
   return (
-    <BasicLayout.Card side='right'>
+    <BasicLayout.Card>
       <RecipeList recipes={recipes} />
     </BasicLayout.Card>
   )

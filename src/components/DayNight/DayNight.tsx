@@ -3,9 +3,17 @@ import MoonIcon from '../icons/Moon'
 import SunIcon from '../icons/Sun'
 import { useTheme } from 'styled-components'
 import ZzzIcon from '../icons/Zzz'
+import { useUserSettingsStore } from '@/stores/user-settings'
 
-const DayNight = ({ time }: { time: Moment }) => {
+const DayNight = ({
+  time,
+  showSleep = true,
+}: {
+  time: Moment
+  showSleep?: boolean
+}) => {
   const theme = useTheme()
+  const { settings } = useUserSettingsStore()
 
   const getHours = () => {
     if (typeof time === 'number') {
@@ -18,18 +26,22 @@ const DayNight = ({ time }: { time: Moment }) => {
   const getIcon = () => {
     const hours = getHours()
 
-    if (isBedTime()) {
+    if (showSleep && isBedTime()) {
       return <ZzzIcon />
     }
 
-    return hours >= 6 && hours < 18 ? <SunIcon /> : <MoonIcon />
+    return hours >= 5 && hours < 18 ? <SunIcon /> : <MoonIcon />
   }
 
   const isBedTime = () => {
     const hours = getHours()
 
+    const start = settings.activeTimeStart / 60
+    const end = settings.activeTimeEnd / 60
+
     // 11pm - 7am i'd rather be sleeping
-    const isBed = hours >= 23 || hours < 7
+    const isBed = hours >= end || hours < start
+
     return isBed
   }
 

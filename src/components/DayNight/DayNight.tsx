@@ -36,9 +36,11 @@ const DayNight = ({
   const isBedTime = () => {
     const hours = getHours()
 
+    const start = settings.activeTimeStart / 60
+    const end = settings.activeTimeEnd / 60
+
     // 11pm - 7am i'd rather be sleeping
-    const isBed =
-      hours >= settings.activeTimeEnd || hours < settings.activeTimeStart
+    const isBed = hours >= end || hours < start
 
     return isBed
   }

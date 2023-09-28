@@ -34,7 +34,9 @@ const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
           <TimeDurations bulk={bulk} proof={proof} />
         </Col>
       </Row>
-      <IngredientDisplay ingredients={ingredients} />
+      <div>
+        <IngredientDisplay ingredients={ingredients} />
+      </div>
     </StyledDiv>
   )
 }

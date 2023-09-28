@@ -21,6 +21,8 @@ const StyledDiv = styled.div`
   }
 `
 
+const Div = styled.div``
+
 const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
   const { start, bulk, proof, ingredients } = recipe
 
@@ -34,9 +36,9 @@ const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
           <TimeDurations bulk={bulk} proof={proof} />
         </Col>
       </Row>
-      <div>
+      <Div>
         <IngredientDisplay ingredients={ingredients} />
-      </div>
+      </Div>
     </StyledDiv>
   )
 }

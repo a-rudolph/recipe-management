@@ -1,1 +1,5 @@
-export { default } from './DayNight'
+import dynamic from 'next/dynamic'
+
+export default dynamic(() => import('./DayNight'), {
+  ssr: false,
+})

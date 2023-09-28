@@ -1,9 +1,16 @@
 import { Col, Row } from 'antd'
 import breakpoints from '@/constants/breakpoints'
-import IngredientDisplay from '@/components/IngredientDisplay'
+import dynamic from 'next/dynamic'
 import SimpleTimeline from '@/components/SimpleTimeline'
 import styled from 'styled-components'
 import TimeDurations from '@/components/TimeDurations'
+
+const IngredientDisplay = dynamic(
+  () => import('@/components/IngredientDisplay'),
+  {
+    ssr: false,
+  }
+)
 
 const StyledDiv = styled.div`
   padding: 0 24px;

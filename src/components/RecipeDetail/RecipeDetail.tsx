@@ -21,7 +21,9 @@ const StyledDiv = styled.div`
   }
 `
 
-const Div = styled.div``
+const Div = styled.div`
+  background: transparent;
+`
 
 const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
   const { start, bulk, proof, ingredients } = recipe

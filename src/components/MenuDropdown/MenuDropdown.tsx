@@ -1,6 +1,10 @@
 import { animated, useSpring } from 'react-spring'
-import { CloseOutlined, FieldTimeOutlined } from '@ant-design/icons'
-import { Col, Row } from 'antd'
+import {
+  CloseOutlined,
+  FieldTimeOutlined,
+  SettingOutlined,
+} from '@ant-design/icons'
+import { Col, Row, Space } from 'antd'
 import { useRef, useState } from 'react'
 import breakpoints from '@/constants/breakpoints'
 import { Button } from '@/components/atoms'
@@ -8,6 +12,7 @@ import dynamic from 'next/dynamic'
 import QrCodeButton from '@/components/QrCodeButton'
 import styled from 'styled-components'
 import useScreenWidth from '@/hooks/useScreenWidth'
+import Link from 'next/link'
 
 const TimerCard = dynamic(() => import('@/components/TimerCard'))
 
@@ -101,14 +106,21 @@ const MenuDropdown: React.FC = ({ children }) => {
         </Col>
         <Col>
           {isEnabled ? (
-            <Button className='burger-button' onClick={toggle} type='ghost'>
-              <animated.div style={{ position: 'absolute', ...openStyle }}>
-                <FieldTimeOutlined />
-              </animated.div>
-              <animated.div style={{ ...closeStyle }}>
-                <CloseOutlined />
-              </animated.div>
-            </Button>
+            <Space>
+              <Button className='burger-button' onClick={toggle} type='ghost'>
+                <animated.div style={{ position: 'absolute', ...openStyle }}>
+                  <FieldTimeOutlined />
+                </animated.div>
+                <animated.div style={{ ...closeStyle }}>
+                  <CloseOutlined />
+                </animated.div>
+              </Button>
+              <Link href='/settings'>
+                <Button className='burger-button' type='ghost'>
+                  <SettingOutlined />
+                </Button>
+              </Link>
+            </Space>
           ) : (
             <div onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
           )}

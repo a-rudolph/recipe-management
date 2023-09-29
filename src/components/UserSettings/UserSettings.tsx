@@ -1,5 +1,5 @@
 import { CardTitle, Text } from '@/components/atoms'
-import { Form, Slider, Space } from 'antd'
+import { Button, Form, Slider, Space } from 'antd'
 import { BasicLayout } from '@/layouts'
 import DayNight from '@/components/DayNight'
 import moment from 'moment'
@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
 const MAX_MINUTES = 24 * 60
 
 const UserSettings: React.FC = () => {
-  const { settings, updateSettings } = useUserSettingsStore()
+  const { settings, updateSettings, resetTips } = useUserSettingsStore()
 
   const getTime = (minutes: number) => {
     return moment().startOf('day').add(minutes, 'minutes')
@@ -63,6 +63,12 @@ const UserSettings: React.FC = () => {
               }}
             />
           </Form.Item>
+          <div>
+            <Text fs='h5'>Tooltips</Text>
+          </div>
+          <Button onClick={resetTips} type='ghost'>
+            Reset tooltips
+          </Button>
         </Form>
       </StyledDiv>
     </BasicLayout.Card>

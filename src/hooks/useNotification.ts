@@ -1,3 +1,4 @@
+import { SW_NOTIFICATIONS } from '@/constants/features'
 import {
   getServiceWorkerRegistration,
   setupMessageListener,
@@ -14,6 +15,11 @@ export const requestNotificationPermission = (
   cb?: (_permission: NotificationPermission) => void,
   onError: VoidFunction = _noop
 ) => {
+  if (!SW_NOTIFICATIONS) {
+    cb?.('denied')
+    return
+  }
+
   if (!('Notification' in window)) {
     alert('This browser does not support notification')
     return
@@ -26,7 +32,7 @@ export const requestNotificationPermission = (
   }
 }
 
-export const getNotifications = async (filter: GetNotificationOptions) => {
+export const _getNotifications = async (filter: GetNotificationOptions) => {
   const sw = await getServiceWorkerRegistration()
   if (!sw) return
 
@@ -35,7 +41,7 @@ export const getNotifications = async (filter: GetNotificationOptions) => {
   return notifications
 }
 
-export const setNotification = async (
+export const _setNotification = async (
   title: string = 'wheatifully',
   options: NotificationOptions = {}
 ) => {
@@ -43,6 +49,7 @@ export const setNotification = async (
 
   if (!sw) return
 
+  console.log('setting notification', title, options)
   requestNotificationPermission(
     (result) => {
       if (result === 'granted') {
@@ -70,8 +77,8 @@ export const useNotification = () => {
   }, [])
 
   return {
-    setNotification,
-    getNotifications,
+    // setNotification,
+    // getNotifications,
     requestPermission: requestNotificationPermission,
   }
 }

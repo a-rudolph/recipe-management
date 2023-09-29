@@ -3,7 +3,6 @@ import breakpoints from '@/constants/breakpoints'
 import dynamic from 'next/dynamic'
 import SimpleTimeline from '@/components/SimpleTimeline'
 import styled from 'styled-components'
-import TimeDurations from '@/components/TimeDurations'
 
 const IngredientDisplay = dynamic(
   () => import('@/components/IngredientDisplay'),
@@ -12,6 +11,10 @@ const IngredientDisplay = dynamic(
   }
 )
 
+const TimeDurations = dynamic(() => import('@/components/TimeDurations'), {
+  ssr: false,
+})
+
 const StyledDiv = styled.div`
   padding: 0 24px;
   width: 100%;
@@ -19,10 +22,6 @@ const StyledDiv = styled.div`
   @media screen and (min-width: ${breakpoints.sm}px) {
     width: 50%;
   }
-`
-
-const Div = styled.div`
-  background: transparent;
 `
 
 const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
@@ -38,9 +37,7 @@ const RecipeDetail = ({ recipe }: { recipe: RecipeType }) => {
           <TimeDurations bulk={bulk} proof={proof} />
         </Col>
       </Row>
-      <Div>
-        <IngredientDisplay ingredients={ingredients} />
-      </Div>
+      <IngredientDisplay ingredients={ingredients} />
     </StyledDiv>
   )
 }

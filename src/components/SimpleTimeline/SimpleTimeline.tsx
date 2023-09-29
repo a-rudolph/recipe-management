@@ -18,7 +18,7 @@ const Grid = styled.div`
 
     .label {
       padding: 2px 4px;
-      width: 70px;
+      width: 76px;
       line-height: 1;
     }
   }

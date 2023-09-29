@@ -1,10 +1,14 @@
 import { BRAND_NAME } from '@/styles/themes'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import LogoIcon from '@/components/icons/Logo'
-import MenuDropdown from '@/components/MenuDropdown'
 import { Row } from 'antd'
 import styled from 'styled-components'
 import { Text } from '@/components/atoms'
+
+const MenuDropdown = dynamic(() => import('@/components/MenuDropdown'), {
+  ssr: false,
+})
 
 const StyledRow = styled(Row)`
   cursor: pointer;

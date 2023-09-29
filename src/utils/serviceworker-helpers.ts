@@ -1,3 +1,5 @@
+import { SW_NOTIFICATIONS } from '@/constants/features'
+
 export const getServiceWorkerRegistration = async () => {
   if (!('serviceWorker' in navigator)) return null
 
@@ -5,11 +7,9 @@ export const getServiceWorkerRegistration = async () => {
 }
 
 export const getServiceWorker = async () => {
-  if (!('serviceWorker' in navigator)) return null
-
   const registration = await getServiceWorkerRegistration()
 
-  return registration?.active
+  return registration?.active || null
 }
 
 export const setupMessageListener = () => {
@@ -22,6 +22,8 @@ export const setupMessageListener = () => {
 }
 
 export const messageSW = async (data: any) => {
+  if (!SW_NOTIFICATIONS) return
+
   const sw = await getServiceWorker()
 
   if (!sw) return

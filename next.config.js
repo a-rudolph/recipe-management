@@ -11,7 +11,7 @@ const nextConfig = {
     dest: 'public',
     customWorkerDir: 'serviceworker',
   },
-  experimental: {
+  compiler: {
     styledComponents: true,
   },
   swcMinify: true,

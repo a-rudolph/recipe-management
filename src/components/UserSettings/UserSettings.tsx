@@ -1,5 +1,5 @@
 import { CardTitle, Text } from '@/components/atoms'
-import { Button, Form, Slider, Space, Table } from 'antd'
+import { Button, Checkbox, Form, Slider, Space, Table } from 'antd'
 import { BasicLayout } from '@/layouts'
 import DayNight from '@/components/DayNight'
 import moment from 'moment'
@@ -64,6 +64,19 @@ const UserSettings: React.FC = () => {
                 open: false,
               }}
             />
+          </Form.Item>
+          <Text fs='h5'>Timer</Text>
+          <Form.Item name='showTimer'>
+            <Checkbox
+              checked={settings.showTimer}
+              onChange={(e) => {
+                updateSettings({
+                  showTimer: e.target.checked,
+                })
+              }}
+            >
+              Show timer (beta)
+            </Checkbox>
           </Form.Item>
           <div>
             <Text fs='h5'>Help</Text>

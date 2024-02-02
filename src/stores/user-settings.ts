@@ -7,6 +7,7 @@ const TWENTY_TWO_IN_MINUTES = 22 * 60
 const INITIAL_SETTINGS = {
   activeTimeStart: SEVEN_IN_MINUTES,
   activeTimeEnd: TWENTY_TWO_IN_MINUTES,
+  showTimer: false,
 }
 
 const tips_to_show = {

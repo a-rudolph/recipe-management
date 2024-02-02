@@ -5,7 +5,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons'
 import { Col, Row, Space } from 'antd'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import breakpoints from '@/constants/breakpoints'
 import { Button } from '@/components/atoms'
 import dynamic from 'next/dynamic'
@@ -13,15 +13,12 @@ import QrCodeButton from '@/components/QrCodeButton'
 import styled from 'styled-components'
 import useScreenWidth from '@/hooks/useScreenWidth'
 import Link from 'next/link'
+import { useUserSettingsStore } from '@/stores/user-settings'
 
 const TimerCard = dynamic(() => import('@/components/TimerCard'))
 
 const StyledHeader = styled(Row)`
   padding: 4px 12px;
-
-  .burger-button {
-    height: 32px;
-  }
 
   @media screen and (min-width: ${breakpoints.sm}px) {
     background: ${({ theme }) => theme.gradient};
@@ -39,28 +36,12 @@ const Wrapper = styled(animated.div)`
   overflow-y: hidden;
 `
 
-const useEasterEgg = () => {
-  const counter = useRef(0)
-  const [isEnabled, setEnabled] = useState(true)
-
-  const onClick = () => {
-    counter.current++
-    console.log('.'.repeat(counter.current))
-
-    if (counter.current >= 7) {
-      setEnabled(true)
-    }
-  }
-
-  return {
-    isEnabled,
-    onClick,
-  }
-}
-
 const MenuDropdown: React.FC = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { isEnabled, onClick } = useEasterEgg()
+
+  const {
+    settings: { showTimer },
+  } = useUserSettingsStore()
 
   const screenWidth = useScreenWidth()
 
@@ -82,10 +63,6 @@ const MenuDropdown: React.FC = ({ children }) => {
   })
 
   const toggle = () => {
-    if (!isEnabled) {
-      return
-    }
-
     setIsOpen((prev) => !prev)
   }
 
@@ -103,9 +80,9 @@ const MenuDropdown: React.FC = ({ children }) => {
           </Row>
         </Col>
         <Col>
-          {isEnabled ? (
-            <Space>
-              <Button className='burger-button' onClick={toggle} type='ghost'>
+          <Space size='middle'>
+            {showTimer && (
+              <Button onClick={toggle} type='ghost'>
                 <animated.div style={{ position: 'absolute', ...openStyle }}>
                   <FieldTimeOutlined />
                 </animated.div>
@@ -113,18 +90,16 @@ const MenuDropdown: React.FC = ({ children }) => {
                   <CloseOutlined />
                 </animated.div>
               </Button>
-              <Link href='/settings'>
-                <Button className='burger-button' type='ghost'>
-                  <SettingOutlined />
-                </Button>
-              </Link>
-            </Space>
-          ) : (
-            <div onClick={onClick} style={{ height: '1rem', width: '1rem' }} />
-          )}
+            )}
+            <Link href='/settings'>
+              <Button type='ghost'>
+                <SettingOutlined />
+              </Button>
+            </Link>
+          </Space>
         </Col>
       </StyledHeader>
-      {isEnabled && (
+      {showTimer && (
         <StyledDropdownRow>
           <TimerCard />
         </StyledDropdownRow>

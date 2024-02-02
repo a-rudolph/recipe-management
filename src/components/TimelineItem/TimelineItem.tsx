@@ -121,6 +121,11 @@ const StyledButton = styled.button`
     color: ${getColor('text_2')};
   }
 
+  // checkmark in the checkbox
+  .ant-checkbox-checked .ant-checkbox-inner::after {
+    border-color: ${getColor('text_2')};
+  }
+
   &:not(.default) {
     &.active .time-oval .atom-text,
     &:not(.active) .atom-text {

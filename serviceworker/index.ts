@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 console.log('serviceworker: starting')
-self.__WB_DISABLE_DEV_LOGS = false
+self.__WB_DISABLE_DEV_LOGS = true
 
+import { actionSchema, TIMER_RUNNING } from '@/utils/serviceworker-helpers'
 import { getSecondsToEndTime, getTimeToEndTime } from '../src/utils/formatTime'
 import moment from 'moment'
 
@@ -12,11 +13,6 @@ declare global {
   var clients: Clients
   var __WB_DISABLE_DEV_LOGS: boolean
 }
-
-const TIMER_START = 'TIMER_START'
-const TIMER_FINISH = 'TIMER_FINISH'
-const TIMER_STOP = 'TIMER_STOP'
-const TIMER_RUNNING = 'TIMER_RUNNING'
 
 self.addEventListener(
   'notificationclick',
@@ -30,24 +26,25 @@ self.addEventListener('message', (event) => {
   console.log('serviceworker: receiving message', event)
 
   const { data } = event
-  const { type, payload } = data
 
-  if (type === TIMER_START) {
-    receiveTimerStart(payload)
+  if (actionSchema.startTimer.safeParse(data)) {
+    const { endTimeNumber } = data.payload
+
+    startTimer(endTimeNumber)
     return
   }
 
-  if (type === TIMER_FINISH) {
+  if (actionSchema.finishTimer.safeParse(data)) {
     receiveTimerFinish()
     return
   }
 
-  if (type === TIMER_STOP) {
+  if (actionSchema.stopTimer.safeParse(data)) {
     receiveTimerStop()
     return
   }
 
-  console.error(`received unknown message type: ${type}`)
+  console.error(`received unknown message type: ${data.type}`)
 })
 
 const config = {
@@ -95,17 +92,12 @@ const startTimer = (endTimeNumber: number) => {
 const checkTimer = () => {
   console.log('checking timer', timer)
 
-  if (!timer) {
+  if (!timer?.endTimeNumber) {
     stopTimer()
     return
   }
 
   const { endTimeNumber } = timer
-
-  if (!endTimeNumber) {
-    stopTimer()
-    return
-  }
 
   const secondsToEndTime = getSecondsToEndTime(endTimeNumber)
 

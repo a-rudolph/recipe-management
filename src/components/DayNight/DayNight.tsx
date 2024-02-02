@@ -2,15 +2,22 @@ import { type Moment } from 'moment'
 import MoonIcon from '../icons/Moon'
 import SunIcon from '../icons/Sun'
 import { useTheme } from 'styled-components'
-import ZzzIcon from '../icons/Zzz'
 import { useUserSettingsStore } from '@/stores/user-settings'
+import ZzzIcon from '../icons/Zzz'
+import { Row, Tooltip } from 'antd'
+import Link from 'next/link'
+import { Text, Button } from '../atoms'
+import { CloseOutlined } from '@ant-design/icons'
+import { useEffect, useState } from 'react'
 
 const DayNight = ({
   time,
   showSleep = true,
+  showTooltip = false,
 }: {
   time: Moment
   showSleep?: boolean
+  showTooltip?: boolean
 }) => {
   const theme = useTheme()
   const { settings } = useUserSettingsStore()
@@ -27,6 +34,8 @@ const DayNight = ({
     const hours = getHours()
 
     if (showSleep && isBedTime()) {
+      if (showTooltip) return <SleepWithTooltip />
+
       return <ZzzIcon />
     }
 
@@ -51,3 +60,55 @@ const DayNight = ({
 }
 
 export default DayNight
+
+const SleepWithTooltip = () => {
+  const { tooltips, updateTips } = useUserSettingsStore()
+
+  const [tipShowing, setTipShowing] = useState(false)
+
+  useEffect(() => {
+    if (tooltips.inactiveTime) {
+      setTipShowing(true)
+    }
+  }, [])
+
+  const dismiss = () => {
+    updateTips({ inactiveTime: false })
+    setTipShowing(false)
+  }
+
+  return (
+    <Tooltip
+      getTooltipContainer={() =>
+        (document.getElementsByClassName('main-col')[0] as HTMLElement) ||
+        document.body
+      }
+      title={
+        <div onClick={(e) => e.stopPropagation()}>
+          <Row justify='space-between' align='middle'>
+            <div>
+              <Text style={{ marginRight: 8 }} color='wheaty_1'>
+                <ZzzIcon />
+              </Text>
+              Icon signifies inactive time
+            </div>
+            <Button onClick={dismiss} type='ghost'>
+              <CloseOutlined style={{ fontSize: '16px' }} />
+            </Button>
+          </Row>
+          <div>
+            You can change your active times in the{' '}
+            <Link onClick={dismiss} href='/settings'>
+              <Text weight={600}>settings</Text>
+            </Link>
+            .
+          </div>
+        </div>
+      }
+      placement='left'
+      open={tipShowing}
+    >
+      <ZzzIcon />
+    </Tooltip>
+  )
+}

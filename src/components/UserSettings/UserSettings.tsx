@@ -1,10 +1,11 @@
 import { CardTitle, Text } from '@/components/atoms'
-import { Form, Slider, Space } from 'antd'
+import { Button, Checkbox, Form, Slider, Space, Table } from 'antd'
 import { BasicLayout } from '@/layouts'
 import DayNight from '@/components/DayNight'
 import moment from 'moment'
 import styled from 'styled-components'
 import { useUserSettingsStore } from '@/stores/user-settings'
+import { ReloadOutlined } from '@ant-design/icons'
 
 const StyledDiv = styled.div`
   padding: 16px;
@@ -14,7 +15,8 @@ const StyledDiv = styled.div`
 const MAX_MINUTES = 24 * 60
 
 const UserSettings: React.FC = () => {
-  const { settings, updateSettings } = useUserSettingsStore()
+  const { settings, tooltips, updateSettings, resetTips } =
+    useUserSettingsStore()
 
   const getTime = (minutes: number) => {
     return moment().startOf('day').add(minutes, 'minutes')
@@ -63,6 +65,51 @@ const UserSettings: React.FC = () => {
               }}
             />
           </Form.Item>
+          <Text fs='h5'>Timer</Text>
+          <Form.Item name='showTimer'>
+            <Checkbox
+              checked={settings.showTimer}
+              onChange={(e) => {
+                updateSettings({
+                  showTimer: e.target.checked,
+                })
+              }}
+            >
+              Show timer (beta)
+            </Checkbox>
+          </Form.Item>
+          <div>
+            <Text fs='h5'>Help</Text>
+          </div>
+          <Table
+            dataSource={Object.entries(tooltips).map(([key, value]) => ({
+              key,
+              value,
+            }))}
+            pagination={false}
+            bordered={true}
+            columns={[
+              {
+                title: <Text fs='h5'>Tooltips</Text>,
+                dataIndex: 'key',
+                key: 'key',
+              },
+              {
+                title: (
+                  <Button
+                    icon={<ReloadOutlined />}
+                    onClick={resetTips}
+                    type='ghost'
+                  >
+                    Reset tooltips
+                  </Button>
+                ),
+                dataIndex: 'value',
+                key: 'value',
+                render: (value) => (value ? 'Ready' : 'Dismissed'),
+              },
+            ]}
+          />
         </Form>
       </StyledDiv>
     </BasicLayout.Card>

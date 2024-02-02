@@ -1,10 +1,11 @@
 import { CardTitle, Text } from '@/components/atoms'
-import { Button, Form, Slider, Space } from 'antd'
+import { Button, Form, Slider, Space, Table } from 'antd'
 import { BasicLayout } from '@/layouts'
 import DayNight from '@/components/DayNight'
 import moment from 'moment'
 import styled from 'styled-components'
 import { useUserSettingsStore } from '@/stores/user-settings'
+import { ReloadOutlined } from '@ant-design/icons'
 
 const StyledDiv = styled.div`
   padding: 16px;
@@ -14,7 +15,8 @@ const StyledDiv = styled.div`
 const MAX_MINUTES = 24 * 60
 
 const UserSettings: React.FC = () => {
-  const { settings, updateSettings, resetTips } = useUserSettingsStore()
+  const { settings, tooltips, updateSettings, resetTips } =
+    useUserSettingsStore()
 
   const getTime = (minutes: number) => {
     return moment().startOf('day').add(minutes, 'minutes')
@@ -64,11 +66,37 @@ const UserSettings: React.FC = () => {
             />
           </Form.Item>
           <div>
-            <Text fs='h5'>Tooltips</Text>
+            <Text fs='h5'>Help</Text>
           </div>
-          <Button onClick={resetTips} type='ghost'>
-            Reset tooltips
-          </Button>
+          <Table
+            dataSource={Object.entries(tooltips).map(([key, value]) => ({
+              key,
+              value,
+            }))}
+            pagination={false}
+            bordered={true}
+            columns={[
+              {
+                title: <Text fs='h5'>Tooltips</Text>,
+                dataIndex: 'key',
+                key: 'key',
+              },
+              {
+                title: (
+                  <Button
+                    icon={<ReloadOutlined />}
+                    onClick={resetTips}
+                    type='ghost'
+                  >
+                    Reset tooltips
+                  </Button>
+                ),
+                dataIndex: 'value',
+                key: 'value',
+                render: (value) => (value ? 'Ready' : 'Dismissed'),
+              },
+            ]}
+          />
         </Form>
       </StyledDiv>
     </BasicLayout.Card>

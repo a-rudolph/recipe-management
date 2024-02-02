@@ -87,19 +87,19 @@ const SleepWithTooltip = () => {
         <div onClick={(e) => e.stopPropagation()}>
           <Row justify='space-between' align='middle'>
             <div>
-              <Text color='wheaty_1'>
+              <Text style={{ marginRight: 8 }} color='wheaty_1'>
                 <ZzzIcon />
-              </Text>{' '}
-              signifies inactive time
+              </Text>
+              Icon signifies inactive time
             </div>
             <Button onClick={dismiss} type='ghost'>
               <CloseOutlined style={{ fontSize: '16px' }} />
             </Button>
           </Row>
           <div>
-            You can change your sleep schedule in the{' '}
+            You can change your active times in the{' '}
             <Link onClick={dismiss} href='/settings'>
-              <Text>settings</Text>
+              <Text weight={600}>settings</Text>
             </Link>
             .
           </div>
